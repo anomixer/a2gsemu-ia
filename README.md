@@ -1,4 +1,4 @@
-# 🍎 a2gsemu-ia - Apple IIgs 線上模擬器
+# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> a2gsemu-ia - Apple IIgs 線上模擬器
 
 **[English Version](README_en.md) | [英文版本](README_en.md)**
 

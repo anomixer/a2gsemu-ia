@@ -1,4 +1,4 @@
-# 🍎 a2gsemu-ia - Apple IIgs Online Emulator
+# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> a2gsemu-ia - Apple IIgs Online Emulator
 
 **[中文版](README.md) | [Chinese Version](README.md)**
 
