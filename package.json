@@ -1,0 +1,24 @@
+{
+  "name": "a2gsemu-ia",
+  "version": "1.0.0",
+  "description": "Apple IIgs Emulator with Archive.org integration",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "apple2gs",
+    "emulator",
+    "mame",
+    "archive.org"
+  ],
+  "author": "anomixer",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "node-fetch": "^2.7.0",
+    "compression": "^1.7.4"
+  }
+}

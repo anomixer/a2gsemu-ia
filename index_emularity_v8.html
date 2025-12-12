@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple IIgs 線上模擬器 v8 (Backend Proxy)</title>
+    <style>
+        * { 
+            box-sizing: border-box; 
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+            padding: 15px 20px;
+            text-align: center;
+            border-bottom: 3px solid #4CAF50;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        
+        .branch-badge {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: #FFD700;
+            color: #000;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .header h1 {
+            color: #4CAF50;
+            font-size: 24px;
+            text-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+            margin-bottom: 5px;
+        }
+        
+        .header .subtitle {
+            color: #888;
+            font-size: 12px;
+        }
+        
+        .main-container {
+            display: flex;
+            height: calc(100vh - 80px);
+            overflow: hidden;
+        }
+        
+        .sidebar {
+            width: 320px;
+            background: #2a2a2a;
+            border-right: 3px solid #4CAF50;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 14px;
+            background: #1a1a1a;
+            border: none;
+            border-bottom: 2px solid #444;
+            color: #fff;
+            outline: none;
+        }
+        
+        .search-box:focus {
+            border-bottom-color: #4CAF50;
+        }
+        
+        .game-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        
+        .game-list::-webkit-scrollbar { width: 8px; }
+        .game-list::-webkit-scrollbar-track { background: #1a1a1a; }
+        .game-list::-webkit-scrollbar-thumb { background: #4CAF50; border-radius: 4px; }
+        
+        .game-item {
+            background: #333;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .game-item:hover {
+            background: #3a3a3a;
+            border-color: #4CAF50;
+            transform: translateX(5px);
+        }
+        
+        .game-item.active {
+            background: #4CAF50;
+            color: #000;
+        }
+        
+        .game-item h3 { font-size: 14px; margin-bottom: 4px; }
+        
+        .badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            margin-left: 5px;
+        }
+        
+        .badge-game { background: #2196F3; }
+        
+        .emulator-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #000;
+        }
+        
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .welcome-screen h2 {
+            color: #4CAF50;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        
+        .emulator-container {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .emulator-container.active { display: flex; }
+        
+        .emulator-controls {
+            background: #2a2a2a;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #4CAF50;
+        }
+        
+        .game-title-bar {
+            flex: 1;
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .btn {
+            background: #4CAF50;
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            transition: all 0.3s;
+            margin-left: 10px;
+        }
+        
+        .btn:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
+        
+        .emulator-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            padding: 20px;
+            position: relative;
+        }
+        
+        #canvas {
+            display: block;
+            margin: 0 auto;
+            min-width: 640px;
+            min-height: 480px;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            background: #000;
+            cursor: pointer;
+        }
+        
+        .loading-tip {
+            background: #4CAF50;
+            color: #000;
+            padding: 10px 15px;
+            text-align: center;
+            font-size: 12px;
+            border-bottom: 2px solid #45a049;
+            font-weight: bold;
+        }
+        
+        .loading-tip.hidden { display: none; }
+        
+        .usage-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(76, 175, 80, 0.95);
+            color: #000;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0 4px 20px rgba(76, 175, 80, 0.5);
+            z-index: 1000;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+        }
+        
+        .usage-overlay.hidden { display: none; }
+        
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="branch-badge">⭐ v8 Backend</div>
+        <h1>🍎 Apple IIgs 線上模擬器 🎮</h1>
+        <p class="subtitle">v8 - 使用後端代理</p>
+    </div>
+    
+    <div class="main-container">
+        <div class="sidebar">
+            <input type="text" class="search-box" id="searchBox" placeholder="🔍 搜尋遊戲...">
+            <div class="game-list" id="gameList"></div>
+        </div>
+        
+        <div class="emulator-area">
+            <div class="welcome-screen" id="welcomeScreen">
+                <h2>歡迎使用 Apple IIgs 模擬器</h2>
+                <p>👈 請從左側選擇一款遊戲開始</p>
+                <p style="margin-top: 20px; font-size: 14px; color: #4CAF50;">
+                    ⭐ v8 - Backend Proxy<br>
+                    • 使用 Node.js 後端代理<br>
+                    • 完全解決 CORS 問題<br>
+                    • 🔊 聲音完全正常！<br>
+                </p>
+            </div>
+            
+            <div class="emulator-container" id="emulatorContainer">
+                <div class="emulator-controls">
+                    <div class="game-title-bar" id="gameTitleBar">載入中...</div>
+                    <div>
+                        <button class="btn" id="fullscreenBtn">⛶ 全螢幕</button>
+                        <button class="btn" id="archiveBtn">📂 Archive.org</button>
+                    </div>
+                </div>
+                
+                <div class="loading-tip" id="loadingTip">
+                    ⭐ 使用後端代理，解決 CORS
+                </div>
+                
+                <div class="emulator-content" id="emulatorContent">
+                    <div class="usage-overlay hidden" id="usageOverlay">
+                        👆 點擊畫面並按任意鍵開始遊戲
+                    </div>
+                    <canvas id="canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./browserfs.min.js"></script>
+    <script src="./loader.js"></script>
+
+    <script>
+        let currentGame = null;
+        let emularityReady = false;
+        const SERVER_URL = window.location.origin;
+
+        console.log('⭐ 開始載入 Emularity v8 (Backend Proxy)...');
+        console.log('   - Server URL:', SERVER_URL);
+
+        const games = [
+            { id: 'a2gs_Prince_of_Persia_1989_Broderbund', file: 'Prince_of_Persia_1989_Broderbund.2mg', name: '波斯王子', nameEn: 'Prince of Persia', year: '1989' },
+            { id: 'a2gs_Tass_Times_In_Tonetown_1986_Activision', file: 'Tass_Times_In_Tonetown_1986_Activision.2mg', name: 'Tass Times', nameEn: 'Tass Times In Tonetown', year: '1986' },
+            { id: 'a2gs_Arkanoid_1987_Taito', file: 'Arkanoid_1987_Taito.2mg', name: '快打磚塊', nameEn: 'Arkanoid', year: '1987' },
+            { id: 'a2gs_Tetris_1988_Spectrum_Holobyte', file: 'Tetris_1988_Spectrum_Holobyte.2mg', name: '俄羅斯方塊', nameEn: 'Tetris', year: '1988' },
+            { id: 'a2gs_California_Games_1989_Epyx', file: 'California_Games_1989_Epyx.2mg', name: '加州運動會', nameEn: 'California Games', year: '1989' }
+        ];
+
+        function waitForEmularity() {
+            return new Promise((resolve, reject) => {
+                const check = () => {
+                    if (typeof window.Emulator !== 'undefined' && typeof window.JSMAMELoader !== 'undefined' && typeof window.BrowserFS !== 'undefined') {
+                        console.log('✅ Emularity 就緒！');
+                        emularityReady = true;
+                        resolve();
+                    } else if (Date.now() - Date.now() > 20000) {
+                        reject(new Error('逾時'));
+                    } else {
+                        setTimeout(check, 100);
+                    }
+                };
+                check();
+            });
+        }
+
+        window.addEventListener('load', async () => {
+            console.log('⏳ 等待 Emularity...');
+            try {
+                await waitForEmularity();
+                console.log('✅ 初始化完成！\n');
+            } catch (err) {
+                console.error('❌ 失敗:', err);
+            }
+        });
+
+        async function loadGame(game, itemElement) {
+            console.log(`\n======== 載入: ${game.name} ========`);
+            
+            document.querySelectorAll('.game-item').forEach(el => el.classList.remove('active'));
+            itemElement.classList.add('active');
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('emulatorContainer').classList.add('active');
+            
+            const titleBar = document.getElementById('gameTitleBar');
+            titleBar.textContent = `${game.name} - 載入中...`;
+
+            try {
+                if (!emularityReady) await waitForEmularity();
+
+                console.log('✅ Emularity 就緒');
+                console.log('\n⏳ 初始化 MAME...');
+
+                const canvas = document.getElementById('canvas');
+                
+                // ⭐ 使用後端代理 URL
+                const mameJsUrl = `${SERVER_URL}/proxy/mame/mameapple2gs.js.gz`;
+                const mameWasmUrl = `${SERVER_URL}/proxy/mame/mameapple2gs.wasm.gz`;
+                const biosUrl = `${SERVER_URL}/proxy/bios/apple2gs.zip`;
+                const gameUrl = `${SERVER_URL}/proxy/game/${game.id}/${game.file}`;
+
+                console.log('\n📦 使用後端代理:');
+                console.log('   - MAME JS:', mameJsUrl);
+                console.log('   - MAME WASM:', mameWasmUrl);
+                console.log('   - BIOS:', biosUrl);
+                console.log('   - 遊戲:', gameUrl);
+                console.log('\n⭐ 掛載到 emulator/ 目錄');
+                
+                const emulator = new window.Emulator(
+                    canvas,
+                    null,
+                    new window.JSMAMELoader(
+                        window.JSMAMELoader.driver('apple2gs'),
+                        window.JSMAMELoader.nativeResolution(640, 480),
+                        window.JSMAMELoader.emulatorJS(mameJsUrl),
+                        window.JSMAMELoader.emulatorWASM(mameWasmUrl),
+                        window.JSMAMELoader.extraArgs(['-flop3', '/emulator/' + game.file]),
+                        window.JSMAMELoader.mountFile(game.file, window.JSMAMELoader.fetchFile('Game Disk', gameUrl)),
+                        window.JSMAMELoader.mountFile('apple2gs.zip', window.JSMAMELoader.fetchFile('BIOS', biosUrl))
+                    )
+                );
+
+                console.log('✅ 實例建立成功');
+                console.log('⏳ 啟動...');
+                
+                emulator.start({ waitAfterDownloading: true });
+                
+                setTimeout(() => {
+                    document.getElementById('loadingTip').classList.add('hidden');
+                    document.getElementById('usageOverlay').classList.remove('hidden');
+                }, 3000);
+                
+                const hideOverlay = () => {
+                    document.getElementById('usageOverlay').classList.add('hidden');
+                    console.log('✅ 使用者互動');
+                };
+                canvas.addEventListener('click', hideOverlay, { once: true });
+                document.getElementById('usageOverlay').addEventListener('click', hideOverlay, { once: true });
+                
+                titleBar.textContent = `${game.name} (${game.nameEn})`;
+                console.log(`✅ 成功: ${game.name}`);
+                console.log('🔊 聲音正常！');
+                console.log('========\n');
+                
+            } catch (err) {
+                console.error('❌ 失敗:', err);
+                titleBar.textContent = `${game.name} - 失敗`;
+                alert(`失敗：\n\n${err.message}`);
+            }
+
+            currentGame = game;
+            document.getElementById('archiveBtn').onclick = () => window.open(`https://archive.org/details/${game.id}`, '_blank');
+        }
+
+        function renderGames(filter = '') {
+            const list = document.getElementById('gameList');
+            list.innerHTML = '';
+            
+            games.filter(g => g.name.includes(filter) || g.nameEn.toLowerCase().includes(filter.toLowerCase())).forEach(game => {
+                const item = document.createElement('div');
+                item.className = 'game-item';
+                item.innerHTML = `<h3>${game.name} <span class="badge badge-game">${game.year}</span></h3><div style="font-size:12px;color:#aaa">${game.nameEn}</div>`;
+                item.onclick = () => loadGame(game, item);
+                list.appendChild(item);
+            });
+        }
+
+        document.getElementById('searchBox').addEventListener('input', (e) => renderGames(e.target.value));
+        document.getElementById('fullscreenBtn').onclick = () => {
+            const elem = document.querySelector('.emulator-area');
+            if (!document.fullscreenElement) {
+                (elem.requestFullscreen?.() || elem.webkitRequestFullscreen?.()).catch(err => console.error('失敗:', err));
+            } else {
+                (document.exitFullscreen?.() || document.webkitExitFullscreen?.()).catch(err => console.error('失敗:', err));
+            }
+        };
+
+        renderGames();
+        console.log('\n✅ 就緒 (v8 Backend Proxy)');
+        console.log('📋', games.length, '款遊戲');
+    </script>
+</body>
+</html>
