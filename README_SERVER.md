@@ -1,6 +1,8 @@
-# Apple IIgs Emulator - Server Version
+# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs Emulator - Server Version
 
 🚀 **完全解決 CORS 問題的 Node.js 後端版本！**
+
+#### PS: 此版本還在施工中! (PS: Work in progress!) #### 
 
 ---
 

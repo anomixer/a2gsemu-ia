@@ -1,10 +1,13 @@
-# 🍎 a2gsemu-ia - Apple IIgs Online Emulator
+# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs Emulator - Frontend Version
 
 **[中文版](README.md) | [Chinese Version](README.md)**
 
 An Apple IIgs game emulator web interface based on Internet Archive, bringing 80s classic games to your browser!
 
-**✨ Features: Single HTML file, no installation required, ready to use!**
+**🚀 Frontend Version Features: Single HTML file, no installation required, ready to use!**
+
+**⭐ Server Version Features: Node.js proxy, completely solves CORS issues, supports full audio!**
+- Reference: [README_SERVER.md](README_SERVER.md)
 
 ![Apple IIgs Logo](https://img.shields.io/badge/Apple_IIgs-1986-green?style=for-the-badge&logo=apple)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)

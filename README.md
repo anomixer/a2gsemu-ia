@@ -1,10 +1,13 @@
-# 🍎 a2gsemu-ia - Apple IIgs 線上模擬器
+# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs Emulator - Frontend Version
 
 **[English Version](README_en.md) | [英文版本](README_en.md)**
 
 一個基於 Internet Archive 的 Apple IIgs 遊戲模擬器網頁介面,讓你在瀏覽器中重溫 80 年代經典遊戲!
 
-**✨ 特色:單一 HTML 檔案,無需安裝,開箱即用!**
+**🚀 前端版本特色:單一 HTML 檔案,無需安裝,開箱即用!**
+
+**⭐ 後端版本特色:Node.js 代理,完全解決 CORS 問題,支援完整音效!**
+- 參考: [README_SERVER.md](README_SERVER.md)
 
 ![Apple IIgs Logo](https://img.shields.io/badge/Apple_IIgs-1986-green?style=for-the-badge&logo=apple)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
