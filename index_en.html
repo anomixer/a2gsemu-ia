@@ -575,8 +575,7 @@
                 </div>
 
                 <div class="sound-tip">
-                    💡 Audio Tip: Click the <strong>"🔊 Enable Audio"</strong> button above to open full audio control
-                    panel in a new tab
+                    🔊 Click the sound button in the title bar to open full audio control in a new tab
                 </div>
 
                 <div class="emulator-content">
@@ -600,7 +599,8 @@
                             <h3>💡 Usage Tips</h3>
                             <ul>
                                 <li>⏱️ Initial loading takes 10-30 seconds, please be patient</li>
-                                <li>🔊 Click the button above to open full audio control in a new tab</li>
+                                <li>🔊 Click the sound button in the title bar to open full audio control in a new tab
+                                </li>
                                 <li>⛶ Recommended to use fullscreen mode for best experience</li>
                                 <li>💾 MAME automatically saves game state to browser</li>
                                 <li>🎯 Some games support mouse controls</li>
@@ -1081,9 +1081,10 @@
         }
 
         fullscreenBtn.onclick = () => {
-            const elem = document.querySelector('.emulator-area');
-
             if (!isFullscreen) {
+                // 進入全螢幕模式
+                const elem = document.documentElement; // 使用整個 document
+
                 if (elem.requestFullscreen) {
                     elem.requestFullscreen();
                 } else if (elem.webkitRequestFullscreen) {
@@ -1094,6 +1095,7 @@
                     elem.msRequestFullscreen();
                 }
             } else {
+                // 退出全螢幕模式
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
                 } else if (document.webkitExitFullscreen) {
@@ -1118,6 +1120,81 @@
                 document.msFullscreenElement);
 
             fullscreenBtn.innerHTML = isFullscreen ? '⛶ Exit Fullscreen' : '⛶ Fullscreen';
+
+            // 在全螢幕模式下隱藏其他元素
+            const header = document.querySelector('.header');
+            const sidebar = document.querySelector('.sidebar');
+            const leftResizer = document.querySelector('#leftResizer');
+            const emulatorControls = document.querySelector('.emulator-controls');
+            const rightResizer = document.querySelector('#rightResizer');
+            const infoPanel = document.querySelector('.info-panel');
+
+            if (isFullscreen) {
+                // 進入全螢幕：隱藏不需要的元素
+                if (header) header.style.display = 'none';
+                if (sidebar) sidebar.style.display = 'none';
+                if (leftResizer) leftResizer.style.display = 'none';
+                if (emulatorControls) emulatorControls.style.display = 'none';
+                if (rightResizer) rightResizer.style.display = 'none';
+                if (infoPanel) infoPanel.style.display = 'none';
+
+                // 讓 iframe 保持比例並居中放大
+                const iframeWrapper = document.querySelector('.iframe-wrapper');
+                if (iframeWrapper) {
+                    iframeWrapper.style.position = 'fixed';
+                    iframeWrapper.style.top = '0';
+                    iframeWrapper.style.left = '0';
+                    iframeWrapper.style.width = '100vw';
+                    iframeWrapper.style.height = '100vh';
+                    iframeWrapper.style.zIndex = '9999';
+                    iframeWrapper.style.padding = '0';
+                    iframeWrapper.style.display = 'flex';
+                    iframeWrapper.style.alignItems = 'center';
+                    iframeWrapper.style.justifyContent = 'center';
+                    iframeWrapper.style.background = '#000';
+                }
+
+                const emulatorFrame = document.querySelector('#emulator-frame');
+                if (emulatorFrame) {
+                    // 移除邊框，讓畫面填滿整個螢幕
+                    emulatorFrame.style.border = 'none';
+                    emulatorFrame.style.width = '100vw';
+                    emulatorFrame.style.height = '100vh';
+                }
+            } else {
+                // 退出全螢幕：恢復正常顯示
+                if (header) header.style.display = '';
+                if (sidebar) sidebar.style.display = '';
+                if (leftResizer) leftResizer.style.display = '';
+                if (emulatorControls) emulatorControls.style.display = '';
+                if (rightResizer) rightResizer.style.display = '';
+                if (infoPanel) infoPanel.style.display = '';
+
+                // 恢復 iframe 正常樣式
+                const iframeWrapper = document.querySelector('.iframe-wrapper');
+                if (iframeWrapper) {
+                    iframeWrapper.style.position = '';
+                    iframeWrapper.style.top = '';
+                    iframeWrapper.style.left = '';
+                    iframeWrapper.style.width = '';
+                    iframeWrapper.style.height = '';
+                    iframeWrapper.style.zIndex = '';
+                    iframeWrapper.style.padding = '';
+                    iframeWrapper.style.display = '';
+                    iframeWrapper.style.alignItems = '';
+                    iframeWrapper.style.justifyContent = '';
+                    iframeWrapper.style.background = '';
+                }
+
+                const emulatorFrame = document.querySelector('#emulator-frame');
+                if (emulatorFrame) {
+                    emulatorFrame.style.border = '';
+                    emulatorFrame.style.width = '';
+                    emulatorFrame.style.height = '';
+                    emulatorFrame.style.maxWidth = '';
+                    emulatorFrame.style.maxHeight = '';
+                }
+            }
         }
 
         reloadBtn.onclick = () => {

@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apple IIgs 線上模擬器</title>
     <style>
-        * { 
-            box-sizing: border-box; 
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-        
+
         body {
             font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
             background: #1a1a1a;
@@ -18,16 +19,16 @@
             height: 100vh;
             overflow: hidden;
         }
-        
+
         .header {
             background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
             padding: 15px 20px;
             text-align: center;
             border-bottom: 3px solid #4CAF50;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
             position: relative;
         }
-        
+
         .github-link {
             position: absolute;
             top: 15px;
@@ -38,16 +39,16 @@
             align-items: center;
             text-decoration: none;
         }
-        
+
         .github-link:hover {
             color: #4CAF50;
             transform: scale(1.1) rotate(5deg);
         }
-        
+
         .github-link svg {
             filter: drop-shadow(0 0 5px rgba(76, 175, 80, 0.3));
         }
-        
+
         .lang-switch {
             position: absolute;
             top: 15px;
@@ -55,7 +56,7 @@
             display: flex;
             gap: 10px;
         }
-        
+
         .lang-btn {
             background: #4CAF50;
             color: #000;
@@ -71,35 +72,35 @@
             align-items: center;
             gap: 5px;
         }
-        
+
         .lang-btn:hover {
             background: #45a049;
             transform: scale(1.1) rotate(2deg);
             box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
         }
-        
+
         .lang-btn .flag {
             font-size: 16px;
         }
-        
+
         .header h1 {
             color: #4CAF50;
             font-size: 24px;
             text-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
             margin-bottom: 5px;
         }
-        
+
         .header .subtitle {
             color: #888;
             font-size: 12px;
         }
-        
+
         .main-container {
             display: flex;
             height: calc(100vh - 80px);
             overflow: hidden;
         }
-        
+
         .sidebar {
             width: 320px;
             min-width: 250px;
@@ -111,7 +112,7 @@
             overflow: hidden;
             position: relative;
         }
-        
+
         .search-box {
             width: 100%;
             padding: 12px 15px;
@@ -122,30 +123,30 @@
             color: #fff;
             outline: none;
         }
-        
+
         .search-box:focus {
             border-bottom-color: #4CAF50;
         }
-        
+
         .game-list {
             flex: 1;
             overflow-y: auto;
             padding: 10px;
         }
-        
+
         .game-list::-webkit-scrollbar {
             width: 8px;
         }
-        
+
         .game-list::-webkit-scrollbar-track {
             background: #1a1a1a;
         }
-        
+
         .game-list::-webkit-scrollbar-thumb {
             background: #4CAF50;
             border-radius: 4px;
         }
-        
+
         .game-item {
             background: #333;
             padding: 12px;
@@ -155,44 +156,44 @@
             border: 2px solid transparent;
             transition: all 0.3s;
         }
-        
+
         .game-item:hover {
             background: #3a3a3a;
             border-color: #4CAF50;
             transform: translateX(5px);
         }
-        
+
         .game-item.active {
             background: #4CAF50;
             color: #000;
             border-color: #4CAF50;
         }
-        
+
         .game-item h3 {
             font-size: 14px;
             margin-bottom: 4px;
         }
-        
+
         .game-item .name-en {
             font-size: 12px;
             color: #aaa;
             font-weight: normal;
         }
-        
+
         .game-item.active .name-en {
             color: #333;
         }
-        
+
         .game-item .year {
             font-size: 11px;
             color: #666;
             margin-top: 4px;
         }
-        
+
         .game-item.active .year {
             color: #222;
         }
-        
+
         .badge {
             display: inline-block;
             padding: 2px 6px;
@@ -200,12 +201,27 @@
             font-size: 10px;
             margin-left: 5px;
         }
-        
-        .badge-game { background: #2196F3; color: #fff; }
-        .badge-edu { background: #FF9800; color: #fff; }
-        .badge-tool { background: #9C27B0; color: #fff; }
-        .badge-special { background: #E91E63; color: #fff; }
-        
+
+        .badge-game {
+            background: #2196F3;
+            color: #fff;
+        }
+
+        .badge-edu {
+            background: #FF9800;
+            color: #fff;
+        }
+
+        .badge-tool {
+            background: #9C27B0;
+            color: #fff;
+        }
+
+        .badge-special {
+            background: #E91E63;
+            color: #fff;
+        }
+
         .resizer {
             width: 5px;
             background: #4CAF50;
@@ -213,12 +229,12 @@
             position: relative;
             flex-shrink: 0;
         }
-        
+
         .resizer:hover {
             background: #45a049;
             width: 8px;
         }
-        
+
         .resizer::after {
             content: '⋮';
             position: absolute;
@@ -229,7 +245,7 @@
             font-size: 20px;
             font-weight: bold;
         }
-        
+
         .emulator-area {
             flex: 1;
             display: flex;
@@ -237,7 +253,7 @@
             background: #000;
             position: relative;
         }
-        
+
         .welcome-screen {
             display: flex;
             flex-direction: column;
@@ -247,51 +263,55 @@
             padding: 40px;
             text-align: center;
         }
-        
+
         .welcome-screen h2 {
             color: #4CAF50;
             font-size: 32px;
             margin-bottom: 20px;
         }
-        
+
         .welcome-screen p {
             color: #888;
             font-size: 18px;
             max-width: 500px;
             line-height: 1.6;
         }
-        
+
         .emulator-container {
             display: none;
             flex-direction: column;
             height: 100%;
         }
-        
+
         .emulator-container.active {
             display: flex;
         }
-        
+
         .emulator-controls {
             background: #2a2a2a;
             padding: 12px 20px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
             border-bottom: 2px solid #4CAF50;
         }
-        
+
         .game-title-bar {
             flex: 1;
             color: #4CAF50;
             font-weight: bold;
             font-size: 16px;
+            margin-right: 10px;
         }
-        
+
+        .sound-btn {
+            margin-right: 10px;
+        }
+
         .control-buttons {
             display: flex;
             gap: 10px;
         }
-        
+
         .btn {
             background: #4CAF50;
             color: #000;
@@ -303,36 +323,36 @@
             font-size: 13px;
             transition: all 0.3s;
         }
-        
+
         .btn:hover {
             background: #45a049;
             transform: scale(1.05);
         }
-        
+
         .btn-secondary {
             background: #666;
             color: #fff;
         }
-        
+
         .btn-secondary:hover {
             background: #777;
         }
-        
+
         .btn-archive {
             background: #2196F3;
             color: #fff;
         }
-        
+
         .btn-archive:hover {
             background: #1976D2;
         }
-        
+
         .emulator-content {
             flex: 1;
             display: flex;
             overflow: hidden;
         }
-        
+
         .iframe-wrapper {
             flex: 1;
             display: flex;
@@ -342,7 +362,7 @@
             padding: 10px;
             position: relative;
         }
-        
+
         #emulator-frame {
             width: 640px;
             height: 100%;
@@ -351,7 +371,7 @@
             box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
             transition: width 0.3s ease;
         }
-        
+
         .info-panel {
             width: 320px;
             min-width: 250px;
@@ -362,24 +382,24 @@
             padding: 20px;
             position: relative;
         }
-        
+
         .info-panel::-webkit-scrollbar {
             width: 6px;
         }
-        
+
         .info-panel::-webkit-scrollbar-track {
             background: #0a0a0a;
         }
-        
+
         .info-panel::-webkit-scrollbar-thumb {
             background: #4CAF50;
             border-radius: 3px;
         }
-        
+
         .info-section {
             margin-bottom: 25px;
         }
-        
+
         .info-section h3 {
             color: #4CAF50;
             font-size: 16px;
@@ -387,30 +407,30 @@
             padding-bottom: 8px;
             border-bottom: 2px solid #333;
         }
-        
+
         .info-section p {
             color: #aaa;
             line-height: 1.6;
             font-size: 13px;
             margin-bottom: 10px;
         }
-        
+
         .info-section ul {
             list-style: none;
             padding: 0;
         }
-        
+
         .info-section li {
             color: #ccc;
             padding: 6px 0;
             font-size: 13px;
             border-bottom: 1px solid #2a2a2a;
         }
-        
+
         .info-section li:last-child {
             border-bottom: none;
         }
-        
+
         .game-info-box {
             background: #2a2a2a;
             padding: 12px;
@@ -418,7 +438,7 @@
             margin-bottom: 12px;
             border-left: 3px solid #2196F3;
         }
-        
+
         .key-combo {
             display: inline-block;
             background: #333;
@@ -431,7 +451,7 @@
             margin: 0 3px;
             border: 1px solid #4CAF50;
         }
-        
+
         .mame-section {
             background: #2a2a2a;
             padding: 12px;
@@ -439,101 +459,91 @@
             margin: 10px 0;
             border-left: 3px solid #FF9800;
         }
-        
+
         .mame-section h4 {
             color: #FF9800;
             font-size: 14px;
             margin-bottom: 8px;
         }
-        
+
         .mame-section ul {
             margin-top: 8px;
         }
-        
+
         .mame-section li {
             font-size: 12px;
             line-height: 1.5;
             color: #ddd;
         }
-        
-        .sound-tip {
-            background: #2196F3;
-            color: #fff;
-            padding: 10px 15px;
-            text-align: center;
-            font-size: 12px;
-            border-bottom: 2px solid #1976D2;
-        }
-        
-        .sound-tip strong {
-            color: #fff;
-        }
-        
+
+
         .highlight {
             color: #4CAF50;
             font-weight: bold;
         }
-        
+
         @media (max-width: 1200px) {
             .info-panel {
                 width: 280px;
                 font-size: 12px;
             }
         }
-        
+
         @media (max-width: 768px) {
             .main-container {
                 flex-direction: column;
             }
-            
+
             .sidebar {
                 width: 100%;
                 height: 40%;
                 border-right: none;
                 border-bottom: 3px solid #4CAF50;
             }
-            
+
             .resizer {
                 display: none;
             }
-            
+
             .emulator-area {
                 height: 60%;
             }
-            
+
             .info-panel {
                 display: none;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="header">
         <a href="https://github.com/anomixer/a2gsemu-ia" target="_blank" class="github-link" title="View on GitHub">
             <svg width="32" height="32" viewBox="0 0 16 16" fill="currentColor">
-                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                <path
+                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
             </svg>
         </a>
-        
+
         <div class="lang-switch">
             <a href="index_en.html" class="lang-btn" title="Switch to English">
                 <span class="flag">🇺🇸</span>
                 <span>En</span>
             </a>
         </div>
-        
+
         <h1>🍎 Apple IIgs 線上模擬器 🎮</h1>
         <p class="subtitle">由 Internet Archive 提供 - 共 <span id="totalCount">0</span> 款精選遊戲與軟體</p>
     </div>
-    
+
     <div class="main-container">
         <div class="sidebar" id="sidebar">
             <input type="text" class="search-box" id="searchBox" placeholder="🔍 搜尋遊戲...">
             <div class="game-list" id="gameList"></div>
         </div>
-        
+
         <div class="resizer" id="leftResizer"></div>
-        
+
         <div class="emulator-area">
             <div class="welcome-screen" id="welcomeScreen">
                 <h2>歡迎使用 Apple IIgs 模擬器</h2>
@@ -543,30 +553,27 @@
                     於 1986 年發布,擁有 16 位元處理器和彩色圖形能力
                 </p>
             </div>
-            
+
             <div class="emulator-container" id="emulatorContainer">
                 <div class="emulator-controls">
                     <div class="game-title-bar" id="gameTitleBar">載入中...</div>
+                    <button class="btn btn-archive sound-btn" id="archiveBtn" title="在 Archive.org 開啟以控制聲音">
+                        🔊 開啟聲音
+                    </button>
                     <div class="control-buttons">
                         <button class="btn" id="fullscreenBtn" title="全螢幕">⛶ 全螢幕</button>
-                        <button class="btn btn-archive" id="archiveBtn" title="在 Archive.org 開啟以控制聲音">
-                            🔊 開啟聲音
-                        </button>
                         <button class="btn btn-secondary" id="reloadBtn" title="重新載入">🔄</button>
                     </div>
                 </div>
-                
-                <div class="sound-tip">
-                    💡 聲音提示: 點擊上方 <strong>「🔊 開啟聲音」</strong> 按鈕,在新分頁中可看到完整的聲音控制面板
-                </div>
-                
+
+
                 <div class="emulator-content">
                     <div class="iframe-wrapper">
                         <iframe id="emulator-frame" allowfullscreen allow="autoplay"></iframe>
                     </div>
-                    
+
                     <div class="resizer" id="rightResizer"></div>
-                    
+
                     <div class="info-panel" id="infoPanel">
                         <div class="info-section">
                             <h3>🎮 遊戲資訊</h3>
@@ -575,12 +582,12 @@
                             </div>
                             <ul id="gameDetails"></ul>
                         </div>
-                        
+
                         <div class="info-section">
                             <h3>💡 使用提示</h3>
                             <ul>
                                 <li>⏱️ 首次載入需要 10-30 秒,請耐心等待</li>
-                                <li>🔊 點擊上方按鈕可在新分頁開啟完整聲音控制</li>
+                                <li>🔊 點擊標題欄的聲音按鈕可在新分頁開啟完整聲音控制</li>
                                 <li>⛶ 建議使用全螢幕模式以獲得最佳體驗</li>
                                 <li>💾 MAME 會自動儲存遊戲狀態到瀏覽器</li>
                                 <li>🎯 部分遊戲支援滑鼠操作</li>
@@ -588,7 +595,7 @@
                                 <li>🔄 遇到問題可按 🔄 重置</li>
                             </ul>
                         </div>
-                        
+
                         <div class="info-section">
                             <h3>⌨️ 一般操作說明</h3>
                             <ul>
@@ -602,10 +609,10 @@
                                 <li><span class="key-combo">A-Z</span> 字母鍵輸入</li>
                             </ul>
                         </div>
-                        
+
                         <div class="info-section">
                             <h3>🎮 MAME 模擬器操作</h3>
-                            
+
                             <div class="mame-section">
                                 <h4>📋 基本控制</h4>
                                 <ul>
@@ -618,11 +625,13 @@
                                     <li><span class="key-combo">F9</span> 提高幀率跳過</li>
                                 </ul>
                             </div>
-                            
+
                             <div class="mame-section">
                                 <h4>⚙️ Machine Configuration</h4>
                                 <p style="font-size:12px; color:#ddd; margin-bottom:8px;">
-                                    先按 <span class="key-combo">Scroll Lock</span> 開啟 UI → 再按 <span class="key-combo">Tab</span> → 選擇 <span class="highlight">Machine Configuration</span>
+                                    先按 <span class="key-combo">Scroll Lock</span> 開啟 UI → 再按 <span
+                                        class="key-combo">Tab</span> → 選擇 <span class="highlight">Machine
+                                        Configuration</span>
                                 </p>
                                 <ul>
                                     <li><strong>CPU Speed:</strong> 調整 CPU 執行速度
@@ -639,7 +648,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            
+
                             <div class="mame-section">
                                 <h4>💾 存檔/讀檔</h4>
                                 <ul>
@@ -649,7 +658,7 @@
                                 </ul>
                             </div>
                         </div>
-                        
+
                         <div class="info-section">
                             <h3>ℹ️ 關於 Apple IIgs</h3>
                             <p>Apple IIgs 是 Apple Computer 於 1986 年 9 月推出的 16 位元個人電腦,是 Apple II 系列的最後一款產品。</p>
@@ -671,11 +680,11 @@
     <script>
         const games = [
             // === 動作遊戲 ===
-            { 
-                id: 'wozaday_Prince_of_Persia', 
-                name: '波斯王子', 
-                nameEn: 'Prince of Persia', 
-                year: '1989', 
+            {
+                id: 'wozaday_Prince_of_Persia',
+                name: '波斯王子',
+                nameEn: 'Prince of Persia',
+                year: '1989',
                 type: 'game',
                 desc: '經典的電影式平台動作遊戲。玩家有 60 分鐘的時間穿越地下城,拯救被囚禁的公主。遊戲採用革命性的動作捕捉技術,角色動作流暢自然。精心設計的關卡結合跑酷、戰鬥和解謎元素,是遊戲史上的里程碁之作。',
                 developer: 'Jordan Mechner',
@@ -691,83 +700,83 @@
                 developer: 'Atari Games',
                 publisher: 'Mindscape'
             },
-            { 
-                id: 'wozaday_The_Immortal_IIgs', 
-                name: '不朽傳說', 
-                nameEn: 'The Immortal', 
-                year: '1990', 
+            {
+                id: 'wozaday_The_Immortal_IIgs',
+                name: '不朽傳說',
+                nameEn: 'The Immortal',
+                year: '1990',
                 type: 'game',
                 desc: '一款等距視角的動作冒險遊戲。玩家扮演一名老巫師,在危險的地下城中探險,尋找失蹤的導師。遊戲以高難度和殘酷的陷阱聞名,每個房間都充滿致命的挑戰。精美的圖像和動畫展現了 Apple IIgs 的圖形能力。',
                 developer: 'Will Harvey',
                 publisher: 'Electronic Arts'
             },
-            { 
-                id: 'wozaday_Rastan', 
-                name: '王者之劍', 
-                nameEn: 'Rastan', 
-                year: '1990', 
+            {
+                id: 'wozaday_Rastan',
+                name: '王者之劍',
+                nameEn: 'Rastan',
+                year: '1990',
                 type: 'game',
                 desc: 'Taito 的橫向捲軸動作遊戲。玩家扮演野蠻戰士 Rastan,揮舞巨劍對抗怪物和惡龍。遊戲節奏快速,敵人眾多,需要精準的操作和時機掌握。Apple IIgs 版本保留了街機版的刺激感。',
                 developer: 'Taito',
                 publisher: 'Taito'
             },
-            { 
-                id: 'wozaday_Crystal_Quest_IIgs', 
-                name: '水晶任務', 
-                nameEn: 'Crystal Quest', 
-                year: '1988', 
+            {
+                id: 'wozaday_Crystal_Quest_IIgs',
+                name: '水晶任務',
+                nameEn: 'Crystal Quest',
+                year: '1988',
                 type: 'game',
                 desc: '快節奏的射擊收集遊戲。玩家控制一艘小飛船,在充滿敵人的場景中收集水晶。遊戲特色是360度全方向移動和射擊,以及豐富的敵人種類和道具系統。色彩鮮豔的圖形和動感的音效讓人欲罷不能。',
                 developer: 'Patrick Buckland',
                 publisher: 'Casady & Greene'
             },
-            { 
-                id: 'wozaday_Arkanoid_IIgs', 
-                name: '快打磚塊', 
-                nameEn: 'Arkanoid', 
-                year: '1987', 
+            {
+                id: 'wozaday_Arkanoid_IIgs',
+                name: '快打磚塊',
+                nameEn: 'Arkanoid',
+                year: '1987',
                 type: 'game',
                 desc: 'Taito 經典的打磚塊遊戲。玩家控制底部的擋板,反彈球打破彩色磚塊。遊戲加入道具系統,讓玩法更豐富:雷射、多球、延長擋板等。關卡設計精巧,磚塊排列形成各種圖案。',
                 developer: 'Taito',
                 publisher: 'Discovery Software'
             },
-            { 
-                id: 'wozaday_Marble_Madness_IIgs', 
-                name: '雲霄飛球', 
-                nameEn: 'Marble Madness', 
-                year: '1988', 
+            {
+                id: 'wozaday_Marble_Madness_IIgs',
+                name: '雲霄飛球',
+                nameEn: 'Marble Madness',
+                year: '1988',
                 type: 'game',
                 desc: 'Atari 的經典街機遊戲。玩家控制彈珠穿越充滿機關的 3D 等距迷宮。遊戲物理引擎真實,彈珠會受重力和慣性影響。精美的圖形和優秀的音樂讓這款遊戲成為 Apple IIgs 的技術展示範例。',
                 developer: 'Atari Games',
                 publisher: 'Electronic Arts'
             },
-            
+
             // === 冒險遊戲 ===
-            { 
-                id: 'wozaday_Space_Quest_II_IIgs', 
-                name: '宇宙英雄傳 2', 
-                nameEn: 'Space Quest II', 
-                year: '1988', 
+            {
+                id: 'wozaday_Space_Quest_II_IIgs',
+                name: '宇宙英雄傳 2',
+                nameEn: 'Space Quest II',
+                year: '1988',
                 type: 'game',
                 desc: 'Sierra 著名的圖形冒險遊戲系列第二部。玩家扮演清潔工 Roger Wilco,在外星球上展開搞笑的冒險。遊戲充滿幽默的對話、創意十足的謎題和致命的陷阱。Apple IIgs 版本擁有 16 色彩色圖形和音效。',
                 developer: 'Sierra On-Line',
                 publisher: 'Sierra On-Line'
             },
-            { 
-                id: 'wozaday_The_King_of_Chicago_IIgs', 
-                name: '芝加哥之王', 
-                nameEn: 'The King of Chicago', 
-                year: '1988', 
+            {
+                id: 'wozaday_The_King_of_Chicago_IIgs',
+                name: '芝加哥之王',
+                nameEn: 'The King of Chicago',
+                year: '1988',
                 type: 'game',
                 desc: '創新的互動式電影遊戲。設定在 1930 年代的芝加哥黑幫世界,玩家扮演一名黑幫老大,透過決策影響劇情走向。遊戲採用漫畫風格的精美畫面,配合緊張刺激的配樂,提供沉浸式的電影體驗。',
                 developer: 'Cinemaware',
                 publisher: 'Cinemaware'
             },
-            { 
-                id: 'wozaday_Deja_Vu_IIgs', 
-                name: '似曾相識', 
-                nameEn: 'Déjà Vu', 
-                year: '1987', 
+            {
+                id: 'wozaday_Deja_Vu_IIgs',
+                name: '似曾相識',
+                nameEn: 'Déjà Vu',
+                year: '1987',
                 type: 'game',
                 desc: '點擊式冒險遊戲,以黑色電影為題材。玩家醒來時失憶,必須在 1940 年代的芝加哥調查自己的身分和一樁謀殺案。遊戲採用創新的圖形界面,允許玩家檢查、拿取和使用物品。大氣的黑白畫面營造出懸疑的氛圍。',
                 developer: 'ICOM Simulations',
@@ -793,19 +802,19 @@
                 developer: 'ICOM Simulations',
                 publisher: 'Mindscape'
             },
-            
+
             // === 角色扮演遊戲 ===
-            { 
-                id: 'wozaday_The_Bards_Tale_IIgs', 
-                name: '冰城傳奇', 
-                nameEn: "The Bard's Tale", 
-                year: '1987', 
+            {
+                id: 'wozaday_The_Bards_Tale_IIgs',
+                name: '冰城傳奇',
+                nameEn: "The Bard's Tale",
+                year: '1987',
                 type: 'game',
                 desc: '第一人稱視角的角色扮演遊戲。組建一支 6 人冒險隊,在被冰雪封印的 Skara Brae 城市探險。遊戲包含豐富的職業系統、魔法系統和戰鬥機制。Apple IIgs 版本擁有增強的音效和圖形,是 RPG 愛好者的必玩之作。',
                 developer: 'Interplay',
                 publisher: 'Electronic Arts'
             },
-            
+
             // === 運動遊戲 ===
             {
                 id: 'wozaday_Hardball_IIgs',
@@ -817,21 +826,21 @@
                 developer: 'Accolade',
                 publisher: 'Accolade'
             },
-            { 
-                id: 'wozaday_Winter_Games_IIgs', 
-                name: '冬季運動會', 
-                nameEn: 'Winter Games', 
-                year: '1987', 
+            {
+                id: 'wozaday_Winter_Games_IIgs',
+                name: '冬季運動會',
+                nameEn: 'Winter Games',
+                year: '1987',
                 type: 'game',
                 desc: 'Epyx 運動遊戲系列之一。包含 7 種冬季奧運項目:跳台滑雪、花式滑冰、高山滑雪等。支援最多 8 位玩家輪流競賽,適合聚會同樂。每個項目都需要不同的操作技巧和節奏感。',
                 developer: 'Epyx',
                 publisher: 'Epyx'
             },
-            { 
-                id: 'wozaday_California_Games_IIgs', 
-                name: '加州運動會', 
-                nameEn: 'California Games', 
-                year: '1989', 
+            {
+                id: 'wozaday_California_Games_IIgs',
+                name: '加州運動會',
+                nameEn: 'California Games',
+                year: '1989',
                 type: 'game',
                 desc: 'Epyx 運動遊戲系列的代表作。包含 6 種加州特色的極限運動:衝浪、滑板、滾軸溜冰、飛盤、滑輪和 BMX。每個項目都有獨特的操作方式和得分機制。明快的音樂和精美的動畫展現濃厚的加州文化。',
                 developer: 'Epyx',
@@ -847,19 +856,19 @@
                 developer: 'Epyx',
                 publisher: 'Epyx'
             },
-            { 
-                id: 'a2gs_Zany_golf_1988_Electronic_Arts', 
-                name: '瘋狂高爾夫', 
-                nameEn: 'Zany Golf', 
-                year: '1988', 
+            {
+                id: 'a2gs_Zany_golf_1988_Electronic_Arts',
+                name: '瘋狂高爾夫',
+                nameEn: 'Zany Golf',
+                year: '1988',
                 type: 'game',
                 desc: '創意十足的迷你高爾夫遊戲。9 個洞設計極具想像力,包含彈簧、傳送門和移動障礙物。物理引擎精確,球的滾動和反彈都很真實。色彩鮮豔的圖形和有趣的關卡設計帶來獨特的遊戲體驗。',
                 developer: 'Sandcastle',
                 publisher: 'Electronic Arts'
             },
-            
+
             // === 益智遊戲 ===
-            { 
+            {
                 id: 'wozaday_Shanghai_IIgs',
                 name: '上海',
                 nameEn: 'Shanghai',
@@ -869,7 +878,7 @@
                 developer: 'Activision',
                 publisher: 'Activision'
             },
-            { 
+            {
                 id: 'wozaday_Battle_Chess_IIgs',
                 name: '戰鬥西洋棋',
                 nameEn: 'Battle Chess',
@@ -879,27 +888,27 @@
                 developer: 'Interplay',
                 publisher: 'Interplay'
             },
-            { 
-                id: 'wozaday_Pipe_Dream_IIgs', 
-                name: '水管夢', 
-                nameEn: 'Pipe Dream', 
-                year: '1990', 
+            {
+                id: 'wozaday_Pipe_Dream_IIgs',
+                name: '水管夢',
+                nameEn: 'Pipe Dream',
+                year: '1990',
                 type: 'game',
                 desc: '創新的益智遊戲。玩家必須在時間限制內,用管道連接起點和終點,讓液體順利流過。遊戲節奏緊湊,需要快速思考和規劃。隨著關卡推進,難度逐漸增加,出現更多複雜的管道形狀。',
                 developer: 'The Assembly Line',
                 publisher: 'LucasArts'
             },
-            { 
-                id: 'wozaday_Tetris_IIgs', 
-                name: '俄羅斯方塊', 
-                nameEn: 'Tetris', 
-                year: '1988', 
+            {
+                id: 'wozaday_Tetris_IIgs',
+                name: '俄羅斯方塊',
+                nameEn: 'Tetris',
+                year: '1988',
                 type: 'game',
                 desc: '永恆的經典益智遊戲。控制下落的方塊,旋轉並排列成完整的橫列來消除。簡單的規則卻有無限的策略深度。Apple IIgs 版本有優美的音樂和流暢的動畫,是最佳的 Tetris 版本之一。',
                 developer: 'Alexey Pajitnov',
                 publisher: 'Spectrum HoloByte'
             },
-            
+
             // === 模擬/策略遊戲 ===
             {
                 id: 'wozaday_Defender_of_the_Crown_IIgs',
@@ -921,41 +930,41 @@
                 developer: 'Epyx',
                 publisher: 'Epyx'
             },
-            
+
             // === 教育軟體 ===
-            { 
-                id: 'wozaday_Charlie_Browns_ABCs_IIgs', 
-                name: '查理布朗字母學習', 
-                nameEn: "Charlie Brown's ABCs", 
-                year: '1990', 
+            {
+                id: 'wozaday_Charlie_Browns_ABCs_IIgs',
+                name: '查理布朗字母學習',
+                nameEn: "Charlie Brown's ABCs",
+                year: '1990',
                 type: 'edu',
                 desc: '以史努比漫畫為主題的兒童教育軟體。透過互動遊戲和動畫教導兒童認識字母。包含多種學習活動:字母配對、拼字練習、發音教學等。可愛的角色和有趣的音效讓學習變得輕鬆愉快。',
                 developer: 'Random House',
                 publisher: 'Random House'
             },
-            { 
-                id: 'wozaday_The_New_Talking_Stickybear_Alphabet_IIgs', 
-                name: '會說話的字母熊', 
-                nameEn: 'Talking Stickybear Alphabet', 
-                year: '1988', 
+            {
+                id: 'wozaday_The_New_Talking_Stickybear_Alphabet_IIgs',
+                name: '會說話的字母熊',
+                nameEn: 'Talking Stickybear Alphabet',
+                year: '1988',
                 type: 'edu',
                 desc: '互動式字母學習軟體。Stickybear 熊陪伴兒童學習 26 個英文字母。每個字母都有語音發音、相關單字和互動遊戲。利用 Apple IIgs 的音效晶片提供清晰的語音合成,是早期多媒體教育軟體的先驅。',
                 developer: 'Optimum Resource',
                 publisher: 'Optimum Resource'
             },
-            
+
             // === 工具軟體 ===
-            { 
-                id: 'wozaday_List_Plus_IIgs', 
-                name: 'List Plus', 
-                nameEn: 'List Plus', 
-                year: '1989', 
+            {
+                id: 'wozaday_List_Plus_IIgs',
+                name: 'List Plus',
+                nameEn: 'List Plus',
+                year: '1989',
                 type: 'tool',
                 desc: 'Beagle Bros 出品的程式開發工具。用於編輯、列印和分析 Applesoft BASIC 程式碼。提供語法高亮、縮排格式化、搜尋替換等功能。是 Apple II 程式設計師不可或缺的開發工具。',
                 developer: 'Beagle Bros',
                 publisher: 'Beagle Bros'
             },
-            
+
             // === 特別收藏 ===
             {
                 id: 'TotalReplay',
@@ -994,7 +1003,7 @@
         const fullscreenBtn = document.getElementById('fullscreenBtn');
         const archiveBtn = document.getElementById('archiveBtn');
         const reloadBtn = document.getElementById('reloadBtn');
-        
+
         const sidebar = document.getElementById('sidebar');
         const infoPanel = document.getElementById('infoPanel');
         const leftResizer = document.getElementById('leftResizer');
@@ -1012,8 +1021,8 @@
 
         function renderGames(filter = '') {
             gameList.innerHTML = '';
-            const filtered = games.filter(g => 
-                g.name.includes(filter) || 
+            const filtered = games.filter(g =>
+                g.name.includes(filter) ||
                 g.nameEn.toLowerCase().includes(filter.toLowerCase())
             );
 
@@ -1052,14 +1061,15 @@
             archiveBtn.onclick = () => window.open(archiveUrl, '_blank');
 
             emulatorFrame.src = `https://archive.org/embed/${game.id}`;
-            
+
             currentGame = game;
         }
 
         fullscreenBtn.onclick = () => {
-            const elem = document.querySelector('.emulator-area');
-            
             if (!isFullscreen) {
+                // 進入全螢幕模式
+                const elem = document.documentElement; // 使用整個 document
+
                 if (elem.requestFullscreen) {
                     elem.requestFullscreen();
                 } else if (elem.webkitRequestFullscreen) {
@@ -1070,6 +1080,7 @@
                     elem.msRequestFullscreen();
                 }
             } else {
+                // 退出全螢幕模式
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
                 } else if (document.webkitExitFullscreen) {
@@ -1088,12 +1099,87 @@
         document.addEventListener('MSFullscreenChange', updateFullscreenStatus);
 
         function updateFullscreenStatus() {
-            isFullscreen = !!(document.fullscreenElement || 
-                              document.webkitFullscreenElement || 
-                              document.mozFullScreenElement || 
-                              document.msFullscreenElement);
-            
+            isFullscreen = !!(document.fullscreenElement ||
+                document.webkitFullscreenElement ||
+                document.mozFullScreenElement ||
+                document.msFullscreenElement);
+
             fullscreenBtn.innerHTML = isFullscreen ? '⛶ 退出全螢幕' : '⛶ 全螢幕';
+
+            // 在全螢幕模式下隱藏其他元素
+            const header = document.querySelector('.header');
+            const sidebar = document.querySelector('.sidebar');
+            const leftResizer = document.querySelector('#leftResizer');
+            const emulatorControls = document.querySelector('.emulator-controls');
+            const rightResizer = document.querySelector('#rightResizer');
+            const infoPanel = document.querySelector('.info-panel');
+
+            if (isFullscreen) {
+                // 進入全螢幕：隱藏不需要的元素
+                if (header) header.style.display = 'none';
+                if (sidebar) sidebar.style.display = 'none';
+                if (leftResizer) leftResizer.style.display = 'none';
+                if (emulatorControls) emulatorControls.style.display = 'none';
+                if (rightResizer) rightResizer.style.display = 'none';
+                if (infoPanel) infoPanel.style.display = 'none';
+
+                // 讓 iframe 保持比例並居中放大
+                const iframeWrapper = document.querySelector('.iframe-wrapper');
+                if (iframeWrapper) {
+                    iframeWrapper.style.position = 'fixed';
+                    iframeWrapper.style.top = '0';
+                    iframeWrapper.style.left = '0';
+                    iframeWrapper.style.width = '100vw';
+                    iframeWrapper.style.height = '100vh';
+                    iframeWrapper.style.zIndex = '9999';
+                    iframeWrapper.style.padding = '0';
+                    iframeWrapper.style.display = 'flex';
+                    iframeWrapper.style.alignItems = 'center';
+                    iframeWrapper.style.justifyContent = 'center';
+                    iframeWrapper.style.background = '#000';
+                }
+
+                const emulatorFrame = document.querySelector('#emulator-frame');
+                if (emulatorFrame) {
+                    // 移除邊框，讓畫面填滿整個螢幕
+                    emulatorFrame.style.border = 'none';
+                    emulatorFrame.style.width = '100vw';
+                    emulatorFrame.style.height = '100vh';
+                }
+            } else {
+                // 退出全螢幕：恢復正常顯示
+                if (header) header.style.display = '';
+                if (sidebar) sidebar.style.display = '';
+                if (leftResizer) leftResizer.style.display = '';
+                if (emulatorControls) emulatorControls.style.display = '';
+                if (rightResizer) rightResizer.style.display = '';
+                if (infoPanel) infoPanel.style.display = '';
+
+                // 恢復 iframe 正常樣式
+                const iframeWrapper = document.querySelector('.iframe-wrapper');
+                if (iframeWrapper) {
+                    iframeWrapper.style.position = '';
+                    iframeWrapper.style.top = '';
+                    iframeWrapper.style.left = '';
+                    iframeWrapper.style.width = '';
+                    iframeWrapper.style.height = '';
+                    iframeWrapper.style.zIndex = '';
+                    iframeWrapper.style.padding = '';
+                    iframeWrapper.style.display = '';
+                    iframeWrapper.style.alignItems = '';
+                    iframeWrapper.style.justifyContent = '';
+                    iframeWrapper.style.background = '';
+                }
+
+                const emulatorFrame = document.querySelector('#emulator-frame');
+                if (emulatorFrame) {
+                    emulatorFrame.style.border = '';
+                    emulatorFrame.style.width = '';
+                    emulatorFrame.style.height = '';
+                    emulatorFrame.style.maxWidth = '';
+                    emulatorFrame.style.maxHeight = '';
+                }
+            }
         }
 
         reloadBtn.onclick = () => {
@@ -1160,4 +1246,5 @@
         console.log(`✅ 已載入 ${games.length} 款 Apple IIgs 軟體`);
     </script>
 </body>
+
 </html>
