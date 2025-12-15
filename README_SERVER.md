@@ -67,8 +67,8 @@ npm start
 ## 🎮 使用方法
 
 1. **選擇遊戲** - 從左側列表點擊任何遊戲
-2. **等待載入** - 首次載入需要 30-60 秒
-3. **點擊畫面** - 啟用音效並開始遊戲
+2. **顯示截圖** - 中間會先顯示該軟體的截圖與資訊
+3. **點擊截圖開始** - 點擊截圖後才會啟動模擬器
 4. **開始玩！** - 使用箭頭鍵和 Space 控制
 
 ---
@@ -129,6 +129,42 @@ Node.js Server
 - **Emularity** - MAME 模擬器框架
 - **JSMAMELoader** - MAME JavaScript 載入器
 - **BrowserFS** - 虛擬檔案系統
+
+---
+
+## 📚 擴充遊戲庫（wozaday Apple IIgs）
+
+本專案支援從 Archive.org 的 woz-a-day collection 批次產生大量 Apple IIgs 軟體清單。
+
+資料來源篩選條件（由產生器腳本使用）：
+
+- `collection:wozaday AND emulator:apple2gs AND mediatype:software`
+
+### 產生/更新 games_v8.js
+
+在專案根目錄執行：
+
+```bash
+node generate_games_wozaday_iigs.js
+```
+
+預設會輸出到 `games_v8.js`，並將 `game` 類型排在最前面。
+
+只想產生遊戲（不含教育/工具等）可用：
+
+```bash
+node generate_games_wozaday_iigs.js --games-only
+```
+
+### games_v8.js 欄位
+
+- `id`：Archive.org item identifier（例：`wozaday_Hardball_IIgs`）
+- `emu`：模擬器類型（例：`apple2gs`）
+- `file`：主要磁片檔（通常是 `00playable.woz`，或 metadata 的 `mame_peripheral_flop3`）
+- `file2`：第二片磁片（若存在，對應 `mame_peripheral_flop4`）
+- `screenshot`：截圖檔（通常是 `00playable_screenshot.png`）
+- `type`：`game` / `edu` / `tool` / `special`
+- `desc`：描述（目前先使用 Archive.org description）
 
 ---
 
