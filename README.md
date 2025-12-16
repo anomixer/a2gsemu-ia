@@ -149,7 +149,7 @@ php -S localhost:8000
 - **雲霄飛球** (Marble Madness) - 1988
 
 ### 🗺️ 冒險遊戲
-- **宇宙英雄傳 2** (Space Quest II) - 1988
+- **宇宙傳奇 2** (Space Quest II) - 1988
 - **芝加哥之王** (The King of Chicago) - 1988
 - **似曾相識** (Déjà Vu) - 1987
 - **東城時光** (Tass Times In Tonetown) - 1986
