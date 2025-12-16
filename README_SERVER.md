@@ -23,7 +23,7 @@
 ```bash
 git clone https://github.com/anomixer/a2gsemu-ia.git
 cd a2gsemu-ia
-git checkout emularity-direct
+git checkout v8
 ```
 
 ### 2️⃣ 安裝依賴
@@ -206,7 +206,7 @@ heroku create a2gsemu-ia
 
 ### 3️⃣ 部署
 ```bash
-git push heroku emularity-direct:main
+git push heroku v8:main
 ```
 
 ### 4️⃣ 開啟應用
