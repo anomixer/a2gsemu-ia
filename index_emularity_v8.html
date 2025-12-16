@@ -333,6 +333,8 @@
             border: 2px solid #4CAF50;
             border-radius: 5px;
             z-index: 5;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
         }
 
         .hidden {
@@ -891,6 +893,16 @@
 
             let uiMuted = false;
 
+            const typeWeight = (type) => {
+                switch (type) {
+                    case 'game': return 0;
+                    case 'edu': return 1;
+                    case 'tool': return 2;
+                    case 'special': return 3;
+                    default: return 9;
+                }
+            };
+
             function updateMuteButton() {
                 if (!muteBtn) return;
                 const muted = currentEmulator ? currentEmulator.isMuted() : uiMuted;
@@ -929,13 +941,86 @@
             console.log('⭐ 開始載入 Emularity v8 (Backend Proxy)...');
             console.log('   - Server URL:', SERVER_URL);
 
-            const games = window.games;
+            function normalizeTitleKey(game) {
+                const title = (game.nameEn || game.name || '').toLowerCase();
+                const cleaned = title
+                    .replace(/\b(apple|ii?gs)\b/g, '')
+                    .replace(/\b(the|a|an)\b/g, ' ')
+                    .replace(/[^a-z0-9]+/g, ' ')
+                    .trim();
+                if (cleaned) return cleaned;
+                return (game.id || '').toLowerCase();
+            }
+
+            function extractReleaseYear(game) {
+                const desc = game.desc || '';
+                const match = desc.match(/(19[0-9]{2})/);
+                if (match) return match[1];
+                const parsed = parseInt(game.year, 10);
+                if (!Number.isNaN(parsed) && parsed > 1900 && parsed < 2100) return String(parsed);
+                return '';
+            }
+
+            function scoreGame(game) {
+                const year = parseInt(extractReleaseYear(game), 10);
+                const inEra = year >= 1986 && year <= 1995;
+                const descLen = (game.desc || '').length;
+                return (
+                    (game.type === 'game' ? 6 : game.type === 'edu' ? 3 : 1) +
+                    (game.screenshot ? 2 : 0) +
+                    (game.file2 ? 1 : 0) +
+                    (inEra ? 3 : 0) +
+                    Math.min(3, Math.floor(descLen / 120))
+                );
+            }
+
+            function normalizeGame(game) {
+                const releaseYear = extractReleaseYear(game);
+                return {
+                    ...game,
+                    year: releaseYear || game.year || '未知',
+                    desc: game.desc || ''
+                };
+            }
+
+            function dedupeGames(rawList) {
+                const bestByKey = new Map();
+                (rawList || []).forEach((game) => {
+                    const key = normalizeTitleKey(game);
+                    if (!key) return;
+                    const normalized = normalizeGame(game);
+                    const unreleased = /unreleased/i.test(normalized.name || normalized.nameEn || '') || /unreleased/i.test(normalized.desc || '');
+                    if (unreleased) return;
+                    const score = scoreGame(normalized);
+                    const existing = bestByKey.get(key);
+                    if (!existing || score > existing.score) {
+                        bestByKey.set(key, { ...normalized, score });
+                    }
+                });
+                return Array.from(bestByKey.values())
+                    .sort((a, b) => {
+                        const w = typeWeight(a.type) - typeWeight(b.type);
+                        if (w !== 0) return w;
+                        return String(a.nameEn || a.name).localeCompare(String(b.nameEn || b.name));
+                    })
+                    .map(({ score, ...rest }) => rest);
+            }
+
+            const games = dedupeGames(window.games);
 
             function waitForEmularity() {
                 const startTime = Date.now();
                 return new Promise((resolve, reject) => {
                     const check = () => {
                         if (typeof window.Emulator !== 'undefined' && typeof window.JSMAMELoader !== 'undefined' && typeof window.BrowserFS !== 'undefined') {
+                            try {
+                                // 關閉 IndexedDB 快取，避免多次啟動時舊檔案狀態干擾
+                                if (BrowserFS.FileSystem && BrowserFS.FileSystem.IndexedDB) {
+                                    BrowserFS.FileSystem.IndexedDB.isAvailable = () => false;
+                                }
+                            } catch (e) {
+                                console.warn('停用 BrowserFS IndexedDB 失敗:', e);
+                            }
                             console.log('✅ Emularity 就緒！');
                             emularityReady = true;
                             resolve();
@@ -981,7 +1066,9 @@
                 gameScreenshot.style.cursor = 'pointer';
                 gameScreenshot.addEventListener('click', async () => {
                     if (!pendingStartGame) return;
-                    await startEmulator(pendingStartGame, pendingStartCanvas);
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('game', pendingStartGame.id);
+                    window.location.href = url.toString(); // 同頁重載，確保乾淨環境
                 });
             }
 
@@ -997,44 +1084,106 @@
                 return newCanvas;
             }
 
+            function clearBrowserFsEmuDir() {
+                if (!window.BrowserFS || !BrowserFS.BFSRequire) return;
+                try {
+                    const fs = BrowserFS.BFSRequire('fs');
+                    const path = BrowserFS.BFSRequire('path');
+                    const root = '/emulator';
+
+                    const removeRecursive = (dir) => {
+                        if (!fs.existsSync(dir)) return;
+                        fs.readdirSync(dir).forEach((entry) => {
+                            const target = path.join(dir, entry);
+                            const stat = fs.lstatSync(target);
+                            if (stat && stat.isDirectory && stat.isDirectory()) {
+                                removeRecursive(target);
+                            } else {
+                                fs.unlinkSync(target);
+                            }
+                        });
+                        if (dir !== root) {
+                            fs.rmdirSync(dir);
+                        }
+                    };
+
+                    removeRecursive(root);
+                    try {
+                        fs.mkdirSync(root, { recursive: true });
+                    } catch (e) {
+                        if (!fs.existsSync(root)) fs.mkdirSync(root);
+                    }
+                } catch (err) {
+                    console.warn('清理 BrowserFS 模擬器資料夾失敗:', err);
+                }
+            }
+
+            function resetEmulatorState(reason = 'switch') {
+                console.log(`🧹 清理模擬器狀態 (${reason})...`);
+                
+                if (currentEmulator) {
+                    try {
+                        currentEmulator.stop();
+                    } catch (err) {
+                        console.warn('停止模擬器時發生錯誤:', err);
+                    }
+                    currentEmulator = null;
+                }
+
+                // 清理 Emscripten/音訊殘留
+                try { window.Module = null; } catch (e) { }
+                try { delete window.SDL_PauseAudio; } catch (e) { }
+
+                // 清理 BrowserFS（可能會有 EIO，忽略即可）
+                clearBrowserFsEmuDir();
+
+                console.log('✅ 清理完成');
+            }
+
             async function startEmulator(game, canvas) {
                 if (!game) return;
 
-                // 清理之前的模擬器實例
-                if (currentEmulator) {
-                    console.log('🧹 清理之前的模擬器實例...');
-                    try {
-                        currentEmulator.stop();
-                        currentEmulator = null;
-                    } catch (err) {
-                        console.warn('清理模擬器時發生錯誤:', err);
-                    }
-                }
+                console.log(`\n======== 啟動模擬器: ${game.name} ========`);
+                
+                // 清理舊狀態
+                resetEmulatorState('start');
 
                 const newCanvas = canvas || recreateCanvas() || document.getElementById('canvas');
+                
+                // 確保 canvas 是乾淨的
+                if (newCanvas) {
+                    const ctx = newCanvas.getContext('2d');
+                    if (ctx) {
+                        ctx.clearRect(0, 0, newCanvas.width, newCanvas.height);
+                    }
+                }
 
                 try {
                     if (!emularityReady) await waitForEmularity();
 
-                    console.log(' Emularity 就緒');
-                    console.log('\n 初始化 MAME...');
+                    console.log('🎯 即將啟動遊戲:', {
+                        id: game.id,
+                        file: game.file,
+                        file2: game.file2,
+                        screenshot: game.screenshot
+                    });
 
-                    // 使用後端代理 URL
-                    // 重要：第二次載入時，Emscripten/MAME 會殘留全域狀態，先做最小 reset
-                    window.Module = null;
-                    try { delete window.SDL_PauseAudio; } catch (e) {}
+                    console.log('✅ Emularity 就緒');
+                    console.log('📦 初始化 MAME...');
 
-                    const mameJsUrl = `${SERVER_URL}/proxy/mame/mameapple2gs.js.gz?t=${Date.now()}`;
-                    const mameWasmUrl = `${SERVER_URL}/proxy/mame/mameapple2gs.wasm.gz?t=${Date.now()}`;
-                    const biosUrl = `${SERVER_URL}/proxy/bios/apple2gs.zip`;
-                    const gameUrl = `${SERVER_URL}/proxy/game/${game.id}/${game.file}?t=${Date.now()}`;
+                    // 使用後端代理 URL，每次都加上時間戳確保重新載入
+                    const timestamp = Date.now();
+                    const mameJsUrl = `${SERVER_URL}/proxy/mame/mameapple2gs.js.gz?t=${timestamp}`;
+                    const mameWasmUrl = `${SERVER_URL}/proxy/mame/mameapple2gs.wasm.gz?t=${timestamp}`;
+                    const biosUrl = `${SERVER_URL}/proxy/bios/apple2gs.zip?t=${timestamp}`;
+                    const gameUrl = `${SERVER_URL}/proxy/game/${game.id}/${game.file}?t=${timestamp}`;
 
-                    console.log('\n 使用後端代理:');
+                    console.log('\n📥 使用後端代理:');
                     console.log('   - MAME JS:', mameJsUrl);
                     console.log('   - MAME WASM:', mameWasmUrl);
                     console.log('   - BIOS:', biosUrl);
                     console.log('   - 遊戲:', gameUrl);
-                    console.log('\n 掛載到 emulator/ 目錄');
+                    console.log('📁 掛載到 emulator/ 目錄');
 
                     // 檢查是否有第二片磁片
                     const extraArgs = game.file2
@@ -1052,27 +1201,38 @@
                     ];
 
                     if (game.file2) {
-                        const game2Url = `${SERVER_URL}/proxy/game/${game.id}/${game.file2}?t=${Date.now()}`;
+                        const game2Url = `${SERVER_URL}/proxy/game/${game.id}/${game.file2}?t=${timestamp}`;
                         loaderArgs.push(
                             window.JSMAMELoader.mountFile(game.file2, window.JSMAMELoader.fetchFile('Game Disk 2', game2Url))
                         );
                     }
 
+                    console.log('🔧 建立 Emulator 實例...');
                     const emulator = new window.Emulator(
                         newCanvas,
                         null,
                         new window.JSMAMELoader(...loaderArgs)
                     );
 
+                    // 確保是全新的實例
                     currentEmulator = emulator;
+                    // 延後套用 mute，避免 Module 尚未就緒時觸發 ReferenceError
+                    setTimeout(() => {
+                        try {
+                            currentEmulator.setMute(uiMuted);
+                            updateMuteButton();
+                        } catch (e) {
+                            console.warn('套用靜音狀態時失敗，將略過:', e);
+                        }
+                    }, 500);
 
-                    currentEmulator.setMute(uiMuted);
-                    updateMuteButton();
+                    console.log('✅ 實例建立成功');
+                    console.log('🚀 啟動模擬器...');
 
-                    console.log(' 實例建立成功');
-                    console.log(' 啟動...');
-
+                    // 啟動模擬器
                     emulator.start();
+                    
+                    console.log('⏳ 模擬器啟動中，請稍候...');
 
                     setTimeout(() => {
                         const loadingTip = document.getElementById('loadingTip');
@@ -1101,6 +1261,8 @@
             async function loadGame(game, itemElement) {
                 console.log(`\n======== 載入: ${game.name} ========`);
 
+                resetEmulatorState('switch-game');
+
                 // 點列表只顯示資訊與擷圖，不立刻啟動模擬器
                 const newCanvas = recreateCanvas();
 
@@ -1110,6 +1272,21 @@
 
                 document.querySelectorAll('.game-item').forEach(el => el.classList.remove('active'));
                 itemElement.classList.add('active');
+
+                // 立即滾動到選中的遊戲項目（置中顯示）
+                const listRect = gameList.getBoundingClientRect();
+                const itemRect = itemElement.getBoundingClientRect();
+                const itemOffsetTop = itemElement.offsetTop;
+                const itemHeight = itemElement.offsetHeight;
+                const listHeight = gameList.clientHeight;
+                
+                // 計算讓項目置中的滾動位置
+                const targetScrollTop = itemOffsetTop - (listHeight / 2) + (itemHeight / 2);
+                
+                gameList.scrollTop = targetScrollTop;
+
+                // 記住滾動位置
+                sessionStorage.setItem('gameListScrollTop', gameList.scrollTop.toString());
 
                 welcomeScreen.style.display = 'none';
                 emulatorContainer.classList.add('active');
@@ -1136,19 +1313,9 @@
 
             function renderGames(filter = '') {
                 gameList.innerHTML = '';
-                const typeWeight = (type) => {
-                    switch (type) {
-                        case 'game': return 0;
-                        case 'edu': return 1;
-                        case 'tool': return 2;
-                        case 'special': return 3;
-                        default: return 9;
-                    }
-                };
-
                 const filtered = games.filter(g =>
-                    g.name.includes(filter) ||
-                    g.nameEn.toLowerCase().includes(filter.toLowerCase())
+                    String(g.name || '').includes(filter) ||
+                    String(g.nameEn || '').toLowerCase().includes(filter.toLowerCase())
                 ).sort((a, b) => {
                     const w = typeWeight(a.type) - typeWeight(b.type);
                     if (w !== 0) return w;
@@ -1168,6 +1335,7 @@
                     gameList.appendChild(item);
                 });
             }
+
 
             fullscreenBtn.onclick = () => {
                 if (!isFullscreen) {
@@ -1263,16 +1431,7 @@
 
             reloadBtn.onclick = () => {
                 if (currentGame) {
-                    // 清理之前的模擬器實例
-                    if (currentEmulator) {
-                        console.log('🔄 重新載入：清理之前的模擬器實例...');
-                        try {
-                            currentEmulator.stop();
-                            currentEmulator = null;
-                        } catch (err) {
-                            console.warn('清理模擬器時發生錯誤:', err);
-                        }
-                    }
+                    resetEmulatorState('reload');
                     loadGame(currentGame, document.querySelector('.game-item.active'));
                 }
             };
@@ -1330,8 +1489,50 @@
                 }
             });
 
+            function autoStartFromUrl() {
+                try {
+                    const params = new URLSearchParams(window.location.search);
+                    const gameId = params.get('game');
+                    if (!gameId) return;
+                    const game = games.find(g => g.id === gameId);
+                    if (!game) return;
+                    const item = document.querySelector(`.game-item[data-id="${game.id}"]`);
+                    if (!item) return;
+                    loadGame(game, item);
+                    startEmulator(game, document.getElementById('canvas'));
+                } catch (e) {
+                    console.warn('autoStartFromUrl 失敗:', e);
+                }
+            }
+
             renderGames();
             document.getElementById('totalCount').textContent = games.length;
+            
+            // 監聽手動滾動，記住位置
+            if (gameList) {
+                let scrollTimeout;
+                gameList.addEventListener('scroll', () => {
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        sessionStorage.setItem('gameListScrollTop', gameList.scrollTop.toString());
+                    }, 200);
+                });
+            }
+            
+            // 恢復上次的滾動位置（如果沒有從 URL 啟動）
+            const urlParams = new URLSearchParams(window.location.search);
+            const gameId = urlParams.get('game');
+            if (!gameId && gameList) {
+                const savedScrollTop = sessionStorage.getItem('gameListScrollTop');
+                if (savedScrollTop !== null) {
+                    // 延遲一下確保 DOM 已渲染
+                    setTimeout(() => {
+                        gameList.scrollTop = parseInt(savedScrollTop, 10);
+                    }, 100);
+                }
+            }
+            
+            autoStartFromUrl();
             console.log(`✅ 已載入 ${games.length} 款 Apple IIgs 軟體`);
         </script>
     </body>

@@ -41,6 +41,8 @@ An Apple IIgs game emulator web interface based on Internet Archive, bringing 80
 - **Three-column layout**: Game List | Emulator Screen | Instructions
 - **Draggable panels** - Adjust left/right panel widths for optimal display
 - **Real-time search** - Find games quickly
+- **Auto-scroll** - Menu automatically scrolls to selected game
+- **Remember position** - Menu scroll position is remembered and restored on next load
 - **Responsive design** - Supports desktop and tablet devices
 
 ### 🎯 Emulator Features

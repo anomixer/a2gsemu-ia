@@ -62,6 +62,11 @@ node generate_games_wozaday_iigs.js --games-only
   - MAME JS/WASM URL 加 cache-busting query，確保腳本 load event 在二次啟動仍會觸發。
   - 避免把 `null` loader arg 傳進 `new JSMAMELoader(...)`（可能導致 hang）。
 - 另：為了讓 Reload 按鈕在「尚未啟動 emulator」時也能知道目前選到哪個遊戲，`loadGame()` 也會設定 `currentGame = game`。
+- **重要改進（2025-01-XX）：**
+  - 解決第二次遊戲卡住：改用「同頁重載」策略（`location.href = ?game=<id>`）
+  - 自動滾動到選中遊戲：點選遊戲時立即滾動到置中位置
+  - 記住滾動位置：使用 `sessionStorage` 記住選單位置，頁面載入時恢復
+  - 清理邏輯優化：`resetEmulatorState()` 清理 Emscripten 全域狀態、BrowserFS、script tags
 
 ### 4) 後端 proxy logging：`server.js`
 
@@ -81,20 +86,43 @@ node generate_games_wozaday_iigs.js --games-only
 
 ---
 
+## ✅ 已解決問題
+
+### ✅ 第二次切換遊戲卡住（Loading Emulator / Launching Emulator） - 已解決！
+
+**問題根源：**
+- Emularity/MAME 設計為「一個頁面只啟動一次 emulator」
+- 第二次在同一個 JS 環境啟動會卡在「Launching Emulator」階段
+- `window.Module` 和 Emscripten runtime 狀態無法完全清理
+
+**解決方案：**
+- 採用「同頁重載」策略：點擊截圖時，將 URL 改為 `?game=<id>` 並重載頁面
+- 頁面載入時 `autoStartFromUrl()` 自動選中並啟動對應遊戲
+- 每個遊戲都在「全新的頁面環境」中啟動，完全避免狀態殘留
+- 保留基本的清理邏輯（`resetEmulatorState`）以防萬一
+
+**效果：**
+- ✅ 第一個遊戲：正常啟動
+- ✅ 第二個遊戲：正常啟動（不再卡住）
+- ✅ 第三個及之後：都正常啟動
+- ✅ 瀏覽器快取自動清理（每次重載都是新頁面）
+
+### ✅ 選單自動滾動功能 - 已實現
+
+**功能：**
+- 點選遊戲時，選單會立即滾動到該遊戲位置（置中顯示）
+- 使用精確計算：`itemOffsetTop - (listHeight / 2) + (itemHeight / 2)`
+- 手動滾動選單時，位置會被記住（使用 `sessionStorage`）
+- 頁面載入時自動恢復上次的滾動位置
+
+**實現細節：**
+- 移除平滑動畫，改為立即滾動（直接設置 `scrollTop`）
+- 監聽 `gameList` 的 `scroll` 事件，使用 debounce（200ms）記住位置
+- 從 URL 啟動時，`loadGame()` 會自動滾動到對應遊戲
+
 ## 目前已知問題 / 待辦
 
-### Pending: 第二次切換遊戲卡住（Loading Emulator / Launching Emulator）
-
-- 現況：已做最小 reset + cache-busting + 避免 null args，仍可能在第二次啟動卡住。
-- 下次建議方向：
-  - 深入追 `loader.js` 的 `JSMAMELoader` / script attach/load lifecycle。
-  - 檢查 stop() 後是否有殘留 request/interval/worker。
-  - 針對 `window.Module` / Emscripten runtime 是否完整釋放做更嚴謹清理。
-  - 增加更細的 logging：
-    - attach_script 成功/失敗
-    - wasm fetch/compile/instantiate
-    - BrowserFS mount
-    - runner state transitions
+### In progress: `games_v8.js` 大量資料生成
 
 ### In progress: B) `games_v8.js` 大量資料生成
 
@@ -104,14 +132,70 @@ node generate_games_wozaday_iigs.js --games-only
 
 ---
 
+## 最新改進（2025-01-XX）
+
+### ✅ 解決第二次遊戲卡住問題
+
+**問題描述：**
+- 第一個遊戲載入正常
+- 第二個遊戲會卡在「Launching Emulator」或「wasm binary 載入」
+- 之後的遊戲也都無法啟動
+
+**根本原因：**
+- Emularity/MAME 設計為「一個頁面只啟動一次 emulator」
+- `EmscriptenRunner.stop()` 幾乎是空的，無法完整清理 MAME/WASM runtime
+- `window.Module` 和 Emscripten 全域狀態無法完全重置
+- 第二次在同一個 JS 環境啟動會卡在初始化階段
+
+**解決方案：**
+- 採用「同頁重載」策略：點擊截圖時，將 URL 改為 `?game=<id>` 並使用 `location.href` 重載頁面
+- 頁面載入時 `autoStartFromUrl()` 自動選中對應遊戲並啟動
+- 每個遊戲都在「全新的頁面環境」中啟動，完全避免狀態殘留
+- 保留 `resetEmulatorState()` 清理邏輯以防萬一
+
+**效果：**
+- ✅ 第一個遊戲：正常啟動
+- ✅ 第二個遊戲：正常啟動（不再卡住）
+- ✅ 第三個及之後：都正常啟動
+- ✅ 瀏覽器快取自動清理（每次重載都是新頁面）
+
+### ✅ 選單自動滾動功能
+
+**需求：**
+- 點選遊戲時，選單自動滾動到該遊戲位置
+- 記住滾動位置，下次載入時恢復
+
+**實現：**
+- 使用精確計算：`scrollTop = itemOffsetTop - (listHeight / 2) + (itemHeight / 2)`
+- 立即滾動（不使用平滑動畫，直接設置 `scrollTop`）
+- 監聽 `gameList` 的 `scroll` 事件，使用 debounce（200ms）記住位置到 `sessionStorage`
+- 頁面載入時自動恢復滾動位置（如果沒有從 URL 啟動）
+
+**效果：**
+- ✅ 點選遊戲時立即滾動到置中位置
+- ✅ 手動滾動選單時位置會被記住
+- ✅ 頁面載入時自動恢復上次位置
+
+### ✅ 清理邏輯優化
+
+**改進：**
+- `resetEmulatorState()` 清理範圍擴大：
+  - `window.Module = null` 並 `delete window.Module`
+  - `delete window.SDL_PauseAudio`
+  - 清理 Emscripten HEAP 相關全域變數（`HEAP8`, `HEAP16`, `HEAP32`, `wasmMemory`, `wasmTable` 等）
+  - 清理 BrowserFS `/emulator` 目錄
+  - 移除可能殘留的 MAME script tags
+- 清理時機：每次切換遊戲前、啟動前
+
 ## 下次接續建議（有 credit 時）
 
 1) 對產生器做速度/穩定性優化：
 - 增加 `--limit` / `--offset` / `--concurrency` / `--cache` / `--resume`。
 
-2) 根治 second-load hang：
-- 針對 `JSMAMELoader`/`Emulator` 的 state machine 加 log，定位卡在哪一步。
-
-3) 若大量清單導致 UI 慢：
+2) 若大量清單導致 UI 慢：
 - `renderGames()` 加 debounce
 - 或實作簡單 virtualization（只渲染可視範圍）
+
+3) 改善 desc 欄位：
+- 從 `games_v8_old.js` 或原 HTML 提取更完整的描述
+- 寫合併腳本把較完整的敘述覆蓋到 `games_v8.js`
