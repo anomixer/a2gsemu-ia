@@ -1,4 +1,4 @@
-# a2gsemu-ia Agent Notes (2025-12-15)
+# a2gsemu-ia Agent Notes (2025-12-17)
 
 ## 今日目標/背景
 
@@ -199,3 +199,45 @@ node generate_games_wozaday_iigs.js --games-only
 3) 改善 desc 欄位：
 - 從 `games_v8_old.js` 或原 HTML 提取更完整的描述
 - 寫合併腳本把較完整的敘述覆蓋到 `games_v8.js`
+
+---
+
+## 最新改進（2025-12-17）
+
+### ✅ UI 操作說明更新
+
+**需求：**
+- 修正左邊搜尋功能（確認功能正常）
+- 移除右側操作說明中的 Ctrl 和 Alt 鍵
+- 新增搖桿控制說明
+- 讓標題可點擊回到 `/v8`
+
+**實現：**
+
+#### 1) 搜尋功能確認 ✅
+- 檢查 `index_emularity_v8.html` 的搜尋功能實現
+- 確認 `searchBox.addEventListener('input', (e) => { renderGames(e.target.value); })` 正常運作
+- `renderGames()` 函數正確過濾中文和英文遊戲名稱（大小寫不敏感）
+
+#### 2) 操作說明更新 ✅
+**修改檔案：**
+- `index_emularity_v8.html` (v8 後端代理版本)
+- `index.html` (前端版本)  
+- `index_en.html` (英文版本)
+
+**變更內容：**
+- 移除：`Ctrl` 開火/次要動作 和 `Alt` 替代按鈕
+- 新增：
+  - 中文版：「右邊數字鍵: 搖桿方向」和「左右Alt: 搖桿按鈕0,1」
+  - 英文版：「Numpad: Joystick directions」和「Left/Right Alt: Joystick buttons 0,1」
+
+#### 3) 標題連結功能 ✅
+- 將所有版本的標題 "Apple IIgs 線上模擬器 🎮" 包裝在 `<a href="/v8">` 標籤中
+- 添加 `text-decoration: none` 樣式保持外觀一致
+- 現在點擊標題會導航回 `/v8` 頁面
+
+**效果：**
+- ✅ 搜尋功能確認正常運作
+- ✅ 操作說明更清晰，移除不必要的按鍵說明
+- ✅ 新增搖桿控制說明，提升遊戲體驗
+- ✅ 標題可點擊，改善導航體驗
