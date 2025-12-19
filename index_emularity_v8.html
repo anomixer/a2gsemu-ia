@@ -1052,7 +1052,15 @@
             function showScreenshot(game) {
                 if (!gameScreenshot) return;
                 if (game && game.screenshot) {
-                    gameScreenshot.src = `${SERVER_URL}/proxy/game/${game.id}/${game.screenshot}?t=${Date.now()}`;
+                    // 檢查截圖是否為完整 URL (支援任何 HTTP/HTTPS URL)
+                    if (game.screenshot.startsWith('http://') || game.screenshot.startsWith('https://')) {
+                        // 完整 URL：使用 URL 編碼
+                        const encodedUrl = encodeURIComponent(game.screenshot);
+                        gameScreenshot.src = `${SERVER_URL}/proxy/url/${encodedUrl}?t=${Date.now()}`;
+                    } else {
+                        // 傳統格式
+                        gameScreenshot.src = `${SERVER_URL}/proxy/game/${game.id}/${game.screenshot}?t=${Date.now()}`;
+                    }
                 } else {
                     gameScreenshot.src = `https://archive.org/services/img/${game.id}`;
                 }
@@ -1173,24 +1181,42 @@
                     console.log('✅ Emularity 就緒');
                     console.log('📦 初始化 MAME...');
 
+                    // 輔助函數：構建檔案 URL
+                    function buildFileUrl(gameId, filename) {
+                        const timestamp = Date.now();
+                        
+                        // 檢查是否為完整 URL (支援任何 HTTP/HTTPS URL)
+                        if (filename && (filename.startsWith('http://') || filename.startsWith('https://'))) {
+                            // 完整 URL：使用 URL 編碼後的路徑
+                            const encodedUrl = encodeURIComponent(filename);
+                            return `${SERVER_URL}/proxy/url/${encodedUrl}?t=${timestamp}`;
+                        } else {
+                            // 傳統格式：itemId + filename
+                            return `${SERVER_URL}/proxy/game/${gameId}/${filename}?t=${timestamp}`;
+                        }
+                    }
+
                     // 使用後端代理 URL，每次都加上時間戳確保重新載入
                     const timestamp = Date.now();
                     const mameJsUrl = `${SERVER_URL}/proxy/mame/mameapple2gs.js.gz?t=${timestamp}`;
                     const mameWasmUrl = `${SERVER_URL}/proxy/mame/mameapple2gs.wasm.gz?t=${timestamp}`;
                     const biosUrl = `${SERVER_URL}/proxy/bios/apple2gs.zip?t=${timestamp}`;
-                    const gameUrl = `${SERVER_URL}/proxy/game/${game.id}/${game.file}?t=${timestamp}`;
+                    const gameUrl = buildFileUrl(game.id, game.file);
 
                     console.log('\n📥 使用後端代理:');
                     console.log('   - MAME JS:', mameJsUrl);
                     console.log('   - MAME WASM:', mameWasmUrl);
                     console.log('   - BIOS:', biosUrl);
                     console.log('   - 遊戲:', gameUrl);
+                    if (game.file2) {
+                        console.log('   - 遊戲 2:', buildFileUrl(game.id, game.file2));
+                    }
                     console.log('📁 掛載到 emulator/ 目錄');
 
                     // 檢查是否有第二片磁片
                     const extraArgs = game.file2
-                        ? ['-flop3', '/emulator/' + game.file, '-flop4', '/emulator/' + game.file2]
-                        : ['-flop3', '/emulator/' + game.file];
+                        ? ['-flop3', '/emulator/' + (game.file.split('/').pop() || game.file), '-flop4', '/emulator/' + (game.file2.split('/').pop() || game.file2)]
+                        : ['-flop3', '/emulator/' + (game.file.split('/').pop() || game.file)];
 
                     const loaderArgs = [
                         window.JSMAMELoader.driver('apple2gs'),
@@ -1198,14 +1224,14 @@
                         window.JSMAMELoader.emulatorJS(mameJsUrl),
                         window.JSMAMELoader.emulatorWASM(mameWasmUrl),
                         window.JSMAMELoader.extraArgs(extraArgs),
-                        window.JSMAMELoader.mountFile(game.file, window.JSMAMELoader.fetchFile('Game Disk', gameUrl)),
+                        window.JSMAMELoader.mountFile(game.file.split('/').pop() || game.file, window.JSMAMELoader.fetchFile('Game Disk', gameUrl)),
                         window.JSMAMELoader.mountFile('apple2gs.zip', window.JSMAMELoader.fetchFile('BIOS', biosUrl))
                     ];
 
                     if (game.file2) {
-                        const game2Url = `${SERVER_URL}/proxy/game/${game.id}/${game.file2}?t=${timestamp}`;
+                        const game2Url = buildFileUrl(game.id, game.file2);
                         loaderArgs.push(
-                            window.JSMAMELoader.mountFile(game.file2, window.JSMAMELoader.fetchFile('Game Disk 2', game2Url))
+                            window.JSMAMELoader.mountFile(game.file2.split('/').pop() || game.file2, window.JSMAMELoader.fetchFile('Game Disk 2', game2Url))
                         );
                     }
 

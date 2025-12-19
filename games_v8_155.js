@@ -43,7 +43,7 @@ window.games = [
     "desc": "這是一款快節奏的動作遊戲，玩家控制一個氣球在複雜的迷宮中冒險。遊戲以其獨特的物理引擎和挑戰性的關卡設計而著稱。由 Jason Harper 開發，MicroDeal 發行。Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "Jason Harper",
     "publisher": "MicroDeal",
-    "screenshot": "https://archive.org/download/wozaday_Airball_IIgs/00playable_screenshot.png"
+    "screenshot": "00_coverscreenshot.png"
   },
   {
     "id": "wozaday_Alien_Mind",
@@ -74,10 +74,9 @@ window.games = [
     "screenshot": "00playable_screenshot.png"
   },
   {
-    "id": "e2gs_0487_Ancient_Land_of_Ys_Disk_1",
+    "id": "a2gs_Ancient_Land_of_Ys_1989_Kyodai",
     "emu": "apple2gs",
-    "file": "0487_Ancient_Land_of_Ys_Disk_1.po",
-    "file2": "https://archive.org/download/e2gs_0488_Ancient_Land_of_Ys_Disk_2/0488_Ancient_Land_of_Ys_Disk_2.po",
+    "file": "Ancient_Land_of_Ys_1989_Kyodai.2mg",
     "name": "伊蘇古國",
     "nameEn": "Ancient Land of Ys",
     "year": "1989",
@@ -85,7 +84,7 @@ window.games = [
     "desc": "這是一款動作角色扮演遊戲，結合了快節奏的戰鬥和角色成長要素。經典的日式 RPG 作品，以其優美的音樂和引人入勝的故事情節而聞名。由 Designer Software 開發，Kyodai 發行。Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "Designer Software",
     "publisher": "Kyodai",
-    "screenshot": "https://www.video-games-museum.com/en/screenshots/Apple%20II%20GS/1/55909-title-Ancient-Land-of-Ys.jpg"
+    "screenshot": "00_coverscreenshot.png"
   },
   {
     "id": "wozaday_Arkanoid_II_IIgs",
@@ -111,7 +110,7 @@ window.games = [
     "desc": "Apple IIgs: As the Link Turns (1988)(Rogue Systems)(SW) 由 Parik Rao & Scott Pease (Rogue Systems) 製作。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "Parik Rao & Scott Pease (Rogue Systems)",
     "publisher": "",
-    "screenshot": "https://cdn.mobygames.com/screenshots/16854153-as-the-link-turns-operation-bug-apple-iigs-shooting-creatures.png"
+    "screenshot": "00_coverscreenshot.jpg"
   },
   {
     "id": "wozaday_Balance_of_Power_1990_IIgs",
@@ -131,7 +130,7 @@ window.games = [
     "emu": "apple2gs",
     "file": "Battle_Chess_1989_Interplay.2mg",
     "name": "戰鬥西洋棋",
-    "nameEn": "Battle Chess IIgs",
+    "nameEn": "Battle Chess",
     "year": "1989",
     "type": "game",
     "desc": "\"Battle Chess\" is a 1989 board game developed by Jim Sproul, Todd J. Camasta, Bruce Schlickbernd, Kurt Heiden, Bill (Weez) Dugan, Thomas R. Decker, Troy P. Worrell, Michael Quarles, Rebecca Heineman, and Alan Pavlish, and distributed by Interplay. It requires a 512K Apple IIgs. Battle Chess manual contains the information you need for the copy protection questions 這是一款棋類遊戲，電子化的傳統棋盤遊戲。 由 Rebecca Heineman 開發，Interplay Productions 發行。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 黃金時代的經典作品之一。",
@@ -140,9 +139,9 @@ window.games = [
     "screenshot": "00_coverscreenshot.jpg"
   },
   {
-    "id": "a2gs_Beyond_Zork_1988_Infocom",
+    "id": "wozaday_Beyond_Zork_IIgs",
     "emu": "apple2gs",
-    "file": "Beyond_Zork_1988_Infocom.2mg",
+    "file": "00playable.woz",
     "name": "Beyond Zork",
     "nameEn": "Beyond Zork",
     "year": "1988",
@@ -150,7 +149,7 @@ window.games = [
     "desc": "\"Beyond Zork: The Coconut of Quendor\" is a 1987 adventure game developed by Brian Moriarty and distributed by Infocom. This is revision 57 / 871221. It requires a 512K Apple IIgs ROM 00 or ROM 01. 由 Brian Moriarty 開發，Infocom 發行。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "Brian Moriarty",
     "publisher": "Infocom",
-    "screenshot": "https://upload.wikimedia.org/wikipedia/en/0/0a/Beyond_Zork_game_box_cover.jpg"
+    "screenshot": "00playable_screenshot.png"
   },
   {
     "id": "wozaday_Blackjack_Academy_IIgs",
@@ -240,7 +239,7 @@ window.games = [
     "desc": "Apple IIgs: Carte Primus (1989)(Manthey, David)(SW) 由 David Manthey 製作。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "David Manthey",
     "publisher": "",
-    "screenshot": "https://images.igdb.com/igdb/image/upload/t_720p/scdrts.jpg"
+    "screenshot": "00_coverscreenshot.jpg"
   },
   {
     "id": "wozaday_Cavern_Cobra_IIgs",
@@ -280,7 +279,7 @@ window.games = [
     "developer": "Antoine Vignau & Olivier Zardini (Brutal Deluxe)",
     "publisher": "",
     "file2": "Cogito_1992_Brutal_Deluxe_FW.2mg",
-    "screenshot": "https://www.brutaldeluxe.fr/images/coglog12.gif"
+    "screenshot": "00_coverscreenshot.png"
   },
   {
     "id": "wozaday_Columns_IIgs",
@@ -311,17 +310,17 @@ window.games = [
     "screenshot": "https://archive.org/download/wozaday_Gin_King_Cribbage_King_IIgs/00playable_screenshot.png"
   },
   {
-    "id": "a2gs_Crystal_Quest_1989_Cassidy_Greene",
+    "id": "wozaday_Crystal_Quest_IIgs",
     "emu": "apple2gs",
-    "file": "Crystal_Quest_1989_Cassidy__Greene.2mg",
+    "file": "00playable.woz",
     "name": "水晶任務",
-    "nameEn": "Crystal Quest IIgs",
+    "nameEn": "Crystal Quest",
     "year": "1989",
     "type": "game",
     "desc": "\"Crystal Quest\" is a 1989 action game developed by Patrick Buckland, Rebecca Heineman, Mike 'Jed' Patrick, and Scott Everts, and distributed by Cassidy & Greene. It requires a 512K Apple IIgs. 這是一款快節奏的動作遊戲，需要玩家具備良好的反應能力和操作技巧。 由 Rebecca Heineman 開發，Cassidy & Greene 發行。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "Rebecca Heineman",
     "publisher": "Cassidy & Greene",
-    "screenshot": "00_coverscreenshot.jpg"
+    "screenshot": "00playable_screenshot.png"
   },
   {
     "id": "wozaday_Dark_Castle_1989_09_22_IIgs",
@@ -431,7 +430,7 @@ window.games = [
     "desc": "這是一款革命性的即時角色扮演遊戲，採用第一人稱視角和即時戰鬥系統。玩家需要在地下城中探索、戰鬥並解決各種謎題。由 Don Jordan 開發，FTL 發行。Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "Don Jordan",
     "publisher": "FTL",
-    "screenshot": "00_coverscreenshot.jpg"
+    "screenshot": "00_coverscreenshot.png"
   },
   {
     "id": "wozaday_Fast_Break_IIgs",
@@ -581,9 +580,9 @@ window.games = [
     "screenshot": "00playable_screenshot.png"
   },
   {
-    "id": "a2gs_Hostage_1990_Mindscape",
+    "id": "wozaday_Hostage_Rescue_Mission_IIgs",
     "emu": "apple2gs",
-    "file": "Hostage_1990_Mindscape.2mg",
+    "file": "00playable.woz",
     "name": "Hostage",
     "nameEn": "Hostage",
     "year": "1990",
@@ -591,7 +590,7 @@ window.games = [
     "desc": "\"Hostage: Rescue Mission\" is a 1990 simulation game developed by Infogrames and distributed by Mindscape. It requires a 512K Apple IIgs. 由 Infogrames 開發，Mindscape 發行。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 後期的優秀作品。",
     "developer": "Infogrames",
     "publisher": "Mindscape",
-    "screenshot": "https://archive.org/download/wozaday_Hostage_Rescue_Mission_IIgs/00playable_screenshot.png"
+    "screenshot": "00playable_screenshot.png"
   },
   {
     "id": "wozaday_Hover_Blade_IIgs",
@@ -647,10 +646,9 @@ window.games = [
     "screenshot": "00_coverscreenshot.jpg"
   },
   {
-    "id": "wozaday_Keef_the_Thief_IIgs",
+    "id": "a2gs_Keef_the_Thief_1989_Electronic_Arts",
     "emu": "apple2gs",
-    "file": "https://archive.org/download/e2gs_0907_Keef_the_Thief_Disk_1/0907_Keef_the_Thief_Disk_1.po",
-	"file2": "https://archive.org/download/e2gs_0908_Keef_the_Thief_Disk_2/0908_Keef_the_Thief_Disk_2.po",
+    "file": "Keef_the_Thief_1989_Electronic_Arts.2mg",
     "name": "盜賊基夫",
     "nameEn": "Keef the Thief",
     "year": "1989",
@@ -658,13 +656,13 @@ window.games = [
     "desc": "這是一款幽默風趣的角色扮演遊戲，玩家扮演一名盜賊在奇幻世界中冒險。遊戲以其詼諧的對話和獨特的角色設定而著稱。由 Naughty Dog (Andy Gavin & Jason Rubin) 開發，Electronic Arts 發行。Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "Naughty Dog (Andy Gavin & Jason Rubin)",
     "publisher": "Electronic Arts",
-    "screenshot": "00playable_screenshot.png"
+    "file2": "Keef_the_Thief_1989_Electronic_Arts_Disk2.2mg",
+    "screenshot": "00_coverscreenshot.png"
   },
   {
     "id": "wozaday_Leisure_Suit_Larry_IIgs",
     "emu": "apple2gs",
-    "file": "https://archive.org/download/e2gs_0283_Leisure_Suit_Larry_Disk_1/0283_Leisure_Suit_Larry_Disk_1.po",
-    "file2": "https://archive.org/download/e2gs_0284_Leisure_Suit_Larry_Disk_2/0284_Leisure_Suit_Larry_Disk_2.po",
+    "file": "00playable.woz",
     "name": "Leisure Suit Larry in the Land of the Lounge Lizards IIgs",
     "nameEn": "Leisure Suit Larry in the Land of the Lounge Lizards IIgs",
     "year": "1987",
@@ -672,6 +670,7 @@ window.games = [
     "desc": "\"Leisure Suit Larry in the Land of the Lounge Lizards\" is a 1987 adventure game developed by Al Lowe and published by Sierra. It requires an Apple IIgs.",
     "developer": "Al Lowe",
     "publisher": "Sierra",
+    "file2": "00playable2.woz",
     "screenshot": "00playable_screenshot.png"
   },
   {

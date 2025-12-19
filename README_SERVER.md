@@ -12,6 +12,8 @@
 - ✅ **檔案快取** - 24 小時快取，加快載入速度
 - ✅ **Gzip 壓縮** - 減少頻寬使用
 - ✅ **直接存取 Archive.org** - 不需要第三方 CORS Proxy
+- ✅ **自訂 URL 支援** - 支援任何 HTTP/HTTPS URL 作為遊戲來源 🆕
+- ✅ **跨項目檔案** - 支援來自不同 Archive.org 項目的遊戲檔案 🆕
 - 🔊 **完整音效支援**
 
 ---
@@ -108,10 +110,259 @@ GET /proxy/game/:itemId/:filename
 例: /proxy/game/a2gs_Prince_of_Persia_1989_Broderbund/Prince_of_Persia_1989_Broderbund.2mg
 ```
 
+### 完整 URL 代理 🆕
+```
+GET /proxy/url/{encoded_full_url}
+例: /proxy/url/https%3A//archive.org/download/e2gs_0907_Keef_the_Thief_Disk_1/0907_Keef_the_Thief_Disk_1.po
+```
+
 ### MAME 引擎
 ```
 GET /proxy/mame/:filename
 例: /proxy/mame/mameapple2gs.js.gz
+```
+
+---
+
+## 🌐 自訂 URL 支援指南
+
+### 概述
+
+Apple IIgs 模擬器現在支援使用任何 HTTP/HTTPS URL 作為遊戲檔案和截圖的來源，不再限制於 Archive.org。這為用戶提供了極大的靈活性來託管和分享自己的遊戲收藏。
+
+### 支援的 URL 格式
+
+#### ✅ 支援的協議
+- `https://` - HTTPS URL（推薦，更安全）
+- `http://` - HTTP URL
+
+#### ❌ 不支援的協議
+- `ftp://` - FTP 協議
+- `file://` - 本地檔案
+- 其他非 HTTP/HTTPS 協議
+
+### 實際使用範例
+
+#### 1. 完全自訂 URL
+```javascript
+{
+    "id": "my_custom_game",
+    "emu": "apple2gs",
+    "file": "https://mywebsite.com/games/mygame.2mg",
+    "file2": "https://cdn.example.com/games/mygame_disk2.2mg",
+    "name": "我的自訂遊戲",
+    "nameEn": "My Custom Game",
+    "screenshot": "https://static.mygames.com/screenshots/mygame.jpg"
+}
+```
+
+#### 2. 混合格式（推薦）
+```javascript
+{
+    "id": "wozaday_SomeGame_IIgs",
+    "emu": "apple2gs",
+    "file": "00playable.woz",  // 傳統 Archive.org 格式
+    "file2": "https://myserver.com/disk2.woz",  // 自訂 URL
+    "screenshot": "https://cdn.example.com/screenshot.png"
+}
+```
+
+#### 3. 跨項目檔案（Archive.org）
+```javascript
+{
+    "id": "wozaday_Keef_the_Thief_IIgs",
+    "emu": "apple2gs",
+    "file": "https://archive.org/download/e2gs_0907_Keef_the_Thief_Disk_1/0907_Keef_the_Thief_Disk_1.po",
+    "file2": "https://archive.org/download/e2gs_0908_Keef_the_Thief_Disk_2/0908_Keef_the_Thief_Disk_2.po",
+    "screenshot": "https://archive.org/download/e2gs_0907_Keef_the_Thief_Disk_1/screenshot.png"
+}
+```
+
+### 使用場景
+
+#### 個人遊戲收藏
+將您的 Apple IIgs 遊戲檔案託管在個人網站或雲端儲存：
+
+```javascript
+{
+    "file": "https://mywebsite.com/apple2gs/collection/game.2mg",
+    "screenshot": "https://mywebsite.com/apple2gs/screenshots/game.jpg"
+}
+```
+
+#### CDN 加速
+使用 CDN 服務來加速遊戲檔案載入：
+
+```javascript
+{
+    "file": "https://cdn.example.com/games/apple2gs/game.woz",
+    "screenshot": "https://cdn.example.com/screenshots/game.png"
+}
+```
+
+#### 多來源整合
+整合來自��同來源的遊戲檔案：
+
+```javascript
+{
+    "file": "https://archive.org/download/project1/disk1.woz",
+    "file2": "https://myserver.com/games/disk2.woz",
+    "screenshot": "https://cdn.example.com/images/screenshot.jpg"
+}
+```
+
+### 技術細節
+
+#### 後端處理
+- 自動檢測 URL 格式（HTTP/HTTPS vs 傳統格式）
+- 基本 URL 驗證（只允許 HTTP/HTTPS 協議）
+- 透過代理伺服器處理 CORS 問題
+- 24 小時快取機制提升效能
+
+#### 前端處理
+- `buildFileUrl()` 函數智能檢測 URL 格式
+- `showScreenshot()` 函數支援任意 HTTP/HTTPS URL
+- 自動 URL 編碼處理特殊字符
+
+#### 安全性措施
+- 只允許 HTTP 和 HTTPS 協議
+- 拒絕其他協議（FTP、FILE 等）
+- 詳細的請求日誌記錄
+- 完整的錯誤處理和回報
+
+### 測試自訂 URL
+
+啟動伺服器後，檢查日誌以確認 URL 請求：
+
+```bash
+# 啟動伺服器
+npm start
+
+# 檢查日誌輸出
+✅ 成功：🌐 URL filename.woz [request-id] ✅ 1.2 MB (1500 ms)
+❌ 失敗：🌐 URL filename.woz [request-id] ❌ upstream HTTP 404
+🚫 拒絕：🚫 無效的 URL 格式: ftp://example.com/file.woz
+```
+
+### 注意事項
+
+1. **CORS 問題**：所有外部 URL 都會透過後端代理處理，自動解決 CORS 問題
+2. **檔案大小**：大型檔案可能需要較長的載入時間，建議使用 CDN
+3. **可用性**：確保您的 URL 是公開可訪問的，無需認證
+4. **快取**：檔案會被快取 24 小時以提升效能
+5. **格式支援**：支援 .woz、.2mg、.po、.dsk 等 Apple IIgs 磁片格式
+
+### 未來擴展計劃
+
+- 支援認證 URL（需要帳號密碼的資源）
+- 支援更多檔案格式和壓縮格式
+- 優化大型檔案的串流載入
+- 增加檔案完整性驗證（MD5/SHA256）
+- 支援磁片映像檔的即時轉換
+
+---
+
+## 🌐 完整 URL 支援（技術實現）
+
+### 問題背景
+
+某些遊戲的磁碟檔案被分散在不同的 Archive.org 項目中，例如：
+
+- **Keef the Thief 第一片**: `https://archive.org/download/e2gs_0907_Keef_the_Thief_Disk_1/0907_Keef_the_Thief_Disk_1.po`
+- **Keef the Thief 第二片**: `https://archive.org/download/e2gs_0908_Keef_the_Thief_Disk_2/0908_Keef_the_Thief_Disk_2.po`
+
+傳統的 `itemId + filename` 格式無法處理這種跨項目的檔案結構。
+
+### 支援的檔案格式
+
+#### 1. 傳統格式（繼續支援）
+```javascript
+{
+    "id": "wozaday_Tetris_IIgs",
+    "file": "00playable.woz",
+    "file2": "00playable2.woz"  // 可選
+}
+```
+
+#### 2. 完整 URL 格式（新支援）
+```javascript
+{
+    "id": "wozaday_Keef_the_Thief_IIgs",
+    "file": "https://archive.org/download/e2gs_0907_Keef_the_Thief_Disk_1/0907_Keef_the_Thief_Disk_1.po",
+    "file2": "https://archive.org/download/e2gs_0908_Keef_the_Thief_Disk_2/0908_Keef_the_Thief_Disk_2.po",
+    "screenshot": "https://example.com/screenshots/custom_screenshot.png"  // 支援任何 HTTP/HTTPS URL
+}
+```
+
+#### 3. 混合格式（也支援）
+```javascript
+{
+    "id": "some_game_id",
+    "file": "disk1.woz",  // 傳統格式
+    "file2": "https://myserver.com/games/disk2.woz",  // 任何 HTTP/HTTPS URL
+    "screenshot": "https://cdn.example.com/images/game_screenshot.png"  // 截圖完整 URL
+}
+```
+
+#### 4. 用戶自訂 URL（未來擴展）
+```javascript
+{
+    "id": "custom_game",
+    "file": "https://mywebsite.com/apple2gs/mygame.2mg",
+    "file2": "https://cdn.gamefiles.net/apple2gs/mygame_disk2.2mg",
+    "screenshot": "https://static.mygames.com/screenshots/mygame.jpg"
+}
+```
+
+### 後端實現 (server.js)
+
+```javascript
+// URL 驗證函數
+function isValidUrl(urlString) {
+    try {
+        const url = new URL(urlString);
+        return url.protocol === 'http:' || url.protocol === 'https:';
+    } catch (err) {
+        return false;
+    }
+}
+
+// 支援完整 URL 的檔案代理
+app.get('/proxy/url/*', async (req, res) => {
+    const fullUrl = req.params[0];
+    
+    if (!isValidUrl(fullUrl)) {
+        return res.status(400).send('Invalid URL format');
+    }
+    
+    // 代理請求...
+});
+```
+
+### 前端實現 (index_emularity_v8.html)
+
+```javascript
+// 智能 URL 構建
+function buildFileUrl(gameId, filename) {
+    if (filename && (filename.startsWith('http://') || filename.startsWith('https://'))) {
+        // 完整 URL：使用代理
+        const encodedUrl = encodeURIComponent(filename);
+        return `${SERVER_URL}/proxy/url/${encodedUrl}?t=${Date.now()}`;
+    } else {
+        // 傳統格式
+        return `${SERVER_URL}/proxy/game/${gameId}/${filename}?t=${Date.now()}`;
+    }
+}
+
+// 截圖支援
+function showScreenshot(game) {
+    if (game.screenshot && (game.screenshot.startsWith('http://') || game.screenshot.startsWith('https://'))) {
+        const encodedUrl = encodeURIComponent(game.screenshot);
+        gameScreenshot.src = `${SERVER_URL}/proxy/url/${encodedUrl}?t=${Date.now()}`;
+    } else {
+        gameScreenshot.src = `${SERVER_URL}/proxy/game/${game.id}/${game.screenshot}?t=${Date.now()}`;
+    }
+}
 ```
 
 ---
@@ -195,11 +446,32 @@ node generate_games_wozaday_iigs.js --games-only
 
 - `id`：Archive.org item identifier（例：`wozaday_Hardball_IIgs`）
 - `emu`：模擬器類型（例：`apple2gs`）
-- `file`：主要磁片檔（通常是 `00playable.woz`，或 metadata 的 `mame_peripheral_flop3`）
-- `file2`：第二片磁片（若存在，對應 `mame_peripheral_flop4`）
-- `screenshot`：截圖檔（通常是 `00playable_screenshot.png`）
+- `file`：主要磁片檔（支援兩種格式）
+  - 傳統格式：`00playable.woz`（相對於 `id` 項目）
+  - 完整 URL：`https://archive.org/download/項目名/檔案名`
+- `file2`：第二片磁片（若存在，同樣支援兩種格式）
+- `screenshot`：截圖檔（支援兩種格式）
 - `type`：`game` / `edu` / `tool` / `special`
 - `desc`：描述（目前先使用 Archive.org description）
+
+#### 檔案格式範例
+
+**傳統格式**：
+```javascript
+{
+    "id": "wozaday_Tetris_IIgs",
+    "file": "00playable.woz"
+}
+```
+
+**完整 URL 格式**（用於跨項目檔案）：
+```javascript
+{
+    "id": "wozaday_Keef_the_Thief_IIgs",
+    "file": "https://archive.org/download/e2gs_0907_Keef_the_Thief_Disk_1/0907_Keef_the_Thief_Disk_1.po",
+    "file2": "https://archive.org/download/e2gs_0908_Keef_the_Thief_Disk_2/0908_Keef_the_Thief_Disk_2.po"
+}
+```
 
 ---
 

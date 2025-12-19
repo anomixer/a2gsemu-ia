@@ -23,6 +23,17 @@ function logProxyRequestStart(reqId, label, req, url) {
     if (range) console.log(`   Range: ${range}`);
 }
 
+// 基本 URL 驗證函數
+function isValidUrl(urlString) {
+    try {
+        const url = new URL(urlString);
+        // 只允許 HTTP 和 HTTPS 協議
+        return url.protocol === 'http:' || url.protocol === 'https:';
+    } catch (err) {
+        return false;
+    }
+}
+
 async function proxyFetchBuffer({ req, res, label, url, contentType }) {
     const reqId = makeReqId();
     const t0 = Date.now();
@@ -98,17 +109,62 @@ app.get('/proxy/bios/:filename', async (req, res) => {
     });
 });
 
-app.get('/proxy/game/:itemId/:filename', async (req, res) => {
-    const { itemId, filename } = req.params;
-    const url = `https://archive.org/download/${itemId}/${filename}`;
+// 支援完整 URL 的檔案代理
+app.get('/proxy/url/*', async (req, res) => {
+    // 從路徑中提取完整 URL
+    const fullUrl = req.params[0];
+    
+    // 基本 URL 驗證
+    if (!isValidUrl(fullUrl)) {
+        console.error(`🚫 無效的 URL 格式: ${fullUrl}`);
+        return res.status(400).send('Invalid URL format');
+    }
 
-    console.log(`   itemId: ${itemId}`);
+    const filename = fullUrl.split('/').pop();
+    console.log(`   Full URL: ${fullUrl}`);
+    
     return proxyFetchBuffer({
         req,
         res,
-        label: `🎮 GAME ${filename}`,
-        url
+        label: `🌐 URL ${filename}`,
+        url: fullUrl
     });
+});
+
+app.get('/proxy/game/:itemId/:filename', async (req, res) => {
+    const { itemId, filename } = req.params;
+    
+    // 檢查 filename 是否為完整 URL
+    if (filename.startsWith('http://') || filename.startsWith('https://')) {
+        // 如果是完整 URL，驗證格式並直接使用
+        if (!isValidUrl(filename)) {
+            console.error(`🚫 無效的 URL 格式: ${filename}`);
+            return res.status(400).send('Invalid URL format');
+        }
+        
+        const actualFilename = filename.split('/').pop();
+        
+        console.log(`   itemId: ${itemId} (ignored for full URL)`);
+        console.log(`   Full URL: ${filename}`);
+        
+        return proxyFetchBuffer({
+            req,
+            res,
+            label: `🎮 GAME ${actualFilename}`,
+            url: filename
+        });
+    } else {
+        // 傳統格式：itemId + filename
+        const url = `https://archive.org/download/${itemId}/${filename}`;
+        
+        console.log(`   itemId: ${itemId}`);
+        return proxyFetchBuffer({
+            req,
+            res,
+            label: `🎮 GAME ${filename}`,
+            url
+        });
+    }
 });
 
 // 代理 MAME 檔案
