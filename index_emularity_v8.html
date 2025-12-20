@@ -322,15 +322,15 @@
 
         #gameScreenshot {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
-            bottom: 10px;
-            width: calc(100% - 20px);
-            height: calc(100% - 20px);
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
             background: #000;
-            border: 2px solid #4CAF50;
+            border: none;
             border-radius: 5px;
             z-index: 5;
             image-rendering: pixelated;
@@ -344,9 +344,9 @@
         #canvas {
             display: block;
             margin: 0 auto;
-            min-width: 640px;
-            min-height: 480px;
-            border: 2px solid #4CAF50;
+            width: 704px;
+            height: 462px;
+            border: none;
             border-radius: 5px;
             box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
             image-rendering: pixelated;
@@ -673,9 +673,9 @@
 
         #canvas {
             display: block;
-            width: 880px;
-            height: 580px;
-            border: 2px solid #4CAF50;
+            width: 704px;
+            height: 462px;
+            border: none;
             border-radius: 5px;
             box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
             image-rendering: pixelated;
@@ -894,6 +894,8 @@
             const muteBtn = document.getElementById('muteBtn');
 
             let uiMuted = false;
+            let isMouseLocked = false;
+            let originalTitle = '';
 
             const typeWeight = (type) => {
                 switch (type) {
@@ -1091,7 +1093,56 @@
                 newCanvas.id = 'canvas';
                 oldCanvas.remove();
                 parent.appendChild(newCanvas);
+                
+                // 添加滑鼠鎖定功能
+                setupMouseLock(newCanvas);
+                
                 return newCanvas;
+            }
+
+            // 設定滑鼠鎖定功能
+            function setupMouseLock(canvas) {
+                if (!canvas) return;
+                
+                // 點擊 canvas 時鎖定滑鼠
+                canvas.addEventListener('click', function() {
+                    if (!isMouseLocked) {
+                        canvas.requestPointerLock();
+                    }
+                });
+                
+                // 監聽滑鼠鎖定狀態變化
+                document.addEventListener('pointerlockchange', function() {
+                    if (document.pointerLockElement === canvas) {
+                        isMouseLocked = true;
+                        updateTitleWithMouseHint();
+                    } else {
+                        isMouseLocked = false;
+                        restoreOriginalTitle();
+                    }
+                });
+                
+                // 監聽 Esc 鍵解鎖滑鼠
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && isMouseLocked) {
+                        document.exitPointerLock();
+                    }
+                });
+            }
+
+            // 更新標題顯示滑鼠提示
+            function updateTitleWithMouseHint() {
+                if (gameTitleBar && currentGame) {
+                    originalTitle = `${currentGame.name} (${currentGame.nameEn})`;
+                    gameTitleBar.innerHTML = `${originalTitle} - <span style="color: #FFD700;">按 Esc 鍵恢復滑鼠游標</span>`;
+                }
+            }
+
+            // 恢復原始標題
+            function restoreOriginalTitle() {
+                if (gameTitleBar && originalTitle) {
+                    gameTitleBar.textContent = originalTitle;
+                }
             }
 
             function clearBrowserFsEmuDir() {
@@ -1220,7 +1271,7 @@
 
                     const loaderArgs = [
                         window.JSMAMELoader.driver('apple2gs'),
-                        window.JSMAMELoader.nativeResolution(880, 580),
+                        window.JSMAMELoader.nativeResolution(704, 462),
                         window.JSMAMELoader.emulatorJS(mameJsUrl),
                         window.JSMAMELoader.emulatorWASM(mameWasmUrl),
                         window.JSMAMELoader.extraArgs(extraArgs),
@@ -1269,6 +1320,10 @@
                     }, 3000);
 
                     gameTitleBar.textContent = `${game.name} (${game.nameEn})`;
+                    
+                    // 設定滑鼠鎖定功能
+                    setupMouseLock(newCanvas);
+                    
                     console.log(` 成功: ${game.name}`);
                     console.log(' 聲音正常！');
 
@@ -1423,15 +1478,34 @@
                     if (rightResizer) rightResizer.style.display = 'none';
                     if (infoPanel) infoPanel.style.display = 'none';
 
-                    // 讓 canvas 填滿整個螢幕
+                    // 讓 canvas 按 704x462 等比例放大到全螢幕
                     const canvas = document.querySelector('#canvas');
                     if (canvas) {
+                        const aspectRatio = 704 / 462; // 原始比例
+                        const screenWidth = window.innerWidth;
+                        const screenHeight = window.innerHeight;
+                        const screenAspectRatio = screenWidth / screenHeight;
+                        
+                        let canvasWidth, canvasHeight;
+                        
+                        if (screenAspectRatio > aspectRatio) {
+                            // 螢幕比較寬，以高度為準
+                            canvasHeight = screenHeight;
+                            canvasWidth = canvasHeight * aspectRatio;
+                        } else {
+                            // 螢幕比較高，以寬度為準
+                            canvasWidth = screenWidth;
+                            canvasHeight = canvasWidth / aspectRatio;
+                        }
+                        
                         canvas.style.position = 'fixed';
-                        canvas.style.top = '0';
-                        canvas.style.left = '0';
-                        canvas.style.width = '100vw';
-                        canvas.style.height = '100vh';
+                        canvas.style.top = '50%';
+                        canvas.style.left = '50%';
+                        canvas.style.width = canvasWidth + 'px';
+                        canvas.style.height = canvasHeight + 'px';
+                        canvas.style.transform = 'translate(-50%, -50%)';
                         canvas.style.zIndex = '9999';
+                        // 移除綠框
                         canvas.style.border = 'none';
                     }
                 } else {
@@ -1451,6 +1525,7 @@
                         canvas.style.left = '';
                         canvas.style.width = '';
                         canvas.style.height = '';
+                        canvas.style.transform = '';
                         canvas.style.zIndex = '';
                         canvas.style.border = '';
                     }

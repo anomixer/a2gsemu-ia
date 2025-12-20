@@ -1,8 +1,7 @@
 /**
  * Apple IIgs 遊戲庫
- * 生成時間: 2025/12/19 下午10:05:14
- * 遊戲數量: 155
- * 新增遊戲: 76
+ * 生成時間: 2025/12/21 上午01:02:02
+ * 遊戲數量: 122
  */
 
 window.games = [
@@ -716,19 +715,6 @@ window.games = [
     "screenshot": "00_coverscreenshot.jpg"
   },
   {
-    "id": "wozaday_Mancala_IIgs",
-    "emu": "apple2gs",
-    "file": "00playable.woz",
-    "name": "Mancala",
-    "nameEn": "Mancala",
-    "year": "1988",
-    "type": "game",
-    "desc": "\"Mancala\" is a 1988 board game developed by Jarek Olszewski, Maciej Markuszewski, Marcin Szostakowski, and Dorota Błaszczak, and distributed by Calfornia Dreams. It requires a 512K Apple IIgs. 這是一款棋類遊戲，電子化的傳統棋盤遊戲。 由 Logical Design Works 開發，California Dreams 發行。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 黃金時代的經典作品之一。",
-    "developer": "Logical Design Works",
-    "publisher": "California Dreams",
-    "screenshot": "00playable_screenshot.png"
-  },
-  {
     "id": "a2gs_Mancala_1988_California_Dreams",
     "emu": "apple2gs",
     "file": "Mancala_1988_California_Dreams.2mg",
@@ -739,21 +725,7 @@ window.games = [
     "desc": "\"Mancala\" is a 1988 board game developed by Logical Design Works and published by California Dreams. It requires an Apple IIgs.",
     "developer": "Logical Design Works",
     "publisher": "California Dreams",
-    "screenshot": "00_coverscreenshot.jpg"
-  },
-  {
-    "id": "a2gs_Manhunter_New_York_1988_Sierra",
-    "emu": "apple2gs",
-    "file": "Manhunter_New_York_1988_Sierra.2mg",
-    "name": "獵人：紐約",
-    "nameEn": "Manhunter: New York",
-    "year": "1988",
-    "type": "game",
-    "desc": "這是一款冒險遊戲，設定在被外星人佔領的未來紐約。玩家需要探索世界、解決謎題並推進劇情。遊戲以其黑暗的科幻氛圍和複雜的謎題而著稱。由 Dave, Barry and Dee Dee Murray 開發，Sierra 發行。Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。這是 Apple IIgs 黃金時代的經典作品之一。",
-    "developer": "Dave, Barry and Dee Dee Murray",
-    "publisher": "Sierra",
-    "file2": "Manhunter_New_York_1988_Sierra_Disk2.2mg",
-    "screenshot": "00_coverscreenshot.png"
+    "screenshot": "https://archive.org/download/wozaday_Mancala_IIgs/00playable_screenshot.png"
   },
   {
     "id": "wozaday_Marble_Madness_IIgs",
@@ -766,7 +738,7 @@ window.games = [
     "desc": "\"Marble Madness\" is a 1988 action game developed by Will Harvey and published by Electronic Arts. It requires an Apple IIgs.",
     "developer": "Will Harvey",
     "publisher": "Electronic Arts",
-    "screenshot": "00playable_screenshot.png"
+    "screenshot": "https://archive.org/download/wozaday_Marble_Madness/00playable_screenshot.png"
   },
   {
     "id": "wozaday_Mazer_II_IIgs",
@@ -783,36 +755,9 @@ window.games = [
     "screenshot": "00playable_screenshot.png"
   },
   {
-    "id": "wozaday_Mean_18_IIgs",
-    "emu": "apple2gs",
-    "file": "00playable.woz",
-    "name": "Mean 18 IIgs",
-    "nameEn": "Mean 18 IIgs",
-    "year": "1987",
-    "type": "game",
-    "desc": "\"Mean 18\" is a 1987 sports game developed by Mark Lesser & Micro Smiths and published by Accolade. It requires an Apple IIgs.",
-    "developer": "Mark Lesser & Micro Smiths",
-    "publisher": "Accolade",
-    "screenshot": "00playable_screenshot.png"
-  },
-  {
-    "id": "a2gs_Milestones_2000_1990_Franklin_Ken_FW",
-    "emu": "apple2gs",
-    "file": "SystemDisk.2mg",
-    "name": "Milestones 2000",
-    "nameEn": "Milestones 2000",
-    "year": "1990",
-    "type": "game",
-    "desc": "Apple IIgs: Milestones 2000 (1990)(Franklin, Ken)(FW) 由 Ken Franklin 製作。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 後期的優秀作品。",
-    "developer": "Ken Franklin",
-    "publisher": "",
-    "file2": "Milestones_2000_1990_Franklin_Ken_FW.2mg",
-    "screenshot": "00_coverscreenshot.png"
-  },
-  {
     "id": "wozaday_Mini_Putt_IIgs",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "https://archive.org/download/a2gs_Mini_Putt_The_Ultimate_Challenge_1988_Accolade/Mini_Putt_The_Ultimate_Challenge_1988_Accolade.2mg",
     "name": "Mini-Putt IIgs",
     "nameEn": "Mini-Putt IIgs",
     "year": "1988",
@@ -839,7 +784,7 @@ window.games = [
   {
     "id": "wozaday_Monte_Carlo_IIgs",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "https://archive.org/download/a2gs_Monte_Carlo_1988_PBI_Software/Monte_Carlo_1988_PBI_Software.2mg",
     "name": "Monte Carlo IIgs",
     "nameEn": "Monte Carlo IIgs",
     "year": "1987",
@@ -850,9 +795,9 @@ window.games = [
     "screenshot": "00playable_screenshot.png"
   },
   {
-    "id": "wozaday_Neuromancer_IIgs",
+    "id": "a2gs_Neuromancer_1989_Interplay",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "Neuromancer_1989_Interplay.2mg",
     "name": "Neuromancer IIgs",
     "nameEn": "Neuromancer IIgs",
     "year": "1989",
@@ -860,12 +805,12 @@ window.games = [
     "desc": "\"Neuromancer\" is a 1989 adventure game developed by Rebecca Heineman and published by Interplay Productions. It requires an Apple IIgs.",
     "developer": "Rebecca Heineman",
     "publisher": "Interplay Productions",
-    "screenshot": "00playable_screenshot.png"
+    "screenshot": "00_coverscreenshot.jpg"
   },
   {
-    "id": "wozaday_Omega_IIgs",
+    "id": "a2gs_Omega_1990_Origin",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "Omega_1990_Origin.2mg",
     "name": "Omega IIgs",
     "nameEn": "Omega IIgs",
     "year": "1990",
@@ -873,33 +818,7 @@ window.games = [
     "desc": "\"Omega\" is a 1990 simulation game developed by Micro Magic and published by Origin. It requires an Apple IIgs.",
     "developer": "Micro Magic",
     "publisher": "Origin",
-    "screenshot": "00playable_screenshot.png"
-  },
-  {
-    "id": "a2gs_One_Arm_Battle_1990_Franklin_Ken_FW",
-    "emu": "apple2gs",
-    "file": "One_Arm_Battle_1990_Franklin_Ken_FW.2mg",
-    "name": "One Arm Battle",
-    "nameEn": "One Arm Battle",
-    "year": "1990",
-    "type": "game",
-    "desc": "Apple IIgs: One Arm Battle (1990)(Franklin, Ken)(FW) 由 Ken Franklin 製作。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 後期的優秀作品。",
-    "developer": "Ken Franklin",
-    "publisher": "",
     "screenshot": "00_coverscreenshot.jpg"
-  },
-  {
-    "id": "a2gs_Out_of_This_World_1992_Interplay",
-    "emu": "apple2gs",
-    "file": "Out_of_This_World_1992_Interplay.2mg",
-    "name": "異世界",
-    "nameEn": "Out of this World",
-    "year": "1992",
-    "type": "game",
-    "desc": "這是一款動作冒險遊戲，以其電影般的敘事和獨特的美術風格而聞名。玩家扮演一名科學家，意外傳送到外星世界後必須生存下去。由 Rebecca Heineman 開發，Interplay Productions 發行。Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。這是 Apple IIgs 後期的優秀作品。",
-    "developer": "Rebecca Heineman",
-    "publisher": "Interplay Productions",
-    "screenshot": "00_coverscreenshot.png"
   },
   {
     "id": "wozaday_Panzer_Battles_IIgs",
@@ -929,9 +848,9 @@ window.games = [
     "screenshot": "00_coverscreenshot.jpg"
   },
   {
-    "id": "wozaday_Pipe_Dream_IIgs",
+    "id": "a2gs_Pipe_Dream_1990_Lucasfilm_Games",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "Pipe_Dream_1990_Lucasfilm_Games.2mg",
     "name": "Pipe Dream IIgs",
     "nameEn": "Pipe Dream IIgs",
     "year": "1990",
@@ -939,7 +858,7 @@ window.games = [
     "desc": "\"Pipe Dream\" is a 1990 puzzle game developed by Visual Concepts and published by Lucasfilm Games. It requires an Apple IIgs.",
     "developer": "Visual Concepts",
     "publisher": "Lucasfilm Games",
-    "screenshot": "00playable_screenshot.png"
+    "screenshot": "00_coverscreenshot.jpg"
   },
   {
     "id": "a2gs_Pirates_1988_Microprose",
@@ -955,36 +874,10 @@ window.games = [
     "screenshot": "00_coverscreenshot.png"
   },
   {
-    "id": "a2gs_Plotting_1991_Once_Product_SW_a_non_boot",
-    "emu": "apple2gs",
-    "file": "Plotting_1991_Once_Product_SW_a_non_boot.2mg",
-    "name": "Plotting",
-    "nameEn": "Plotting",
-    "year": "1991",
-    "type": "game",
-    "desc": "Apple IIgs: Plotting (1991)(Once Product)(SW)[a][non boot] 這是一款快節奏的動作遊戲，需要玩家具備良好的反應能力和操作技巧。 由 Once Product (Philippe Leclercq) 製作。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 後期的優秀作品。",
-    "developer": "Once Product (Philippe Leclercq)",
-    "publisher": "",
-    "screenshot": "00_coverscreenshot.jpg"
-  },
-  {
-    "id": "a2gs_Plunder_1990_Franklin_Ken_FW",
-    "emu": "apple2gs",
-    "file": "SystemDisk.2mg",
-    "name": "Plunder!",
-    "nameEn": "Plunder!",
-    "year": "1990",
-    "type": "game",
-    "desc": "Apple IIgs: Plunder (1990)(Franklin, Ken)(FW) 由 Ken Franklin 製作。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 後期的優秀作品。",
-    "developer": "Ken Franklin",
-    "publisher": "",
-    "file2": "Plunder_1990_Franklin_Ken_FW.2mg",
-    "screenshot": "00_coverscreenshot.png"
-  },
-  {
     "id": "wozaday_Police_Quest_IIgs",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "https://archive.org/download/e2gs_0334_Police_Quest_DIsk_1/0334_Police_Quest_DIsk_1.po",
+    "file2": "https://archive.org/download/e2gs_0335_Police_Quest_Disk_2/0335_Police_Quest_Disk_2.po",
     "name": "Police Quest IIgs",
     "nameEn": "Police Quest IIgs",
     "year": "1987",
@@ -992,13 +885,12 @@ window.games = [
     "desc": "\"Police Quest\" is a 1987 adventure game developed by Jim Walls and published by Sierra. It requires an Apple IIgs.",
     "developer": "Jim Walls",
     "publisher": "Sierra",
-    "file2": "00playable2.woz",
     "screenshot": "00playable_screenshot.png"
   },
   {
     "id": "wozaday_Qix_IIgs",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "https://archive.org/download/a2gs_Qix_1990_Taito_US/Qix_1990_Taito_US.2mg",
     "name": "Qix IIgs",
     "nameEn": "Qix IIgs",
     "year": "1990",
@@ -1022,9 +914,9 @@ window.games = [
     "screenshot": "00_coverscreenshot.png"
   },
   {
-    "id": "wozaday_Questron_II_IIgs",
+    "id": "a2gs_Questron_II_1988_SSI",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "Questron_II_1988_SSI.2mg",
     "name": "Questron II",
     "nameEn": "Questron II",
     "year": "1988",
@@ -1032,7 +924,7 @@ window.games = [
     "desc": "\"Questron II\" is a 1988 roleplaying game developed by Westwood Associates and distributed by Strategic Simulations, Inc. This is version 1.1. It requires a 512K Apple IIgs. 這是一款角色扮演遊戲，玩家可以培養角色、學習技能並體驗豐富的故事情節。 由 Westwood 開發，Strategic Simulations 發行。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "Westwood",
     "publisher": "Strategic Simulations",
-    "screenshot": "00playable_screenshot.png"
+    "screenshot": "00_coverscreenshot.jpg"
   },
   {
     "id": "wozaday_Rastan",
@@ -1049,9 +941,9 @@ window.games = [
     "screenshot": "00playable_screenshot.png"
   },
   {
-    "id": "wozaday_Reach_for_the_Stars_IIgs",
+    "id": "a2gs_Reach_For_The_Stars_1988_SSG",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "Reach_For_The_Stars_1988_SSG.2mg",
     "name": "Reach for the Stars",
     "nameEn": "Reach for the Stars",
     "year": "1988",
@@ -1059,26 +951,12 @@ window.games = [
     "desc": "\"Reach for the Stars\" is a 1988 simulation game developed by Roger Keating, Ian Trout, and Allan Bell, and distributed by Strategic Studies Group. It requires a 512K Apple IIgs. 由 Roger Keating & Ian Trout 開發，Strategic Studies Group 發行。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "Roger Keating & Ian Trout",
     "publisher": "Strategic Studies Group",
-    "screenshot": "00playable_screenshot.png"
-  },
-  {
-    "id": "wozaday_Revolution_76_IIgs",
-    "emu": "apple2gs",
-    "file": "00playable.woz",
-    "name": "Revolution '76",
-    "nameEn": "Revolution '76",
-    "year": "1989",
-    "type": "game",
-    "desc": "\"Revolution '76\" is a 1988 strategy game developed by Edward Bever, Patricia Bever, Susan Barr, Sandra Lakin, David Craft, Andy Kanakares, and Ezra Sidran, and distributed by Britannica Software. This version is dated June 27, 1989 according to a printed stamp on the disk label. It requires a 1.25MB Apple IIgs ROM 01 or later. 由 Edward and Patricia Bever 開發，Britannica Software 發行。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 黃金時代的經典作品之一。",
-    "developer": "Edward and Patricia Bever",
-    "publisher": "Britannica Software",
-    "file2": "00playable2.woz",
-    "screenshot": "00playable_screenshot.png"
+    "screenshot": "00_coverscreenshot.jpg"
   },
   {
     "id": "wozaday_Roadwar_2000_IIgs",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "https://archive.org/download/a2gs_Roadwar_2000_1987_SSI/Roadwar_2000_1987_SSI.2mg",
     "name": "Roadwar 2000",
     "nameEn": "Roadwar 2000",
     "year": "1987",
@@ -1089,9 +967,10 @@ window.games = [
     "screenshot": "00playable_screenshot.png"
   },
   {
-    "id": "a2gs_Rocket_Ranger_1989_Cinemaware",
+    "id": "wozaday_Rocket_Ranger_IIgs",
     "emu": "apple2gs",
-    "file": "Rocket_Ranger_1989_Cinemaware.2mg",
+    "file": "https://archive.org/download/e2gs_0729_Rocket_Ranger_Disk_1/0729_Rocket_Ranger_Disk_1.po",
+    "file2": "https://archive.org/download/e2gs_0730_Rocket_Ranger_Disk_2/0730_Rocket_Ranger_Disk_2.po",
     "name": "火箭騎兵",
     "nameEn": "Rocket Ranger",
     "year": "1989",
@@ -1099,12 +978,12 @@ window.games = [
     "desc": "這是一款動作策略遊戲，設定在二戰時期的另類歷史中。玩家扮演配備火箭背包的特工對抗納粹。遊戲結合了動作、策略和冒險元素。由 Ed Magnin 開發，Cinemaware 發行。Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "Ed Magnin",
     "publisher": "Cinemaware",
-    "screenshot": "00_coverscreenshot.png"
+    "screenshot": "00playable_screenshot.png"
   },
   {
-    "id": "wozaday_Sea_Strike_IIgs",
+    "id": "a2gs_Sea_Strike_1987_PBI_Software",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "Sea_Strike_1987_PBI_Software.2mg",
     "name": "Sea Strike",
     "nameEn": "Sea Strike",
     "year": "1987",
@@ -1112,7 +991,7 @@ window.games = [
     "desc": "\"Sea Strike\" is a 1987 action game developed by Richard L. Seaborne, Jeff A. Lefferts, and Mei-Ying Dell'Aquila, and distributed by PBI Software. It requires a 512K Apple IIgs. 由 Richard Seaborne & Jeff Lefferts 開發，PBI Software 發行。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "Richard Seaborne & Jeff Lefferts",
     "publisher": "PBI Software",
-    "screenshot": "00playable_screenshot.png"
+    "screenshot": "00_coverscreenshot.jpg"
   },
   {
     "id": "a2gs_Sensei_1991_Miami_Software_FW",
@@ -1130,7 +1009,7 @@ window.games = [
   {
     "id": "wozaday_Serve_and_Volley_IIgs",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "https://archive.org/download/e2gs_0750_Serve_Volley/0750_Serve__Volley.po",
     "name": "Serve & Volley",
     "nameEn": "Serve & Volley",
     "year": "1988",
@@ -1141,9 +1020,10 @@ window.games = [
     "screenshot": "00playable_screenshot.png"
   },
   {
-    "id": "wozaday_Shadowgate_IIgs",
+    "id": "a2gs_Shadowgate_1988_Mindscape",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "SystemDisk.2mg",
+    "file2": "Shadowgate_1988_Mindscape.2mg",
     "name": "影之門",
     "nameEn": "Shadowgate",
     "year": "1988",
@@ -1151,15 +1031,14 @@ window.games = [
     "desc": "\"Shadowgate\" is a 1988 adventure game developed by Fred Allen, David Marsh, Karl Roelofs, Todd Squires, Steven Hays, Terry Schulenburg, Darin Adler, Jay Zipnick, Waldemar Horwat, Tod Zipnick, and David Feldman, and distributed by ICOM Simulations. It requires a 768K Apple IIgs. 這是一款冒險遊戲，玩家需要探索世界、解決謎題並推進劇情。 由 ICOM Simulations 開發，Mindscape 發行。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "ICOM Simulations",
     "publisher": "Mindscape",
-    "file2": "00playable2.woz",
-    "screenshot": "00playable_screenshot.png"
+    "screenshot": "https://archive.org/download/wozaday_Shadowgate_IIgs/00playable_screenshot.png"
   },
   {
     "id": "wozaday_Shanghai_II_Dragons_Eye_IIgs",
     "emu": "apple2gs",
     "file": "00playable.woz",
-    "name": "上海",
-    "nameEn": "Shanghai",
+    "name": "上海2",
+    "nameEn": "Shanghai II",
     "year": "1987",
     "type": "game",
     "desc": "\"Shanghai II: Dragon's Eye\" is a 1993 board game developed by Brodie Lockard, Don Harlow, John Wrenholt, and Steve Luellman, and distributed by Big Red Computer Club. It requires a 1MB Apple IIgs ROM 01 or later. 這是一款棋類遊戲，電子化的傳統棋盤遊戲。 由 Manley & Associates (Brodie Lockard & Ivan Manley) 開發，Activision 發行。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 黃金時代的經典作品之一。",
@@ -1169,9 +1048,9 @@ window.games = [
     "screenshot": "00playable_screenshot.png"
   },
   {
-    "id": "wozaday_Silent_Service_IIgs",
+    "id": "a2gs_Silent_Service_1987_Microprose",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "Silent_Service_1987_Microprose.2mg",
     "name": "Silent Service",
     "nameEn": "Silent Service",
     "year": "1987",
@@ -1179,12 +1058,13 @@ window.games = [
     "desc": "\"Silent Service\" is a 1987 simulation game developed by Sid Meier, Ed Magnin, Jim Synoski, Michael Haire, Michele Mahan, Silas Warner, Al Roireau, Larry Martin, and Edward Bever, and distributed by Microprose. It requires a 256K Apple IIgs. 這是一款模擬遊戲，讓玩家體驗各種真實或虛構的情境。 由 Ed Magnin 開發，Microprose 發行。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "Ed Magnin",
     "publisher": "Microprose",
-    "screenshot": "00playable_screenshot.png"
+    "screenshot": "00_coverscreenshot.jpg"
   },
   {
-    "id": "a2gs_Silpheed_1989_Sierra",
+    "id": "wozaday_Silpheed_IIgs",
     "emu": "apple2gs",
-    "file": "Silpheed_1989_Sierra.2mg",
+    "file": "https://archive.org/download/e2gs_0644_Silpheed_Disk_1/0644_Silpheed_Disk_1.po",
+	"file2": "https://archive.org/download/e2gs_0645_Silpheed_Disk_2/0645_Silpheed_Disk_2.po",
     "name": "銀河戰機",
     "nameEn": "Silpheed",
     "year": "1989",
@@ -1192,12 +1072,13 @@ window.games = [
     "desc": "這是一款垂直卷軸射擊遊戲，玩家駕駛先進的戰鬥機對抗外星入侵者。遊戲以其出色的 3D 圖形效果和激烈的戰鬥而著稱。由 Game Arts 開發，Sierra 發行。Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "Game Arts",
     "publisher": "Sierra",
-    "screenshot": "00_coverscreenshot.png"
+    "screenshot": "00playable_screenshot.png"
   },
   {
-    "id": "a2gs_Sinbad_and_the_Throne_of_the_Falcon_1990_Cinemaware",
+    "id": "wozaday_Sinbad_and_the_Throne_of_the_Falcon",
     "emu": "apple2gs",
-    "file": "Sinbad_and_the_Throne_of_the_Falcon_1990_Cinemaware.2mg",
+    "file": "00playable.woz",
+	"file2": "00playable2.woz",
     "name": "辛巴達與獵鷹王座",
     "nameEn": "Sinbad and the Throne of the Falcon",
     "year": "1990",
@@ -1205,12 +1086,12 @@ window.games = [
     "desc": "這是一款動作冒險遊戲，基於阿拉伯神話中的辛巴達故事。玩家扮演辛巴達在阿拉伯世界中冒險，尋找傳說中的寶藏。由 Jim Simmons & Andrew Caldwell 開發，Cinemaware 發行。Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。這是 Apple IIgs 後期的優秀作品。",
     "developer": "Jim Simmons & Andrew Caldwell",
     "publisher": "Cinemaware",
-    "screenshot": "00_coverscreenshot.png"
+    "screenshot": "00playable_screenshot.png"
   },
   {
-    "id": "a2gs_Skate_or_Die_1988_Electronic_Arts",
+    "id": "wozaday_Skate_or_Die_v10_IIgs",
     "emu": "apple2gs",
-    "file": "Skate_or_Die_1988_Electronic_Arts.2mg",
+    "file": "00playable.woz",
     "name": "滑板生死戰",
     "nameEn": "Skate or Die!",
     "year": "1988",
@@ -1218,7 +1099,7 @@ window.games = [
     "desc": "這是一款運動遊戲，模擬滑板運動的各種項目。遊戲包含多種不同的滑板挑戰，從半管到街頭滑板。由 David Bunch, Michael Kosaka & Michelle Shelfer 開發，Electronic Arts 發行。Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "David Bunch, Michael Kosaka & Michelle Shelfer",
     "publisher": "Electronic Arts",
-    "screenshot": "00_coverscreenshot.png"
+    "screenshot": "00playable_screenshot.png"
   },
   {
     "id": "a2gs_Solarian_1992_Coloreez_SW",
@@ -1288,23 +1169,9 @@ window.games = [
     "screenshot": "00_coverscreenshot.jpg"
   },
   {
-    "id": "a2gs_Spirit_of_Excalibur_1991_Virgin_Mastertronic",
-    "emu": "apple2gs",
-    "file": "Spirit_of_Excalibur_1991_Virgin_Mastertronic.2mg",
-    "name": "聖劍之魂",
-    "nameEn": "Spirit of Excalibur",
-    "year": "1991",
-    "type": "game",
-    "desc": "這是一款角色扮演遊戲，設定在亞瑟王傳說的世界中。玩家需要重建圓桌騎士團並對抗邪惡勢力。遊戲結合了戰略規劃和角色扮演元素。由 Synergistic Software 開發，Virgin Mastertronic 發行。Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。這是 Apple IIgs 後期的優秀作品。",
-    "developer": "Synergistic Software",
-    "publisher": "Virgin Mastertronic",
-    "file2": "Spirit_of_Excalibur_1991_Virgin_Mastertronic_Disk2.2mg",
-    "screenshot": "00_coverscreenshot.png"
-  },
-  {
     "id": "wozaday_Star_Saga_One_IIgs",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "https://archive.org/download/a2gs_Star_Saga_One_Beyond_the_Boundary_1988_MasterPlay/Star_Saga_One_Beyond_the_Boundary_1988_MasterPlay.2mg",
     "name": "Star Saga One: Beyond the Boundary",
     "nameEn": "Star Saga One: Beyond the Boundary",
     "year": "1988",
@@ -1317,7 +1184,7 @@ window.games = [
   {
     "id": "wozaday_Star_Saga_Two_IIgs",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "https://archive.org/download/a2gs_Star_Saga_Two_The_Clathran_Menance_v1.0_1988_MasterPlay/Star_Saga_Two_The_Clathran_Menance_v1.0_1988_MasterPlay.2mg",
     "name": "Star Saga: Two - The Clathran Menace",
     "nameEn": "Star Saga: Two - The Clathran Menace",
     "year": "1988",
@@ -1326,20 +1193,6 @@ window.games = [
     "developer": "Richard Dutton, Walter Freitag, A. & S. Greenberg, Michael Massimilla, Gerald Seixas",
     "publisher": "Master Play",
     "screenshot": "00playable_screenshot.png"
-  },
-  {
-    "id": "a2gs_Street_Sports_Soccer_1988_Epyx",
-    "emu": "apple2gs",
-    "file": "SystemDisk.2mg",
-    "name": "Street Sports Soccer",
-    "nameEn": "Street Sports Soccer",
-    "year": "1988",
-    "type": "game",
-    "desc": "Apple IIgs: Street Sports Soccer (1988)(Epyx) 這是一款運動遊戲，模擬各種體育競技項目。 由 Designer Software 開發，Epyx 發行。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 黃金時代的經典作品之一。",
-    "developer": "Designer Software",
-    "publisher": "Epyx",
-    "file2": "Street_Sports_Soccer_1988_Epyx.2mg",
-    "screenshot": "00_coverscreenshot.png"
   },
   {
     "id": "wozaday_Sub_Battle_Simulator_IIgs",
@@ -1353,20 +1206,6 @@ window.games = [
     "developer": "Rob Brannon & Kelly Fergason",
     "publisher": "Epyx",
     "screenshot": "00playable_screenshot.png"
-  },
-  {
-    "id": "a2gs_Subversion_v1.0_1992_Point_of_View_Computing",
-    "emu": "apple2gs",
-    "file": "SystemDisk.2mg",
-    "name": "SubVersion",
-    "nameEn": "SubVersion",
-    "year": "1992",
-    "type": "game",
-    "desc": "Apple IIgs: Subversion v1.0 (1992)(Point of View Computing) 由 Al Griest & Jason Harper 開發，Point of View Computing 發行。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 後期的優秀作品。",
-    "developer": "Al Griest & Jason Harper",
-    "publisher": "Point of View Computing",
-    "file2": "Subversion_v1.0_1992_Point_of_View_Computing.2mg",
-    "screenshot": "00_coverscreenshot.png"
   },
   {
     "id": "wozaday_Superstar_Ice_Hockey_IIgs",
@@ -1423,22 +1262,9 @@ window.games = [
     "screenshot": "00playable_screenshot.png"
   },
   {
-    "id": "a2gs_Test_Drive_II_1989_Accolade",
+    "id": "a2gs_Tetris_1988_Spectrum_Holobyte",
     "emu": "apple2gs",
-    "file": "Test_Drive_II_1989_Accolade.2mg",
-    "name": "試駕 II：決鬥",
-    "nameEn": "Test Drive II: The Duel",
-    "year": "1989",
-    "type": "game",
-    "desc": "這是一款賽車遊戲，玩家可以駕駛各種超級跑車在不同的賽道上競速。遊戲以其逼真的駕駛體驗和精美的車輛建模而著稱。由 Distinctive Software 開發，Accolade 發行。Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。這是 Apple IIgs 黃金時代的經典作品之一。",
-    "developer": "Distinctive Software",
-    "publisher": "Accolade",
-    "screenshot": "00_coverscreenshot.png"
-  },
-  {
-    "id": "wozaday_Tetris_IIgs",
-    "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "Tetris_1988_Spectrum_Holobyte.2mg",
     "name": "俄羅斯方塊",
     "nameEn": "Tetris",
     "year": "1988",
@@ -1446,21 +1272,20 @@ window.games = [
     "desc": "\"Tetris\" is a 1988 action game developed by Roland Gustafsson, Sean B. Barger, Dan Geisler, Daniel L. Guerra, Jody Sather, Ed Bogas, Neil Cormia, Ty Roberts, and Gary Clayton, and distributed by Spectrum HoloByte. It requires a 512K Apple IIgs. 這是一款益智遊戲，通過解決各種謎題來挑戰玩家的邏輯思維。 由 Roland Gustafsson, Sean Barger & Dan Geisler 開發，Spectrum Holobyte 發行。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "Roland Gustafsson, Sean Barger & Dan Geisler",
     "publisher": "Spectrum Holobyte",
-    "screenshot": "00playable_screenshot.png"
+    "screenshot": "00_coverscreenshot.png"
   },
   {
-    "id": "a2gs_Bards_Tale_II_1988_Electronic_Arts",
+    "id": "wozaday_The_Bards_Tale_IIgs",
     "emu": "apple2gs",
-    "file": "Bards_Tale_II_1988_Electronic_Arts.2mg",
-    "name": "冰城傳奇 II：命運騎士",
-    "nameEn": "The Bard's Tale II: The Destiny Knight",
+    "file": "00playable.woz",
+    "name": "冰城傳奇",
+    "nameEn": "The Bard's Tale",
     "year": "1988",
     "type": "game",
-    "desc": "這是一款角色扮演遊戲，玩家可以培養角色、學習技能並體驗豐富的故事情節。《冰城傳奇》系列的第二部作品，延續了前作的經典玩法。由 Rebecca Heineman 開發，Electronic Arts 發行。Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。這是 Apple IIgs 黃金時代的經典作品之一。",
+    "desc": "這是一款角色扮演遊戲，玩家可以培養角色、學習技能並體驗豐富的故事情節。由 Rebecca Heineman 開發，Electronic Arts 發行。Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "Rebecca Heineman",
     "publisher": "Electronic Arts",
-    "file2": "Bards_Tale_II_1988_Electronic_Arts_Disk2.2mg",
-    "screenshot": "00_coverscreenshot.png"
+    "screenshot": "00playable_screenshot.png"
   },
   {
     "id": "wozaday_The_Black_Cauldron_IIgs",
@@ -1473,20 +1298,6 @@ window.games = [
     "desc": "\"Black Cauldron\" is a 1987 adventure game developed by Al Lowe and published by Sierra. It requires an Apple IIgs.",
     "developer": "Al Lowe",
     "publisher": "Sierra",
-    "file2": "00playable2.woz",
-    "screenshot": "00playable_screenshot.png"
-  },
-  {
-    "id": "wozaday_The_Fidelity_Chessmaster_2100_IIgs",
-    "emu": "apple2gs",
-    "file": "00playable.woz",
-    "name": "The Fidelity Chessmaster 2100 IIgs",
-    "nameEn": "The Fidelity Chessmaster 2100 IIgs",
-    "year": "1988",
-    "type": "game",
-    "desc": "\"Chessmaster 2100, The Fidelity\" is a 1988 board game developed by Troy Heere & Mark Manyen and published by Software Toolworks. It requires an Apple IIgs.",
-    "developer": "Troy Heere & Mark Manyen",
-    "publisher": "Software Toolworks",
     "file2": "00playable2.woz",
     "screenshot": "00playable_screenshot.png"
   },
@@ -1544,9 +1355,9 @@ window.games = [
     "screenshot": "00_coverscreenshot.png"
   },
   {
-    "id": "a2gs_Thexder_1987_Sierra",
+    "id": "wozaday_Thexder_IIgs",
     "emu": "apple2gs",
-    "file": "Thexder_1987_Sierra.2mg",
+    "file": "https://archive.org/download/a2gs_Thexder_1987_Sierra/Thexder_1987_Sierra.2mg",
     "name": "機甲戰士",
     "nameEn": "Thexder",
     "year": "1987",
@@ -1554,7 +1365,7 @@ window.games = [
     "desc": "這是一款橫向卷軸射擊遊戲，玩家控制可變形的機器人戰士。機器人可以在人形和戰鬥機形態之間切換，每種形態都有不同的能力。由 Game Arts 開發，Sierra 發行。Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "Game Arts",
     "publisher": "Sierra",
-    "screenshot": "00_coverscreenshot.png"
+    "screenshot": "00playable_screenshot.png"
   },
   {
     "id": "wozaday_The_Third_Courier_IIgs",
@@ -1640,9 +1451,9 @@ window.games = [
     "screenshot": "00playable_screenshot.png"
   },
   {
-    "id": "wozaday_TrianGo_IIgs",
+    "id": "a2gs_Triango_1988_California_Dreams",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "Triango_1988_California_Dreams.2mg",
     "name": "Triango",
     "nameEn": "Triango",
     "year": "1988",
@@ -1650,13 +1461,12 @@ window.games = [
     "desc": "\"TrianGo\" is a 1988 board game developed by Staszek Bartkowski, Marcin Szostakowski, Maciej Markuszewski, Dorota Błaszczak, and distributed by California Dreams. It requires a 512K Apple IIgs. 這是一款棋類遊戲，電子化的傳統棋盤遊戲。 由 Logical Design Works 開發，California Dreams 發行。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "Logical Design Works",
     "publisher": "California Dreams",
-    "file2": "00playable2.woz",
-    "screenshot": "00playable_screenshot.png"
+    "screenshot": "https://archive.org/download/wozaday_TrianGo_IIgs/00playable_screenshot.png"
   },
   {
-    "id": "wozaday_Tunnels_of_Armageddon_IIgs",
+    "id": "a2gs_Tunnels_of_Armageddon_1990_California_Dreams",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "Tunnels_of_Armageddon_1990_California_Dreams.2mg",
     "name": "Tunnels of Armageddon",
     "nameEn": "Tunnels of Armageddon",
     "year": "1990",
@@ -1664,12 +1474,13 @@ window.games = [
     "desc": "\"Tunnels of Armageddon\" is a 1989 action game developed by Jarek Achinger, Adam Skorupiński, Mirek Zabłocki, Krzysiek Koziarski, Zbych Dąbrowski, Dorota Błaszczak, Marcin Grzegorzewski, Dick Vohlers, Tomek Meuś, and distributed by California Dreams. This is version 1.0. It requires a 512K Apple IIgs. 這是一款快節奏的動作遊戲，需要玩家具備良好的反應能力和操作技巧。 由 Logical Design Works 開發，California Dreams 發行。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 後期的優秀作品。",
     "developer": "Logical Design Works",
     "publisher": "California Dreams",
-    "screenshot": "00playable_screenshot.png"
+    "screenshot": "00_coverscreenshot.jpg"
   },
   {
-    "id": "a2gs_Uninvited_1988_Mindscape",
+    "id": "wozaday_Uninvited_IIgs",
     "emu": "apple2gs",
-    "file": "Uninvited_1988_Mindscape.2mg",
+    "file": "00playable.woz",
+	"file2": "00playable2.woz",
     "name": "不速之客",
     "nameEn": "Uninvited",
     "year": "1988",
@@ -1677,12 +1488,12 @@ window.games = [
     "desc": "這是一款恐怖冒險遊戲，玩家在一座鬧鬼的房子中探索並尋找失蹤的兄弟。遊戲以其陰森的氛圍和點擊式介面而著稱。由 ICOM Simulations 開發，Mindscape 發行。Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "ICOM Simulations",
     "publisher": "Mindscape",
-    "screenshot": "00_coverscreenshot.png"
+    "screenshot": "00playable_screenshot.png"
   },
   {
-    "id": "a2gs_Vegas_Craps_1988_California_Dreams",
+    "id": "e2gs_0528_Vegas_Craps_v1.0",
     "emu": "apple2gs",
-    "file": "Vegas_Craps_1988_California_Dreams.2mg",
+    "file": "0528_Vegas_Craps_v1.0.po",
     "name": "Vegas Craps",
     "nameEn": "Vegas Craps",
     "year": "1988",
@@ -1693,9 +1504,9 @@ window.games = [
     "screenshot": "00_coverscreenshot.jpg"
   },
   {
-    "id": "wozaday_Vegas_Gambler_IIgs",
+    "id": "a2gs_Vegas_Gambler_1988_California_Dreams",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "Vegas_Gambler_1988_California_Dreams.2mg",
     "name": "Vegas Gambler",
     "nameEn": "Vegas Gambler",
     "year": "1988",
@@ -1703,7 +1514,7 @@ window.games = [
     "desc": "\"Vegas Gambler\" is a 1988 simulation game developed by Marek Jackiewicz, Andrzej Miciłkiewicz, Marcin Szostakowski, Maciej Markuszewski, and Dorota Błaszczak, and distributed by California Dreams. It requires a 512K Apple IIgs. 由 Logical Design Works 開發，California Dreams 發行。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 黃金時代的經典作品之一。",
     "developer": "Logical Design Works",
     "publisher": "California Dreams",
-    "screenshot": "00playable_screenshot.png"
+    "screenshot": "00_coverscreenshot.jpg"
   },
   {
     "id": "wozaday_War_in_Middle_Earth_IIgs",
@@ -1722,7 +1533,8 @@ window.games = [
   {
     "id": "wozaday_Windwalker_IIgs",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "https://archive.org/download/e2gs_1171_Windwalker_Disk_1/1171_Windwalker_Disk_1.po",
+    "file2": "https://archive.org/download/e2gs_1172_Windwalker_Disk_2/1172_Windwalker_Disk_2.po",
     "name": "Windwalker",
     "nameEn": "Windwalker",
     "year": "1990",
@@ -1730,7 +1542,6 @@ window.games = [
     "desc": "\"Windwalker\" is a 1990 roleplaying game developed by Greg Malone, Dallas Snell, Jeff Hillhouse, Dave Eresian, Richard Filoramo, Lester Humphreys, Jason Linhart, Stephen Linhart, Kiri Naiman, Keith Winston, Jeff Dee, Glen Johnson, Denis Loubet, Keith Berdak, Bill Clarke, and Doug Hewitt, and distributed by Origin Systems. It requires a 768K Apple IIgs ROM01 or later. 這是一款角色扮演遊戲，玩家可以培養角色、學習技能並體驗豐富的故事情節。 由 Greg Malone 開發，Origin 發行。 Apple IIgs 版本擁有增強的 16 位元圖形和立體聲音效。 這是 Apple IIgs 後期的優秀作品。",
     "developer": "Greg Malone",
     "publisher": "Origin",
-    "file2": "00playable2.woz",
     "screenshot": "00playable_screenshot.png"
   },
   {

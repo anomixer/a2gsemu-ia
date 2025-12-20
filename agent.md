@@ -241,3 +241,110 @@ node generate_games_wozaday_iigs.js --games-only
 - ✅ 操作說明更清晰，移除不必要的按鍵說明
 - ✅ 新增搖桿控制說明，提升遊戲體驗
 - ✅ 標題可點擊，改善導航體驗
+
+---
+
+## 最新改進（2025-12-21）
+
+### ✅ 解析度調整和滑鼠鎖定功能
+
+**需求：**
+- 調整 canvas 解析度為 708x466
+- 實現滑鼠鎖定功能
+- 全螢幕時保持正確比例
+- 移除綠色邊框
+
+**實現過程：**
+
+#### 1) 解析度調整歷程 ✅
+- 初始嘗試：700x460 → 704x462 → 704x460 → 640x200
+- 發現問題：`nativeResolution` 設定被 CSS 硬編碼尺寸覆蓋
+- 最終設定：708x466 → 704x462 → 708x466 → 704x462
+
+**根本問題分析：**
+- CSS 中有兩個 `#canvas` 規則，第一個使用 `min-width/min-height`，第二個使用固定 `width/height`
+- JavaScript 中有強制 canvas 大小設定，與 Emularity 的 `nativeResolution` 衝突
+- 舊的硬編碼尺寸 880x578 與 `nativeResolution` 不符
+
+**解決方案：**
+- 統一兩個 `#canvas` CSS 規則為 `width: 704px; height: 462px`
+- 移除 `JSMAMELoader.locateFile()` 中的強制 canvas 大小設定
+- 移除啟動後的額外 canvas 大小強制設定
+- 讓 Emularity 的 `nativeResolution(704, 462)` 自然生效
+
+#### 2) 滑鼠鎖定功能 ✅
+**功能實現：**
+- 點擊 canvas 自動鎖定滑鼠游標
+- 按 `Esc` 鍵解除滑鼠鎖定
+- 鎖定時標題列顯示黃色提示文字：「按 Esc 鍵恢復滑鼠游標」
+
+**技術實現：**
+```javascript
+// 點擊 canvas 時鎖定滑鼠
+canvas.addEventListener('click', function() {
+    if (!isMouseLocked) {
+        canvas.requestPointerLock();
+    }
+});
+
+// 監聽滑鼠鎖定狀態變化
+document.addEventListener('pointerlockchange', function() {
+    if (document.pointerLockElement === canvas) {
+        isMouseLocked = true;
+        updateTitleWithMouseHint();
+    } else {
+        isMouseLocked = false;
+        restoreOriginalTitle();
+    }
+});
+
+// 標題顯示黃色提示
+function updateTitleWithMouseHint() {
+    gameTitleBar.innerHTML = `${originalTitle} - <span style="color: #FFD700;">按 Esc 鍵恢復滑鼠游標</span>`;
+}
+```
+
+#### 3) 全螢幕比例調整 ✅
+**問題：**
+- 全螢幕時使用 `100vw` 和 `100vh` 會破壞比例
+- 畫面中的條紋和文字會變形
+
+**解決方案：**
+- 計算螢幕長寬比，決定以寬度還是高度為基準
+- 按 704:462 比例等比例縮放到最適合螢幕的尺寸
+- 使用 `translate(-50%, -50%)` 置中顯示
+
+```javascript
+const aspectRatio = 704 / 462;
+const screenAspectRatio = screenWidth / screenHeight;
+
+if (screenAspectRatio > aspectRatio) {
+    // 螢幕比較寬，以高度為準
+    canvasHeight = screenHeight;
+    canvasWidth = canvasHeight * aspectRatio;
+} else {
+    // 螢幕比較高，以寬度為準
+    canvasWidth = screenWidth;
+    canvasHeight = canvasWidth / aspectRatio;
+}
+```
+
+#### 4) 邊框移除 ✅
+**問題：**
+- 正常模式和截圖顯示時都有綠色邊框
+- 影響視覺效果
+
+**解決方案：**
+- `#canvas` CSS 規則：`border: none`
+- `#gameScreenshot` CSS 規則：`border: none`
+- 截圖滿版顯示：`top: 0px; left: 0px; right: 0px; bottom: 0px`
+
+#### 5) 最終效果 ✅
+- **正常模式**：704x462，無邊框，清晰顯示
+- **全螢幕模式**：按 704:462 比例等比例放大，保持像素完美
+- **滑鼠鎖定**：點擊鎖定，Esc 解鎖，黃色提示文字
+- **截圖顯示**：滿版顯示，無邊框，最佳預覽效果
+
+**文檔更新：**
+- 更新 `README_SERVER.md` 包含所有新功能說明
+- 新增滑鼠鎖定、顯示設定、技術實現等章節
