@@ -327,7 +327,7 @@ window.games = [
     "name": "Cogito",
     "year": "1993",
     "type": "game",
-    "desc": "The Cogito game for the Apple IIGS is a freeware puzzle/adventure game, originally by Jerome Cretaux, adapted for the IIGS in 1994 by Antoine Vignau & Olivier Zardini, featuring a unique "brain" mechanic where you control neurons to solve puzzles and guide a character, known for its distinctive style and being a beloved retro title on the platform.",
+    "desc": "The Cogito game for the Apple IIGS is a freeware puzzle/adventure game, originally by Jerome Cretaux, adapted for the IIGS in 1994 by Antoine Vignau & Olivier Zardini, featuring a unique \"brain\" mechanic where you control neurons to solve puzzles and guide a character, known for its distinctive style and being a beloved retro title on the platform.",
     "developer": "Antoine Vignau & Olivier Zardini (Brutal Deluxe)",
     "publisher": "Brutal Deluxe",
     "file2": "Cogito_1992_Brutal_Deluxe_FW.2mg",
