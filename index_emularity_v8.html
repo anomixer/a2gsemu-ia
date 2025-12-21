@@ -926,10 +926,10 @@
 
             function getBadge(type) {
                 const badges = {
-                    'game': '<span class="badge badge-game">遊戲</span>',
-                    'edu': '<span class="badge badge-edu">教育</span>',
-                    'tool': '<span class="badge badge-tool">工具</span>',
-                    'special': '<span class="badge badge-special">特別</span>'
+                    'game': '<span class="badge badge-game">Game</span>',
+                    'edu': '<span class="badge badge-edu">Educational</span>',
+                    'tool': '<span class="badge badge-tool">Tool</span>',
+                    'special': '<span class="badge badge-special">Special</span>'
                 };
                 return badges[type] || '';
             }
@@ -946,7 +946,7 @@
             console.log('   - Server URL:', SERVER_URL);
 
             function normalizeTitleKey(game) {
-                const title = (game.nameEn || game.name || '').toLowerCase();
+                const title = (game.name || '').toLowerCase();
                 const cleaned = title
                     .replace(/\b(apple|ii?gs)\b/g, '')
                     .replace(/\b(the|a|an)\b/g, ' ')
@@ -993,7 +993,7 @@
                     const key = normalizeTitleKey(game);
                     if (!key) return;
                     const normalized = normalizeGame(game);
-                    const unreleased = /unreleased/i.test(normalized.name || normalized.nameEn || '') || /unreleased/i.test(normalized.desc || '');
+                    const unreleased = /unreleased/i.test(normalized.name || '') || /unreleased/i.test(normalized.desc || '');
                     if (unreleased) return;
                     const score = scoreGame(normalized);
                     const existing = bestByKey.get(key);
@@ -1005,7 +1005,7 @@
                     .sort((a, b) => {
                         const w = typeWeight(a.type) - typeWeight(b.type);
                         if (w !== 0) return w;
-                        return String(a.nameEn || a.name).localeCompare(String(b.nameEn || b.name));
+                        return String(a.name || '').localeCompare(String(b.name || ''));
                     })
                     .map(({ score, ...rest }) => rest);
             }
@@ -1133,7 +1133,7 @@
             // 更新標題顯示滑鼠提示
             function updateTitleWithMouseHint() {
                 if (gameTitleBar && currentGame) {
-                    originalTitle = `${currentGame.name} (${currentGame.nameEn})`;
+                    originalTitle = `${currentGame.name} (${currentGame.nameCh})`;
                     gameTitleBar.innerHTML = `${originalTitle} - <span style="color: #FFD700;">按 Esc 鍵恢復滑鼠游標</span>`;
                 }
             }
@@ -1319,7 +1319,7 @@
                         hideScreenshot();
                     }, 3000);
 
-                    gameTitleBar.textContent = `${game.name} (${game.nameEn})`;
+                    gameTitleBar.textContent = `${game.name} (${game.nameCh})`;
                     
                     // 設定滑鼠鎖定功能
                     setupMouseLock(newCanvas);
@@ -1398,11 +1398,11 @@
                 gameList.innerHTML = '';
                 const filtered = games.filter(g =>
                     String(g.name || '').includes(filter) ||
-                    String(g.nameEn || '').toLowerCase().includes(filter.toLowerCase())
+                    String(g.nameCh || '').toLowerCase().includes(filter.toLowerCase())
                 ).sort((a, b) => {
                     const w = typeWeight(a.type) - typeWeight(b.type);
                     if (w !== 0) return w;
-                    return String(a.nameEn).localeCompare(String(b.nameEn));
+                    return String(a.name || '').localeCompare(String(b.name || ''));
                 });
 
                 filtered.forEach(game => {
@@ -1411,7 +1411,7 @@
                     item.dataset.id = game.id;
                     item.innerHTML = `
                         <h3>${game.name} ${getBadge(game.type)}</h3>
-                        <div class="name-en">${game.nameEn}</div>
+                        <div class="name-en">${game.nameCh}</div>
                         <div class="year">📅 ${game.year}</div>
                     `;
                     item.onclick = () => loadGame(game, item);
