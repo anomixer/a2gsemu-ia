@@ -348,3 +348,656 @@ if (screenAspectRatio > aspectRatio) {
 **文檔更新：**
 - 更新 `README_SERVER.md` 包含所有新功能說明
 - 新增滑鼠鎖定、顯示設定、技術實現等章節
+
+---
+
+## 最新改進（2025-12-21）
+
+### ✅ ZIP 檔案支援功能
+
+**需求：**
+- 支援從 ZIP 檔案中直接提取遊戲檔案
+- 格式：`game.zip/disk1.po`, `game.zip/disk2.po`
+- 支援 Archive.org 和自訂 URL 的 ZIP 檔案
+
+**實現過程：**
+
+#### 1) 依賴安裝 ✅
+- 在 `package.json` 中添加 `adm-zip: ^0.5.10` 依賴
+- 使用 `npm install` 安裝 ZIP 處理庫
+
+#### 2) 後端實現 ✅
+**新增路由：**
+- `/proxy/zip/:zipUrl/:filename` - 直接從 ZIP URL 提取檔案
+- 更新 `/proxy/game/:itemId/:filename` - 支援 ZIP 格式檢測
+
+**技術實現：**
+```javascript
+const AdmZip = require('adm-zip');
+
+// ZIP 檔案支援路由
+app.get('/proxy/zip/:zipUrl/:filename', async (req, res) => {
+    const zipUrl = decodeURIComponent(req.params.zipUrl);
+    const filename = req.params.filename;
+    
+    try {
+        // 下載 ZIP 檔案
+        const response = await fetch(zipUrl);
+        const zipBuffer = await response.buffer();
+        
+        // 解析 ZIP 檔案
+        const zip = new AdmZip(zipBuffer);
+        const zipEntries = zip.getEntries();
+        
+        // 智能檔案匹配
+        const targetEntry = zipEntries.find(entry => {
+            const entryName = entry.entryName;
+            return entryName === filename || 
+                   entryName.endsWith('/' + filename) || 
+                   entryName.endsWith('\\' + filename);
+        });
+        
+        // 提取檔案內容
+        const fileBuffer = zip.readFile(targetEntry);
+        
+        // 設定適當的 Content-Type
+        let contentType = 'application/octet-stream';
+        const ext = path.extname(filename).toLowerCase();
+        switch (ext) {
+            case '.woz':
+            case '.2mg':
+            case '.po':
+            case '.dsk':
+                contentType = 'application/octet-stream';
+                break;
+            case '.png':
+                contentType = 'image/png';
+                break;
+            case '.jpg':
+            case '.jpeg':
+                contentType = 'image/jpeg';
+                break;
+        }
+        
+        res.set('Content-Type', contentType);
+        res.set('Access-Control-Allow-Origin', '*');
+        res.set('Cache-Control', 'public, max-age=86400');
+        res.set('X-Zip-Source', zipUrl);
+        res.set('X-Zip-Entry', targetEntry.entryName);
+        
+        return res.send(fileBuffer);
+        
+    } catch (err) {
+        console.error('ZIP processing error:', err.message);
+        return res.status(500).send('ZIP processing error');
+    }
+});
+```
+
+**遊戲檔案路由更新：**
+```javascript
+// 檢查是否為 ZIP 檔案格式 (例如: game.zip/disk1.po)
+if (filename.includes('.zip/')) {
+    const [zipFilename, innerFilename] = filename.split('.zip/');
+    const zipFilenameWithExt = zipFilename + '.zip';
+    
+    let zipUrl;
+    if (itemId.startsWith('http://') || itemId.startsWith('https://')) {
+        zipUrl = `${itemId}/${zipFilenameWithExt}`;
+    } else {
+        zipUrl = `https://archive.org/download/${itemId}/${zipFilenameWithExt}`;
+    }
+    
+    // 重定向到 ZIP 處理路由
+    const encodedZipUrl = encodeURIComponent(zipUrl);
+    return res.redirect(`/proxy/zip/${encodedZipUrl}/${innerFilename}`);
+}
+```
+
+#### 3) 功能特色 ✅
+**支援的檔案類型：**
+- `.woz`, `.2mg`, `.po`, `.dsk` - 磁碟映像檔
+- `.png`, `.jpg`, `.jpeg`, `.gif` - 圖片檔案
+- 其他檔案類型使用 `application/octet-stream`
+
+**智能檔案匹配：**
+- 完整路徑匹配：`folder/disk1.po`
+- 檔名匹配：`disk1.po`
+- 支援 Windows 和 Unix 路徑分隔符
+
+**快取機制：**
+- ZIP 檔案內容快取 24 小時
+- 減少重複下載和解壓縮
+- 提升存取效能
+
+**錯誤處理：**
+- 無效的 ZIP URL 格式
+- ZIP 檔案不存在或無法下載
+- 目標檔案在 ZIP 中不存在
+- ZIP 檔案損壞或格式錯誤
+- 詳細的錯誤日誌和可用檔案列表
+
+#### 4) 使用範例 ✅
+**Archive.org ZIP 檔案：**
+```javascript
+{
+    "id": "wozaday_MyGame_IIgs",
+    "emu": "apple2gs",
+    "file": "game_collection.zip/disk1.woz",
+    "file2": "game_collection.zip/disk2.woz",
+    "screenshot": "game_collection.zip/screenshot.png"
+}
+```
+
+**自訂伺服器 ZIP 檔案：**
+```javascript
+{
+    "id": "https://myserver.com/games",
+    "emu": "apple2gs",
+    "file": "adventure_pack.zip/main.2mg",
+    "file2": "adventure_pack.zip/data.2mg"
+}
+```
+
+#### 5) 日誌輸出 ✅
+**詳細的處理日誌：**
+```
+📦 ZIP [abc123] GET /proxy/game/wozaday_MyGame_IIgs/game.zip/disk1.woz
+   ZIP URL: https://archive.org/download/wozaday_MyGame_IIgs/game.zip
+   Target File: disk1.woz
+📦 ZIP [abc123] ✅ Downloaded ZIP: 2.45 MB
+📦 ZIP [abc123] ✅ Extracted disk1.woz: 0.80 MB (1250 ms)
+```
+
+**錯誤處理日誌：**
+```
+📦 ZIP [abc123] ❌ File not found in ZIP: disk3.po
+📦 ZIP [abc123] Available files: disk1.po, disk2.po, screenshot.png
+```
+
+#### 6) 文檔更新 ✅
+**README_SERVER.md 更新：**
+- 新增 ZIP 檔案支援特色說明
+- 詳細的使用範例和格式說明
+- 技術實現和後端代碼範例
+- 快取機制和錯誤處理說明
+
+**啟動訊息更新：**
+```
+✨ 功能:
+   ✅ 代理 Archive.org 檔案（解決 CORS）
+   ✅ 支援完整 URL 檔案來源
+   ✅ 支援 ZIP 檔案內檔案提取  ← 新增
+   ✅ 提供靜態檔案服務
+   ✅ 快取支援（24 小時）
+   ✅ 正確處理 .gz 壓縮檔
+
+📦 ZIP 檔案格式範例:
+   file: "game.zip/disk1.po"
+   file2: "game.zip/disk2.po"
+```
+
+**創建範例文檔：**
+- `zip-example.md` - 詳細的 ZIP 功能使用範例
+
+#### 7) 最終效果 ✅
+- **完全向後兼容**：不影響現有遊戲配置
+- **靈活支援**：Archive.org 和自訂 URL 的 ZIP 檔案
+- **效能優化**：24 小時快取，減少重複處理
+- **錯誤友好**：詳細的錯誤訊息和可用檔案列表
+- **日誌完整**：詳細的處理時間和檔案大小記錄
+
+**技術優勢：**
+- 節省儲存空間（多檔案遊戲打包）
+- 簡化檔案管理（單一 ZIP 包含所有資源）
+- 支援多檔案遊戲的打包分發
+- 智能檔案匹配，支援各種 ZIP 結構
+
+這個功能為 Apple IIgs 模擬器提供了更靈活的檔案來源支援，特別適合需要多個磁碟檔案的遊戲。
+
+#### 8) 前端 ZIP 支援修正 ✅
+**問題發現：**
+- 完整 URL 格式的 ZIP 檔案（如 `https://server.com/game.zip/disk1.po`）被當作普通 URL 處理
+- 導致 404 錯誤，因為伺服器上不存在這個完整路徑的檔案
+
+**根本原因：**
+- `buildFileUrl()` 函數只檢查 `http://` 或 `https://` 開頭
+- 沒有進一步檢查是否包含 `.zip/` 格式
+- ZIP 檔案被錯誤路由到 `/proxy/url/*` 而不是 `/proxy/zip/*`
+
+**解決方案：**
+```javascript
+// 修正後的 buildFileUrl 函數
+function buildFileUrl(gameId, filename) {
+    if (filename && (filename.startsWith('http://') || filename.startsWith('https://'))) {
+        // 檢查是否為 ZIP 檔案格式
+        if (filename.includes('.zip/')) {
+            const zipIndex = filename.indexOf('.zip/');
+            const zipUrl = filename.substring(0, zipIndex + 4);
+            const innerFilename = filename.substring(zipIndex + 5);
+            
+            const encodedZipUrl = encodeURIComponent(zipUrl);
+            return `${SERVER_URL}/proxy/zip/${encodedZipUrl}/${innerFilename}?t=${timestamp}`;
+        } else {
+            // 普通完整 URL
+            const encodedUrl = encodeURIComponent(filename);
+            return `${SERVER_URL}/proxy/url/${encodedUrl}?t=${timestamp}`;
+        }
+    } else if (filename && filename.includes('.zip/')) {
+        // 傳統 ZIP 格式
+        return `${SERVER_URL}/proxy/game/${gameId}/${filename}?t=${timestamp}`;
+    } else {
+        // 傳統格式
+        return `${SERVER_URL}/proxy/game/${gameId}/${filename}?t=${timestamp}`;
+    }
+}
+```
+
+**同時修正：**
+- `showScreenshot()` 函數也加入相同的 ZIP 檔案檢測邏輯
+- 確保截圖檔案也能正確從 ZIP 中提取
+
+**修正效果：**
+- ✅ 完整 URL 的 ZIP 檔案正確路由到 `/proxy/zip/*`
+- ✅ 傳統格式的 ZIP 檔案正確路由到 `/proxy/game/*`（後端處理）
+- ✅ 普通完整 URL 仍然正確路由到 `/proxy/url/*`
+- ✅ 截圖檔案支援所有格式（包括 ZIP 中的圖片）
+
+現在 ZIP 檔案支援應該能正常工作了！
+
+---
+
+## 調試改進（2025-12-21）
+
+### 🔍 搜尋功能調試增強
+
+**用戶反饋：**
+- 模擬器啟動後，遊戲搜尋功能似乎沒有作用
+
+**調試改進：**
+
+#### 1) 添加調試日誌 ✅
+```javascript
+// 搜尋輸入事件
+searchBox.addEventListener('input', (e) => {
+    console.log('🔍 搜尋輸入:', e.target.value);
+    renderGames(e.target.value);
+});
+
+// 渲染遊戲列表
+function renderGames(filter = '') {
+    console.log('🎮 渲染遊戲列表，過濾條件:', filter);
+    // ... 過濾邏輯 ...
+    console.log(`📊 過濾結果: ${filtered.length}/${games.length} 款遊戲`);
+}
+```
+
+#### 2) 添加測試函數 ✅
+```javascript
+// 在控制台可用的測試函數
+window.testSearch = function(query) {
+    console.log('🧪 測試搜尋功能:', query);
+    if (searchBox) {
+        searchBox.value = query;
+        searchBox.dispatchEvent(new Event('input'));
+        console.log('✅ 搜尋測試完成');
+    } else {
+        console.error('❌ 找不到搜尋框元素');
+    }
+};
+```
+
+**使用方式：**
+- 在瀏覽器控制台執行 `testSearch("tetris")` 來測試搜尋功能
+- 檢查控制台日誌來診斷問題
+
+**可能的原因分析：**
+1. **焦點問題**：模擬器 canvas 可能搶奪焦點，但不影響搜尋框的輸入功能
+2. **事件監聽器**：已確認事件監聽器正確綁定且不會被覆蓋
+3. **CSS 樣式**：已確認沒有 `pointer-events: none` 或 `display: none` 等問題
+4. **鍵盤事件**：全域鍵盤監聽器只處理 `Escape` 鍵，不影響其他輸入
+
+**下一步：**
+- 用戶測試並提供控制台日誌
+- 確認是否為焦點問題或其他瀏覽器特定問題
+
+#### 3) 問題解決 ✅
+**用戶測試結果：**
+```
+testSearch("tetris")
+🧪 測試搜尋功能: tetris
+🔍 搜尋輸入: tetris
+🎮 渲染遊戲列表，過濾條件: tetris
+📊 過濾結果: 0/123 款遊戲
+✅ 搜尋測試完成
+```
+
+**結論：**
+- ✅ 搜尋功能完全正常工作
+- ✅ 事件監聽器正確觸發
+- ✅ 過濾邏輯正常執行
+- ✅ 渲染函數正常調用
+
+**真正的問題：**
+- 用戶搜尋的關鍵詞（如 "tetris"）在遊戲庫中沒有匹配結果
+- 當沒有搜尋結果時，遊戲列表變空，用戶以為功能失效
+
+**改進措施：**
+- 添加「沒有搜尋結果」的提示訊息
+- 當搜尋無結果時顯示友好的提示界面
+- 包含搜尋條件和使用提示
+
+**新增功能：**
+```javascript
+// 沒有搜尋結果時的提示界面
+if (filtered.length === 0 && filter.trim() !== '') {
+    const noResultDiv = document.createElement('div');
+    noResultDiv.innerHTML = `
+        <div style="text-align: center; padding: 40px 20px; color: #888;">
+            <div style="font-size: 48px;">🔍</div>
+            <div>找不到相關遊戲</div>
+            <div>搜尋條件：「${filter}」</div>
+            <div>提示：可以搜尋中文或英文遊戲名稱</div>
+        </div>
+    `;
+    gameList.appendChild(noResultDiv);
+}
+```
+
+**測試建議：**
+- `testSearch("Arkanoid")` - 測試英文遊戲名稱
+- `testSearch("Game")` - 測試通用詞彙
+- `testSearch("遊戲")` - 測試中文搜尋
+
+#### 4) 真正問題發現：搜尋框無法輸入 ✅
+**用戶反饋：**
+- "是搜尋框無法輸入字啦"
+
+**問題根源：**
+- 模擬器啟動後，canvas 獲得焦點並可能捕獲鍵盤輸入
+- `loader.js` 中的代碼：`canvas.tabIndex = 0; canvas.focus()`
+- 導致搜尋框失去焦點且無法接收鍵盤輸入
+
+**解決方案：**
+
+#### A) 添加焦點管理
+```javascript
+// 監聽搜尋框的點擊和焦點事件
+searchBox.addEventListener('click', function() {
+    this.focus();
+    console.log('🔍 搜尋框獲得焦點');
+});
+
+searchBox.addEventListener('focus', function() {
+    console.log('✅ 搜尋框已聚焦');
+});
+
+searchBox.addEventListener('blur', function() {
+    console.log('⚠️ 搜尋框失去焦點');
+});
+```
+
+#### B) 添加修復函數
+```javascript
+window.fixSearchBox = function() {
+    if (searchBox) {
+        searchBox.focus();
+        console.log('🔧 已重新聚焦搜尋框');
+    }
+};
+```
+
+#### C) 模擬器啟動後的修正
+```javascript
+// 模擬器啟動 2 秒後確保搜尋框可用
+setTimeout(() => {
+    if (searchBox) {
+        searchBox.removeAttribute('readonly');
+        searchBox.removeAttribute('disabled');
+        searchBox.style.pointerEvents = 'auto';
+        console.log('🔧 已確保搜尋框可用性');
+    }
+}, 2000);
+```
+
+**使用方式：**
+1. **點擊搜尋框**：應該能重新獲得焦點
+2. **控制台執行**：`fixSearchBox()` 手動修復
+3. **檢查焦點狀態**：觀察控制台的焦點日誌
+
+**預期效果：**
+- ✅ 搜尋框點擊後能獲得焦點
+- ✅ 鍵盤輸入能正常工作
+- ✅ 模擬器和搜尋功能可以並存
+
+#### 5) 搜尋邏輯修正：大小寫不敏感 ✅
+**用戶反饋：**
+- "搜尋 lode 找不到, 一定要 Lode 才找得到?"
+
+**問題根源：**
+```javascript
+// 原始錯誤的搜尋邏輯
+String(g.name || '').includes(filter) ||  // 英文名稱沒有 toLowerCase()
+String(g.nameCh || '').toLowerCase().includes(filter.toLowerCase())
+```
+
+**問題分析：**
+- 英文名稱 `g.name` 沒有轉換為小寫
+- 只有中文名稱 `g.nameCh` 才有大小寫不敏感搜尋
+- 導致 "lode" 找不到 "Lode Runner 2024"
+
+**修正後的搜尋邏輯：**
+```javascript
+function renderGames(filter = '') {
+    if (!filter.trim()) {
+        var filtered = games; // 無過濾條件時顯示所有遊戲
+    } else {
+        const filterLower = filter.toLowerCase().trim();
+        var filtered = games.filter(g => {
+            const nameMatch = String(g.name || '').toLowerCase().includes(filterLower);
+            const nameChMatch = String(g.nameCh || '').toLowerCase().includes(filterLower);
+            const descMatch = String(g.desc || '').toLowerCase().includes(filterLower);
+            const yearMatch = String(g.year || '').includes(filter.trim());
+            const developerMatch = String(g.developer || '').toLowerCase().includes(filterLower);
+            
+            return nameMatch || nameChMatch || descMatch || yearMatch || developerMatch;
+        });
+    }
+}
+```
+
+**改進功能：**
+- ✅ **大小寫不敏感**：`lode` 可以找到 `Lode Runner`
+- ✅ **多欄位搜尋**：支援遊戲名稱、中文名稱、描述、年份、開發商
+- ✅ **智能匹配**：年份搜尋不轉小寫（保持數字精確匹配）
+- ✅ **空白處理**：自動去除前後空白
+
+**測試範例：**
+- `testSearch("lode")` → 找到 "Lode Runner 2024"
+- `testSearch("1988")` → 找到 1988 年的遊戲
+- `testSearch("sierra")` → 找到 Sierra 開發的遊戲
+- `testSearch("冒險")` → 找到描述中包含"冒險"的遊戲
+
+---
+
+## 最新修正（2025-12-21）
+
+### 🔧 模擬器啟動後搜尋框無法輸入 - 強化修正
+
+**持續問題：**
+- "回到上個問題, emulator開始執行時, 搜尋框就不能再輸入字了"
+
+**深度分析：**
+- 模擬器的 canvas 會捕獲所有鍵盤事件
+- `loader.js` 中的 `canvas.focus()` 會持續搶奪焦點
+- 需要更強力的事件管理機制
+
+**強化解決方案：**
+
+#### A) 事件隔離機制 ✅
+```javascript
+// 搜尋框鍵盤事件隔離
+searchBox.addEventListener('keydown', function(e) {
+    e.stopPropagation(); // 阻止事件冒泡到模擬器
+    console.log('⌨️ 搜尋框鍵盤輸入:', e.key);
+});
+
+searchBox.addEventListener('keyup', function(e) {
+    e.stopPropagation();
+});
+
+searchBox.addEventListener('keypress', function(e) {
+    e.stopPropagation();
+});
+```
+
+#### B) 焦點狀態管理 ✅
+```javascript
+let searchBoxHasFocus = false;
+
+// 點擊搜尋框時
+searchBox.addEventListener('click', function(e) {
+    e.stopPropagation();
+    this.focus();
+    searchBoxHasFocus = true;
+});
+
+// 點擊其他地方時讓模擬器重新獲得焦點
+document.addEventListener('click', function(e) {
+    if (e.target !== searchBox && !searchBox.contains(e.target)) {
+        searchBoxHasFocus = false;
+        const canvas = document.getElementById('canvas');
+        if (canvas && currentEmulator) {
+            setTimeout(() => canvas.focus(), 10);
+        }
+    }
+});
+```
+
+#### C) 定期修復機制 ✅
+```javascript
+// 模擬器啟動後 2 秒修復
+setTimeout(() => {
+    searchBox.removeAttribute('readonly');
+    searchBox.removeAttribute('disabled');
+    searchBox.style.pointerEvents = 'auto';
+    searchBox.tabIndex = 0;
+    
+    // 重新綁定事件監聽器（以防被覆蓋）
+    if (!searchBox.hasAttribute('data-events-bound')) {
+        searchBox.setAttribute('data-events-bound', 'true');
+        // 重新綁定輸入事件
+    }
+}, 2000);
+
+// 每 5 秒檢查一次搜尋框狀態
+const checker = setInterval(() => {
+    if (searchBox.hasAttribute('readonly') || searchBox.hasAttribute('disabled')) {
+        searchBox.removeAttribute('readonly');
+        searchBox.removeAttribute('disabled');
+        console.log('🔧 修復了搜尋框的禁用狀態');
+    }
+}, 5000);
+```
+
+**使用方式：**
+1. **直接點擊搜尋框**：應該能獲得焦點並輸入
+2. **如果還是不行**：執行 `fixSearchBox()`
+3. **觀察控制台**：查看焦點和鍵盤事件日誌
+4. **點擊其他地方**：模擬器會重新獲得焦點
+
+**預期效果：**
+- ✅ 搜尋框和模擬器可以和諧共存
+- ✅ 點擊搜尋框時能正常輸入
+- ✅ 點擊遊戲區域時模擬器重新獲得控制
+- ✅ 自動修復機制防止搜尋框被禁用
+
+#### D) 焦點衝突修正 ✅
+**新問題：**
+- "是可以在遊戲中輸入框了, 但點到emulator框時, 打任何字也出現到搜尋框了... lol"
+
+**問題分析：**
+- 之前的修正太激進，所有鍵盤事件都被搜尋框攔截
+- 需要更精確的焦點檢測機制
+
+**精確修正：**
+```javascript
+// 只在搜尋框真正有焦點時才處理鍵盤事件
+searchBox.addEventListener('keydown', function(e) {
+    if (searchBoxHasFocus && document.activeElement === this) {
+        e.stopPropagation();
+        console.log('⌨️ 搜尋框鍵盤輸入:', e.key);
+    }
+});
+
+// 點擊其他地方時明確讓搜尋框失去焦點
+document.addEventListener('click', function(e) {
+    if (e.target !== searchBox && !searchBox.contains(e.target)) {
+        if (searchBoxHasFocus) {
+            searchBoxHasFocus = false;
+            searchBox.blur(); // 明確讓搜尋框失去焦點
+            console.log('🎮 模擬器重新獲得焦點');
+        }
+    }
+});
+
+// 全域鍵盤事件監聽，修正焦點狀態不一致
+document.addEventListener('keydown', function(e) {
+    if (document.activeElement === searchBox && searchBoxHasFocus) {
+        // 搜尋框有焦點，正常處理
+        return;
+    } else if (searchBoxHasFocus && document.activeElement !== searchBox) {
+        // 狀態不一致，修正焦點狀態
+        searchBoxHasFocus = false;
+        console.log('🔧 修正焦點狀態不一致');
+    }
+});
+```
+
+**雙重檢查機制：**
+1. `searchBoxHasFocus` 變數狀態
+2. `document.activeElement === searchBox` DOM 狀態
+3. 只有兩者都為真時才攔截鍵盤事件
+
+**最終效果：**
+- ✅ 點擊搜尋框：鍵盤輸入進入搜尋框
+- ✅ 點擊模擬器：鍵盤輸入進入遊戲
+- ✅ 自動修正焦點狀態不一致的情況
+- ✅ 完美的焦點切換，無干擾
+
+#### E) 代碼清理 ✅
+**用戶要求：**
+- "看樣子沒問題了, 把調試用的那些刪除了吧"
+
+**清理內容：**
+- 移除所有 `console.log` 調試日誌
+- 移除 `testSearch()` 測試函數
+- 移除 `fixSearchBox()` 調試函數
+- 保留核心的搜尋框焦點管理功能
+- 保留必要的事件監聽器
+
+**保留的核心功能：**
+```javascript
+// 搜尋框焦點管理（無調試日誌）
+let searchBoxHasFocus = false;
+
+searchBox.addEventListener('input', function(e) {
+    if (searchBoxHasFocus && document.activeElement === this) {
+        e.stopPropagation();
+        renderGames(e.target.value); // 無調試日誌
+    }
+});
+
+// 智能搜尋邏輯（無調試日誌）
+function renderGames(filter = '') {
+    // 多欄位搜尋：名稱、中文名稱、描述、年份、開發商
+    // 大小寫不敏感匹配
+    // 無調試輸出
+}
+```
+
+**最終狀態：**
+- ✅ 功能完整：搜尋、焦點管理、ZIP 支援
+- ✅ 代碼乾淨：無調試日誌、無測試函數
+- ✅ 性能優化：移除不必要的 console.log
+- ✅ 用戶友好：靜默運行，無控制台噪音

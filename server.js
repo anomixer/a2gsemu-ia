@@ -3,6 +3,7 @@ const cors = require('cors');
 const fetch = require('node-fetch');
 const compression = require('compression');
 const path = require('path');
+const AdmZip = require('adm-zip');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -131,8 +132,130 @@ app.get('/proxy/url/*', async (req, res) => {
     });
 });
 
+// 支援 ZIP 檔案中的檔案代理
+app.get('/proxy/zip/:zipUrl/:filename', async (req, res) => {
+    const zipUrl = decodeURIComponent(req.params.zipUrl);
+    const filename = req.params.filename;
+    
+    // 基本 URL 驗證
+    if (!isValidUrl(zipUrl)) {
+        console.error(`🚫 無效的 ZIP URL 格式: ${zipUrl}`);
+        return res.status(400).send('Invalid ZIP URL format');
+    }
+
+    const reqId = makeReqId();
+    const t0 = Date.now();
+    
+    console.log(`📦 ZIP [${reqId}] GET ${req.originalUrl}`);
+    console.log(`   ZIP URL: ${zipUrl}`);
+    console.log(`   Target File: ${filename}`);
+
+    try {
+        // 下載 ZIP 檔案
+        const response = await fetch(zipUrl);
+        
+        if (!response.ok) {
+            console.error(`📦 ZIP [${reqId}] ❌ upstream HTTP ${response.status}`);
+            return res.status(response.status).send('ZIP file not found');
+        }
+
+        const zipBuffer = await response.buffer();
+        console.log(`📦 ZIP [${reqId}] ✅ Downloaded ZIP: ${(zipBuffer.length / 1024 / 1024).toFixed(2)} MB`);
+
+        // 解析 ZIP 檔案
+        const zip = new AdmZip(zipBuffer);
+        const zipEntries = zip.getEntries();
+        
+        // 尋找目標檔案
+        const targetEntry = zipEntries.find(entry => {
+            const entryName = entry.entryName;
+            // 支援完整路徑匹配或檔名匹配
+            return entryName === filename || entryName.endsWith('/' + filename) || entryName.endsWith('\\' + filename);
+        });
+
+        if (!targetEntry) {
+            console.error(`📦 ZIP [${reqId}] ❌ File not found in ZIP: ${filename}`);
+            console.log(`📦 ZIP [${reqId}] Available files:`, zipEntries.map(e => e.entryName));
+            return res.status(404).send(`File '${filename}' not found in ZIP archive`);
+        }
+
+        // 提取檔案內容
+        const fileBuffer = zip.readFile(targetEntry);
+        const ms = Date.now() - t0;
+        const mb = (fileBuffer.length / 1024 / 1024).toFixed(2);
+        
+        console.log(`📦 ZIP [${reqId}] ✅ Extracted ${filename}: ${mb} MB (${ms} ms)`);
+
+        // 設定適當的 Content-Type
+        let contentType = 'application/octet-stream';
+        const ext = path.extname(filename).toLowerCase();
+        switch (ext) {
+            case '.woz':
+            case '.2mg':
+            case '.po':
+            case '.dsk':
+                contentType = 'application/octet-stream';
+                break;
+            case '.png':
+                contentType = 'image/png';
+                break;
+            case '.jpg':
+            case '.jpeg':
+                contentType = 'image/jpeg';
+                break;
+            case '.gif':
+                contentType = 'image/gif';
+                break;
+        }
+
+        res.set('Content-Type', contentType);
+        res.set('Content-Length', fileBuffer.length);
+        res.set('Access-Control-Allow-Origin', '*');
+        res.set('Cache-Control', 'public, max-age=86400');
+        res.set('X-Proxy-Request-Id', reqId);
+        res.set('X-Zip-Source', zipUrl);
+        res.set('X-Zip-Entry', targetEntry.entryName);
+
+        return res.send(fileBuffer);
+
+    } catch (err) {
+        const ms = Date.now() - t0;
+        console.error(`📦 ZIP [${reqId}] ❌ error after ${ms} ms:`, err.message);
+        return res.status(500).send('ZIP processing error');
+    }
+});
+
 app.get('/proxy/game/:itemId/:filename', async (req, res) => {
     const { itemId, filename } = req.params;
+    
+    // 檢查是否為 ZIP 檔案格式 (例如: game.zip/disk1.po)
+    if (filename.includes('.zip/')) {
+        const [zipFilename, innerFilename] = filename.split('.zip/');
+        const zipFilenameWithExt = zipFilename + '.zip';
+        
+        // 檢查 itemId 是否為完整 URL
+        let zipUrl;
+        if (itemId.startsWith('http://') || itemId.startsWith('https://')) {
+            // 如果 itemId 是完整 URL，直接使用
+            if (!isValidUrl(itemId)) {
+                console.error(`🚫 無效的 ZIP URL 格式: ${itemId}`);
+                return res.status(400).send('Invalid ZIP URL format');
+            }
+            zipUrl = `${itemId}/${zipFilenameWithExt}`;
+        } else {
+            // 傳統格式：從 Archive.org 構建 URL
+            zipUrl = `https://archive.org/download/${itemId}/${zipFilenameWithExt}`;
+        }
+        
+        console.log(`🎮 ZIP GAME ${innerFilename} from ${zipFilenameWithExt}`);
+        console.log(`   itemId: ${itemId}`);
+        console.log(`   ZIP URL: ${zipUrl}`);
+        console.log(`   Inner file: ${innerFilename}`);
+        
+        // 重定向到 ZIP 處理路由
+        const encodedZipUrl = encodeURIComponent(zipUrl);
+        return res.redirect(`/proxy/zip/${encodedZipUrl}/${innerFilename}`);
+    }
     
     // 檢查 filename 是否為完整 URL
     if (filename.startsWith('http://') || filename.startsWith('https://')) {
@@ -204,8 +327,13 @@ app.listen(PORT, () => {
     console.log(`   - http://localhost:${PORT}/v8  (後端代理版本)`);
     console.log(`\n✨ 功能:`);
     console.log(`   ✅ 代理 Archive.org 檔案（解決 CORS）`);
+    console.log(`   ✅ 支援完整 URL 檔案來源`);
+    console.log(`   ✅ 支援 ZIP 檔案內檔案提取`);
     console.log(`   ✅ 提供靜態檔案服務`);
     console.log(`   ✅ 快取支援（24 小時）`);
     console.log(`   ✅ 正確處理 .gz 壓縮檔`);
+    console.log(`\n📦 ZIP 檔案格式範例:`);
+    console.log(`   file: "game.zip/disk1.po"`);
+    console.log(`   file2: "game.zip/disk2.po"`);
     console.log(`\n🚨 按 Ctrl+C 停止伺服器\n`);
 });

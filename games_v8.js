@@ -12,6 +12,20 @@
 
 window.games = [
   {
+    "id": "BrutalDeluxeSoftware_lr",
+    "emu": "apple2gs",
+    "file": "https://www.brutaldeluxe.fr/products/apple2gs/loderunner/disks/loderunneriigs.zip/lr_system.po",
+    "file2": "https://www.brutaldeluxe.fr/products/apple2gs/loderunner/disks/loderunneriigs.zip/lr_program.po",
+    "name": "Lode Runner 2024",
+    "year": "2024",
+    "type": "game",
+    "desc": "\"Apple IIgs Karate\" is famous game.",
+    "developer": "Tozai Games",
+    "publisher": "Brutal Deluxe Software",
+    "screenshot": "https://www.brutaldeluxe.fr/products/apple2gs/loderunner/images/lr_title.jpg",
+    "nameCh": "超級運動員"
+  },
+  {
     "id": "wozaday_4th_and_Inches_IIgs",
     "emu": "apple2gs",
     "file": "00playable.woz",

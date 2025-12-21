@@ -1056,12 +1056,29 @@
                 if (game && game.screenshot) {
                     // 檢查截圖是否為完整 URL (支援任何 HTTP/HTTPS URL)
                     if (game.screenshot.startsWith('http://') || game.screenshot.startsWith('https://')) {
-                        // 完整 URL：使用 URL 編碼
-                        const encodedUrl = encodeURIComponent(game.screenshot);
-                        gameScreenshot.src = `${SERVER_URL}/proxy/url/${encodedUrl}?t=${Date.now()}`;
+                        // 檢查是否為 ZIP 檔案格式
+                        if (game.screenshot.includes('.zip/')) {
+                            // ZIP 檔案格式：提取 ZIP URL 和內部檔案名
+                            const zipIndex = game.screenshot.indexOf('.zip/');
+                            const zipUrl = game.screenshot.substring(0, zipIndex + 4); // 包含 .zip
+                            const innerFilename = game.screenshot.substring(zipIndex + 5); // .zip/ 之後的部分
+                            
+                            const encodedZipUrl = encodeURIComponent(zipUrl);
+                            gameScreenshot.src = `${SERVER_URL}/proxy/zip/${encodedZipUrl}/${innerFilename}?t=${Date.now()}`;
+                        } else {
+                            // 完整 URL：使用 URL 編碼
+                            const encodedUrl = encodeURIComponent(game.screenshot);
+                            gameScreenshot.src = `${SERVER_URL}/proxy/url/${encodedUrl}?t=${Date.now()}`;
+                        }
                     } else {
-                        // 傳統格式
-                        gameScreenshot.src = `${SERVER_URL}/proxy/game/${game.id}/${game.screenshot}?t=${Date.now()}`;
+                        // 檢查是否為傳統 ZIP 格式 (例如: game.zip/screenshot.png)
+                        if (game.screenshot.includes('.zip/')) {
+                            // 傳統 ZIP 格式：使用遊戲路由，讓後端處理 ZIP 邏輯
+                            gameScreenshot.src = `${SERVER_URL}/proxy/game/${game.id}/${game.screenshot}?t=${Date.now()}`;
+                        } else {
+                            // 傳統格式
+                            gameScreenshot.src = `${SERVER_URL}/proxy/game/${game.id}/${game.screenshot}?t=${Date.now()}`;
+                        }
                     }
                 } else {
                     gameScreenshot.src = `https://archive.org/services/img/${game.id}`;
@@ -1238,12 +1255,29 @@
                         
                         // 檢查是否為完整 URL (支援任何 HTTP/HTTPS URL)
                         if (filename && (filename.startsWith('http://') || filename.startsWith('https://'))) {
-                            // 完整 URL：使用 URL 編碼後的路徑
-                            const encodedUrl = encodeURIComponent(filename);
-                            return `${SERVER_URL}/proxy/url/${encodedUrl}?t=${timestamp}`;
+                            // 檢查是否為 ZIP 檔案格式
+                            if (filename.includes('.zip/')) {
+                                // ZIP 檔案格式：提取 ZIP URL 和內部檔案名
+                                const zipIndex = filename.indexOf('.zip/');
+                                const zipUrl = filename.substring(0, zipIndex + 4); // 包含 .zip
+                                const innerFilename = filename.substring(zipIndex + 5); // .zip/ 之後的部分
+                                
+                                const encodedZipUrl = encodeURIComponent(zipUrl);
+                                return `${SERVER_URL}/proxy/zip/${encodedZipUrl}/${innerFilename}?t=${timestamp}`;
+                            } else {
+                                // 完整 URL：使用 URL 編碼後的路徑
+                                const encodedUrl = encodeURIComponent(filename);
+                                return `${SERVER_URL}/proxy/url/${encodedUrl}?t=${timestamp}`;
+                            }
                         } else {
-                            // 傳統格式：itemId + filename
-                            return `${SERVER_URL}/proxy/game/${gameId}/${filename}?t=${timestamp}`;
+                            // 檢查是否為傳統 ZIP 格式 (例如: game.zip/disk1.po)
+                            if (filename && filename.includes('.zip/')) {
+                                // 傳統 ZIP 格式：使用遊戲路由，讓後端處理 ZIP 邏輯
+                                return `${SERVER_URL}/proxy/game/${gameId}/${filename}?t=${timestamp}`;
+                            } else {
+                                // 傳統格式：itemId + filename
+                                return `${SERVER_URL}/proxy/game/${gameId}/${filename}?t=${timestamp}`;
+                            }
                         }
                     }
 
@@ -1312,6 +1346,41 @@
                     emulator.start();
                     
                     console.log('⏳ 模擬器啟動中，請稍候...');
+
+                    // 修正：模擬器啟動後確保搜尋框仍可使用
+                    setTimeout(() => {
+                        if (searchBox) {
+                            // 確保搜尋框可以接收輸入
+                            searchBox.removeAttribute('readonly');
+                            searchBox.removeAttribute('disabled');
+                            searchBox.style.pointerEvents = 'auto';
+                            searchBox.tabIndex = 0; // 確保可以獲得焦點
+                            
+                            // 重新綁定事件監聽器（以防被覆蓋）
+                            const newSearchBox = document.getElementById('searchBox');
+                            if (newSearchBox && !newSearchBox.hasAttribute('data-events-bound')) {
+                                newSearchBox.setAttribute('data-events-bound', 'true');
+                                newSearchBox.addEventListener('input', function(e) {
+                                    e.stopPropagation();
+                                    renderGames(e.target.value);
+                                });
+                            }
+                        }
+                    }, 2000);
+                    
+                    // 定期檢查搜尋框狀態
+                    const searchBoxChecker = setInterval(() => {
+                        if (searchBox && currentEmulator) {
+                            // 確保搜尋框仍然可用
+                            if (searchBox.hasAttribute('readonly') || searchBox.hasAttribute('disabled')) {
+                                searchBox.removeAttribute('readonly');
+                                searchBox.removeAttribute('disabled');
+                            }
+                        } else if (!currentEmulator) {
+                            // 模擬器停止時清除檢查器
+                            clearInterval(searchBoxChecker);
+                        }
+                    }, 5000);
 
                     setTimeout(() => {
                         const loadingTip = document.getElementById('loadingTip');
@@ -1396,27 +1465,58 @@
 
             function renderGames(filter = '') {
                 gameList.innerHTML = '';
-                const filtered = games.filter(g =>
-                    String(g.name || '').includes(filter) ||
-                    String(g.nameCh || '').toLowerCase().includes(filter.toLowerCase())
-                ).sort((a, b) => {
+                
+                if (!filter.trim()) {
+                    // 沒有過濾條件時顯示所有遊戲
+                    var filtered = games;
+                } else {
+                    const filterLower = filter.toLowerCase().trim();
+                    var filtered = games.filter(g => {
+                        const nameMatch = String(g.name || '').toLowerCase().includes(filterLower);
+                        const nameChMatch = String(g.nameCh || '').toLowerCase().includes(filterLower);
+                        const descMatch = String(g.desc || '').toLowerCase().includes(filterLower);
+                        const yearMatch = String(g.year || '').includes(filter.trim());
+                        const developerMatch = String(g.developer || '').toLowerCase().includes(filterLower);
+                        
+                        return nameMatch || nameChMatch || descMatch || yearMatch || developerMatch;
+                    });
+                }
+                
+                filtered = filtered.sort((a, b) => {
                     const w = typeWeight(a.type) - typeWeight(b.type);
                     if (w !== 0) return w;
                     return String(a.name || '').localeCompare(String(b.name || ''));
                 });
 
-                filtered.forEach(game => {
-                    const item = document.createElement('div');
-                    item.className = 'game-item';
-                    item.dataset.id = game.id;
-                    item.innerHTML = `
-                        <h3>${game.name} ${getBadge(game.type)}</h3>
-                        <div class="name-en">${game.nameCh}</div>
-                        <div class="year">📅 ${game.year}</div>
+                if (filtered.length === 0 && filter.trim() !== '') {
+                    // 沒有搜尋結果時顯示提示
+                    const noResultDiv = document.createElement('div');
+                    noResultDiv.className = 'no-results';
+                    noResultDiv.innerHTML = `
+                        <div style="text-align: center; padding: 40px 20px; color: #888;">
+                            <div style="font-size: 48px; margin-bottom: 16px;">🔍</div>
+                            <div style="font-size: 18px; margin-bottom: 8px;">找不到相關遊戲</div>
+                            <div style="font-size: 14px;">搜尋條件：「${filter}」</div>
+                            <div style="font-size: 12px; margin-top: 16px; opacity: 0.7;">
+                                提示：可以搜尋中文或英文遊戲名稱
+                            </div>
+                        </div>
                     `;
-                    item.onclick = () => loadGame(game, item);
-                    gameList.appendChild(item);
-                });
+                    gameList.appendChild(noResultDiv);
+                } else {
+                    filtered.forEach(game => {
+                        const item = document.createElement('div');
+                        item.className = 'game-item';
+                        item.dataset.id = game.id;
+                        item.innerHTML = `
+                            <h3>${game.name} ${getBadge(game.type)}</h3>
+                            <div class="name-en">${game.nameCh}</div>
+                            <div class="year">📅 ${game.year}</div>
+                        `;
+                        item.onclick = () => loadGame(game, item);
+                        gameList.appendChild(item);
+                    });
+                }
             }
 
 
@@ -1539,10 +1639,6 @@
                 }
             };
 
-            searchBox.addEventListener('input', (e) => {
-                renderGames(e.target.value);
-            });
-
             leftResizer.addEventListener('mousedown', (e) => {
                 isResizing = true;
                 document.body.style.cursor = 'col-resize';
@@ -1637,6 +1733,74 @@
             
             autoStartFromUrl();
             console.log(`✅ 已載入 ${games.length} 款 Apple IIgs 軟體`);
+            
+            // 搜尋框焦點管理
+            let searchBoxHasFocus = false;
+            
+            if (searchBox) {
+                searchBox.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.focus();
+                    searchBoxHasFocus = true;
+                });
+                
+                searchBox.addEventListener('focus', function() {
+                    searchBoxHasFocus = true;
+                });
+                
+                searchBox.addEventListener('blur', function() {
+                    searchBoxHasFocus = false;
+                });
+                
+                searchBox.addEventListener('keydown', function(e) {
+                    if (searchBoxHasFocus && document.activeElement === this) {
+                        e.stopPropagation();
+                    }
+                });
+                
+                searchBox.addEventListener('keyup', function(e) {
+                    if (searchBoxHasFocus && document.activeElement === this) {
+                        e.stopPropagation();
+                    }
+                });
+                
+                searchBox.addEventListener('keypress', function(e) {
+                    if (searchBoxHasFocus && document.activeElement === this) {
+                        e.stopPropagation();
+                    }
+                });
+                
+                searchBox.addEventListener('input', function(e) {
+                    if (searchBoxHasFocus && document.activeElement === this) {
+                        e.stopPropagation();
+                        renderGames(e.target.value);
+                    }
+                });
+            }
+            
+            // 點擊其他地方時讓模擬器重新獲得焦點
+            document.addEventListener('click', function(e) {
+                if (e.target !== searchBox && !searchBox.contains(e.target)) {
+                    if (searchBoxHasFocus) {
+                        searchBoxHasFocus = false;
+                        searchBox.blur();
+                    }
+                    
+                    const canvas = document.getElementById('canvas');
+                    if (canvas && currentEmulator) {
+                        setTimeout(() => {
+                            canvas.focus();
+                        }, 10);
+                    }
+                }
+            });
+            
+            // 修正焦點狀態不一致
+            document.addEventListener('keydown', function(e) {
+                if (searchBoxHasFocus && document.activeElement !== searchBox) {
+                    searchBoxHasFocus = false;
+                }
+            });
         </script>
     </body>
 
