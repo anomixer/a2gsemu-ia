@@ -1,342 +1,350 @@
-# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs Emulator - Frontend Version
+# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs 線上模擬器
 
-**[English Version](README_en.md) | [英文版本](README_en.md)**
+🎮 **在瀏覽器中體驗經典的 Apple IIgs 遊戲與軟體！**
 
-一個基於 Internet Archive 的 Apple IIgs 遊戲模擬器網頁介面,讓你在瀏覽器中重溫 80 年代經典遊戲!
+[![GitHub](https://img.shields.io/badge/GitHub-anomixer/a2gsemu--ia-green?logo=github)](https://github.com/anomixer/a2gsemu-ia)
+[![Node.js](https://img.shields.io/badge/Node.js-Backend-brightgreen?logo=node.js)](https://nodejs.org/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-**🚀 前端版本特色:單一 HTML 檔案,無需安裝,開箱即用!**
+**🌍 Language / 語言**: [English](README_EN.md) | **繁體中文**
 
-**⭐ 後端版本特色:Node.js 代理,完全解決 CORS 問題,支援完整音效!**
-- 參考: [README_SERVER.md](README_SERVER.md)
+---
 
-![Apple IIgs Logo](https://img.shields.io/badge/Apple_IIgs-1986-green?style=for-the-badge&logo=apple)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
-![Single File](https://img.shields.io/badge/Single_File-✓-success?style=for-the-badge)
-[![GitHub Pages](https://img.shields.io/badge/demo-online-success?style=for-the-badge)](https://anomixer.github.io/a2gsemu-ia/)
+## ✨ 特色功能
 
-## 📦 專案特色
+- 🎯 **130款精選遊戲** - 包含經典 RPG、動作、益智等各類遊戲
+- 🔊 **智能音效支援** - 自動檢測後端服務，有聲/靜音模式無縫切換
+- 📱 **響應式設計** - 支援桌面和行動裝置
+- 🎮 **滑鼠鎖定功能** - 點擊遊戲畫面鎖定滑鼠，按 Esc 解除
+- 🔍 **智能搜尋** - 支援中英文遊戲名稱、描述、年份搜尋
+- 🌍 **單鍵語言切換** - 右上角單一按鈕，一鍵切換中英文介面，語言設定持久保存
+- 📦 **多格式支援** - 支援 .woz、.2mg、.po、.dsk 等磁片格式
+- 🌐 **多重資料源** - 支援 Archive.org、自訂 URL、ZIP 檔案
+- ⚡ **快速載入** - 24小時檔案快取，提升載入速度
+- 🔄 **自動回退** - 後端不可用時自動切換至 IA Loader 模式
 
-### 🎯 單一 HTML 檔案設計
-- **零依賴** - 不需要任何外部檔案或資料庫
-- **即開即用** - 下載後直接用瀏覽器開啟
-- **易於部署** - 上傳到任何網頁伺服器即可運行
-- **完全離線** - HTML/CSS/JavaScript 全部內嵌
-- **檔案大小** - 僅約 50KB,輕量快速
-
-### 🌍 多語言支援
-- **雙語介面** - 提供繁體中文和英文版本
-- **一鍵切換** - 右上角語言切換按鈕,快速切換語言
-- **完整翻譯** - 所有介面文字、說明、遊戲資訊均提供雙語版本
-- **字體優化** - 英文版使用 Arial 字體,提供更佳的閱讀體驗
-
-### 🎮 遊戲收藏
-- **28+ 款精選軟體**,涵蓋動作、冒險、RPG、運動、益智等類型
-- 包含經典名作如《波斯王子》、《俄羅斯方塊》、《冰城傳奇》等
-- 特別收錄 Total Replay 百款Apple IIe遊戲合集
-
-### 🖥️ 使用者介面
-- **全繁體中文介面**,適合台灣玩家
-- **三欄式布局**:遊戲列表 | 模擬器畫面 | 操作說明
-- **可拖曳調整**左右面板寬度,自訂最佳顯示比例
-- **即時搜尋**功能,快速找到想玩的遊戲
-- **響應式設計**,支援桌面和平板裝置
-
-### 🎯 模擬器功能
-- **640x200 原生解析度**顯示,還原真實 Apple IIgs 畫面比例
-- **全螢幕模式**,沉浸式遊戲體驗
-- **MAME 模擬器**整合,支援存檔/讀檔功能
-- **一鍵開啟 Archive.org**完整聲音控制面板
-- **自動狀態儲存**到瀏覽器本地
-
-### 📖 完整說明文件
-- 詳細的遊戲資訊(年份、開發商、發行商、簡介)
-- 一般操作說明(方向鍵、空白鍵、Enter 等)
-- MAME 模擬器進階操作指南
-- CPU 速度調整、視訊設定、音訊設定等
+---
 
 ## 🚀 快速開始
 
-### 方法一:線上使用 (推薦)
-直接訪問 GitHub Pages 部署版本:
-https://anomixer.github.io/a2gsemu-ia/
+### 智能模式檢測
+本專案具備智能檢測機制，會自動判斷運行環境並選擇最佳模式：
 
-### 方法二:下載單一 HTML 檔案
-1. **下載 `index.html`**
-```
-wget https://raw.githubusercontent.com/anomixer/a2gsemu-ia/main/index.html
-```
+#### 🔊 完整功能模式 (推薦)
+當檢測到 `server.js` 運行時：
+- ✅ **完整音效支援** - 聲音完全正常
+- ✅ **ZIP 檔案支援** - 支援壓縮檔案格式
+- ✅ **自動預下載** - 核心檔案預先載入
+- ✅ **24小時快取** - 提升載入速度
+- ✅ **CORS 解決** - 完美解決跨域問題
 
-2. **雙擊開啟**
+#### 🔇 IA 嵌入模式 (自動回退)
+當檢測到以下情況時自動切換：
+- 📁 直接開啟 HTML 檔案 (`file://` 協議)
+- 🌐 使用普通 HTTP 服務器 (如 `npx http-server`)
+- ❌ 未運行 `server.js` 後端服務
 
-用任何現代瀏覽器開啟 `index.html` 即可!
+此模式特點：
+- 🔇 **靜音模式** - 使用 Archive.org 嵌入式模擬器
+- 📱 **純前端** - 無需後端服務
+- 🌐 **直接嵌入** - 點擊遊戲直接載入 IA 模擬器
+- ⚠️ **功能限制** - 不支援 ZIP 檔案和自訂音效
 
-- Windows: 雙擊檔案,用預設瀏覽器開啟
-- macOS: 雙擊檔案,或拖曳到瀏覽器
-- Linux: `xdg-open index.html` 或 `firefox index.html`
+### 方法一：完整功能模式 (推薦)
 
-### 方法三:克隆完整專案
-```
+```bash
+# 1. 下載專案
 git clone https://github.com/anomixer/a2gsemu-ia.git
 cd a2gsemu-ia
+
+# 2. 安裝依賴
+npm install
+
+# 3. 啟動伺服器
+npm start
+
+# 4. 開啟瀏覽器
+# 訪問 http://localhost:3000
 ```
 
-然後用瀏覽器開啟 `index.html`
+### 方法二：簡易模式
+線上體驗: https://anomixer.github.io/a2gsemu-ia
+ 
+```bash
+# 1. 下載專案
+git clone https://github.com/anomixer/a2gsemu-ia.git
+cd a2gsemu-ia
 
-### 方法四:本地伺服器 (可選)
-如果需要測試或開發:
-
-Python 3
-```
-python -m http.server 8000
-```
-
-Node.js (需安裝 http-server)
-```
+# 2. 使用任何 HTTP 服務器
 npx http-server
+# 或
+python -m http.server 8000
+
+# 3. 開啟瀏覽器
+# 系統會自動重定向到 index_old.html (IA 嵌入模式)
 ```
 
-PHP
-```
-php -S localhost:8000
-```
+### 方法三：直接開啟檔案
+直接雙擊 `index.html` 檔案，系統會自動重定向到 `index_old.html` 使用 IA 嵌入模式。
 
-訪問 `http://localhost:8000`
+---
 
-## 🎮 使用說明
+## 🎮 使用方法
 
 ### 基本操作
-1. 從左側遊戲列表選擇一款遊戲
-2. 等待 10-30 秒載入(首次載入較慢)
-3. 使用鍵盤操作:
-   - **方向鍵**: 移動/選擇
-   - **Space**: 動作/跳躍/射擊
-   - **Enter**: 開始遊戲/確認
-   - **Esc**: 暫停/取消
+1. **選擇遊戲** - 從左側列表點擊任何遊戲
+2. **查看資訊** - 中間會顯示遊戲截圖與詳細資訊
+3. **開始遊戲** - 點擊截圖開始載入模擬器
+4. **語言切換** - 使用右上角單一按鈕一鍵切換中英文介面
+5. **享受遊戲** - 使用鍵盤控制，支援全螢幕模式
+
+### 鍵盤控制
+- **方向鍵** `↑ ↓ ← →` - 移動/選擇
+- **空白鍵** `Space` - 動作/跳躍/射擊
+- **Enter** - 開始遊戲/確認
+- **Esc** - 暫停/取消/解除滑鼠鎖定
+- **數字鍵** `1-9` - 數字輸入
+- **字母鍵** `A-Z` - 字母輸入
 
 ### 進階功能
+- **滑鼠鎖定** - 點擊遊戲畫面鎖定滑鼠，按 `Esc` 解除
+- **全螢幕模式** - 點擊 `⛶ 全螢幕` 按鈕
+- **MAME 設定** - 按 `Tab` 開啟 MAME 選單調整設定
+- **存檔/讀檔** - `Shift+F7` 存檔，`F7` 讀檔
+- **語言持久化** - 語言設定會自動保存，重新載入頁面或點擊遊戲截圖後語言不會改變
+- **URL 分享** - 可以分享帶有語言參數的 URL，接收者會看到相同的語言介面
 
-#### 全螢幕模式
-點擊右上角「⛶ 全螢幕」按鈕,再次點擊退出
+---
 
-#### 聲音控制
-點擊「🔊 開啟聲音」在新分頁開啟 Archive.org 完整控制面板
+## 📚 遊戲收藏
 
-#### 存檔/讀檔
-- **存檔**: `Shift` + `F7`
-- **讀檔**: `F7`
-- 支援 0-9 共 10 個存檔槽位
+### 🎯 遊戲類型
+- **RPG** - The Bard's Tale、Dragon Wars 等
+- **動作** - California Games、Marble Madness 等
+- **益智** - Tetris、Columns、Block Out 等
+- **冒險** - Beyond Zork 系列、Space Quest 系列等
+- **模擬** - Pirates!、Balance of Power 等
 
-#### MAME 選單
-1. 按 `Scroll Lock` 開啟 MAME UI 模式
-2. 按 `Tab` 開啟選單
-3. 選擇 **Machine Configuration** 可調整:
-   - CPU Speed (加速/減速遊戲)
-   - Video Options (畫面設定)
-   - Audio Options (音訊設定)
-   - Input Settings (按鍵設定)
+### 📊 統計資訊
+- **總計**: 129款遊戲與軟體
+- **年代**: 1986-2024年
+- **語言**: 單鍵切換的完整中英文雙語介面
+- **描述**: 每款遊戲都有詳細的400字介紹
 
-#### 調整面板大小
-拖曳左右兩側的綠色分隔線 `⋮` 調整寬度
+---
 
-## 📝 遊戲列表
-
-### 🎯 動作遊戲
-- **波斯王子** (Prince of Persia) - 1989
-- **送報生** (Paperboy) - 1988
-- **不朽傳說** (The Immortal) - 1990
-- **王者之劍** (Rastan) - 1990
-- **水晶任務** (Crystal Quest) - 1988
-- **快打磚塊** (Arkanoid) - 1987
-- **雲霄飛球** (Marble Madness) - 1988
-
-### 🗺️ 冒險遊戲
-- **宇宙傳奇 2** (Space Quest II) - 1988
-- **芝加哥之王** (The King of Chicago) - 1988
-- **似曾相識** (Déjà Vu) - 1987
-- **東城時光** (Tass Times In Tonetown) - 1986
-- **影之門** (Shadowgate) - 1988
-
-### ⚔️ 角色扮演
-- **冰城傳奇** (The Bard's Tale) - 1987
-
-### 🏃 運動遊戲
-- **硬式棒球** (Hardball!) - 1987
-- **冬季運動會** (Winter Games) - 1987
-- **加州運動會** (California Games) - 1989
-- **世界運動會** (World Games) - 1987
-- **瘋狂高爾夫** (Zany Golf) - 1988
-
-### 🧩 益智遊戲
-- **上海** (Shanghai) - 1987
-- **戰鬥西洋棋** (Battle Chess) - 1989
-- **水管夢** (Pipe Dream) - 1990
-- **俄羅斯方塊** (Tetris) - 1988
-
-### 🗺️ 模擬/策略遊戲
-- **保皇騎士** (Defender of the Crown) - 1988
-- **驅逐艦** (Destroyer) - 1987
-
-### 🎓 教育軟體
-- **查理布朗字母學習** (Charlie Brown's ABCs) - 1990
-- **會說話的字母熊** (Talking Stickybear Alphabet) - 1988
-
-### ⚙️ 工具軟體
-- **List Plus** - 1989
-
-### ⭐ 特別收藏
-- **Total Replay** (100款合集) - 2024
-- **Pitch Dark** (漆黑) - 2023
-
-## 🔧 技術架構
-
-### 單一檔案設計
-
-- index.html ← 唯一檔案,包含所有功能
-- README.md ← 說明文件
-- LICENSE ← 授權說明
-
-**index.html 內含:**
-- HTML5 結構
-- CSS3 樣式 (內嵌 `<style>`)
-- JavaScript 程式碼 (內嵌 `<script>`)
-- 遊戲資料庫 (JSON 格式)
-- 完整使用說明
+## 🛠️ 技術架構
 
 ### 前端技術
-- **純 HTML5 + CSS3 + JavaScript (ES6+)**
-- 無需任何框架或建構工具
-- 無需 Node.js、npm、webpack 等
-- 相容性:IE11+ / Edge / Chrome / Firefox / Safari
+- **HTML5 Canvas** - 遊戲渲染
+- **Emularity** - 模擬器核心
+- **MAME** - Apple IIgs 模擬引擎
+- **響應式 CSS** - 適配各種螢幕尺寸
+- **智能檢測** - 自動檢測後端服務狀態
+- **完整國際化系統** - 具備語言持久化的完整雙語支援
+  - 單鍵語言切換 (🇺🇸 En ↔ 🇹🇼 中文)
+  - 首次載入時自動檢測瀏覽器語言
+  - URL 參數儲存語言設定，支援分享和書籤
+  - 完整 UI 翻譯，包含使用提示、控制說明、MAME 設定
+  - 遊戲資訊雙語顯示，語言切換後立即更新
 
-### 模擬器來源
-- **Internet Archive** - 遊戲 ROM 和模擬器 (透過 iframe 載入)
-- **MAME** - Apple IIgs 硬體模擬
-- **Emularity** - 瀏覽器端模擬器框架
+### 後端技術 (可選)
+- **Node.js + Express** - 伺服器框架
+- **代理服務** - 解決 CORS 問題，提供完整音效
+- **檔案快取** - 24小時快取機制
+- **ZIP 支援** - 直接從 ZIP 檔案提取遊戲
+- **預下載** - 自動預下載核心檔案加速載入
 
-### 瀏覽器支援
-- ✅ Chrome/Edge 90+ (建議)
-- ✅ Firefox 88+
-- ✅ Safari 14+
-- ⚠️ 行動裝置支援有限(鍵盤操作限制)
+### 雙模式架構
+本專案採用智能雙模式架構，根據運行環境自動選擇最佳模式：
 
-## ⚠️ 限制與注意事項
+#### 🔊 完整功能模式 (`server.js`)
+- **檢測條件**: 檢測到 `/proxy/bios/apple2gs.zip` 端點響應非 404
+- **音效支援**: 完整音效，聲音正常
+- **檔案支援**: 支援所有格式，包括 ZIP 檔案
+- **快取機制**: 24小時檔案快取
+- **預下載**: 自動預下載核心檔案
 
-### 技術限制
-1. **首次載入較慢** (10-30 秒)
-   - 需從 Internet Archive 下載模擬器和 ROM 檔案
-   - 建議使用穩定網路連線
+#### 🔇 IA 嵌入模式 (`index_old.html`)
+- **檢測條件**: 
+  - `file://` 協議 (直接開啟檔案)
+  - HTTP 服務器返回 404 (普通 HTTP 服務器)
+  - 網絡錯誤或超時
+- **音效支援**: 靜音模式，需點擊 "開啟 IA 網站" 獲得音效
+- **檔案支援**: 基本格式，不支援 ZIP 檔案
+- **載入方式**: 直接嵌入 Archive.org 模擬器
 
-2. **聲音控制受限**
-   - iframe 嵌入限制,無法直接控制音量
-   - 需點擊「開啟聲音」按鈕在新分頁操作
+#### 智能檢測流程
+```javascript
+// 檢測邏輯
+1. 檢查協議 → file:// ? 重定向到 index_old.html
+2. 測試端點 → fetch('/proxy/bios/apple2gs.zip')
+3. 檢查響應 → 404 ? 重定向到 index_old.html
+4. 其他狀態 → 使用完整功能模式
+```
 
-3. **行動裝置體驗欠佳**
-   - 需要實體鍵盤操作
-   - 觸控螢幕無法模擬所有按鍵
+### 資料來源
+- **Internet Archive** - 主要遊戲檔案來源
+- **自訂 URL** - 支援任何 HTTP/HTTPS 來源
+- **ZIP 檔案** - 支援壓縮檔案格式
+- **Full URL ID** - 支援完整 URL 作為遊戲 ID
 
-4. **存檔依賴瀏覽器**
-   - 清除瀏覽器快取會遺失存檔
-   - 不同瀏覽器/裝置的存檔不共通
+---
 
-### 版權聲明
-- 所有遊戲 ROM 來自 [Internet Archive](https://archive.org)
-- 僅供個人學習和懷舊用途
-- 商業使用請遵守原版權方規定
+## 📁 專案結構
 
-### 相容性問題
-- 部分遊戲可能無法正常執行
-- 某些特殊按鍵組合可能被瀏覽器攔截
-- 全螢幕模式在某些瀏覽器可能有限制
+```
+a2gsemu-ia/
+├── 📄 核心檔案
+│   ├── index.html              # 主應用程式 (智能檢測 + 完整功能)
+│   ├── index_old.html          # IA 嵌入模式 (中文版)
+│   ├── index_en_old.html       # IA 嵌入模式 (英文版)
+│   ├── server.js               # Node.js 後端伺服器
+│   ├── games.js               # 遊戲資料庫 (129 款遊戲)
+│   └── package.json           # 專案配置與依賴
+│
+├── 🎮 模擬器核心
+│   ├── browserfs.min.js       # 瀏覽器檔案系統
+│   ├── loader.js              # Emularity 載入器
+│   └── mameapple2gs.wasm.gz   # MAME Apple IIgs 核心
+│
+├── 🎨 資源檔案
+│   ├── favicon.ico            # 網站圖示
+│   └── logo/                  # 標誌資源
+│       └── emularity_color_small.png
+│
+├── 📚 文檔
+│   ├── README.md              # 專案說明文檔 (中文版)
+│   ├── README_EN.md           # 專案說明文檔 (英文版)
+│   ├── agent.md               # 開發文檔
+│   └── LICENSE                # MIT 授權條款
+│
+├── ⚙️ 配置檔案
+│   ├── .gitignore             # Git 忽略清單
+│   ├── package-lock.json      # 依賴鎖定檔案
+│   └── .vscode/               # VS Code 設定
+│       └── settings.json
+│
+└── 📦 依賴套件
+    └── node_modules/          # Node.js 依賴 (npm install 後產生)
+        ├── express/           # Web 框架
+        ├── cors/              # CORS 處理
+        ├── compression/       # 檔案壓縮
+        ├── adm-zip/           # ZIP 檔案處理
+        ├── node-fetch/        # HTTP 請求
+        └── ...               # 其他依賴
+```
+
+### 檔案說明
+
+#### 🎯 主要檔案
+- **`index.html`** - 主應用程式，具備智能檢測功能，自動選擇最佳模式
+- **`index_old.html`** - IA 嵌入模式 (中文)，純前端，無需後端
+- **`index_en_old.html`** - IA 嵌入模式 (英文)，純前端，無需後端
+- **`server.js`** - Node.js 後端伺服器，提供代理服務和完整功能
+- **`games.js`** - 遊戲資料庫，包含 129 款遊戲的完整資訊
+
+#### 🔧 技術檔案
+- **`browserfs.min.js`** - 瀏覽器檔案系統模擬
+- **`loader.js`** - Emularity 模擬器載入器
+- **`mameapple2gs.wasm.gz`** - MAME Apple IIgs 模擬器核心
+
+#### 📋 配置檔案
+- **`package.json`** - 專案配置，依賴管理，腳本定義
+- **`.gitignore`** - Git 版本控制忽略清單
+- **`.vscode/settings.json`** - VS Code 編輯器設定
+
+---
+
+## 🌐 部署指南
+
+### Vercel 部署
+```bash
+# 安裝 Vercel CLI
+npm i -g vercel
+
+# 部署
+vercel --prod
+```
+
+### Docker 部署
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+### 傳統伺服器
+```bash
+# 使用 PM2 管理程序
+npm install -g pm2
+pm2 start server.js --name "a2gsemu-ia"
+pm2 startup
+pm2 save
+```
+
+---
 
 ## 🤝 貢獻指南
 
-歡迎提交 PR 或 Issue!
+歡迎貢獻新遊戲、修復錯誤或改進功能！
 
-### 新增遊戲
-在 `index.html` 的 `games` 陣列中新增:
+### 添加新遊戲
+1. 編輯 `games.js` 添加遊戲資料
+2. 確保遊戲檔案可正常存取
+3. 添加適當的截圖和描述
+4. 測試遊戲是否正常運行
 
-```
-{
-id: 'archive_org_identifier',
-name: '遊戲中文名稱',
-nameEn: 'Game English Name',
-year: '1987',
-type: 'game', // game, edu, tool, special
-desc: '遊戲簡介...',
-developer: '開發商',
-publisher: '發行商'
-}
-```
+### 報告問題
+- 使用 [GitHub Issues](https://github.com/anomixer/a2gsemu-ia/issues)
+- 提供詳細的錯誤資訊和重現步驟
+- 包含瀏覽器版本和作業系統資訊
 
-### ID 查找方式
-1. 訪問 https://archive.org/details/softwarelibrary_apple2gs_games
-2. 找到想要的遊戲
-3. 點擊進入,網址最後部分即為 ID
-   - 例: `https://archive.org/details/wozaday_Tetris_IIgs`
-   - ID 為: `wozaday_Tetris_IIgs`
+### 提交 Pull Request
+1. Fork 專案
+2. 創建功能分支
+3. 提交變更
+4. 創建 Pull Request
 
-### 修改建議
-因為是單一 HTML 檔案,修改時請注意:
-- 保持 HTML/CSS/JavaScript 的內嵌結構
-- 測試確保所有功能正常
-- 壓縮前建議保留可讀性(換行和註解)
-
-## 📚 參考資源
-
-### Apple IIgs 相關
-- [Apple II 維基百科](https://zh.wikipedia.org/wiki/Apple_II%E7%B3%BB%E5%88%97)
-- [Virtual Apple](https://www.virtualapple.org/) - 線上 Apple II 模擬器
-- [Apple II Documentation](https://www.apple2.org/)
-
-### 模擬器相關
-- [MAME 官方網站](https://www.mamedev.org/)
-- [Internet Archive Software Library](https://archive.org/details/softwarelibrary)
-- [Emularity GitHub](https://github.com/db48x/emularity)
-
-### 遊戲資料庫
-- [MobyGames - Apple IIgs](https://www.mobygames.com/platform/apple-iigs/)
-- [Apple II Games](https://www.apple2.org/games/)
-
-## 🌟 為什麼選擇單一 HTML 檔案?
-
-### 優點
-✅ **極簡部署** - 上傳一個檔案即可  
-✅ **零配置** - 不需要安裝任何依賴  
-✅ **易於分享** - Email、雲端硬碟直接分享  
-✅ **版本控制** - 單一檔案更容易追蹤變更  
-✅ **離線使用** - 下載後無需網路(遊戲需網路)  
-✅ **跨平台** - Windows/macOS/Linux 通用  
-
-### 缺點
-⚠️ **檔案較大** - 所有資源內嵌(但仍只有約 50KB)  
-⚠️ **難以模組化** - 所有功能在同一檔案  
-⚠️ **不適合大型專案** - 適合中小型單頁應用  
+---
 
 ## 📄 授權條款
 
-本專案採用 **MIT License**
+本專案採用 [MIT License](LICENSE) 授權。
 
-**註**: 遊戲 ROM、Disk 版權歸原開發商所有,本專案僅提供介面整合。
+### 第三方資源
+- **遊戲檔案** - 來自 Internet Archive，遵循各自的授權條款
+- **Emularity** - Internet Archive 開源模擬器框架
+- **MAME** - 多重街機模擬器，GPL 授權
+
+---
 
 ## 🙏 致謝
 
-- **Internet Archive** - 提供遊戲 ROM 和模擬器服務
-- **MAME 開發團隊** - 優秀的多平台模擬器
-- **Emularity 專案** - 讓模擬器能在瀏覽器中運行
-- **Apple Computer** - 創造了 Apple IIgs
-- **所有遊戲開發商** - 帶給我們美好的童年回憶
+- **Internet Archive** - 提供珍貴的遊戲保存服務
+- **MAME 團隊** - 優秀的模擬器引擎
+- **Emularity 專案** - 讓瀏覽器模擬成為可能
+- **Apple** - 創造了經典的 Apple IIgs 電腦
+- **遊戲開發者們** - 創作了這些永恆的經典
 
-📧 聯絡方式
-GitHub Issues: 提交問題
+---
 
-GitHub Profile: @anomixer
+## 📞 聯絡資訊
 
-⭐ 如果這個專案對你有幫助,請給個 Star!
+- **GitHub**: [anomixer/a2gsemu-ia](https://github.com/anomixer/a2gsemu-ia)
+- **Issues**: [回報問題](https://github.com/anomixer/a2gsemu-ia/issues)
+- **Discussions**: [討論區](https://github.com/anomixer/a2gsemu-ia/discussions)
 
-🎮 享受復古遊戲的樂趣!
+---
 
-📦 單一 HTML 檔案 - 簡單、快速、有效!
+<div align="center">
 
-Made with ❤️ by anomixer
+**🎮 享受經典 Apple IIgs 遊戲的樂趣！ 🎮**
+
+Made with ❤️ by [anomixer](https://github.com/anomixer)
+
+</div>

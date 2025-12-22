@@ -313,9 +313,8 @@ app.get('/proxy/mame/:filename', async (req, res) => {
 });
 
 // 首頁 - 使用後端代理版本
-// v8 路由
-app.get('/v8', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index_emularity_v8.html'));
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // 啟動伺服器
@@ -323,8 +322,7 @@ app.listen(PORT, () => {
     console.log(`\n🚀 Apple IIgs 模擬器伺服器已啟動！`);
     console.log(`🌐 請開啟: http://localhost:${PORT}`);
     console.log(`\n⚡ 可用版本:`);
-    console.log(`   - http://localhost:${PORT}     (前端版本，無聲)`);
-    console.log(`   - http://localhost:${PORT}/v8  (後端代理版本)`);
+    console.log(`   - http://localhost:${PORT}     (後端代理版本)`);
     console.log(`\n✨ 功能:`);
     console.log(`   ✅ 代理 Archive.org 檔案（解決 CORS）`);
     console.log(`   ✅ 支援完整 URL 檔案來源`);

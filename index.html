@@ -29,6 +29,30 @@
             position: relative;
         }
 
+        .branch-badge {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: #FFD700;
+            color: #000;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .header h1 {
+            color: #4CAF50;
+            font-size: 24px;
+            text-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+            margin-bottom: 5px;
+        }
+
+        .header .subtitle {
+            color: #888;
+            font-size: 12px;
+        }
+
         .github-link {
             position: absolute;
             top: 15px;
@@ -53,8 +77,6 @@
             position: absolute;
             top: 15px;
             right: 120px;
-            display: flex;
-            gap: 10px;
         }
 
         .lang-btn {
@@ -66,7 +88,6 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 13px;
-            text-decoration: none;
             transition: all 0.3s;
             display: inline-flex;
             align-items: center;
@@ -75,24 +96,7 @@
 
         .lang-btn:hover {
             background: #45a049;
-            transform: scale(1.1) rotate(2deg);
-            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
-        }
-
-        .lang-btn .flag {
-            font-size: 16px;
-        }
-
-        .header h1 {
-            color: #4CAF50;
-            font-size: 24px;
-            text-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
-            margin-bottom: 5px;
-        }
-
-        .header .subtitle {
-            color: #888;
-            font-size: 12px;
+            transform: scale(1.1);
         }
 
         .main-container {
@@ -102,9 +106,9 @@
         }
 
         .sidebar {
-            width: 320px;
-            min-width: 250px;
-            max-width: 500px;
+            width: 280px;
+            min-width: 200px;
+            max-width: 400px;
             background: #2a2a2a;
             border-right: 3px solid #4CAF50;
             display: flex;
@@ -292,6 +296,7 @@
             padding: 12px 20px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             border-bottom: 2px solid #4CAF50;
         }
 
@@ -300,11 +305,6 @@
             color: #4CAF50;
             font-weight: bold;
             font-size: 16px;
-            margin-right: 10px;
-        }
-
-        .sound-btn {
-            margin-right: 10px;
         }
 
         .control-buttons {
@@ -351,36 +351,69 @@
             flex: 1;
             display: flex;
             overflow: hidden;
+            min-height: 0;
         }
 
         .iframe-wrapper {
             flex: 1;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            align-items: flex-start;
+            justify-content: flex-start;
             background: #000;
             padding: 10px;
             position: relative;
+            overflow: auto;
+            min-height: 0;
         }
 
-        #emulator-frame {
-            width: 640px;
+        #gameScreenshot {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            width: 100%;
             height: 100%;
-            border: 2px solid #4CAF50;
+            object-fit: contain;
+            background: #000;
+            border: none;
+            border-radius: 5px;
+            z-index: 5;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #canvas {
+            display: block;
+            margin: 0 auto;
+            width: 704px;
+            height: 462px;
+            border: none;
             border-radius: 5px;
             box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
-            transition: width 0.3s ease;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            background: #000;
+            cursor: pointer;
+            transform-origin: top left;
         }
 
         .info-panel {
-            width: 320px;
-            min-width: 250px;
-            max-width: 500px;
+            width: 280px;
+            min-width: 200px;
+            max-width: 400px;
             background: #1a1a1a;
             border-left: 2px solid #4CAF50;
             overflow-y: auto;
             padding: 20px;
             position: relative;
+            height: 100%;
+            flex: 0 0 auto;
+            min-height: 0;
         }
 
         .info-panel::-webkit-scrollbar {
@@ -476,6 +509,18 @@
             color: #ddd;
         }
 
+        .sound-tip {
+            background: #2196F3;
+            color: #fff;
+            padding: 10px 15px;
+            text-align: center;
+            font-size: 12px;
+            border-bottom: 2px solid #1976D2;
+        }
+
+        .sound-tip strong {
+            color: #fff;
+        }
 
         .highlight {
             color: #4CAF50;
@@ -513,6 +558,192 @@
                 display: none;
             }
         }
+
+        .sidebar {
+            width: 320px;
+            background: #2a2a2a;
+            border-right: 3px solid #4CAF50;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 14px;
+            background: #1a1a1a;
+            border: none;
+            border-bottom: 2px solid #444;
+            color: #fff;
+            outline: none;
+        }
+
+        .search-box:focus {
+            border-bottom-color: #4CAF50;
+        }
+
+        .game-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .game-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .game-list::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        .game-list::-webkit-scrollbar-thumb {
+            background: #4CAF50;
+            border-radius: 4px;
+        }
+
+        .game-item {
+            background: #333;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .game-item:hover {
+            background: #3a3a3a;
+            border-color: #4CAF50;
+            transform: translateX(5px);
+        }
+
+        .game-item.active {
+            background: #4CAF50;
+            color: #000;
+        }
+
+        .game-item h3 {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            margin-left: 5px;
+        }
+
+        .badge-game {
+            background: #2196F3;
+        }
+
+        .emulator-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #000;
+        }
+
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .welcome-screen h2 {
+            color: #4CAF50;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .emulator-container {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .emulator-container.active {
+            display: flex;
+        }
+
+        .emulator-controls {
+            background: #2a2a2a;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #4CAF50;
+        }
+
+        .game-title-bar {
+            flex: 1;
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .btn {
+            background: #4CAF50;
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            transition: all 0.3s;
+            margin-left: 10px;
+        }
+
+        .btn:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
+
+        .emulator-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            padding: 20px;
+            position: relative;
+        }
+
+        #canvas {
+            display: block;
+            width: 704px;
+            height: 462px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            background: #000;
+            cursor: pointer;
+            transform-origin: top left;
+        }
+
+        .loading-tip {
+            background: #4CAF50;
+            color: #000;
+            padding: 10px 15px;
+            text-align: center;
+            font-size: 12px;
+            border-bottom: 2px solid #45a049;
+            font-weight: bold;
+        }
+
+        .loading-tip.hidden {
+            display: none;
+        }
     </style>
 </head>
 
@@ -526,15 +757,14 @@
         </a>
 
         <div class="lang-switch">
-            <a href="index_en.html" class="lang-btn" title="Switch to English">
-                <span class="flag">🇺🇸</span>
-                <span>En</span>
-            </a>
+            <button class="lang-btn" id="langToggle" title="Switch Language">
+                <span id="langText">🇹🇼 中文</span>
+            </button>
         </div>
-
-        <h1><a href="/v8" style="color: #4CAF50; text-decoration: none;"><img src="favicon.ico" alt="Apple" style="height: 24px; vertical-align: middle; margin-right: 8px;"> Apple
-            IIgs 線上模擬器 🎮</a></h1>
-        <p class="subtitle">由 Internet Archive 提供 - 共 <span id="totalCount">0</span> 款精選遊戲與軟體</p>
+        <h1><a href="/" style="color: #4CAF50; text-decoration: none;"><img src="favicon.ico" alt="Apple"
+                    style="height: 24px; vertical-align: middle; margin-right: 8px;"> Apple
+                IIgs 線上模擬器 🎮</a></h1>
+        <p class="subtitle">共 <span id="totalCount">0</span> 款精選遊戲與軟體</p>
     </div>
 
     <div class="main-container">
@@ -553,13 +783,22 @@
                     Apple IIgs 是 Apple II 系列的第五代產品<br>
                     於 1986 年發布,擁有 16 位元處理器和彩色圖形能力
                 </p>
+                <p style="margin-top: 20px; font-size: 14px; color: #4CAF50;">
+                    🎮 Apple IIgs 線上模擬器<br>
+                    • 使用 Node.js 後端代理<br>
+                    • 完全解決 CORS 問題<br>
+                    • 🔊 聲音完全正常！<br>
+                </p>
             </div>
 
             <div class="emulator-container" id="emulatorContainer">
                 <div class="emulator-controls">
                     <div class="game-title-bar" id="gameTitleBar">載入中...</div>
                     <button class="btn btn-archive sound-btn" id="archiveBtn" title="在 Archive.org 開啟以控制聲音">
-                        🔊 開啟聲音
+                        🌐 開啟 IA 網站
+                    </button>
+                    <button class="btn" id="muteBtn" title="靜音">
+                        🔇 靜音
                     </button>
                     <div class="control-buttons">
                         <button class="btn" id="fullscreenBtn" title="全螢幕">⛶ 全螢幕</button>
@@ -567,687 +806,1516 @@
                     </div>
                 </div>
 
-
                 <div class="emulator-content">
                     <div class="iframe-wrapper">
-                        <iframe id="emulator-frame" allowfullscreen allow="autoplay"></iframe>
+                        <img id="gameScreenshot" class="hidden" src="" alt="遊戲截圖">
+                        <canvas id="canvas"></canvas>
                     </div>
 
                     <div class="resizer" id="rightResizer"></div>
 
                     <div class="info-panel" id="infoPanel">
                         <div class="info-section">
-                            <h3>🎮 遊戲資訊</h3>
+                            <h3>🎮 Game Information</h3>
                             <div class="game-info-box">
-                                <p id="gameDescription">選擇遊戲後顯示詳細資訊</p>
+                                <p id="gameDescription">Detailed information will be displayed after selecting a game
+                                </p>
                             </div>
                             <ul id="gameDetails"></ul>
                         </div>
 
                         <div class="info-section">
-                            <h3>💡 使用提示</h3>
+                            <h3>💡 Usage Tips</h3>
                             <ul>
-                                <li>⏱️ 首次載入需要 10-30 秒,請耐心等待</li>
-                                <li>🔊 點擊標題欄的聲音按鈕可在新分頁開啟完整聲音控制</li>
-                                <li>⛶ 建議使用全螢幕模式以獲得最佳體驗</li>
-                                <li>💾 MAME 會自動儲存遊戲狀態到瀏覽器</li>
-                                <li>🎯 部分遊戲支援滑鼠操作</li>
-                                <li>⚡ 如遊戲過慢,可調整 CPU 速度加快</li>
-                                <li>🔄 遇到問題可按 🔄 重置</li>
+                                <li>⏱️ First load takes 10-30 seconds, please be patient</li>
+                                <li>🔊 Sound works perfectly! Using backend proxy to solve CORS</li>
+                                <li>⛶ Recommend using fullscreen mode for best experience</li>
+                                <li>💾 MAME automatically saves game state to browser</li>
+                                <li>🎯 Some games support mouse operation</li>
+                                <li>⚡ If game is slow, adjust CPU speed to accelerate</li>
+                                <li>🔄 Press 🔄 to reset if encountering problems</li>
                             </ul>
                         </div>
 
                         <div class="info-section">
-                            <h3>⌨️ 一般操作說明</h3>
+                            <h3>⌨️ General Controls</h3>
                             <ul>
-                                <li><span class="key-combo">↑ ↓ ← →</span> 方向鍵移動/選擇</li>
-                                <li><span class="key-combo">Space</span> 動作/跳躍/射擊</li>
-                                <li><span class="key-combo">Enter</span> 開始遊戲/確認</li>
-                                <li><span class="key-combo">Esc</span> 暫停/取消</li>
-                                <li><span class="key-combo">1-9</span> 數字鍵輸入</li>
-                                <li><span class="key-combo">A-Z</span> 字母鍵輸入</li>
+                                <li><span class="key-combo">↑ ↓ ← →</span> Arrow keys for movement/selection</li>
+                                <li><span class="key-combo">Space</span> Action/Jump/Shoot</li>
+                                <li><span class="key-combo">Enter</span> Start game/Confirm</li>
+                                <li><span class="key-combo">Esc</span> Pause/Cancel</li>
+                                <li><span class="key-combo">1-9</span> Number key input</li>
+                                <li><span class="key-combo">A-Z</span> Letter key input</li>
                             </ul>
                             <ul>
-                                <li><span class="key-combo">右邊數字鍵</span> 搖桿方向</li>
-                                <li><span class="key-combo">左右Alt</span> 搖桿按鈕0,1</li>
+                                <li><span class="key-combo">Numpad</span> Joystick direction</li>
+                                <li><span class="key-combo">Left/Right Alt</span> Joystick buttons 0,1</li>
                             </ul>
                         </div>
 
                         <div class="info-section">
-                            <h3>🎮 MAME 模擬器操作</h3>
+                            <h3>🎮 MAME Emulator Controls</h3>
 
                             <div class="mame-section">
-                                <h4>📋 基本控制</h4>
+                                <h4>📋 Basic Controls</h4>
                                 <ul>
-                                    <li><span class="key-combo">Scroll Lock</span> 開啟/關閉 MAME UI 模式</li>
-                                    <li><span class="key-combo">Tab</span> 開啟 MAME 選單</li>
-                                    <li><span class="key-combo">~</span> (波浪號) 快速選單</li>
-                                    <li><span class="key-combo">P</span> 暫停模擬器</li>
-                                    <li><span class="key-combo">F4</span> 顯示調色盤</li>
-                                    <li><span class="key-combo">F8</span> 降低幀率跳過</li>
-                                    <li><span class="key-combo">F9</span> 提高幀率跳過</li>
+                                    <li><span class="key-combo">Scroll Lock</span> Toggle MAME UI mode</li>
+                                    <li><span class="key-combo">Tab</span> Open MAME menu</li>
+                                    <li><span class="key-combo">~</span> (Tilde) Quick menu</li>
+                                    <li><span class="key-combo">P</span> Pause emulator</li>
+                                    <li><span class="key-combo">F4</span> Show palette</li>
+                                    <li><span class="key-combo">F8</span> Decrease frameskip</li>
+                                    <li><span class="key-combo">F9</span> Increase frameskip</li>
                                 </ul>
                             </div>
 
                             <div class="mame-section">
                                 <h4>⚙️ Machine Configuration</h4>
                                 <p style="font-size:12px; color:#ddd; margin-bottom:8px;">
-                                    先按 <span class="key-combo">Scroll Lock</span> 開啟 UI → 再按 <span
-                                        class="key-combo">Tab</span> → 選擇 <span class="highlight">Machine
+                                    First press <span class="key-combo">Scroll Lock</span> to open UI → then press <span
+                                        class="key-combo">Tab</span> → select <span class="highlight">Machine
                                         Configuration</span>
                                 </p>
                                 <ul>
-                                    <li><strong>CPU Speed:</strong> 調整 CPU 執行速度
-                                        <br><small style="color:#888;">可加速慢速遊戲或減速過快遊戲</small>
+                                    <li><strong>CPU Speed:</strong> Adjust CPU execution speed
+                                        <br><small style="color:#888;">Can accelerate slow games or slow down fast
+                                            games</small>
                                     </li>
-                                    <li><strong>Video Options:</strong> 視訊設定
-                                        <br><small style="color:#888;">調整畫面大小、濾鏡效果</small>
+                                    <li><strong>Video Options:</strong> Video settings
+                                        <br><small style="color:#888;">Adjust screen size, filter effects</small>
                                     </li>
-                                    <li><strong>Audio Options:</strong> 音訊設定
-                                        <br><small style="color:#888;">音量、取樣率調整</small>
+                                    <li><strong>Audio Options:</strong> Audio settings
+                                        <br><small style="color:#888;">Volume, sample rate adjustment</small>
                                     </li>
-                                    <li><strong>Input Settings:</strong> 輸入設定
-                                        <br><small style="color:#888;">自訂按鍵配置</small>
+                                    <li><strong>Input Settings:</strong> Input settings
+                                        <br><small style="color:#888;">Custom key configuration</small>
                                     </li>
-                                </ul>
-                            </div>
-
-                            <div class="mame-section">
-                                <h4>💾 存檔/讀檔</h4>
-                                <ul>
-                                    <li><span class="key-combo">Shift+F7</span> 存檔到當前槽位</li>
-                                    <li><span class="key-combo">F7</span> 從當前槽位讀檔</li>
-                                    <li>支援多個存檔槽位 (0-9)</li>
                                 </ul>
                             </div>
                         </div>
 
                         <div class="info-section">
-                            <h3>ℹ️ 關於 Apple IIgs</h3>
-                            <p>Apple IIgs 是 Apple Computer 於 1986 年 9 月推出的 16 位元個人電腦,是 Apple II 系列的最後一款產品。</p>
-                            <p><strong>主要規格:</strong></p>
+                            <h3>ℹ️ About Apple IIgs</h3>
+                            <p>Apple IIgs is a 16-bit personal computer released by Apple Computer in September 1986,
+                                the last product in the Apple II series.</p>
+                            <p><strong>Main Specifications:</strong></p>
                             <ul>
-                                <li>2.8 MHz 的 65C816 處理器</li>
-                                <li>256 KB RAM (可擴充至 8 MB)</li>
-                                <li>支援 4096 色顯示</li>
-                                <li>Ensoniq 5503 音效晶片 (32 聲道)</li>
-                                <li>向下相容 Apple II 系列軟體</li>
+                                <li>2.8 MHz 65C816 processor</li>
+                                <li>256 KB RAM (expandable to 8 MB)</li>
+                                <li>Support for 4096 color display</li>
+                                <li>Ensoniq 5503 sound chip (32 channels)</li>
+                                <li>Backward compatible with Apple II series software</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        const games = [
-            // === 動作遊戲 ===
-            {
-                id: 'wozaday_Prince_of_Persia',
-                name: '波斯王子',
-                nameEn: 'Prince of Persia',
-                year: '1989',
-                type: 'game',
-                desc: '經典的電影式平台動作遊戲。玩家有 60 分鐘的時間穿越地下城,拯救被囚禁的公主。遊戲採用革命性的動作捕捉技術,角色動作流暢自然。精心設計的關卡結合跑酷、戰鬥和解謎元素,是遊戲史上的里程碁之作。',
-                developer: 'Jordan Mechner',
-                publisher: 'Broderbund'
-            },
-            {
-                id: 'wozaday_Paperboy_IIgs',
-                name: '送報生',
-                nameEn: 'Paperboy',
-                year: '1988',
-                type: 'game',
-                desc: 'Atari 的經典街機遊戲移植。玩家扮演騎車的送報生,在上學路上將報紙丟進訂戶的信箱。要避開各種障礙物:汽車、狗、工人、滿草址機等。遊戲充滿細節和幽默,是 80 年代最受歡迎的動作遊戲之一。',
-                developer: 'Atari Games',
-                publisher: 'Mindscape'
-            },
-            {
-                id: 'wozaday_The_Immortal_IIgs',
-                name: '不朽傳說',
-                nameEn: 'The Immortal',
-                year: '1990',
-                type: 'game',
-                desc: '一款等距視角的動作冒險遊戲。玩家扮演一名老巫師,在危險的地下城中探險,尋找失蹤的導師。遊戲以高難度和殘酷的陷阱聞名,每個房間都充滿致命的挑戰。精美的圖像和動畫展現了 Apple IIgs 的圖形能力。',
-                developer: 'Will Harvey',
-                publisher: 'Electronic Arts'
-            },
-            {
-                id: 'wozaday_Rastan',
-                name: '王者之劍',
-                nameEn: 'Rastan',
-                year: '1990',
-                type: 'game',
-                desc: 'Taito 的橫向捲軸動作遊戲。玩家扮演野蠻戰士 Rastan,揮舞巨劍對抗怪物和惡龍。遊戲節奏快速,敵人眾多,需要精準的操作和時機掌握。Apple IIgs 版本保留了街機版的刺激感。',
-                developer: 'Taito',
-                publisher: 'Taito'
-            },
-            {
-                id: 'wozaday_Crystal_Quest_IIgs',
-                name: '水晶任務',
-                nameEn: 'Crystal Quest',
-                year: '1988',
-                type: 'game',
-                desc: '快節奏的射擊收集遊戲。玩家控制一艘小飛船,在充滿敵人的場景中收集水晶。遊戲特色是360度全方向移動和射擊,以及豐富的敵人種類和道具系統。色彩鮮豔的圖形和動感的音效讓人欲罷不能。',
-                developer: 'Patrick Buckland',
-                publisher: 'Casady & Greene'
-            },
-            {
-                id: 'wozaday_Arkanoid_IIgs',
-                name: '快打磚塊',
-                nameEn: 'Arkanoid',
-                year: '1987',
-                type: 'game',
-                desc: 'Taito 經典的打磚塊遊戲。玩家控制底部的擋板,反彈球打破彩色磚塊。遊戲加入道具系統,讓玩法更豐富:雷射、多球、延長擋板等。關卡設計精巧,磚塊排列形成各種圖案。',
-                developer: 'Taito',
-                publisher: 'Discovery Software'
-            },
-            {
-                id: 'wozaday_Marble_Madness_IIgs',
-                name: '雲霄飛球',
-                nameEn: 'Marble Madness',
-                year: '1988',
-                type: 'game',
-                desc: 'Atari 的經典街機遊戲。玩家控制彈珠穿越充滿機關的 3D 等距迷宮。遊戲物理引擎真實,彈珠會受重力和慣性影響。精美的圖形和優秀的音樂讓這款遊戲成為 Apple IIgs 的技術展示範例。',
-                developer: 'Atari Games',
-                publisher: 'Electronic Arts'
-            },
+        <script src="./browserfs.min.js"></script>
+        <script src="./loader.js"></script>
+        <script src="./games.js"></script>
 
-            // === 冒險遊戲 ===
-            {
-                id: 'wozaday_Space_Quest_II_IIgs',
-                name: '宇宙傳奇 2',
-                nameEn: 'Space Quest II',
-                year: '1988',
-                type: 'game',
-                desc: 'Sierra 著名的圖形冒險遊戲系列第二部。玩家扮演清潔工 Roger Wilco,在外星球上展開搞笑的冒險。遊戲充滿幽默的對話、創意十足的謎題和致命的陷阱。Apple IIgs 版本擁有 16 色彩色圖形和音效。',
-                developer: 'Sierra On-Line',
-                publisher: 'Sierra On-Line'
-            },
-            {
-                id: 'wozaday_The_King_of_Chicago_IIgs',
-                name: '芝加哥之王',
-                nameEn: 'The King of Chicago',
-                year: '1988',
-                type: 'game',
-                desc: '創新的互動式電影遊戲。設定在 1930 年代的芝加哥黑幫世界,玩家扮演一名黑幫老大,透過決策影響劇情走向。遊戲採用漫畫風格的精美畫面,配合緊張刺激的配樂,提供沉浸式的電影體驗。',
-                developer: 'Cinemaware',
-                publisher: 'Cinemaware'
-            },
-            {
-                id: 'wozaday_Deja_Vu_IIgs',
-                name: '似曾相識',
-                nameEn: 'Déjà Vu',
-                year: '1987',
-                type: 'game',
-                desc: '點擊式冒險遊戲,以黑色電影為題材。玩家醒來時失憶,必須在 1940 年代的芝加哥調查自己的身分和一樁謀殺案。遊戲採用創新的圖形界面,允許玩家檢查、拿取和使用物品。大氣的黑白畫面營造出懸疑的氛圍。',
-                developer: 'ICOM Simulations',
-                publisher: 'Mindscape'
-            },
-            {
-                id: 'a2gs_Tass_Times_In_Tonetown_1986_Activision',
-                name: '東城時光',
-                nameEn: 'Tass Times In Tonetown',
-                year: '1986',
-                type: 'game',
-                desc: '首款IIgs平台市售遊戲。獨特的圖形冒險遊戲,採用超現實主義風格。玩家在奇異的東城中探險,尋找失蹤的祖父。遊戲擁有卡通般的彩色圖形和詼諧的對話,是 80 年代最具創意的冒險遊戲之一。',
-                developer: 'Interplay',
-                publisher: 'Activision'
-            },
-            {
-                id: 'a2gs_Shadowgate_1988_Mindscape',
-                name: '影之門',
-                nameEn: 'Shadowgate',
-                year: '1988',
-                type: 'game',
-                desc: '經典的點擊式冒險遊戲。玩家必須探索陰森的城堡,解開謎題並避開致命陷阱,阻止邪惡術士的陰謀。遊戲以高難度和多種死亡方式聞名,營造出緊張恐怖的氣氛。',
-                developer: 'ICOM Simulations',
-                publisher: 'Mindscape'
-            },
+        <script>
+            let currentGame = null;
+            let currentEmulator = null;
+            let emularityReady = false;
 
-            // === 角色扮演遊戲 ===
-            {
-                id: 'wozaday_The_Bards_Tale_IIgs',
-                name: '冰城傳奇',
-                nameEn: "The Bard's Tale",
-                year: '1987',
-                type: 'game',
-                desc: '第一人稱視角的角色扮演遊戲。組建一支 6 人冒險隊,在被冰雪封印的 Skara Brae 城市探險。遊戲包含豐富的職業系統、魔法系統和戰鬥機制。Apple IIgs 版本擁有增強的音效和圖形,是 RPG 愛好者的必玩之作。',
-                developer: 'Interplay',
-                publisher: 'Electronic Arts'
-            },
+            // 語言設定初始化
+            let currentLanguage = 'zh'; // 預設中文
 
-            // === 運動遊戲 ===
-            {
-                id: 'wozaday_Hardball_IIgs',
-                name: '硬式棒球',
-                nameEn: 'Hardball!',
-                year: '1987',
-                type: 'game',
-                desc: 'Accolade 的經典棒球遊戲。提供真實的棒球運動體驗,玩家可以控制投手、打擊和守備。遊戲包含多種投球類型和打擊技巧,需要精準的時機掌握。支援單人對電腦或雙人對戰,是 80 年代最受歡迎的運動遊戲。',
-                developer: 'Accolade',
-                publisher: 'Accolade'
-            },
-            {
-                id: 'wozaday_Winter_Games_IIgs',
-                name: '冬季運動會',
-                nameEn: 'Winter Games',
-                year: '1987',
-                type: 'game',
-                desc: 'Epyx 運動遊戲系列之一。包含 7 種冬季奧運項目:跳台滑雪、花式滑冰、高山滑雪等。支援最多 8 位玩家輪流競賽,適合聚會同樂。每個項目都需要不同的操作技巧和節奏感。',
-                developer: 'Epyx',
-                publisher: 'Epyx'
-            },
-            {
-                id: 'wozaday_California_Games_IIgs',
-                name: '加州運動會',
-                nameEn: 'California Games',
-                year: '1989',
-                type: 'game',
-                desc: 'Epyx 運動遊戲系列的代表作。包含 6 種加州特色的極限運動:衝浪、滑板、滾軸溜冰、飛盤、滑輪和 BMX。每個項目都有獨特的操作方式和得分機制。明快的音樂和精美的動畫展現濃厚的加州文化。',
-                developer: 'Epyx',
-                publisher: 'Epyx'
-            },
-            {
-                id: 'a2gs_World_Games_1987_Epyx',
-                name: '世界運動會',
-                nameEn: 'World Games',
-                year: '1987',
-                type: 'game',
-                desc: 'Epyx 運動遊戲系列作品。包含來自世界各地的 8 種特色運動:蘇格蘭擲木桿、跳桶、相撲、原木滾動等。每個項目都展現不同國家的文化特色,支援多人競賽。',
-                developer: 'Epyx',
-                publisher: 'Epyx'
-            },
-            {
-                id: 'a2gs_Zany_golf_1988_Electronic_Arts',
-                name: '瘋狂高爾夫',
-                nameEn: 'Zany Golf',
-                year: '1988',
-                type: 'game',
-                desc: '創意十足的迷你高爾夫遊戲。9 個洞設計極具想像力,包含彈簧、傳送門和移動障礙物。物理引擎精確,球的滾動和反彈都很真實。色彩鮮豔的圖形和有趣的關卡設計帶來獨特的遊戲體驗。',
-                developer: 'Sandcastle',
-                publisher: 'Electronic Arts'
-            },
-
-            // === 益智遊戲 ===
-            {
-                id: 'wozaday_Shanghai_IIgs',
-                name: '上海',
-                nameEn: 'Shanghai',
-                year: '1987',
-                type: 'game',
-                desc: 'Activision 的經典麻將接龍益智遊戲。玩家需要將堆疊成山的麻將牌一層層消除,找出相同的牌面配對。遊戲的精美圖形和流暢的操作讓這款遊戲成為電腦益智遊戲的經典之作。Apple IIgs 版本充分利用了彩色顯示能力,展現精美的中國風格畫面。',
-                developer: 'Activision',
-                publisher: 'Activision'
-            },
-            {
-                id: 'wozaday_Battle_Chess_IIgs',
-                name: '戰鬥西洋棋',
-                nameEn: 'Battle Chess',
-                year: '1989',
-                type: 'game',
-                desc: 'Interplay 的創新西洋棋遊戲。將傳統西洋棋變成了生動的戰鬥場景,每當棋子吃子時,都會以精美的動畫呈現戰鬥場面。騎士、城堡、皇后等棋子都有獨特的攻擊動作。遊戲包含 10 個難度等級,支援電腦對戰或玩家對戰。',
-                developer: 'Interplay',
-                publisher: 'Interplay'
-            },
-            {
-                id: 'wozaday_Pipe_Dream_IIgs',
-                name: '水管夢',
-                nameEn: 'Pipe Dream',
-                year: '1990',
-                type: 'game',
-                desc: '創新的益智遊戲。玩家必須在時間限制內,用管道連接起點和終點,讓液體順利流過。遊戲節奏緊湊,需要快速思考和規劃。隨著關卡推進,難度逐漸增加,出現更多複雜的管道形狀。',
-                developer: 'The Assembly Line',
-                publisher: 'LucasArts'
-            },
-            {
-                id: 'wozaday_Tetris_IIgs',
-                name: '俄羅斯方塊',
-                nameEn: 'Tetris',
-                year: '1988',
-                type: 'game',
-                desc: '永恆的經典益智遊戲。控制下落的方塊,旋轉並排列成完整的橫列來消除。簡單的規則卻有無限的策略深度。Apple IIgs 版本有優美的音樂和流暢的動畫,是最佳的 Tetris 版本之一。',
-                developer: 'Alexey Pajitnov',
-                publisher: 'Spectrum HoloByte'
-            },
-
-            // === 模擬/策略遊戲 ===
-            {
-                id: 'wozaday_Defender_of_the_Crown_IIgs',
-                name: '保皇騎士',
-                nameEn: 'Defender of the Crown',
-                year: '1988',
-                type: 'game',
-                desc: 'Cinemaware 的代表作，以精美的圖形聞名。故事設定在 1149 年中世紀英格蘭，國王駕崩後各勢力爭夺王位。玩家扮演撒克遜騎士，必須擊退諾曼人並統一英格蘭。遊戲結合策略、動作和冒險元素，包含城堡攻防、騎士比武、拯救公主等多種玩法。Apple IIgs 版本充分展現了系統的圖形能力。',
-                developer: 'Cinemaware',
-                publisher: 'Cinemaware'
-            },
-            {
-                id: 'a2gs_Destroyer_1987_Epyx',
-                name: '驅逐艦',
-                nameEn: 'Destroyer',
-                year: '1987',
-                type: 'game',
-                desc: '二戰海戰模擬遊戲。玩家指揮驅逐艦在太平洋戰場上執行各種任務,包括護航、反潛和艦隊作戰。遊戲結合了戰術思考和即時操作,真實重現海戰氛圍。',
-                developer: 'Epyx',
-                publisher: 'Epyx'
-            },
-
-            // === 教育軟體 ===
-            {
-                id: 'wozaday_Charlie_Browns_ABCs_IIgs',
-                name: '查理布朗字母學習',
-                nameEn: "Charlie Brown's ABCs",
-                year: '1990',
-                type: 'edu',
-                desc: '以史努比漫畫為主題的兒童教育軟體。透過互動遊戲和動畫教導兒童認識字母。包含多種學習活動:字母配對、拼字練習、發音教學等。可愛的角色和有趣的音效讓學習變得輕鬆愉快。',
-                developer: 'Random House',
-                publisher: 'Random House'
-            },
-            {
-                id: 'wozaday_The_New_Talking_Stickybear_Alphabet_IIgs',
-                name: '會說話的字母熊',
-                nameEn: 'Talking Stickybear Alphabet',
-                year: '1988',
-                type: 'edu',
-                desc: '互動式字母學習軟體。Stickybear 熊陪伴兒童學習 26 個英文字母。每個字母都有語音發音、相關單字和互動遊戲。利用 Apple IIgs 的音效晶片提供清晰的語音合成,是早期多媒體教育軟體的先驅。',
-                developer: 'Optimum Resource',
-                publisher: 'Optimum Resource'
-            },
-
-            // === 工具軟體 ===
-            {
-                id: 'wozaday_List_Plus_IIgs',
-                name: 'List Plus',
-                nameEn: 'List Plus',
-                year: '1989',
-                type: 'tool',
-                desc: 'Beagle Bros 出品的程式開發工具。用於編輯、列印和分析 Applesoft BASIC 程式碼。提供語法高亮、縮排格式化、搜尋替換等功能。是 Apple II 程式設計師不可或缺的開發工具。',
-                developer: 'Beagle Bros',
-                publisher: 'Beagle Bros'
-            },
-
-            // === 特別收藏 ===
-            {
-                id: 'TotalReplay',
-                name: 'Total Replay (100款合集)',
-                nameEn: 'Total Replay',
-                year: '2024',
-                type: 'special',
-                desc: '包含 100 款精選 Apple II 遊戲的終極合集。由社群精心整理,涵蓋動作、冒險、益智等各類型經典遊戲。這是體驗 Apple II 黃金時代最完整的收藏。',
-                developer: '社群整理',
-                publisher: '4am'
-            },
-            {
-                id: 'PitchDark',
-                name: 'Pitch Dark (漆黑)',
-                nameEn: 'Pitch Dark',
-                year: '2023',
-                type: 'special',
-                desc: '現代復刻版的 Infocom 風格文字冒險遊戲。完全以文字呈現的互動小說,玩家需要透過閱讀描述和輸入指令來探索黑暗的世界。展現了文字遊戲的永恆魅力。',
-                developer: '社群製作',
-                publisher: 'Interactive Fiction'
+            // 優先從 URL 參數讀取語言設定
+            const initialUrlParams = new URLSearchParams(window.location.search);
+            const urlLang = initialUrlParams.get('lang');
+            if (urlLang === 'en' || urlLang === 'zh') {
+                currentLanguage = urlLang;
+            } else {
+                // 如果 URL 沒有語言參數，則檢測瀏覽器語言
+                const browserLang = navigator.language || navigator.userLanguage;
+                if (browserLang.startsWith('en')) {
+                    currentLanguage = 'en';
+                }
             }
-        ];
 
-        let currentGame = null;
-        let isFullscreen = false;
-        let isResizing = false;
-
-        const gameList = document.getElementById('gameList');
-        const searchBox = document.getElementById('searchBox');
-        const welcomeScreen = document.getElementById('welcomeScreen');
-        const emulatorContainer = document.getElementById('emulatorContainer');
-        const emulatorFrame = document.getElementById('emulator-frame');
-        const gameTitleBar = document.getElementById('gameTitleBar');
-        const gameDescription = document.getElementById('gameDescription');
-        const gameDetails = document.getElementById('gameDetails');
-        const fullscreenBtn = document.getElementById('fullscreenBtn');
-        const archiveBtn = document.getElementById('archiveBtn');
-        const reloadBtn = document.getElementById('reloadBtn');
-
-        const sidebar = document.getElementById('sidebar');
-        const infoPanel = document.getElementById('infoPanel');
-        const leftResizer = document.getElementById('leftResizer');
-        const rightResizer = document.getElementById('rightResizer');
-
-        function getBadge(type) {
-            const badges = {
-                'game': '<span class="badge badge-game">遊戲</span>',
-                'edu': '<span class="badge badge-edu">教育</span>',
-                'tool': '<span class="badge badge-tool">工具</span>',
-                'special': '<span class="badge badge-special">特別</span>'
+            // 完整的 i18n 翻譯對象
+            const i18n = {
+                zh: {
+                    title: 'Apple IIgs 線上模擬器 🎮',
+                    subtitle: '共 {count} 款精選遊戲與軟體',
+                    searchPlaceholder: '🔍 搜尋遊戲...',
+                    welcomeTitle: '歡迎使用 Apple IIgs 模擬器',
+                    welcomeText: '👈 請從左側選擇一款遊戲或軟體開始',
+                    welcomeDesc: 'Apple IIgs 是 Apple II 系列的第五代產品<br>於 1986 年發布,擁有 16 位元處理器和彩色圖形能力',
+                    welcomeFeatures: '🎮 Apple IIgs 線上模擬器<br>• 使用 Node.js 後端代理<br>• 完全解決 CORS 問題<br>• 🔊 聲音完全正常！',
+                    openIA: '🌐 開啟 IA 網站',
+                    mute: '🔇 靜音',
+                    unmute: '🔊 有聲',
+                    fullscreen: '⛶ 全螢幕',
+                    reload: '🔄',
+                    clickToStart: '點截圖開始',
+                    gameInfo: '🎮 遊戲資訊',
+                    gameInfoDesc: '選擇遊戲後顯示詳細資訊',
+                    tips: '💡 使用提示',
+                    controls: '⌨️ 一般操作說明',
+                    mameControls: '🎮 MAME 模擬器操作',
+                    about: 'ℹ️ 關於 Apple IIgs',
+                    year: '年份',
+                    developer: '開發商',
+                    publisher: '發行商',
+                    type: '類型',
+                    typeGame: '遊戲',
+                    typeEdu: '教育軟體',
+                    typeTool: '工具軟體',
+                    typeSpecial: '特別收藏',
+                    // 使用提示
+                    tipsList: [
+                        '⏱️ 首次載入需要 10-30 秒,請耐心等待',
+                        '🔊 聲音完全正常！使用後端代理解決 CORS',
+                        '⛶ 建議使用全螢幕模式以獲得最佳體驗',
+                        '💾 MAME 會自動儲存遊戲狀態到瀏覽器',
+                        '🎯 部分遊戲支援滑鼠操作',
+                        '⚡ 如遊戲過慢,可調整 CPU 速度加快',
+                        '🔄 遇到問題可按 🔄 重置'
+                    ],
+                    // 一般控制
+                    controlsList: [
+                        '<span class="key-combo">↑ ↓ ← →</span> 方向鍵移動/選擇',
+                        '<span class="key-combo">Space</span> 動作/跳躍/射擊',
+                        '<span class="key-combo">Enter</span> 開始遊戲/確認',
+                        '<span class="key-combo">Esc</span> 暫停/取消',
+                        '<span class="key-combo">1-9</span> 數字鍵輸入',
+                        '<span class="key-combo">A-Z</span> 字母鍵輸入',
+                        '<span class="key-combo">右邊數字鍵</span> 搖桿方向',
+                        '<span class="key-combo">左右Alt</span> 搖桿按鈕0,1'
+                    ],
+                    // MAME 控制
+                    mameBasicTitle: '📋 基本控制',
+                    mameBasicList: [
+                        '<span class="key-combo">Scroll Lock</span> 開啟/關閉 MAME UI 模式',
+                        '<span class="key-combo">Tab</span> 開啟 MAME 選單',
+                        '<span class="key-combo">~</span> (波浪號) 快速選單',
+                        '<span class="key-combo">P</span> 暫停模擬器',
+                        '<span class="key-combo">F4</span> 顯示調色盤',
+                        '<span class="key-combo">F8</span> 降低幀率跳過',
+                        '<span class="key-combo">F9</span> 提高幀率跳過'
+                    ],
+                    mameMachineTitle: '⚙️ 機器設定',
+                    mameMachineDesc: '先按 <span class="key-combo">Scroll Lock</span> 開啟 UI → 再按 <span class="key-combo">Tab</span> → 選擇 <span class="highlight">Machine Configuration</span>',
+                    mameMachineList: [
+                        '<strong>CPU Speed:</strong> 調整 CPU 執行速度<br><small style="color:#888;">可加速慢速遊戲或減速過快遊戲</small>',
+                        '<strong>Video Options:</strong> 視訊設定<br><small style="color:#888;">調整畫面大小、濾鏡效果</small>',
+                        '<strong>Audio Options:</strong> 音訊設定<br><small style="color:#888;">音量、取樣率調整</small>',
+                        '<strong>Input Settings:</strong> 輸入設定<br><small style="color:#888;">自訂按鍵配置</small>'
+                    ],
+                    mameSaveTitle: '💾 存檔/讀檔',
+                    mameSaveList: [
+                        '<span class="key-combo">Shift+F7</span> 存檔到當前槽位',
+                        '<span class="key-combo">F7</span> 從當前槽位讀檔',
+                        '支援多個存檔槽位 (0-9)'
+                    ],
+                    // 關於 Apple IIgs
+                    aboutDesc1: 'Apple IIgs 是 Apple Computer 於 1986 年 9 月推出的 16 位元個人電腦,是 Apple II 系列的最後一款產品。',
+                    aboutSpecsTitle: '主要規格:',
+                    aboutSpecsList: [
+                        '2.8 MHz 的 65C816 處理器',
+                        '256 KB RAM (可擴充至 8 MB)',
+                        '支援 4096 色顯示',
+                        'Ensoniq 5503 音效晶片 (32 聲道)',
+                        '向下相容 Apple II 系列軟體'
+                    ],
+                    // 滑鼠提示
+                    mouseHint: '按 Esc 鍵恢復滑鼠游標'
+                },
+                en: {
+                    title: 'Apple IIgs Online Emulator 🎮',
+                    subtitle: '{count} Selected Games & Software',
+                    searchPlaceholder: '🔍 Search games...',
+                    welcomeTitle: 'Welcome to Apple IIgs Emulator',
+                    welcomeText: '👈 Please select a game or software from the left to start',
+                    welcomeDesc: 'Apple IIgs is the fifth generation of Apple II series<br>Released in 1986 with 16-bit processor and color graphics capability',
+                    welcomeFeatures: '🎮 Apple IIgs Online Emulator<br>• Using Node.js backend proxy<br>• Completely solves CORS issues<br>• 🔊 Sound works perfectly!',
+                    openIA: '🌐 Open IA Site',
+                    mute: '🔇 Mute',
+                    unmute: '🔊 Sound',
+                    fullscreen: '⛶ Fullscreen',
+                    reload: '🔄',
+                    clickToStart: 'Click screenshot to start',
+                    gameInfo: '🎮 Game Information',
+                    gameInfoDesc: 'Detailed information will be displayed after selecting a game',
+                    tips: '💡 Usage Tips',
+                    controls: '⌨️ General Controls',
+                    mameControls: '🎮 MAME Emulator Controls',
+                    about: 'ℹ️ About Apple IIgs',
+                    year: 'Year',
+                    developer: 'Developer',
+                    publisher: 'Publisher',
+                    type: 'Type',
+                    typeGame: 'Game',
+                    typeEdu: 'Educational',
+                    typeTool: 'Tool',
+                    typeSpecial: 'Special',
+                    // Usage Tips
+                    tipsList: [
+                        '⏱️ First load takes 10-30 seconds, please be patient',
+                        '🔊 Sound works perfectly! Using backend proxy to solve CORS',
+                        '⛶ Recommend using fullscreen mode for best experience',
+                        '💾 MAME automatically saves game state to browser',
+                        '🎯 Some games support mouse operation',
+                        '⚡ If game is slow, adjust CPU speed to accelerate',
+                        '🔄 Press 🔄 to reset if encountering problems'
+                    ],
+                    // General Controls
+                    controlsList: [
+                        '<span class="key-combo">↑ ↓ ← →</span> Arrow keys for movement/selection',
+                        '<span class="key-combo">Space</span> Action/Jump/Shoot',
+                        '<span class="key-combo">Enter</span> Start game/Confirm',
+                        '<span class="key-combo">Esc</span> Pause/Cancel',
+                        '<span class="key-combo">1-9</span> Number key input',
+                        '<span class="key-combo">A-Z</span> Letter key input',
+                        '<span class="key-combo">Numpad</span> Joystick direction',
+                        '<span class="key-combo">Left/Right Alt</span> Joystick buttons 0,1'
+                    ],
+                    // MAME Controls
+                    mameBasicTitle: '📋 Basic Controls',
+                    mameBasicList: [
+                        '<span class="key-combo">Scroll Lock</span> Toggle MAME UI mode',
+                        '<span class="key-combo">Tab</span> Open MAME menu',
+                        '<span class="key-combo">~</span> (Tilde) Quick menu',
+                        '<span class="key-combo">P</span> Pause emulator',
+                        '<span class="key-combo">F4</span> Show palette',
+                        '<span class="key-combo">F8</span> Decrease frameskip',
+                        '<span class="key-combo">F9</span> Increase frameskip'
+                    ],
+                    mameMachineTitle: '⚙️ Machine Configuration',
+                    mameMachineDesc: 'First press <span class="key-combo">Scroll Lock</span> to open UI → then press <span class="key-combo">Tab</span> → select <span class="highlight">Machine Configuration</span>',
+                    mameMachineList: [
+                        '<strong>CPU Speed:</strong> Adjust CPU execution speed<br><small style="color:#888;">Can accelerate slow games or slow down fast games</small>',
+                        '<strong>Video Options:</strong> Video settings<br><small style="color:#888;">Adjust screen size, filter effects</small>',
+                        '<strong>Audio Options:</strong> Audio settings<br><small style="color:#888;">Volume, sample rate adjustment</small>',
+                        '<strong>Input Settings:</strong> Input settings<br><small style="color:#888;">Custom key configuration</small>'
+                    ],
+                    mameSaveTitle: '💾 Save/Load',
+                    mameSaveList: [
+                        '<span class="key-combo">Shift+F7</span> Save to current slot',
+                        '<span class="key-combo">F7</span> Load from current slot',
+                        'Support multiple save slots (0-9)'
+                    ],
+                    // About Apple IIgs
+                    aboutDesc1: 'Apple IIgs is a 16-bit personal computer released by Apple Computer in September 1986, the last product in the Apple II series.',
+                    aboutSpecsTitle: 'Main Specifications:',
+                    aboutSpecsList: [
+                        '2.8 MHz 65C816 processor',
+                        '256 KB RAM (expandable to 8 MB)',
+                        'Support for 4096 color display',
+                        'Ensoniq 5503 sound chip (32 channels)',
+                        'Backward compatible with Apple II series software'
+                    ],
+                    // Mouse hint
+                    mouseHint: 'Press Esc to restore mouse cursor'
+                }
             };
-            return badges[type] || '';
-        }
 
-        function renderGames(filter = '') {
-            gameList.innerHTML = '';
-            const filtered = games.filter(g =>
-                g.name.includes(filter) ||
-                g.nameEn.toLowerCase().includes(filter.toLowerCase())
-            );
+            // 翻譯函數
+            function t(key, params = {}) {
+                let text = i18n[currentLanguage][key] || key;
+                Object.keys(params).forEach(param => {
+                    text = text.replace(`{${param}}`, params[param]);
+                });
+                return text;
+            }
 
-            filtered.forEach(game => {
-                const item = document.createElement('div');
-                item.className = 'game-item';
-                item.dataset.id = game.id;
-                item.innerHTML = `
-                    <h3>${game.name} ${getBadge(game.type)}</h3>
-                    <div class="name-en">${game.nameEn}</div>
-                    <div class="year">📅 ${game.year}</div>
-                `;
-                item.onclick = () => loadGame(game, item);
-                gameList.appendChild(item);
+            // 更新所有 UI 元素
+            function updateUI() {
+                // 更新標題
+                const titleElement = document.querySelector('.header h1 a');
+                if (titleElement) {
+                    const icon = titleElement.querySelector('img');
+                    titleElement.innerHTML = '';
+                    if (icon) titleElement.appendChild(icon);
+                    titleElement.appendChild(document.createTextNode(' ' + t('title')));
+                }
+
+                // 更新副標題
+                const subtitleElement = document.querySelector('.header .subtitle');
+                if (subtitleElement) {
+                    const count = games.length;
+                    subtitleElement.innerHTML = t('subtitle', { count: count }).replace('{count}', `<span id="totalCount">${count}</span>`);
+                }
+
+                // 更新搜尋框
+                const searchBox = document.getElementById('searchBox');
+                if (searchBox) {
+                    searchBox.placeholder = t('searchPlaceholder');
+                }
+
+                // 更新歡迎畫面
+                const welcomeTitle = document.querySelector('.welcome-screen h2');
+                if (welcomeTitle) welcomeTitle.textContent = t('welcomeTitle');
+
+                const welcomeText = document.querySelector('.welcome-screen p:first-of-type');
+                if (welcomeText) welcomeText.textContent = t('welcomeText');
+
+                const welcomeDesc = document.querySelector('.welcome-screen p:nth-of-type(2)');
+                if (welcomeDesc) welcomeDesc.innerHTML = t('welcomeDesc');
+
+                const welcomeFeatures = document.querySelector('.welcome-screen p:nth-of-type(3)');
+                if (welcomeFeatures) welcomeFeatures.innerHTML = t('welcomeFeatures');
+
+                // 更新按鈕
+                const archiveBtn = document.getElementById('archiveBtn');
+                if (archiveBtn) archiveBtn.innerHTML = t('openIA');
+
+                const muteBtn = document.getElementById('muteBtn');
+                if (muteBtn) updateMuteButton();
+
+                const fullscreenBtn = document.getElementById('fullscreenBtn');
+                if (fullscreenBtn) fullscreenBtn.innerHTML = t('fullscreen');
+
+                // 更新資訊面板
+                updateInfoPanel();
+
+                // 更新遊戲列表
+                renderGames();
+
+                // 更新當前遊戲資訊（如果有選中的遊戲）
+                if (currentGame) {
+                    updateGameInfo(currentGame);
+                }
+            }
+
+            // 更新資訊面板
+            function updateInfoPanel() {
+                // 更新遊戲資訊標題
+                const gameInfoTitle = document.querySelector('.info-section:first-child h3');
+                if (gameInfoTitle) gameInfoTitle.textContent = t('gameInfo');
+
+                const gameInfoDesc = document.getElementById('gameDescription');
+                if (gameInfoDesc && !currentGame) gameInfoDesc.textContent = t('gameInfoDesc');
+
+                // 更新使用提示
+                const tipsTitle = document.querySelector('.info-section:nth-child(2) h3');
+                if (tipsTitle) tipsTitle.textContent = t('tips');
+
+                const tipsList = document.querySelector('.info-section:nth-child(2) ul');
+                if (tipsList) {
+                    tipsList.innerHTML = t('tipsList').map(tip => `<li>${tip}</li>`).join('');
+                }
+
+                // 更新一般控制
+                const controlsTitle = document.querySelector('.info-section:nth-child(3) h3');
+                if (controlsTitle) controlsTitle.textContent = t('controls');
+
+                const controlsList1 = document.querySelector('.info-section:nth-child(3) ul:first-of-type');
+                if (controlsList1) {
+                    controlsList1.innerHTML = t('controlsList').slice(0, 6).map(control => `<li>${control}</li>`).join('');
+                }
+
+                const controlsList2 = document.querySelector('.info-section:nth-child(3) ul:last-of-type');
+                if (controlsList2) {
+                    controlsList2.innerHTML = t('controlsList').slice(6).map(control => `<li>${control}</li>`).join('');
+                }
+
+                // 更新 MAME 控制
+                const mameTitle = document.querySelector('.info-section:nth-child(4) h3');
+                if (mameTitle) mameTitle.textContent = t('mameControls');
+
+                // 基本控制
+                const mameBasicTitle = document.querySelector('.mame-section:nth-child(1) h4');
+                if (mameBasicTitle) mameBasicTitle.innerHTML = t('mameBasicTitle');
+
+                const mameBasicList = document.querySelector('.mame-section:nth-child(1) ul');
+                if (mameBasicList) {
+                    mameBasicList.innerHTML = t('mameBasicList').map(item => `<li>${item}</li>`).join('');
+                }
+
+                // 機器設定 - 使用更具體的選擇器
+                const mameMachineTitle = document.querySelector('.mame-section h4');
+                if (mameMachineTitle && mameMachineTitle.textContent.includes('Machine Configuration')) {
+                    mameMachineTitle.innerHTML = t('mameMachineTitle');
+                    console.log('Updated machine title:', t('mameMachineTitle'));
+                }
+
+                const mameMachineDesc = document.querySelector('.mame-section p');
+                if (mameMachineDesc) {
+                    mameMachineDesc.innerHTML = t('mameMachineDesc');
+                    console.log('Updated machine desc:', t('mameMachineDesc'));
+                } else {
+                    console.log('Machine desc element not found');
+                }
+
+                const mameMachineList = document.querySelector('.mame-section:nth-child(2) ul');
+                if (mameMachineList) {
+                    mameMachineList.innerHTML = t('mameMachineList').map(item => `<li>${item}</li>`).join('');
+                }
+
+                // 動態添加存檔/讀檔區塊（如果不存在）
+                let mameSaveSection = document.querySelector('.mame-section:nth-child(3)');
+                if (!mameSaveSection) {
+                    const mameControlsSection = document.querySelector('.info-section:nth-child(4)');
+                    if (mameControlsSection) {
+                        mameSaveSection = document.createElement('div');
+                        mameSaveSection.className = 'mame-section';
+                        mameSaveSection.innerHTML = `
+                            <h4></h4>
+                            <ul></ul>
+                        `;
+                        // 插入到機器設定區塊之後
+                        const machineSection = document.querySelector('.mame-section:nth-child(2)');
+                        if (machineSection && machineSection.parentNode) {
+                            machineSection.parentNode.insertBefore(mameSaveSection, machineSection.nextSibling);
+                        }
+                    }
+                }
+
+                // 存檔/讀檔
+                const mameSaveTitle = document.querySelector('.mame-section:nth-child(3) h4');
+                if (mameSaveTitle) mameSaveTitle.innerHTML = t('mameSaveTitle');
+
+                const mameSaveList = document.querySelector('.mame-section:nth-child(3) ul');
+                if (mameSaveList) {
+                    mameSaveList.innerHTML = t('mameSaveList').map(item => `<li>${item}</li>`).join('');
+                }
+
+                // 關於 Apple IIgs
+                const aboutTitle = document.querySelector('.info-section:last-child h3');
+                if (aboutTitle) aboutTitle.textContent = t('about');
+
+                const aboutDesc1 = document.querySelector('.info-section:last-child p:first-of-type');
+                if (aboutDesc1) aboutDesc1.textContent = t('aboutDesc1');
+
+                const aboutSpecsTitle = document.querySelector('.info-section:last-child p:nth-of-type(2)');
+                if (aboutSpecsTitle) aboutSpecsTitle.innerHTML = `<strong>${t('aboutSpecsTitle')}</strong>`;
+
+                const aboutSpecsList = document.querySelector('.info-section:last-child ul');
+                if (aboutSpecsList) {
+                    aboutSpecsList.innerHTML = t('aboutSpecsList').map(spec => `<li>${spec}</li>`).join('');
+                }
+            }
+
+            // 語言切換功能
+            function switchLanguage() {
+                currentLanguage = currentLanguage === 'zh' ? 'en' : 'zh';
+
+                // 更新 URL 中的語言參數
+                const url = new URL(window.location.href);
+                url.searchParams.set('lang', currentLanguage);
+                window.history.replaceState({}, '', url.toString());
+
+                // 更新語言按鈕
+                const langText = document.getElementById('langText');
+                if (langText) {
+                    langText.textContent = currentLanguage === 'zh' ? '🇺🇸 En' : '🇹🇼 中文';
+                }
+
+                // 更新所有 UI
+                updateUI();
+            }
+
+            // 更新遊戲資訊
+            function updateGameInfo(game) {
+                if (!game) return;
+
+                // 更新遊戲描述（根據語言選擇）
+                const gameDescription = document.getElementById('gameDescription');
+                if (gameDescription) {
+                    gameDescription.textContent = currentLanguage === 'zh' ? (game.descCh || game.desc) : (game.desc || game.descCh);
+                }
+
+                // 更新遊戲詳細資訊
+                const gameDetails = document.getElementById('gameDetails');
+                if (gameDetails) {
+                    gameDetails.innerHTML = `
+                        <li><strong>${t('year')}:</strong> ${game.year}</li>
+                        <li><strong>${t('developer')}:</strong> ${game.developer}</li>
+                        <li><strong>${t('publisher')}:</strong> ${game.publisher}</li>
+                        <li><strong>${t('type')}:</strong> ${getBadgeText(game.type)}</li>
+                    `;
+                }
+            }
+
+            // 獲取類型徽章文字
+            function getBadgeText(type) {
+                const badges = {
+                    'game': t('typeGame'),
+                    'edu': t('typeEdu'),
+                    'tool': t('typeTool'),
+                    'special': t('typeSpecial')
+                };
+                return badges[type] || type;
+            }
+
+            // 初始化
+            document.addEventListener('DOMContentLoaded', () => {
+                // 立即設置正確的語言按鈕狀態（在 updateUI 之前）
+                const langText = document.getElementById('langText');
+                if (langText) {
+                    langText.textContent = currentLanguage === 'zh' ? '🇺🇸 En' : '🇹🇼 中文';
+                }
+
+                // 綁定語言切換事件
+                const langToggle = document.getElementById('langToggle');
+                if (langToggle) {
+                    langToggle.addEventListener('click', switchLanguage);
+                }
+
+                // 初始化 UI
+                updateUI();
             });
-        }
+            let isFullscreen = false;
+            let isResizing = false;
+            let currentZoom = 1.0;
+            const SERVER_URL = window.location.origin;
 
-        function loadGame(game, itemElement) {
-            document.querySelectorAll('.game-item').forEach(el => el.classList.remove('active'));
-            itemElement.classList.add('active');
+            const gameList = document.getElementById('gameList');
+            const searchBox = document.getElementById('searchBox');
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            const emulatorContainer = document.getElementById('emulatorContainer');
+            const emulatorFrame = document.getElementById('canvas');
+            const gameTitleBar = document.getElementById('gameTitleBar');
+            const gameDescription = document.getElementById('gameDescription');
+            const gameDetails = document.getElementById('gameDetails');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const archiveBtn = document.getElementById('archiveBtn');
+            const reloadBtn = document.getElementById('reloadBtn');
 
-            welcomeScreen.style.display = 'none';
-            emulatorContainer.classList.add('active');
+            const sidebar = document.getElementById('sidebar');
+            const infoPanel = document.getElementById('infoPanel');
+            const leftResizer = document.getElementById('leftResizer');
+            const rightResizer = document.getElementById('rightResizer');
+            const gameScreenshot = document.getElementById('gameScreenshot');
+            const muteBtn = document.getElementById('muteBtn');
 
-            gameTitleBar.textContent = `${game.name} (${game.nameEn})`;
+            let uiMuted = false;
+            let isMouseLocked = false;
+            let originalTitle = '';
 
-            gameDescription.textContent = game.desc;
-            gameDetails.innerHTML = `
-                <li><strong>年份:</strong> ${game.year}</li>
-                <li><strong>開發商:</strong> ${game.developer}</li>
-                <li><strong>發行商:</strong> ${game.publisher}</li>
-                <li><strong>類型:</strong> ${game.type === 'game' ? '遊戲' : game.type === 'edu' ? '教育軟體' : game.type === 'tool' ? '工具軟體' : '特別收藏'}</li>
-            `;
-
-            const archiveUrl = `https://archive.org/details/${game.id}`;
-            archiveBtn.onclick = () => window.open(archiveUrl, '_blank');
-
-            emulatorFrame.src = `https://archive.org/embed/${game.id}`;
-
-            currentGame = game;
-        }
-
-        fullscreenBtn.onclick = () => {
-            if (!isFullscreen) {
-                // 進入全螢幕模式
-                const elem = document.documentElement; // 使用整個 document
-
-                if (elem.requestFullscreen) {
-                    elem.requestFullscreen();
-                } else if (elem.webkitRequestFullscreen) {
-                    elem.webkitRequestFullscreen();
-                } else if (elem.mozRequestFullScreen) {
-                    elem.mozRequestFullScreen();
-                } else if (elem.msRequestFullscreen) {
-                    elem.msRequestFullscreen();
+            const typeWeight = (type) => {
+                switch (type) {
+                    case 'game': return 0;
+                    case 'edu': return 1;
+                    case 'tool': return 2;
+                    case 'special': return 3;
+                    default: return 9;
                 }
-            } else {
-                // 退出全螢幕模式
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
+            };
+
+            function updateMuteButton() {
+                if (!muteBtn) return;
+                const muted = currentEmulator ? currentEmulator.isMuted() : uiMuted;
+                uiMuted = muted;
+                muteBtn.innerHTML = muted ? t('mute') : t('unmute');
+                muteBtn.title = muted ? t('mute') : t('unmute');
+            }
+
+            if (muteBtn) {
+                muteBtn.onclick = () => {
+                    uiMuted = !uiMuted;
+                    if (currentEmulator) currentEmulator.setMute(uiMuted);
+                    updateMuteButton();
+                };
+                updateMuteButton();
+            }
+
+            function getBadge(type) {
+                const badges = {
+                    'game': `<span class="badge badge-game">${t('typeGame')}</span>`,
+                    'edu': `<span class="badge badge-edu">${t('typeEdu')}</span>`,
+                    'tool': `<span class="badge badge-tool">${t('typeTool')}</span>`,
+                    'special': `<span class="badge badge-special">${t('typeSpecial')}</span>`
+                };
+                return badges[type] || '';
+            }
+
+            function updateCanvasZoom() {
+                const canvas = document.getElementById('canvas');
+                if (canvas) {
+                    canvas.style.transform = `scale(${currentZoom})`;
+                    canvas.style.transformOrigin = 'top left';
                 }
             }
-        };
 
-        document.addEventListener('fullscreenchange', updateFullscreenStatus);
-        document.addEventListener('webkitfullscreenchange', updateFullscreenStatus);
-        document.addEventListener('mozfullscreenchange', updateFullscreenStatus);
-        document.addEventListener('MSFullscreenChange', updateFullscreenStatus);
+            console.log('⭐ 開始載入 Emularity v8 (Backend Proxy)...');
+            console.log('   - Server URL:', SERVER_URL);
 
-        function updateFullscreenStatus() {
-            isFullscreen = !!(document.fullscreenElement ||
-                document.webkitFullscreenElement ||
-                document.mozFullScreenElement ||
-                document.msFullscreenElement);
+            function normalizeTitleKey(game) {
+                const title = (game.name || '').toLowerCase();
+                const cleaned = title
+                    .replace(/\b(apple|ii?gs)\b/g, '')
+                    .replace(/\b(the|a|an)\b/g, ' ')
+                    .replace(/[^a-z0-9]+/g, ' ')
+                    .trim();
+                if (cleaned) return cleaned;
+                return (game.id || '').toLowerCase();
+            }
 
-            fullscreenBtn.innerHTML = isFullscreen ? '⛶ 退出全螢幕' : '⛶ 全螢幕';
+            function extractReleaseYear(game) {
+                // 優先使用 game.year
+                const parsed = parseInt(game.year, 10);
+                if (!Number.isNaN(parsed) && parsed > 1900 && parsed < 2100) return String(parsed);
 
-            // 在全螢幕模式下隱藏其他元素
-            const header = document.querySelector('.header');
-            const sidebar = document.querySelector('.sidebar');
-            const leftResizer = document.querySelector('#leftResizer');
-            const emulatorControls = document.querySelector('.emulator-controls');
-            const rightResizer = document.querySelector('#rightResizer');
-            const infoPanel = document.querySelector('.info-panel');
+                // 如果 game.year 無效，才從描述中提取
+                const desc = game.desc || '';
+                const match = desc.match(/(19[0-9]{2}|20[0-9]{2})/); // 支援1900-2099年
+                if (match) return match[1];
 
-            if (isFullscreen) {
-                // 進入全螢幕：隱藏不需要的元素
-                if (header) header.style.display = 'none';
-                if (sidebar) sidebar.style.display = 'none';
-                if (leftResizer) leftResizer.style.display = 'none';
-                if (emulatorControls) emulatorControls.style.display = 'none';
-                if (rightResizer) rightResizer.style.display = 'none';
-                if (infoPanel) infoPanel.style.display = 'none';
+                return '';
+            }
 
-                // 讓 iframe 保持比例並居中放大
-                const iframeWrapper = document.querySelector('.iframe-wrapper');
-                if (iframeWrapper) {
-                    iframeWrapper.style.position = 'fixed';
-                    iframeWrapper.style.top = '0';
-                    iframeWrapper.style.left = '0';
-                    iframeWrapper.style.width = '100vw';
-                    iframeWrapper.style.height = '100vh';
-                    iframeWrapper.style.zIndex = '9999';
-                    iframeWrapper.style.padding = '0';
-                    iframeWrapper.style.display = 'flex';
-                    iframeWrapper.style.alignItems = 'center';
-                    iframeWrapper.style.justifyContent = 'center';
-                    iframeWrapper.style.background = '#000';
+            function scoreGame(game) {
+                const year = parseInt(extractReleaseYear(game), 10);
+                const inEra = year >= 1986 && year <= 1995;
+                const descLen = (game.desc || '').length;
+                return (
+                    (game.type === 'game' ? 6 : game.type === 'edu' ? 3 : 1) +
+                    (game.screenshot ? 2 : 0) +
+                    (game.file2 ? 1 : 0) +
+                    (inEra ? 3 : 0) +
+                    Math.min(3, Math.floor(descLen / 120))
+                );
+            }
+
+            function normalizeGame(game) {
+                const releaseYear = extractReleaseYear(game);
+                return {
+                    ...game,
+                    year: releaseYear || game.year || '未知',
+                    desc: game.desc || ''
+                };
+            }
+
+            function dedupeGames(rawList) {
+                const bestByKey = new Map();
+                (rawList || []).forEach((game) => {
+                    const key = normalizeTitleKey(game);
+                    if (!key) return;
+                    const normalized = normalizeGame(game);
+                    const unreleased = /unreleased/i.test(normalized.name || '') || /unreleased/i.test(normalized.desc || '');
+                    if (unreleased) return;
+                    const score = scoreGame(normalized);
+                    const existing = bestByKey.get(key);
+                    if (!existing || score > existing.score) {
+                        bestByKey.set(key, { ...normalized, score });
+                    }
+                });
+                return Array.from(bestByKey.values())
+                    .sort((a, b) => {
+                        const w = typeWeight(a.type) - typeWeight(b.type);
+                        if (w !== 0) return w;
+                        return String(a.name || '').localeCompare(String(b.name || ''));
+                    })
+                    .map(({ score, ...rest }) => rest);
+            }
+
+            const games = dedupeGames(window.games);
+
+            function waitForEmularity() {
+                const startTime = Date.now();
+                return new Promise((resolve, reject) => {
+                    const check = () => {
+                        if (typeof window.Emulator !== 'undefined' && typeof window.JSMAMELoader !== 'undefined' && typeof window.BrowserFS !== 'undefined') {
+                            try {
+                                // 關閉 IndexedDB 快取，避免多次啟動時舊檔案狀態干擾
+                                if (BrowserFS.FileSystem && BrowserFS.FileSystem.IndexedDB) {
+                                    BrowserFS.FileSystem.IndexedDB.isAvailable = () => false;
+                                }
+                            } catch (e) {
+                                console.warn('停用 BrowserFS IndexedDB 失敗:', e);
+                            }
+                            console.log('✅ Emularity 就緒！');
+                            emularityReady = true;
+                            resolve();
+                        } else if (Date.now() - startTime > 20000) {
+                            reject(new Error('逾時'));
+                        } else {
+                            setTimeout(check, 100);
+                        }
+                    };
+                    check();
+                });
+            }
+
+            window.addEventListener('load', async () => {
+                console.log('⏳ 等待 Emularity...');
+                try {
+                    await waitForEmularity();
+                    console.log('✅ 初始化完成！\n');
+                } catch (err) {
+                    console.error('❌ 失敗:', err);
                 }
+            });
 
-                const emulatorFrame = document.querySelector('#emulator-frame');
-                if (emulatorFrame) {
-                    // 移除邊框，讓畫面填滿整個螢幕
-                    emulatorFrame.style.border = 'none';
-                    emulatorFrame.style.width = '100vw';
-                    emulatorFrame.style.height = '100vh';
+            let pendingStartGame = null;
+            let pendingStartCanvas = null;
+
+            function showScreenshot(game) {
+                if (!gameScreenshot) return;
+                if (game && game.screenshot) {
+                    // 檢查截圖是否為完整 URL (支援任何 HTTP/HTTPS URL)
+                    if (game.screenshot.startsWith('http://') || game.screenshot.startsWith('https://')) {
+                        // 檢查是否為 ZIP 檔案格式
+                        if (game.screenshot.includes('.zip/')) {
+                            // ZIP 檔案格式：提取 ZIP URL 和內部檔案名
+                            const zipIndex = game.screenshot.indexOf('.zip/');
+                            const zipUrl = game.screenshot.substring(0, zipIndex + 4); // 包含 .zip
+                            const innerFilename = game.screenshot.substring(zipIndex + 5); // .zip/ 之後的部分
+
+                            const encodedZipUrl = encodeURIComponent(zipUrl);
+                            gameScreenshot.src = `${SERVER_URL}/proxy/zip/${encodedZipUrl}/${innerFilename}?t=${Date.now()}`;
+                        } else {
+                            // 完整 URL：使用 URL 編碼
+                            const encodedUrl = encodeURIComponent(game.screenshot);
+                            gameScreenshot.src = `${SERVER_URL}/proxy/url/${encodedUrl}?t=${Date.now()}`;
+                        }
+                    } else {
+                        // 檢查是否為傳統 ZIP 格式 (例如: game.zip/screenshot.png)
+                        if (game.screenshot.includes('.zip/')) {
+                            // 傳統 ZIP 格式：使用遊戲路由，讓後端處理 ZIP 邏輯
+                            gameScreenshot.src = `${SERVER_URL}/proxy/game/${game.id}/${game.screenshot}?t=${Date.now()}`;
+                        } else {
+                            // 傳統格式
+                            gameScreenshot.src = `${SERVER_URL}/proxy/game/${game.id}/${game.screenshot}?t=${Date.now()}`;
+                        }
+                    }
+                } else {
+                    gameScreenshot.src = `https://archive.org/services/img/${game.id}`;
                 }
-            } else {
-                // 退出全螢幕：恢復正常顯示
-                if (header) header.style.display = '';
-                if (sidebar) sidebar.style.display = '';
-                if (leftResizer) leftResizer.style.display = '';
-                if (emulatorControls) emulatorControls.style.display = '';
-                if (rightResizer) rightResizer.style.display = '';
-                if (infoPanel) infoPanel.style.display = '';
+                gameScreenshot.classList.remove('hidden');
+            }
 
-                // 恢復 iframe 正常樣式
-                const iframeWrapper = document.querySelector('.iframe-wrapper');
-                if (iframeWrapper) {
-                    iframeWrapper.style.position = '';
-                    iframeWrapper.style.top = '';
-                    iframeWrapper.style.left = '';
-                    iframeWrapper.style.width = '';
-                    iframeWrapper.style.height = '';
-                    iframeWrapper.style.zIndex = '';
-                    iframeWrapper.style.padding = '';
-                    iframeWrapper.style.display = '';
-                    iframeWrapper.style.alignItems = '';
-                    iframeWrapper.style.justifyContent = '';
-                    iframeWrapper.style.background = '';
-                }
+            function hideScreenshot() {
+                if (!gameScreenshot) return;
+                gameScreenshot.classList.add('hidden');
+            }
 
-                const emulatorFrame = document.querySelector('#emulator-frame');
-                if (emulatorFrame) {
-                    emulatorFrame.style.border = '';
-                    emulatorFrame.style.width = '';
-                    emulatorFrame.style.height = '';
-                    emulatorFrame.style.maxWidth = '';
-                    emulatorFrame.style.maxHeight = '';
+            if (gameScreenshot) {
+                gameScreenshot.style.cursor = 'pointer';
+                gameScreenshot.addEventListener('click', async () => {
+                    if (!pendingStartGame) return;
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('game', pendingStartGame.id);
+                    // 保持當前語言設定
+                    url.searchParams.set('lang', currentLanguage);
+                    window.location.href = url.toString(); // 同頁重載，確保乾淨環境
+                });
+            }
+
+            function recreateCanvas() {
+                const oldCanvas = document.getElementById('canvas');
+                if (!oldCanvas) return null;
+
+                const parent = oldCanvas.parentElement;
+                const newCanvas = document.createElement('canvas');
+                newCanvas.id = 'canvas';
+                oldCanvas.remove();
+                parent.appendChild(newCanvas);
+
+                // 添加滑鼠鎖定功能
+                setupMouseLock(newCanvas);
+
+                return newCanvas;
+            }
+
+            // 設定滑鼠鎖定功能
+            function setupMouseLock(canvas) {
+                if (!canvas) return;
+
+                // 點擊 canvas 時鎖定滑鼠
+                canvas.addEventListener('click', function () {
+                    if (!isMouseLocked) {
+                        canvas.requestPointerLock();
+                    }
+                });
+
+                // 監聽滑鼠鎖定狀態變化
+                document.addEventListener('pointerlockchange', function () {
+                    if (document.pointerLockElement === canvas) {
+                        isMouseLocked = true;
+                        updateTitleWithMouseHint();
+                    } else {
+                        isMouseLocked = false;
+                        restoreOriginalTitle();
+                    }
+                });
+
+                // 監聽 Esc 鍵解鎖滑鼠
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape' && isMouseLocked) {
+                        document.exitPointerLock();
+                    }
+                });
+            }
+
+            // 更新標題顯示滑鼠提示
+            function updateTitleWithMouseHint() {
+                if (gameTitleBar && currentGame) {
+                    originalTitle = `${currentGame.name} (${currentGame.nameCh})`;
+                    gameTitleBar.innerHTML = `${originalTitle} - <span style="color: #FFD700;">${t('mouseHint')}</span>`;
                 }
             }
-        }
 
-        reloadBtn.onclick = () => {
-            if (currentGame) {
-                emulatorFrame.src = `https://archive.org/embed/${currentGame.id}`;
+            // 恢復原始標題
+            function restoreOriginalTitle() {
+                if (gameTitleBar && originalTitle) {
+                    gameTitleBar.textContent = originalTitle;
+                }
             }
-        };
 
-        searchBox.addEventListener('input', (e) => {
-            renderGames(e.target.value);
-        });
+            function clearBrowserFsEmuDir() {
+                if (!window.BrowserFS || !BrowserFS.BFSRequire) return;
+                try {
+                    const fs = BrowserFS.BFSRequire('fs');
+                    const path = BrowserFS.BFSRequire('path');
+                    const root = '/emulator';
 
-        leftResizer.addEventListener('mousedown', (e) => {
-            isResizing = true;
-            document.body.style.cursor = 'col-resize';
-            document.body.style.userSelect = 'none';
-        });
+                    const removeRecursive = (dir) => {
+                        if (!fs.existsSync(dir)) return;
+                        fs.readdirSync(dir).forEach((entry) => {
+                            const target = path.join(dir, entry);
+                            const stat = fs.lstatSync(target);
+                            if (stat && stat.isDirectory && stat.isDirectory()) {
+                                removeRecursive(target);
+                            } else {
+                                fs.unlinkSync(target);
+                            }
+                        });
+                        if (dir !== root) {
+                            fs.rmdirSync(dir);
+                        }
+                    };
 
-        rightResizer.addEventListener('mousedown', (e) => {
-            e.preventDefault();
-            const startX = e.clientX;
-            const startWidth = infoPanel.offsetWidth;
+                    removeRecursive(root);
+                    try {
+                        fs.mkdirSync(root, { recursive: true });
+                    } catch (e) {
+                        if (!fs.existsSync(root)) fs.mkdirSync(root);
+                    }
+                } catch (err) {
+                    console.warn('清理 BrowserFS 模擬器資料夾失敗:', err);
+                }
+            }
 
-            function onMouseMove(e) {
-                const diff = startX - e.clientX;
-                const newWidth = startWidth + diff;
+            function resetEmulatorState(reason = 'switch') {
+                console.log(`🧹 清理模擬器狀態 (${reason})...`);
+
+                if (currentEmulator) {
+                    try {
+                        currentEmulator.stop();
+                    } catch (err) {
+                        console.warn('停止模擬器時發生錯誤:', err);
+                    }
+                    currentEmulator = null;
+                }
+
+                // 清理 Emscripten/音訊殘留
+                try { window.Module = null; } catch (e) { }
+                try { delete window.SDL_PauseAudio; } catch (e) { }
+
+                // 清理 BrowserFS（可能會有 EIO，忽略即可）
+                clearBrowserFsEmuDir();
+
+                console.log('✅ 清理完成');
+            }
+
+            async function startEmulator(game, canvas) {
+                if (!game) return;
+
+                console.log(`\n======== 啟動模擬器: ${game.name} ========`);
+
+                // 清理舊狀態
+                resetEmulatorState('start');
+
+                const newCanvas = canvas || recreateCanvas() || document.getElementById('canvas');
+
+                // 確保 canvas 是乾淨的
+                if (newCanvas) {
+                    const ctx = newCanvas.getContext('2d');
+                    if (ctx) {
+                        ctx.clearRect(0, 0, newCanvas.width, newCanvas.height);
+                    }
+                }
+
+                try {
+                    if (!emularityReady) await waitForEmularity();
+
+                    console.log('🎯 即將啟動遊戲:', {
+                        id: game.id,
+                        file: game.file,
+                        file2: game.file2,
+                        screenshot: game.screenshot
+                    });
+
+                    console.log('✅ Emularity 就緒');
+                    console.log('📦 初始化 MAME...');
+
+                    // 輔助函數：構建檔案 URL
+                    function buildFileUrl(gameId, filename) {
+                        const timestamp = Date.now();
+
+                        // 檢查是否為完整 URL (支援任何 HTTP/HTTPS URL)
+                        if (filename && (filename.startsWith('http://') || filename.startsWith('https://'))) {
+                            // 檢查是否為 ZIP 檔案格式
+                            if (filename.includes('.zip/')) {
+                                // ZIP 檔案格式：提取 ZIP URL 和內部檔案名
+                                const zipIndex = filename.indexOf('.zip/');
+                                const zipUrl = filename.substring(0, zipIndex + 4); // 包含 .zip
+                                const innerFilename = filename.substring(zipIndex + 5); // .zip/ 之後的部分
+
+                                const encodedZipUrl = encodeURIComponent(zipUrl);
+                                return `${SERVER_URL}/proxy/zip/${encodedZipUrl}/${innerFilename}?t=${timestamp}`;
+                            } else {
+                                // 完整 URL：使用 URL 編碼後的路徑
+                                const encodedUrl = encodeURIComponent(filename);
+                                return `${SERVER_URL}/proxy/url/${encodedUrl}?t=${timestamp}`;
+                            }
+                        } else {
+                            // 檢查是否為傳統 ZIP 格式 (例如: game.zip/disk1.po)
+                            if (filename && filename.includes('.zip/')) {
+                                // 傳統 ZIP 格式：使用遊戲路由，讓後端處理 ZIP 邏輯
+                                return `${SERVER_URL}/proxy/game/${gameId}/${filename}?t=${timestamp}`;
+                            } else {
+                                // 傳統格式：itemId + filename
+                                return `${SERVER_URL}/proxy/game/${gameId}/${filename}?t=${timestamp}`;
+                            }
+                        }
+                    }
+
+                    // 使用後端代理 URL，每次都加上時間戳確保重新載入
+                    const timestamp = Date.now();
+                    const mameJsUrl = `${SERVER_URL}/proxy/mame/mameapple2gs.js.gz?t=${timestamp}`;
+                    const mameWasmUrl = `${SERVER_URL}/proxy/mame/mameapple2gs.wasm.gz?t=${timestamp}`;
+                    const biosUrl = `${SERVER_URL}/proxy/bios/apple2gs.zip?t=${timestamp}`;
+                    const gameUrl = buildFileUrl(game.id, game.file);
+
+                    console.log('\n📥 使用後端代理:');
+                    console.log('   - MAME JS:', mameJsUrl);
+                    console.log('   - MAME WASM:', mameWasmUrl);
+                    console.log('   - BIOS:', biosUrl);
+                    console.log('   - 遊戲:', gameUrl);
+                    if (game.file2) {
+                        console.log('   - 遊戲 2:', buildFileUrl(game.id, game.file2));
+                    }
+                    console.log('📁 掛載到 emulator/ 目錄');
+
+                    // 檢查是否有第二片磁片
+                    const extraArgs = game.file2
+                        ? ['-flop3', '/emulator/' + (game.file.split('/').pop() || game.file), '-flop4', '/emulator/' + (game.file2.split('/').pop() || game.file2)]
+                        : ['-flop3', '/emulator/' + (game.file.split('/').pop() || game.file)];
+
+                    const loaderArgs = [
+                        window.JSMAMELoader.driver('apple2gs'),
+                        window.JSMAMELoader.nativeResolution(704, 462),
+                        window.JSMAMELoader.emulatorJS(mameJsUrl),
+                        window.JSMAMELoader.emulatorWASM(mameWasmUrl),
+                        window.JSMAMELoader.extraArgs(extraArgs),
+                        window.JSMAMELoader.mountFile(game.file.split('/').pop() || game.file, window.JSMAMELoader.fetchFile('Game Disk', gameUrl)),
+                        window.JSMAMELoader.mountFile('apple2gs.zip', window.JSMAMELoader.fetchFile('BIOS', biosUrl))
+                    ];
+
+                    if (game.file2) {
+                        const game2Url = buildFileUrl(game.id, game.file2);
+                        loaderArgs.push(
+                            window.JSMAMELoader.mountFile(game.file2.split('/').pop() || game.file2, window.JSMAMELoader.fetchFile('Game Disk 2', game2Url))
+                        );
+                    }
+
+                    console.log('🔧 建立 Emulator 實例...');
+                    const emulator = new window.Emulator(
+                        newCanvas,
+                        null,
+                        new window.JSMAMELoader(...loaderArgs)
+                    );
+
+                    // 確保是全新的實例
+                    currentEmulator = emulator;
+                    // 延後套用 mute，避免 Module 尚未就緒時觸發 ReferenceError
+                    setTimeout(() => {
+                        try {
+                            currentEmulator.setMute(uiMuted);
+                            updateMuteButton();
+                        } catch (e) {
+                            console.warn('套用靜音狀態時失敗，將略過:', e);
+                        }
+                    }, 500);
+
+                    console.log('✅ 實例建立成功');
+                    console.log('🚀 啟動模擬器...');
+
+                    // 啟動模擬器
+                    emulator.start();
+
+                    console.log('⏳ 模擬器啟動中，請稍候...');
+
+                    // 修正：模擬器啟動後確保搜尋框仍可使用
+                    setTimeout(() => {
+                        if (searchBox) {
+                            // 確保搜尋框可以接收輸入
+                            searchBox.removeAttribute('readonly');
+                            searchBox.removeAttribute('disabled');
+                            searchBox.style.pointerEvents = 'auto';
+                            searchBox.tabIndex = 0; // 確保可以獲得焦點
+
+                            // 重新綁定事件監聽器（以防被覆蓋）
+                            const newSearchBox = document.getElementById('searchBox');
+                            if (newSearchBox && !newSearchBox.hasAttribute('data-events-bound')) {
+                                newSearchBox.setAttribute('data-events-bound', 'true');
+                                newSearchBox.addEventListener('input', function (e) {
+                                    e.stopPropagation();
+                                    renderGames(e.target.value);
+                                });
+                            }
+                        }
+                    }, 2000);
+
+                    // 定期檢查搜尋框狀態
+                    const searchBoxChecker = setInterval(() => {
+                        if (searchBox && currentEmulator) {
+                            // 確保搜尋框仍然可用
+                            if (searchBox.hasAttribute('readonly') || searchBox.hasAttribute('disabled')) {
+                                searchBox.removeAttribute('readonly');
+                                searchBox.removeAttribute('disabled');
+                            }
+                        } else if (!currentEmulator) {
+                            // 模擬器停止時清除檢查器
+                            clearInterval(searchBoxChecker);
+                        }
+                    }, 5000);
+
+                    setTimeout(() => {
+                        const loadingTip = document.getElementById('loadingTip');
+                        if (loadingTip) loadingTip.classList.add('hidden');
+                        hideScreenshot();
+                    }, 3000);
+
+                    gameTitleBar.textContent = `${game.name} (${game.nameCh})`;
+
+                    // 設定滑鼠鎖定功能
+                    setupMouseLock(newCanvas);
+
+                    console.log(` 成功: ${game.name}`);
+                    console.log(' 聲音正常！');
+
+                    console.log('========\n');
+
+                } catch (err) {
+                    console.error(' 失敗:', err);
+                    gameTitleBar.textContent = `${game.name} - 失敗`;
+                    hideScreenshot();
+                    alert(`失敗：\n\n${err.message}`);
+                }
+
+                pendingStartGame = null;
+                pendingStartCanvas = null;
+                currentGame = game;
+            }
+
+            async function loadGame(game, itemElement) {
+                console.log(`\n======== 載入: ${game.name} ========`);
+
+                resetEmulatorState('switch-game');
+
+                // 點列表只顯示資訊與擷圖，不立刻啟動模擬器
+                const newCanvas = recreateCanvas();
+
+                // 先重置 zoom（避免沿用上次 transform 造成殘影/縮放不一致）
+                currentZoom = 1.0;
+                updateCanvasZoom();
+
+                document.querySelectorAll('.game-item').forEach(el => el.classList.remove('active'));
+                itemElement.classList.add('active');
+
+                // 立即滾動到選中的遊戲項目（置中顯示）
+                const listRect = gameList.getBoundingClientRect();
+                const itemRect = itemElement.getBoundingClientRect();
+                const itemOffsetTop = itemElement.offsetTop;
+                const itemHeight = itemElement.offsetHeight;
+                const listHeight = gameList.clientHeight;
+
+                // 計算讓項目置中的滾動位置
+                const targetScrollTop = itemOffsetTop - (listHeight / 2) + (itemHeight / 2);
+
+                gameList.scrollTop = targetScrollTop;
+
+                // 記住滾動位置
+                sessionStorage.setItem('gameListScrollTop', gameList.scrollTop.toString());
+
+                welcomeScreen.style.display = 'none';
+                emulatorContainer.classList.add('active');
+
+                gameTitleBar.textContent = `${game.name} - ${t('clickToStart')}`;
+
+                // 使用 updateGameInfo 來更新遊戲資訊，確保語言一致性
+                updateGameInfo(game);
+
+                // 設置開啟IA網站按鈕
+                archiveBtn.onclick = () => {
+                    // 檢查 game.id 是否為完整 URL
+                    if (game.id.startsWith('http://') || game.id.startsWith('https://')) {
+                        // 如果是完整 URL，直接開啟該網址
+                        window.open(game.id, '_blank');
+                    } else {
+                        // 傳統格式，開啟 Archive.org 詳情頁
+                        window.open(`https://archive.org/details/${game.id}`, '_blank');
+                    }
+                };
+
+                pendingStartGame = game;
+                pendingStartCanvas = newCanvas;
+
+                showScreenshot(game);
+
+                currentGame = game;
+            }
+
+            function renderGames(filter = '') {
+                gameList.innerHTML = '';
+
+                if (!filter.trim()) {
+                    // 沒有過濾條件時顯示所有遊戲
+                    var filtered = games;
+                } else {
+                    const filterLower = filter.toLowerCase().trim();
+                    var filtered = games.filter(g => {
+                        const nameMatch = String(g.name || '').toLowerCase().includes(filterLower);
+                        const nameChMatch = String(g.nameCh || '').toLowerCase().includes(filterLower);
+                        const descMatch = String(g.desc || '').toLowerCase().includes(filterLower);
+                        const yearMatch = String(g.year || '').includes(filter.trim());
+                        const developerMatch = String(g.developer || '').toLowerCase().includes(filterLower);
+
+                        return nameMatch || nameChMatch || descMatch || yearMatch || developerMatch;
+                    });
+                }
+
+                filtered = filtered.sort((a, b) => {
+                    const w = typeWeight(a.type) - typeWeight(b.type);
+                    if (w !== 0) return w;
+                    return String(a.name || '').localeCompare(String(b.name || ''));
+                });
+
+                if (filtered.length === 0 && filter.trim() !== '') {
+                    // 沒有搜尋結果時顯示提示
+                    const noResultDiv = document.createElement('div');
+                    noResultDiv.className = 'no-results';
+                    noResultDiv.innerHTML = `
+                        <div style="text-align: center; padding: 40px 20px; color: #888;">
+                            <div style="font-size: 48px; margin-bottom: 16px;">🔍</div>
+                            <div style="font-size: 18px; margin-bottom: 8px;">${currentLanguage === 'zh' ? '找不到相關遊戲' : 'No games found'}</div>
+                            <div style="font-size: 14px;">${currentLanguage === 'zh' ? '搜尋條件：' : 'Search term: '}「${filter}」</div>
+                            <div style="font-size: 12px; margin-top: 16px; opacity: 0.7;">
+                                ${currentLanguage === 'zh' ? '提示：可以搜尋中文或英文遊戲名稱' : 'Tip: You can search in Chinese or English'}
+                            </div>
+                        </div>
+                    `;
+                    gameList.appendChild(noResultDiv);
+                } else {
+                    filtered.forEach(game => {
+                        const item = document.createElement('div');
+                        item.className = 'game-item';
+                        item.dataset.id = game.id;
+
+                        // 根據語言決定顯示順序
+                        let primaryName, secondaryName;
+                        if (currentLanguage === 'zh') {
+                            primaryName = game.nameCh || game.name;
+                            secondaryName = game.name;
+                        } else {
+                            primaryName = game.name;
+                            secondaryName = game.nameCh || game.name;
+                        }
+
+                        item.innerHTML = `
+                            <h3>${primaryName} ${getBadge(game.type)}</h3>
+                            <div class="name-en">${secondaryName}</div>
+                            <div class="year">📅 ${game.year}</div>
+                        `;
+                        item.onclick = () => loadGame(game, item);
+                        gameList.appendChild(item);
+                    });
+                }
+            }
+
+
+            fullscreenBtn.onclick = () => {
+                if (!isFullscreen) {
+                    // 進入全螢幕模式
+                    const elem = document.documentElement; // 使用整個 document
+
+                    if (elem.requestFullscreen) {
+                        elem.requestFullscreen();
+                    } else if (elem.webkitRequestFullscreen) {
+                        elem.webkitRequestFullscreen();
+                    } else if (elem.mozRequestFullScreen) {
+                        elem.mozRequestFullScreen();
+                    } else if (elem.msRequestFullscreen) {
+                        elem.msRequestFullscreen();
+                    }
+                } else {
+                    // 退出全螢幕模式
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                    }
+                }
+            };
+
+            document.addEventListener('fullscreenchange', updateFullscreenStatus);
+            document.addEventListener('webkitfullscreenchange', updateFullscreenStatus);
+            document.addEventListener('mozfullscreenchange', updateFullscreenStatus);
+            document.addEventListener('MSFullscreenChange', updateFullscreenStatus);
+
+            function updateFullscreenStatus() {
+                isFullscreen = !!(document.fullscreenElement ||
+                    document.webkitFullscreenElement ||
+                    document.mozFullScreenElement ||
+                    document.msFullscreenElement);
+
+                fullscreenBtn.innerHTML = isFullscreen ? '⛶ 退出全螢幕' : '⛶ 全螢幕';
+
+                // 在全螢幕模式下隱藏其他元素
+                const header = document.querySelector('.header');
+                const sidebar = document.querySelector('.sidebar');
+                const leftResizer = document.querySelector('#leftResizer');
+                const emulatorControls = document.querySelector('.emulator-controls');
+                const rightResizer = document.querySelector('#rightResizer');
+                const infoPanel = document.querySelector('.info-panel');
+
+                if (isFullscreen) {
+                    // 進入全螢幕：隱藏不需要的元素
+                    if (header) header.style.display = 'none';
+                    if (sidebar) sidebar.style.display = 'none';
+                    if (leftResizer) leftResizer.style.display = 'none';
+                    if (emulatorControls) emulatorControls.style.display = 'none';
+                    if (rightResizer) rightResizer.style.display = 'none';
+                    if (infoPanel) infoPanel.style.display = 'none';
+
+                    // 讓 canvas 按 704x462 等比例放大到全螢幕
+                    const canvas = document.querySelector('#canvas');
+                    if (canvas) {
+                        const aspectRatio = 704 / 462; // 原始比例
+                        const screenWidth = window.innerWidth;
+                        const screenHeight = window.innerHeight;
+                        const screenAspectRatio = screenWidth / screenHeight;
+
+                        let canvasWidth, canvasHeight;
+
+                        if (screenAspectRatio > aspectRatio) {
+                            // 螢幕比較寬，以高度為準
+                            canvasHeight = screenHeight;
+                            canvasWidth = canvasHeight * aspectRatio;
+                        } else {
+                            // 螢幕比較高，以寬度為準
+                            canvasWidth = screenWidth;
+                            canvasHeight = canvasWidth / aspectRatio;
+                        }
+
+                        canvas.style.position = 'fixed';
+                        canvas.style.top = '50%';
+                        canvas.style.left = '50%';
+                        canvas.style.width = canvasWidth + 'px';
+                        canvas.style.height = canvasHeight + 'px';
+                        canvas.style.transform = 'translate(-50%, -50%)';
+                        canvas.style.zIndex = '9999';
+                        // 移除綠框
+                        canvas.style.border = 'none';
+                    }
+                } else {
+                    // 退出全螢幕：恢復正常顯示
+                    if (header) header.style.display = '';
+                    if (sidebar) sidebar.style.display = '';
+                    if (leftResizer) leftResizer.style.display = '';
+                    if (emulatorControls) emulatorControls.style.display = '';
+                    if (rightResizer) rightResizer.style.display = '';
+                    if (infoPanel) infoPanel.style.display = '';
+
+                    // 恢復 canvas 正常樣式
+                    const canvas = document.querySelector('#canvas');
+                    if (canvas) {
+                        canvas.style.position = '';
+                        canvas.style.top = '';
+                        canvas.style.left = '';
+                        canvas.style.width = '';
+                        canvas.style.height = '';
+                        canvas.style.transform = '';
+                        canvas.style.zIndex = '';
+                        canvas.style.border = '';
+                    }
+                }
+            }
+
+            reloadBtn.onclick = () => {
+                if (currentGame) {
+                    resetEmulatorState('reload');
+                    loadGame(currentGame, document.querySelector('.game-item.active'));
+                }
+            };
+
+            leftResizer.addEventListener('mousedown', (e) => {
+                isResizing = true;
+                document.body.style.cursor = 'col-resize';
+                document.body.style.userSelect = 'none';
+            });
+
+            rightResizer.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                const startX = e.clientX;
+                const startWidth = infoPanel.offsetWidth;
+
+                function onMouseMove(e) {
+                    const diff = startX - e.clientX;
+                    const newWidth = startWidth + diff;
+                    if (newWidth >= 250 && newWidth <= 500) {
+                        infoPanel.style.width = newWidth + 'px';
+                    }
+                }
+
+                function onMouseUp() {
+                    document.removeEventListener('mousemove', onMouseMove);
+                    document.removeEventListener('mouseup', onMouseUp);
+                    document.body.style.cursor = '';
+                    document.body.style.userSelect = '';
+                }
+
+                document.addEventListener('mousemove', onMouseMove);
+                document.addEventListener('mouseup', onMouseUp);
+                document.body.style.cursor = 'col-resize';
+                document.body.style.userSelect = 'none';
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isResizing) return;
+
+                const newWidth = e.clientX;
                 if (newWidth >= 250 && newWidth <= 500) {
-                    infoPanel.style.width = newWidth + 'px';
+                    sidebar.style.width = newWidth + 'px';
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isResizing) {
+                    isResizing = false;
+                    document.body.style.cursor = '';
+                    document.body.style.userSelect = '';
+                }
+            });
+
+            function autoStartFromUrl() {
+                try {
+                    const params = new URLSearchParams(window.location.search);
+                    const gameId = params.get('game');
+                    if (!gameId) return;
+                    const game = games.find(g => g.id === gameId);
+                    if (!game) return;
+                    const item = document.querySelector(`.game-item[data-id="${game.id}"]`);
+                    if (!item) return;
+                    loadGame(game, item);
+                    startEmulator(game, document.getElementById('canvas'));
+                } catch (e) {
+                    console.warn('autoStartFromUrl 失敗:', e);
                 }
             }
 
-            function onMouseUp() {
-                document.removeEventListener('mousemove', onMouseMove);
-                document.removeEventListener('mouseup', onMouseUp);
-                document.body.style.cursor = '';
-                document.body.style.userSelect = '';
+            renderGames();
+            document.getElementById('totalCount').textContent = games.length;
+
+            // 監聽手動滾動，記住位置
+            if (gameList) {
+                let scrollTimeout;
+                gameList.addEventListener('scroll', () => {
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        sessionStorage.setItem('gameListScrollTop', gameList.scrollTop.toString());
+                    }, 200);
+                });
             }
 
-            document.addEventListener('mousemove', onMouseMove);
-            document.addEventListener('mouseup', onMouseUp);
-            document.body.style.cursor = 'col-resize';
-            document.body.style.userSelect = 'none';
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            if (!isResizing) return;
-
-            const newWidth = e.clientX;
-            if (newWidth >= 250 && newWidth <= 500) {
-                sidebar.style.width = newWidth + 'px';
+            // 恢復上次的滾動位置（如果沒有從 URL 啟動）
+            const urlParams = new URLSearchParams(window.location.search);
+            const gameId = urlParams.get('game');
+            if (!gameId && gameList) {
+                const savedScrollTop = sessionStorage.getItem('gameListScrollTop');
+                if (savedScrollTop !== null) {
+                    // 延遲一下確保 DOM 已渲染
+                    setTimeout(() => {
+                        gameList.scrollTop = parseInt(savedScrollTop, 10);
+                    }, 100);
+                }
             }
-        });
 
-        document.addEventListener('mouseup', () => {
-            if (isResizing) {
-                isResizing = false;
-                document.body.style.cursor = '';
-                document.body.style.userSelect = '';
+            autoStartFromUrl();
+            console.log(`✅ 已載入 ${games.length} 款 Apple IIgs 軟體`);
+
+            // 搜尋框焦點管理
+            let searchBoxHasFocus = false;
+
+            if (searchBox) {
+                searchBox.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    this.focus();
+                    searchBoxHasFocus = true;
+                });
+
+                searchBox.addEventListener('focus', function () {
+                    searchBoxHasFocus = true;
+                });
+
+                searchBox.addEventListener('blur', function () {
+                    searchBoxHasFocus = false;
+                });
+
+                searchBox.addEventListener('keydown', function (e) {
+                    if (searchBoxHasFocus && document.activeElement === this) {
+                        e.stopPropagation();
+                    }
+                });
+
+                searchBox.addEventListener('keyup', function (e) {
+                    if (searchBoxHasFocus && document.activeElement === this) {
+                        e.stopPropagation();
+                    }
+                });
+
+                searchBox.addEventListener('keypress', function (e) {
+                    if (searchBoxHasFocus && document.activeElement === this) {
+                        e.stopPropagation();
+                    }
+                });
+
+                searchBox.addEventListener('input', function (e) {
+                    if (searchBoxHasFocus && document.activeElement === this) {
+                        e.stopPropagation();
+                        renderGames(e.target.value);
+                    }
+                });
             }
-        });
 
-        renderGames();
-        document.getElementById('totalCount').textContent = games.length;
-        console.log(`✅ 已載入 ${games.length} 款 Apple IIgs 軟體`);
-    </script>
+            // 點擊其他地方時讓模擬器重新獲得焦點
+            document.addEventListener('click', function (e) {
+                if (e.target !== searchBox && !searchBox.contains(e.target)) {
+                    if (searchBoxHasFocus) {
+                        searchBoxHasFocus = false;
+                        searchBox.blur();
+                    }
+
+                    const canvas = document.getElementById('canvas');
+                    if (canvas && currentEmulator) {
+                        setTimeout(() => {
+                            canvas.focus();
+                        }, 10);
+                    }
+                }
+            });
+
+            // 修正焦點狀態不一致
+            document.addEventListener('keydown', function (e) {
+                if (searchBoxHasFocus && document.activeElement !== searchBox) {
+                    searchBoxHasFocus = false;
+                }
+            });
+        </script>
 </body>
 
 </html>
