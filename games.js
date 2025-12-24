@@ -1,14 +1,9 @@
 /**
- * Apple IIgs 遊戲庫
- * 生成時間: 2025/12/24 上午11:12:25
- * 軟體數量: 130
+ * Apple IIgs Game Database
+ * Generated: 2025/12/24 11:12:25
+ * Total titles: 130
  * 
- * 更新內容:
- * - 移除標題中的 "IIgs"
- * - "The" 開頭的標題改成放在後面
- * - name = 英文名稱, nameCh = 中文名稱
- * - 以英文排序
- */
+ **/
 
 window.games = [
   {
@@ -23,7 +18,7 @@ window.games = [
     "descCh": "超級運動員 (Lode Runner)是一款於1983年由Doug Smith開發、Broderbund發行的經典平台解謎動作遊戲。玩家操作主角在多個關卡中收集所有金塊，再到達出口過關，途中要利用挖洞策略避開敵人追擊。此遊戲是最早具有關卡編輯器功能的作品之一。本作為Antoine Vignau 與 Olivier Zardini 於2024年為Apple IIgs開發，並由 Tozai Games 製作。",
     "developer": "Tozai Games",
     "publisher": "Brutal Deluxe Software",
-    "screenshot": "https://www.brutaldeluxe.fr/products/apple2gs/loderunner/images/lr_title.jpg",
+    "screenshot": "/proxy/url/https%3A%2F%2Fwww.brutaldeluxe.fr%2Fproducts%2Fapple2gs%2Floderunner%2Fimages%2Flr_title.jpg",
     "nameCh": "超級運動員"
   },
   {
@@ -64,7 +59,7 @@ window.games = [
     "desc": "In this isometric puzzle-platformer, you control a human transformed into a fragile, 'inflated ball'. Players must navigate a massive 150-room castle to find a spellbook for the Great Wizard. The gameplay focuses on 'precision movement' to avoid spikes while constantly searching for 'air pumps' to prevent the ball from deflating and bursting before time runs out.",
     "developer": "Jason Harper",
     "publisher": "MicroDeal",
-    "screenshot": "https://archive.org/download/wozaday_Airball_IIgs/00playable_screenshot.png",
+    "screenshot": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fwozaday_Airball_IIgs%2F00playable_screenshot.png",
     "nameCh": "氣球歷險",
     "descCh": "在這款等距解謎平台遊戲中，您控制一個變成脆弱“充氣球”的人類。玩家必須穿越一座擁有 150 個房間的巨大城堡，找到大巫師的魔法書。遊戲玩法側重於“精確移動”以避免尖刺，同時不斷尋找“氣泵”以防止球在時間耗盡之前洩氣和爆裂。"
   },
@@ -102,14 +97,14 @@ window.games = [
     "id": "e2gs_0487_Ancient_Land_of_Ys_Disk_1",
     "emu": "apple2gs",
     "file": "0487_Ancient_Land_of_Ys_Disk_1.po",
-    "file2": "https://archive.org/download/e2gs_0488_Ancient_Land_of_Ys_Disk_2/0488_Ancient_Land_of_Ys_Disk_2.po",
+    "file2": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fe2gs_0488_Ancient_Land_of_Ys_Disk_2%2F0488_Ancient_Land_of_Ys_Disk_2.po",
     "name": "Ancient Land of Ys",
     "year": "1989",
     "type": "game",
     "desc": "As the adventurer Adol Christin, you explore the island of Esteria to find the legendary 'Books of Ys'. This action-RPG features a unique 'bump' combat system where players attack enemies by running into them slightly off-center to avoid taking damage. The gameplay emphasizes fast-paced exploration, leveling up through monster battles, and navigating dangerous dungeons to defeat powerful bosses.",
     "developer": "Designer Software",
     "publisher": "Kyodai",
-    "screenshot": "https://www.video-games-museum.com/en/screenshots/Apple%20II%20GS/1/55909-title-Ancient-Land-of-Ys.jpg",
+    "screenshot": "/proxy/url/https%3A%2F%2Fwww.video-games-museum.com%2Fen%2Fscreenshots%2FApple%2520II%2520GS%2F1%2F55909-title-Ancient-Land-of-Ys.jpg",
     "nameCh": "伊蘇：失落的古國",
     "descCh": "作為冒險家阿道爾·克里斯汀，你探索埃斯特里亞島，尋找傳說中的“伊蘇之書”。這款動作角色扮演遊戲具有獨特的“碰撞”戰鬥系統，玩家可以通過稍微偏離中心的方式衝撞敵人來攻擊敵人，以避免受到傷害。遊戲玩法強調快節奏的探索，通過怪物戰鬥升級，並穿越危險的地牢來擊敗強大的頭目。"
   },
@@ -151,7 +146,7 @@ window.games = [
     "desc": "'As the Link Turns' is a logic-based puzzle game where players must complete 'action-reaction' chains. You are presented with a series of mechanical and physical components that must be linked together to achieve a specific goal, such as moving an object. The gameplay emphasizes 'deductive reasoning' and understanding 'cause-and-effect' relationships to solve increasingly complex spatial puzzles.",
     "developer": "Parik Rao & Scott Pease (Rogue Systems)",
     "publisher": "",
-    "screenshot": "https://cdn.mobygames.com/screenshots/16854153-as-the-link-turns-operation-bug-apple-iigs-shooting-creatures.png",
+    "screenshot": "/proxy/url/https%3A%2F%2Fcdn.mobygames.com%2Fscreenshots%2F16854153-as-the-link-turns-operation-bug-apple-iigs-shooting-creatures.png",
     "nameCh": "因果連結",
     "descCh": "“As the Link Turns”是一款基於邏輯的益智遊戲，玩家必須完成“動作-反應”鏈。您會看到一系列機械和物理組件，必須將它們連接在一起才能實現特定目標，例如移動物體。遊戲玩法強調“演繹推理”和理解“因果”關係，以解決日益複雜的空間謎題。"
   },
@@ -207,7 +202,7 @@ window.games = [
     "desc": "Beyond Zork is a text-heavy RPG that blends interactive fiction with character development. Players customize stats like 'Strength' and 'Intelligence' to survive a non-linear quest for the 'Coconut of Quendor'. The gameplay features a text parser for commands, 'randomized encounters', and a persistent 'on-screen map' to aid navigation through the monster-filled Great Underground Empire.",
     "developer": "Brian Moriarty",
     "publisher": "Infocom",
-    "screenshot": "https://upload.wikimedia.org/wikipedia/en/0/0a/Beyond_Zork_game_box_cover.jpg",
+    "screenshot": "/proxy/url/https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fen%2F0%2F0a%2FBeyond_Zork_game_box_cover.jpg",
     "nameCh": "魔域之外",
     "descCh": "Beyond Zork 是一款文字豐富的角色扮演遊戲，將互動小說與角色發展融為一體。玩家可以自定義“力量”和“智力”等統計數據，以在“昆多椰子”的非線性任務中生存下來。遊戲玩法具有命令文本解析器、“隨機遭遇”和持久的“屏幕地圖”，以幫助在充滿怪物的地下帝國中導航。"
   },
@@ -278,7 +273,7 @@ window.games = [
     "desc": "In this unique physics-based puzzle game, you control a small ghost who must blow a 'fragile bubble' through a haunted mansion. Players use the mouse to rotate the ghost and 'puff' air to move the bubble, avoiding spikes, fans, and candles. The gameplay demands 'extreme precision' to navigate 35 rooms filled with traps without popping the bubble.",
     "developer": "ERE Informatique",
     "publisher": "Accolade",
-    "screenshot": "https://archive.org/download/wozaday_Bubble_Ghost_IIgs/00playable_screenshot.png",
+    "screenshot": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fwozaday_Bubble_Ghost_IIgs%2F00playable_screenshot.png",
     "nameCh": "泡泡幽靈",
     "descCh": "在這款獨特的基於物理的益智遊戲中，您控制一個小幽靈，它必須吹出一個“脆弱的泡泡”穿過一座鬧鬼的宅邸。玩家使用滑鼠旋轉幽靈並“吹”空氣來移動氣泡，避開尖刺、風扇和蠟燭。遊戲玩法需要“極高的精確度”，才能在 35 個佈滿陷阱的房間中穿行而不戳破泡泡。"
   },
@@ -320,7 +315,7 @@ window.games = [
     "desc": "Carte Primus is a collection of five popular card games: 'Cribbage', 'Gin Rummy', 'Hearts', 'Pinochle', and 'Pitch'. Players use a 'mouse-driven interface' to interact with cards and game menus. The gameplay focuses on 'digital adaptations' of these traditional rulesets, allowing single players to compete against a 'computer AI' opponent in a straightforward format.",
     "developer": "David Manthey",
     "publisher": "David Manthey",
-    "screenshot": "https://images.igdb.com/igdb/image/upload/t_720p/scdrts.jpg",
+    "screenshot": "/proxy/url/https%3A%2F%2Fimages.igdb.com%2Figdb%2Fimage%2Fupload%2Ft_720p%2Fscdrts.jpg",
     "nameCh": "撲克牌合輯",
     "descCh": "Carte Primus 是五種流行紙牌遊戲的集合：“Cribbage”、“Gin Rummy”、“Hearts”、“Pinochle”和“Pitch”。玩家使用“滑鼠驅動的介面”與紙牌和遊戲菜單進行交互。遊戲玩法側重於這些傳統規則集的“數字改編”，允許單人玩家以簡單的形式與“電腦人工智慧”對手競爭。"
   },
@@ -363,7 +358,7 @@ window.games = [
     "developer": "Antoine Vignau & Olivier Zardini (Brutal Deluxe)",
     "publisher": "Brutal Deluxe",
     "file2": "Cogito_1992_Brutal_Deluxe_FW.2mg",
-    "screenshot": "https://www.brutaldeluxe.fr/images/coglog12.gif",
+    "screenshot": "/proxy/url/https%3A%2F%2Fwww.brutaldeluxe.fr%2Fimages%2Fcoglog12.gif",
     "nameCh": "我思",
     "descCh": "“Cogito”是一款基於網格的邏輯謎題，玩家必須重新排列圖塊以匹配目標模式。使用滑鼠，您可以水平和垂直滑動整行或整列。遊戲玩法強調“空間推理和策略”，因為每次移動都會同時移動多個棋子，需要仔細規劃才能在有限的移動次數內解決 100 個難度不斷增加的關卡。"
   },
@@ -496,7 +491,7 @@ window.games = [
     "developer": "Steven Chiang, Dave Seah & James Brookes",
     "publisher": "DreamWorld",
     "file2": "Dueltris_1992_DreamWorld_FW_a_non_boot.2mg",
-    "screenshot": "https://www.whatisthe2gs.apple2.org.za/files/DuelTris/ScreenGrab_2/duel_tris_shot2.gif",
+    "screenshot": "/proxy/url/https%3A%2F%2Fwww.whatisthe2gs.apple2.org.za%2Ffiles%2FDuelTris%2FScreenGrab_2%2Fduel_tris_shot2.gif",
     "nameCh": "對戰俄羅斯方塊",
     "descCh": "DuelTris 是經典落塊拼圖的競爭性“面對面”版本。兩名玩家在分屏上同時進行比賽，目標是清除線路，將“垃圾行”發送到對手一側。遊戲玩法強調“速度和侵略性策略”，具有能力提升和特殊方塊，可以阻礙其他玩家的進度或清除自己棋盤的大部分以贏得比賽。"
   },
@@ -510,7 +505,7 @@ window.games = [
     "desc": "Dungeon Master is a pioneering 'real-time' first-person dungeon crawler where players lead a party of four champions to defeat the evil Lord Chaos. Using a 'mouse-driven interface', you navigate a multi-level labyrinth, solving environmental puzzles and engaging in tactical combat. Characters improve their skills in four disciplines—'Fighter, Ninja, Priest, and Wizard'—simply by performing related actions rather than earning traditional experience points. The gameplay emphasizes 'resource management', requiring players to monitor the party's hunger, thirst, and light sources while discovering powerful 'spell runes' to cast magic in real-time.",
     "developer": "Don Jordan",
     "publisher": "FTL",
-    "screenshot": "https://www.whatisthe2gs.apple2.org.za/files/DungeonMaster/ScreenGrab_1/dungeonshot1.gif",
+    "screenshot": "/proxy/url/https%3A%2F%2Fwww.whatisthe2gs.apple2.org.za%2Ffiles%2FDungeonMaster%2FScreenGrab_1%2Fdungeonshot1.gif",
     "nameCh": "地下城主",
     "descCh": "《地下城主》是一款開創性的“實時”第一人稱地下城探索遊戲，玩家將帶領四名冠軍組成的隊伍擊敗邪惡的混沌領主。使用“滑鼠驅動的介面”，您可以在多層迷宮中導航，解決環境難題並參與戰術戰鬥。角色只需執行相關動作即可提高“戰士、忍者、牧師和巫師”四個領域的技能，而不是賺取傳統的經驗值。遊戲玩法強調“資源管理”，要求玩家監控隊伍的飢餓、口渴和光源，同時發現強大的“法術符文”來實時施展魔法。"
   },
@@ -625,7 +620,7 @@ window.games = [
     "developer": "Mark Manyen",
     "publisher": "Software Toolworks",
     "file2": "Cribbage__Gin_King_1990_The_Software_Toolworks.2mg",
-    "screenshot": "https://archive.org/download/wozaday_Gin_King_Cribbage_King_IIgs/00playable_screenshot.png",
+    "screenshot": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fwozaday_Gin_King_Cribbage_King_IIgs%2F00playable_screenshot.png",
     "nameCh": "篋牌/金剛撲克",
     "descCh": "“Cribbage King / Gin King”是一款包含兩種流行紙牌遊戲的軟體彙編。玩家可以與電腦人工智慧對手或朋友競爭。 “滑鼠驅動的介面”可以輕鬆進行卡片管理和分數跟踪。遊戲玩法需要了解“Cribbage”（一種涉及“pegging”和“hands”的基於積分的遊戲）和“Gin Rummy”（一種融合遊戲，玩家嘗試組成集合併運行“go gin”）的具體規則和策略。"
   },
@@ -668,7 +663,7 @@ window.games = [
     "desc": "Recruited by the CIA, you must remotely infiltrate a high-security facility to steal the 'Doomsday Papers'. The gameplay features a 'four-way monitor system' where you coordinate three 'Mobile Remote Units' (robots). You must 'tap into surveillance cameras', record empty room footage to 'loop as false input', and bypass guards and sensors in 'real-time' while managing the complex terminal interface.",
     "developer": "Steve Cartwright",
     "publisher": "Activision",
-    "screenshot": "https://www.whatisthe2gs.apple2.org.za/files/HackerII/ScreenGrab_2/hacker2shot2.gif",
+    "screenshot": "/proxy/url/https%3A%2F%2Fwww.whatisthe2gs.apple2.org.za%2Ffiles%2FHackerII%2FScreenGrab_2%2Fhacker2shot2.gif",
     "nameCh": "駭客任務 2：末日文件",
     "descCh": "你被中央情報局招募，必須遠程滲透一個高度安全的設施來竊取“末日文件”。遊戲玩法具有“四向監控系統”，您可以在其中協調三個“移動遠程單元”（機器人）。您必須“利用監控攝像頭”，記錄空房間鏡頭以“作為錯誤輸入循環播放”，並“實時”繞過警衛和傳感器，同時管理複雜的終端介面。"
   },
@@ -711,7 +706,7 @@ window.games = [
     "desc": "In Hostage: Rescue Mission, players command a specialized anti-terrorist squad tasked with infiltrating a foreign embassy overrun by terrorists. The mission is divided into three tactical phases: positioning snipers around the building, rappelling teams to breach the windows, and engaging enemies in room-to-room combat to secure the hostages. Combining stealth, strategy, and first-person action, the game offers a high-stakes simulation of a counter-terrorism operation.",
     "developer": "Infogrames",
     "publisher": "Mindscape",
-    "screenshot": "https://archive.org/download/wozaday_Hostage_Rescue_Mission_IIgs/00playable_screenshot.png",
+    "screenshot": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fwozaday_Hostage_Rescue_Mission_IIgs%2F00playable_screenshot.png",
     "nameCh": "人質：救援任務",
     "descCh": "在《人質：救援任務》中，玩家指揮一支專門的反恐小隊，其任務是滲透到被恐怖分子佔領的外國大使館。該任務分為三個戰術階段：在建築物周圍部署狙擊手、用繩索下降團隊突破窗戶，以及與敵人進行逐室戰鬥以保護人質。該遊戲結合了潛行、策略和第一人稱動作，提供了高風險的反恐行動模擬。"
   },
@@ -754,7 +749,7 @@ window.games = [
     "desc": "In this action-platformer, you infiltrate Elvin Atombender's fortress consisting of eight towers. Players must dodge diverse security robots, search furniture for passcodes, and solve musical puzzles within an eight-hour limit. The gameplay focuses on precision jumping, strategic lift management, and collecting melody fragments to access the final control room.",
     "developer": "Novotrade",
     "publisher": "Epyx",
-    "screenshot": "https://archive.org/download/wozaday_Impossible_Mission_II_IIgs/00playable_screenshot.png",
+    "screenshot": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fwozaday_Impossible_Mission_II_IIgs%2F00playable_screenshot.png",
     "nameCh": "不可能的任務2",
     "descCh": "在這款動作平台遊戲中，您將潛入 Elvin Atombender 的由八座塔樓組成的堡壘。玩家必須在八小時內躲避各種安全機器人、搜索家具尋找密碼並解決音樂謎題。遊戲玩法側重於精確跳躍、戰略升降機管理以及收集旋律片段以進入最終控制室。"
   },
@@ -789,8 +784,8 @@ window.games = [
   {
     "id": "wozaday_Keef_the_Thief_IIgs",
     "emu": "apple2gs",
-    "file": "https://archive.org/download/e2gs_0907_Keef_the_Thief_Disk_1/0907_Keef_the_Thief_Disk_1.po",
-    "file2": "https://archive.org/download/e2gs_0908_Keef_the_Thief_Disk_2/0908_Keef_the_Thief_Disk_2.po",
+    "file": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fe2gs_0907_Keef_the_Thief_Disk_1%2F0907_Keef_the_Thief_Disk_1.po",
+    "file2": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fe2gs_0908_Keef_the_Thief_Disk_2%2F0908_Keef_the_Thief_Disk_2.po",
     "name": "Keef the Thief",
     "year": "1989",
     "type": "game",
@@ -833,8 +828,8 @@ window.games = [
   {
     "id": "wozaday_Leisure_Suit_Larry_IIgs",
     "emu": "apple2gs",
-    "file": "https://archive.org/download/e2gs_0283_Leisure_Suit_Larry_Disk_1/0283_Leisure_Suit_Larry_Disk_1.po",
-    "file2": "https://archive.org/download/e2gs_0284_Leisure_Suit_Larry_Disk_2/0284_Leisure_Suit_Larry_Disk_2.po",
+    "file": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fe2gs_0283_Leisure_Suit_Larry_Disk_1%2F0283_Leisure_Suit_Larry_Disk_1.po",
+    "file2": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fe2gs_0284_Leisure_Suit_Larry_Disk_2%2F0284_Leisure_Suit_Larry_Disk_2.po",
     "name": "Leisure Suit Larry in the Land of the Lounge Lizards",
     "year": "1987",
     "type": "game",
@@ -899,7 +894,7 @@ window.games = [
     "desc": "In this classic 'count and capture' strategy game, players aim to collect the most seeds in their personal store (Mancala). On your turn, you pick up all seeds from one of your pits and 'sow' them one by one counter-clockwise into subsequent pits. Strategic rules allow for extra turns if the last seed lands in your store, or capturing opponent's seeds if it lands in an empty pit on your side.",
     "developer": "Logical Design Works",
     "publisher": "California Dreams",
-    "screenshot": "https://archive.org/download/wozaday_Mancala_IIgs/00playable_screenshot.png",
+    "screenshot": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fwozaday_Mancala_IIgs%2F00playable_screenshot.png",
     "nameCh": "非洲寶石棋",
     "descCh": "在這款經典的“計數和捕獲”策略遊戲中，玩家的目標是在自己的個人商店（Mancala）中收集最多的種子。輪到你時，你從一個坑中拾起所有種子，然後將它們一粒一粒地逆時針“播種”到後續的坑中。如果最後一顆種子落在你的商店中，戰略規則允許額外回合，或者如果對手的種子落在你這邊的空坑中，則捕獲對手的種子。"
   },
@@ -913,7 +908,7 @@ window.games = [
     "desc": "Using a mouse or joystick, players guide a marble through six isometric, gravity-defying obstacle courses. You must reach the finish line within a strict time limit while avoiding pits, enemies, and environmental hazards. The physics-based gameplay rewards momentum control and precision movement across increasingly treacherous platforms and narrow pathways.",
     "developer": "Will Harvey",
     "publisher": "Electronic Arts",
-    "screenshot": "https://archive.org/download/wozaday_Marble_Madness/00playable_screenshot.png",
+    "screenshot": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fwozaday_Marble_Madness%2F00playable_screenshot.png",
     "nameCh": "瘋狂彈珠",
     "descCh": "玩家使用滑鼠或操縱桿引導彈珠穿過六個等距的、反重力的障礙物。你必須在嚴格的時間限制內到達終點線，同時避開坑、敵人和環境危害。基於物理的遊戲玩法獎勵在日益危險的平台和狹窄路徑上的動量控制和精確移動。"
   },
@@ -935,7 +930,7 @@ window.games = [
   {
     "id": "wozaday_Mini_Putt_IIgs",
     "emu": "apple2gs",
-    "file": "https://archive.org/download/a2gs_Mini_Putt_The_Ultimate_Challenge_1988_Accolade/Mini_Putt_The_Ultimate_Challenge_1988_Accolade.2mg",
+    "file": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fa2gs_Mini_Putt_The_Ultimate_Challenge_1988_Accolade%2FMini_Putt_The_Ultimate_Challenge_1988_Accolade.2mg",
     "name": "Mini-Putt",
     "year": "1988",
     "type": "game",
@@ -964,7 +959,7 @@ window.games = [
   {
     "id": "wozaday_Monte_Carlo_IIgs",
     "emu": "apple2gs",
-    "file": "https://archive.org/download/a2gs_Monte_Carlo_1988_PBI_Software/Monte_Carlo_1988_PBI_Software.2mg",
+    "file": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fa2gs_Monte_Carlo_1988_PBI_Software%2FMonte_Carlo_1988_PBI_Software.2mg",
     "name": "Monte Carlo",
     "year": "1987",
     "type": "game",
@@ -1063,8 +1058,8 @@ window.games = [
   {
     "id": "wozaday_Police_Quest_IIgs",
     "emu": "apple2gs",
-    "file": "https://archive.org/download/e2gs_0334_Police_Quest_DIsk_1/0334_Police_Quest_DIsk_1.po",
-    "file2": "https://archive.org/download/e2gs_0335_Police_Quest_Disk_2/0335_Police_Quest_Disk_2.po",
+    "file": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fe2gs_0334_Police_Quest_DIsk_1%2F0334_Police_Quest_DIsk_1.po",
+    "file2": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fe2gs_0335_Police_Quest_Disk_2%2F0335_Police_Quest_Disk_2.po",
     "name": "Police Quest",
     "year": "1987",
     "type": "game",
@@ -1092,7 +1087,7 @@ window.games = [
   {
     "id": "wozaday_Qix_IIgs",
     "emu": "apple2gs",
-    "file": "https://archive.org/download/a2gs_Qix_1990_Taito_US/Qix_1990_Taito_US.2mg",
+    "file": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fa2gs_Qix_1990_Taito_US%2FQix_1990_Taito_US.2mg",
     "name": "Qix",
     "year": "1990",
     "type": "game",
@@ -1163,7 +1158,7 @@ window.games = [
   {
     "id": "wozaday_Roadwar_2000_IIgs",
     "emu": "apple2gs",
-    "file": "https://archive.org/download/a2gs_Roadwar_2000_1987_SSI/Roadwar_2000_1987_SSI.2mg",
+    "file": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fa2gs_Roadwar_2000_1987_SSI%2FRoadwar_2000_1987_SSI.2mg",
     "name": "Roadwar 2000",
     "year": "1987",
     "type": "game",
@@ -1177,8 +1172,8 @@ window.games = [
   {
     "id": "wozaday_Rocket_Ranger_IIgs",
     "emu": "apple2gs",
-    "file": "https://archive.org/download/e2gs_0729_Rocket_Ranger_Disk_1/0729_Rocket_Ranger_Disk_1.po",
-    "file2": "https://archive.org/download/e2gs_0730_Rocket_Ranger_Disk_2/0730_Rocket_Ranger_Disk_2.po",
+    "file": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fe2gs_0729_Rocket_Ranger_Disk_1%2F0729_Rocket_Ranger_Disk_1.po",
+    "file2": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fe2gs_0730_Rocket_Ranger_Disk_2%2F0730_Rocket_Ranger_Disk_2.po",
     "name": "Rocket Ranger",
     "year": "1989",
     "type": "game",
@@ -1220,7 +1215,7 @@ window.games = [
   {
     "id": "wozaday_Serve_and_Volley_IIgs",
     "emu": "apple2gs",
-    "file": "https://archive.org/download/e2gs_0750_Serve_Volley/0750_Serve__Volley.po",
+    "file": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fe2gs_0750_Serve_Volley%2F0750_Serve__Volley.po",
     "name": "Serve & Volley",
     "year": "1988",
     "type": "game",
@@ -1242,7 +1237,7 @@ window.games = [
     "desc": "In this challenging first-person adventure, you explore a deadly living castle to defeat the Warlock Lord. Players interact with the environment via a mouse-driven icon menu (Look, Open, Use, Hit). The gameplay is famous for its intricate logic puzzles, inventory management, and numerous instant-death traps, requiring players to constantly monitor their dwindling torch supply to avoid being consumed by darkness.",
     "developer": "ICOM Simulations",
     "publisher": "Mindscape",
-    "screenshot": "https://archive.org/download/wozaday_Shadowgate_IIgs/00playable_screenshot.png",
+    "screenshot": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fwozaday_Shadowgate_IIgs%2F00playable_screenshot.png",
     "nameCh": "暗影之門",
     "descCh": "在這個充滿挑戰的第一人稱冒險中，你將探索一座致命的活城堡來擊敗術士領主。玩家通過滑鼠驅動的圖標菜單（查看、打開、使用、點擊）與環境進行交互。該遊戲以其複雜的邏輯謎題、庫存管理和眾多即時死亡陷阱而聞名，要求玩家不斷監控日益減少的火把供應，以避免被黑暗吞噬。"
   },
@@ -1286,7 +1281,7 @@ window.games = [
     "developer": "Manley & Associates (Brodie Lockard & Ivan Manley)",
     "publisher": "Broderbund",
     "file2": "Shufflepuck_Cafe_1990_Broderbund_non_boot_unreleased.2mg",
-    "screenshot": "https://www.whatisthe2gs.apple2.org.za/files/ShufflepuckCafe/ScreenGrab_2/shuffleshot2.gif",
+    "screenshot": "/proxy/url/https%3A%2F%2Fwww.whatisthe2gs.apple2.org.za%2Ffiles%2FShufflepuckCafe%2FScreenGrab_2%2Fshuffleshot2.gif",
     "nameCh": "氣墊球咖啡廳",
     "descCh": "在這個未來派的“空氣曲棍球”模擬中，玩家使用滑鼠控制球拍並將冰球偏轉到對手的球門中。你將在“錦標賽”或練習賽中與九名“星際格格不入的人”進行比賽，每個人都有獨特的個性和特殊的比賽風格，其中一些人使用“心靈感應能力”進行作弊。目標是首先達到 15 分，以對手球拍後面令人滿意的“玻璃盾破碎”為代表。"
   },
@@ -1307,8 +1302,8 @@ window.games = [
   {
     "id": "wozaday_Silpheed_IIgs",
     "emu": "apple2gs",
-    "file": "https://archive.org/download/e2gs_0644_Silpheed_Disk_1/0644_Silpheed_Disk_1.po",
-    "file2": "https://archive.org/download/e2gs_0645_Silpheed_Disk_2/0645_Silpheed_Disk_2.po",
+    "file": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fe2gs_0644_Silpheed_Disk_1%2F0644_Silpheed_Disk_1.po",
+    "file2": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fe2gs_0645_Silpheed_Disk_2%2F0645_Silpheed_Disk_2.po",
     "name": "Silpheed",
     "year": "1989",
     "type": "game",
@@ -1359,7 +1354,7 @@ window.games = [
     "developer": "David Tolson",
     "publisher": "",
     "file2": "Solarian_1992_Coloreez_SW.2mg",
-    "screenshot": "https://www.speedrun.com/static/blob/7z383j6n.png",
+    "screenshot": "/proxy/url/https%3A%2F%2Fwww.speedrun.com%2Fstatic%2Fblob%2F7z383j6n.png",
     "nameCh": "索拉利安戰機",
     "descCh": "在這款經典的街機風格射擊遊戲中，玩家駕駛屏幕底部的宇宙飛船來防禦一波又一波的外星人入侵。遊戲強調快速反應和精確射擊，敵人以不同的隊形從頂部落下。通過消滅特定的敵人，你可以收集能量提升來增強你的飛船的火力和速度，跨越越來越具有挑戰性的水平。"
   },
@@ -1423,7 +1418,7 @@ window.games = [
   {
     "id": "wozaday_Star_Saga_One_IIgs",
     "emu": "apple2gs",
-    "file": "https://archive.org/download/a2gs_Star_Saga_One_Beyond_the_Boundary_1988_MasterPlay/Star_Saga_One_Beyond_the_Boundary_1988_MasterPlay.2mg",
+    "file": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fa2gs_Star_Saga_One_Beyond_the_Boundary_1988_MasterPlay%2FStar_Saga_One_Beyond_the_Boundary_1988_MasterPlay.2mg",
     "name": "Star Saga One: Beyond the Boundary",
     "year": "1988",
     "type": "game",
@@ -1437,7 +1432,7 @@ window.games = [
   {
     "id": "wozaday_Star_Saga_Two_IIgs",
     "emu": "apple2gs",
-    "file": "https://archive.org/download/a2gs_Star_Saga_Two_The_Clathran_Menance_v1.0_1988_MasterPlay/Star_Saga_Two_The_Clathran_Menance_v1.0_1988_MasterPlay.2mg",
+    "file": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fa2gs_Star_Saga_Two_The_Clathran_Menance_v1.0_1988_MasterPlay%2FStar_Saga_Two_The_Clathran_Menance_v1.0_1988_MasterPlay.2mg",
     "name": "Star Saga: Two - The Clathran Menace",
     "year": "1988",
     "type": "game",
@@ -1537,7 +1532,7 @@ window.games = [
   {
     "id": "wozaday_Thexder_IIgs",
     "emu": "apple2gs",
-    "file": "https://archive.org/download/a2gs_Thexder_1987_Sierra/Thexder_1987_Sierra.2mg",
+    "file": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fa2gs_Thexder_1987_Sierra%2FThexder_1987_Sierra.2mg",
     "name": "Thexder",
     "year": "1987",
     "type": "game",
@@ -1589,7 +1584,7 @@ window.games = [
     "developer": "Antoine Vignau & Olivier Zardini (Brutal Deluxe)",
     "publisher": "",
     "file2": "Tinies_The_1994_Brutal_Deluxe_FW.2mg",
-    "screenshot": "https://www.whatisthe2gs.apple2.org.za/files/TheTinies/ScreenGrab_1/tinies_shot.gif",
+    "screenshot": "/proxy/url/https%3A%2F%2Fwww.whatisthe2gs.apple2.org.za%2Ffiles%2FTheTinies%2FScreenGrab_1%2Ftinies_shot.gif",
     "nameCh": "小毛球倉庫番",
     "descCh": "“The Tinies”是一款自上而下的益智遊戲，靈感來自“Sokoban”機制。玩家必須引導小生物將特定物體（例如球或塊）推到指定的目標點上以解鎖出口。遊戲玩法強調空間邏輯和仔細的規劃，因為玩家必須避免將物體困在牆壁或角落裡，同時在日益複雜的基於網格的關卡中進行導航。"
   },
@@ -1647,7 +1642,7 @@ window.games = [
     "desc": "'TrianGo' is a strategy board game played on a triangular grid. Players take turns placing pieces to capture enemy territory by surrounding their opponents or completing specific geometric patterns. The gameplay emphasizes spatial reasoning and foresight, as you must balance offensive moves to seize the board with defensive placements to prevent being encircled by the computer or a second player.",
     "developer": "Logical Design Works",
     "publisher": "California Dreams",
-    "screenshot": "https://archive.org/download/wozaday_TrianGo_IIgs/00playable_screenshot.png",
+    "screenshot": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fwozaday_TrianGo_IIgs%2F00playable_screenshot.png",
     "nameCh": "三角棋",
     "descCh": "“TrianGo”是一款在三角形網格上玩的策略棋盤遊戲。玩家輪流放置棋子，通過包圍對手或完成特定的幾何圖案來佔領敵人的領土。遊戲玩法強調空間推理和遠見，因為你必須平衡進攻動作以佔領棋盤，並採取防禦佈局，以防止被電腦或第二個玩家包圍。"
   },
@@ -1726,8 +1721,8 @@ window.games = [
   {
     "id": "wozaday_Windwalker_IIgs",
     "emu": "apple2gs",
-    "file": "https://archive.org/download/e2gs_1171_Windwalker_Disk_1/1171_Windwalker_Disk_1.po",
-    "file2": "https://archive.org/download/e2gs_1172_Windwalker_Disk_2/1172_Windwalker_Disk_2.po",
+    "file": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fe2gs_1171_Windwalker_Disk_1%2F1171_Windwalker_Disk_1.po",
+    "file2": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fe2gs_1172_Windwalker_Disk_2%2F1172_Windwalker_Disk_2.po",
     "name": "Windwalker",
     "year": "1990",
     "type": "game",
@@ -1841,7 +1836,7 @@ window.games = [
     "id": "e2gs_0014_Music_Construction_Set",
     "emu": "apple2gs",
     "file": "0014_Music_Construction_Set.po",
-    "file2": "https://archive.org/download/e2gs_0348_Music_Construction_Set_39_songs/0348_Music_Construction_Set_39_songs.po",
+    "file2": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fe2gs_0348_Music_Construction_Set_39_songs%2F0348_Music_Construction_Set_39_songs.po",
     "name": "Music Construction Set (MCS)",
     "year": "1986",
     "type": "tool",
@@ -1856,7 +1851,7 @@ window.games = [
     "id": "e2gs_0051_Music_Studio_GS_v2.0",
     "emu": "apple2gs",
     "file": "0051_Music_Studio_GS_v2.0.po",
-    "file2": "https://archive.org/download/a2gs_Music_Studio_Songs_The_19xx_Gorgor_Menace_req_Music_Studio/Music_Studio_Songs_The_19xx_Gorgor__Menace_req_Music_Studio.2mg",
+    "file2": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fa2gs_Music_Studio_Songs_The_19xx_Gorgor_Menace_req_Music_Studio%2FMusic_Studio_Songs_The_19xx_Gorgor__Menace_req_Music_Studio.2mg",
     "name": "Music Studio GS v2.0",
     "year": "1988",
     "type": "tool",

@@ -1,0 +1,22 @@
+# Cloudflare Worker 配置文件 (獨立 Worker 版本)
+name = "a2gsemu"
+main = "worker.js"
+compatibility_date = "2024-12-24"
+
+# Worker 路由配置
+routes = [
+  { pattern = "a2gsemu.workers.dev/*", zone_name = "workers.dev" }
+]
+
+# 環境變數 (如需要)
+[vars]
+# ENVIRONMENT = "production"
+
+# KV 命名空間 (如需要快取)
+# [[kv_namespaces]]
+# binding = "CACHE"
+# id = "your-kv-namespace-id"
+
+# 限制設定
+[limits]
+cpu_ms = 50000  # 50 秒 CPU 時間限制

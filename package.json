@@ -4,7 +4,16 @@
   "description": "Apple IIgs Emulator with Archive.org integration",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test-local": "node test-deployment.js http://localhost:3000",
+    "test-pages": "node test-deployment.js https://a2gsemu-ia.pages.dev",
+    "test-worker": "node test-deployment.js https://a2gsemu.workers.dev",
+    "test-zip-local": "node test-zip-files.js http://localhost:3000",
+    "test-zip-pages": "node test-zip-files.js https://a2gsemu-ia.pages.dev",
+    "update-games": "node update-games-for-cloudflare.js",
+    "deploy-pages": "cmd /c \"wrangler pages deploy . --project-name=a2gsemu-ia\"",
+    "deploy-worker": "cmd /c \"wrangler deploy --config wrangler-worker.toml\"",
+    "deploy-dev": "cmd /c \"wrangler pages dev . --port 3000\""
   },
   "keywords": [
     "apple2gs",
@@ -19,7 +28,8 @@
     "cors": "^2.8.5",
     "node-fetch": "^2.7.0",
     "compression": "^1.7.4",
-    "adm-zip": "^0.5.10"
+    "adm-zip": "^0.5.10",
+    "jszip": "^3.10.1"
   },
   "devDependencies": {}
 }

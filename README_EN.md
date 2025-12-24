@@ -51,6 +51,7 @@ This mode features:
 - ⚠️ **Limited Features** - No ZIP file support or custom audio
 
 ### Method 1: Full Functionality Mode (Recommended)
+Try it online: https://a2gsemu-ia.pages.dev
 
 ```bash
 # 1. Download project
@@ -126,10 +127,11 @@ Double-click the `index.html` file, system will auto-redirect to `index_old.html
 - **Simulation** - Pirates!, Balance of Power, etc.
 
 ### 📊 Statistics
-- **Total**: 129 games and software
+- **Total**: 130 games and software
 - **Era**: 1986-2024
 - **Language**: Complete bilingual interface with one-click switching
 - **Descriptions**: Each game has detailed 400-word descriptions
+- **Proxy Support**: 44 full URLs converted to `/proxy/url/` format for improved loading stability
 
 ---
 
@@ -200,7 +202,7 @@ a2gsemu-ia/
 │   ├── index_old.html          # IA Embedded mode (Chinese)
 │   ├── index_en_old.html       # IA Embedded mode (English)
 │   ├── server.js               # Node.js backend server
-│   ├── games.js               # Game database (129 games)
+│   ├── games.js               # Game database (130 games)
 │   └── package.json           # Project configuration and dependencies
 │
 ├── 🎮 Emulator Core
@@ -225,6 +227,17 @@ a2gsemu-ia/
 │   └── .vscode/               # VS Code settings
 │       └── settings.json
 │
+├── 📦 Cloudflare Deployment
+│   └── cf-deploy/             # Cloudflare Pages deployment files
+│       ├── functions/         # Pages Functions (proxy service)
+│       ├── _redirects         # Route redirect rules
+│       ├── wrangler.toml      # Cloudflare Pages configuration
+│       ├── worker.js          # Standalone Worker version
+│       ├── cloudflare_deploy.md # Deployment guide
+│       ├── deploy-windows.bat # Windows deployment script
+│       ├── deploy.sh          # Linux/macOS deployment script
+│       └── test-*.js          # Test scripts
+│
 └── 📦 Dependencies
     └── node_modules/          # Node.js dependencies (generated after npm install)
         ├── express/           # Web framework
@@ -242,7 +255,7 @@ a2gsemu-ia/
 - **`index_old.html`** - IA Embedded mode (Chinese), pure frontend, no backend required
 - **`index_en_old.html`** - IA Embedded mode (English), pure frontend, no backend required
 - **`server.js`** - Node.js backend server providing proxy services and full functionality
-- **`games.js`** - Game database containing complete information for 129 games
+- **`games.js`** - Game database containing complete information for 130 games
 
 #### 🔧 Technical Files
 - **`browserfs.min.js`** - Browser file system simulation
@@ -257,6 +270,46 @@ a2gsemu-ia/
 ---
 
 ## 🌐 Deployment Guide
+
+### Local Deployment (Recommended)
+```bash
+# 1. Download project
+git clone https://github.com/anomixer/a2gsemu-ia.git
+cd a2gsemu-ia
+
+# 2. Install dependencies
+npm install
+
+# 3. Start server
+npm start
+
+# 4. Open browser
+# Visit http://localhost:3000
+```
+
+### Cloudflare Pages Deployment
+This project fully supports Cloudflare Pages deployment with global CDN acceleration:
+
+```bash
+# 1. Install Wrangler CLI
+npm install -g wrangler
+
+# 2. Login to Cloudflare (Windows users recommend using cmd)
+cmd /c "wrangler login"
+
+# 3. Deploy to Cloudflare Pages
+cd cf-deploy
+cmd /c "wrangler pages deploy .. --project-name=a2gsemu-ia"
+```
+
+**Cloudflare Pages Features**:
+- ✅ **Global CDN** - 300+ data centers worldwide acceleration
+- ✅ **Auto Scaling** - No maintenance required, automatic traffic handling
+- ✅ **Full Functionality** - Supports all ZIP files and proxy features
+- ✅ **HTTPS** - Secure connections enabled by default
+- ✅ **Zero Cost** - Free static website hosting
+
+For detailed deployment instructions, see `cf-deploy/cloudflare_deploy.md`
 
 ### Vercel Deployment
 ```bash

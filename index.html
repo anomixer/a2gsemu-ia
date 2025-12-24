@@ -757,7 +757,7 @@
         </a>
 
         <div class="lang-switch">
-            <button class="lang-btn" id="langToggle" title="Switch Language">
+            <button class="lang-btn" id="langToggle" title="">
                 <span id="langText">🇹🇼 中文</span>
             </button>
         </div>
@@ -794,15 +794,15 @@
             <div class="emulator-container" id="emulatorContainer">
                 <div class="emulator-controls">
                     <div class="game-title-bar" id="gameTitleBar">載入中...</div>
-                    <button class="btn btn-archive sound-btn" id="archiveBtn" title="在 Archive.org 開啟以控制聲音">
+                    <button class="btn btn-archive sound-btn" id="archiveBtn" title="">
                         🌐 開啟 IA 網站
                     </button>
-                    <button class="btn" id="muteBtn" title="靜音">
+                    <button class="btn" id="muteBtn" title="">
                         🔇 靜音
                     </button>
                     <div class="control-buttons">
-                        <button class="btn" id="fullscreenBtn" title="全螢幕">⛶ 全螢幕</button>
-                        <button class="btn btn-secondary" id="reloadBtn" title="重新載入">🔄</button>
+                        <button class="btn" id="fullscreenBtn" title="">⛶ 全螢幕</button>
+                        <button class="btn btn-secondary" id="reloadBtn" title="">🔄</button>
                     </div>
                 </div>
 
@@ -857,7 +857,7 @@
                             <h3>🎮 MAME Emulator Controls</h3>
 
                             <div class="mame-section">
-                                <h4>📋 Basic Controls</h4>
+                                <h4></h4>
                                 <ul>
                                     <li><span class="key-combo">Scroll Lock</span> Toggle MAME UI mode</li>
                                     <li><span class="key-combo">Tab</span> Open MAME menu</li>
@@ -870,7 +870,7 @@
                             </div>
 
                             <div class="mame-section">
-                                <h4>⚙️ Machine Configuration</h4>
+                                <h4></h4>
                                 <p style="font-size:12px; color:#ddd; margin-bottom:8px;">
                                     First press <span class="key-combo">Scroll Lock</span> to open UI → then press <span
                                         class="key-combo">Tab</span> → select <span class="highlight">Machine
@@ -951,7 +951,12 @@
                     mute: '🔇 靜音',
                     unmute: '🔊 有聲',
                     fullscreen: '⛶ 全螢幕',
+                    exitFullscreen: '⛶ 退出全螢幕',
                     reload: '🔄',
+                    langSwitch: '切換語言',
+                    openIAHint: '在 Archive.org 開啟以控制聲音',
+                    fullscreenHint: '全螢幕',
+                    reloadHint: '重新載入',
                     clickToStart: '點截圖開始',
                     gameInfo: '🎮 遊戲資訊',
                     gameInfoDesc: '選擇遊戲後顯示詳細資訊',
@@ -1038,7 +1043,12 @@
                     mute: '🔇 Mute',
                     unmute: '🔊 Sound',
                     fullscreen: '⛶ Fullscreen',
+                    exitFullscreen: '⛶ Exit Fullscreen',
                     reload: '🔄',
+                    langSwitch: 'Switch Language',
+                    openIAHint: 'Open on Archive.org to control sound',
+                    fullscreenHint: 'Fullscreen',
+                    reloadHint: 'Reload',
                     clickToStart: 'Click screenshot to start',
                     gameInfo: '🎮 Game Information',
                     gameInfoDesc: 'Detailed information will be displayed after selecting a game',
@@ -1163,13 +1173,33 @@
 
                 // 更新按鈕
                 const archiveBtn = document.getElementById('archiveBtn');
-                if (archiveBtn) archiveBtn.innerHTML = t('openIA');
+                if (archiveBtn) {
+                    archiveBtn.innerHTML = t('openIA');
+                    archiveBtn.title = t('openIAHint');
+                }
 
                 const muteBtn = document.getElementById('muteBtn');
-                if (muteBtn) updateMuteButton();
+                if (muteBtn) {
+                    updateMuteButton();
+                    muteBtn.title = uiMuted ? t('mute') : t('unmute');
+                }
+
+                const reloadBtn = document.getElementById('reloadBtn');
+                if (reloadBtn) {
+                    reloadBtn.title = t('reloadHint');
+                }
 
                 const fullscreenBtn = document.getElementById('fullscreenBtn');
-                if (fullscreenBtn) fullscreenBtn.innerHTML = t('fullscreen');
+                if (fullscreenBtn) {
+                    fullscreenBtn.innerHTML = t('fullscreen');
+                    fullscreenBtn.title = t('fullscreenHint');
+                }
+
+                // 更新語言切換按鈕
+                const langToggle = document.getElementById('langToggle');
+                if (langToggle) {
+                    langToggle.title = t('langSwitch');
+                }
 
                 // 更新資訊面板
                 updateInfoPanel();
@@ -1220,19 +1250,25 @@
                 if (mameTitle) mameTitle.textContent = t('mameControls');
 
                 // 基本控制
-                const mameBasicTitle = document.querySelector('.mame-section:nth-child(1) h4');
-                if (mameBasicTitle) mameBasicTitle.innerHTML = t('mameBasicTitle');
+                const mameSections = document.querySelectorAll('.mame-section');
+                if (mameSections.length >= 1) {
+                    const mameBasicTitle = mameSections[0].querySelector('h4');
+                    if (mameBasicTitle) mameBasicTitle.innerHTML = t('mameBasicTitle');
 
-                const mameBasicList = document.querySelector('.mame-section:nth-child(1) ul');
-                if (mameBasicList) {
-                    mameBasicList.innerHTML = t('mameBasicList').map(item => `<li>${item}</li>`).join('');
+                    const mameBasicList = mameSections[0].querySelector('ul');
+                    if (mameBasicList) {
+                        mameBasicList.innerHTML = t('mameBasicList').map(item => `<li>${item}</li>`).join('');
+                    }
                 }
 
                 // 機器設定 - 使用更具體的選擇器
-                const mameMachineTitle = document.querySelector('.mame-section h4');
-                if (mameMachineTitle && mameMachineTitle.textContent.includes('Machine Configuration')) {
-                    mameMachineTitle.innerHTML = t('mameMachineTitle');
-                    console.log('Updated machine title:', t('mameMachineTitle'));
+                if (mameSections.length >= 2) {
+                    // 第二個 mame-section 是機器設定
+                    const mameMachineTitle = mameSections[1].querySelector('h4');
+                    if (mameMachineTitle) {
+                        mameMachineTitle.innerHTML = t('mameMachineTitle');
+                        console.log('Updated machine title:', t('mameMachineTitle'));
+                    }
                 }
 
                 const mameMachineDesc = document.querySelector('.mame-section p');
@@ -1243,13 +1279,15 @@
                     console.log('Machine desc element not found');
                 }
 
-                const mameMachineList = document.querySelector('.mame-section:nth-child(2) ul');
-                if (mameMachineList) {
-                    mameMachineList.innerHTML = t('mameMachineList').map(item => `<li>${item}</li>`).join('');
+                if (mameSections.length >= 2) {
+                    const mameMachineList = mameSections[1].querySelector('ul');
+                    if (mameMachineList) {
+                        mameMachineList.innerHTML = t('mameMachineList').map(item => `<li>${item}</li>`).join('');
+                    }
                 }
 
                 // 動態添加存檔/讀檔區塊（如果不存在）
-                let mameSaveSection = document.querySelector('.mame-section:nth-child(3)');
+                let mameSaveSection = mameSections.length >= 3 ? mameSections[2] : null;
                 if (!mameSaveSection) {
                     const mameControlsSection = document.querySelector('.info-section:nth-child(4)');
                     if (mameControlsSection) {
@@ -1260,20 +1298,21 @@
                             <ul></ul>
                         `;
                         // 插入到機器設定區塊之後
-                        const machineSection = document.querySelector('.mame-section:nth-child(2)');
-                        if (machineSection && machineSection.parentNode) {
-                            machineSection.parentNode.insertBefore(mameSaveSection, machineSection.nextSibling);
+                        if (mameSections.length >= 2 && mameSections[1].parentNode) {
+                            mameSections[1].parentNode.insertBefore(mameSaveSection, mameSections[1].nextSibling);
                         }
                     }
                 }
 
-                // 存檔/讀檔
-                const mameSaveTitle = document.querySelector('.mame-section:nth-child(3) h4');
-                if (mameSaveTitle) mameSaveTitle.innerHTML = t('mameSaveTitle');
+                // 存檔/讀檔 - 使用 mameSaveSection 而不是依賴 mameSections.length
+                if (mameSaveSection) {
+                    const mameSaveTitle = mameSaveSection.querySelector('h4');
+                    if (mameSaveTitle) mameSaveTitle.innerHTML = t('mameSaveTitle');
 
-                const mameSaveList = document.querySelector('.mame-section:nth-child(3) ul');
-                if (mameSaveList) {
-                    mameSaveList.innerHTML = t('mameSaveList').map(item => `<li>${item}</li>`).join('');
+                    const mameSaveList = mameSaveSection.querySelector('ul');
+                    if (mameSaveList) {
+                        mameSaveList.innerHTML = t('mameSaveList').map(item => `<li>${item}</li>`).join('');
+                    }
                 }
 
                 // 關於 Apple IIgs
@@ -1305,6 +1344,11 @@
                 const langText = document.getElementById('langText');
                 if (langText) {
                     langText.textContent = currentLanguage === 'zh' ? '🇺🇸 En' : '🇹🇼 中文';
+                }
+
+                const langToggle = document.getElementById('langToggle');
+                if (langToggle) {
+                    langToggle.title = t('langSwitch');
                 }
 
                 // 更新所有 UI
@@ -1356,6 +1400,7 @@
                 const langToggle = document.getElementById('langToggle');
                 if (langToggle) {
                     langToggle.addEventListener('click', switchLanguage);
+                    langToggle.title = t('langSwitch');
                 }
 
                 // 初始化 UI
@@ -1550,8 +1595,13 @@
             function showScreenshot(game) {
                 if (!gameScreenshot) return;
                 if (game && game.screenshot) {
+                    // 檢查是否已經是代理路徑
+                    if (game.screenshot.startsWith('/proxy/')) {
+                        // 已經是代理路徑，直接使用
+                        gameScreenshot.src = `${SERVER_URL}${game.screenshot}?t=${Date.now()}`;
+                    }
                     // 檢查截圖是否為完整 URL (支援任何 HTTP/HTTPS URL)
-                    if (game.screenshot.startsWith('http://') || game.screenshot.startsWith('https://')) {
+                    else if (game.screenshot.startsWith('http://') || game.screenshot.startsWith('https://')) {
                         // 檢查是否為 ZIP 檔案格式
                         if (game.screenshot.includes('.zip/')) {
                             // ZIP 檔案格式：提取 ZIP URL 和內部檔案名
@@ -1750,6 +1800,12 @@
                     // 輔助函數：構建檔案 URL
                     function buildFileUrl(gameId, filename) {
                         const timestamp = Date.now();
+
+                        // 檢查是否已經是代理路徑
+                        if (filename && filename.startsWith('/proxy/')) {
+                            // 已經是代理路徑，直接加上時間戳
+                            return `${SERVER_URL}${filename}?t=${timestamp}`;
+                        }
 
                         // 檢查是否為完整 URL (支援任何 HTTP/HTTPS URL)
                         if (filename && (filename.startsWith('http://') || filename.startsWith('https://'))) {
@@ -2073,7 +2129,8 @@
                     document.mozFullScreenElement ||
                     document.msFullscreenElement);
 
-                fullscreenBtn.innerHTML = isFullscreen ? '⛶ 退出全螢幕' : '⛶ 全螢幕';
+                fullscreenBtn.innerHTML = isFullscreen ? t('exitFullscreen') : t('fullscreen');
+                fullscreenBtn.title = t('fullscreenHint');
 
                 // 在全螢幕模式下隱藏其他元素
                 const header = document.querySelector('.header');
@@ -2144,12 +2201,26 @@
                         canvas.style.border = '';
                     }
                 }
+
+                // 確保語言切換按鈕的標題也更新
+                const langToggle = document.getElementById('langToggle');
+                if (langToggle) {
+                    langToggle.title = t('langSwitch');
+                }
             }
 
             reloadBtn.onclick = () => {
                 if (currentGame) {
-                    resetEmulatorState('reload');
-                    loadGame(currentGame, document.querySelector('.game-item.active'));
+                    console.log('🔄 重置遊戲:', currentGame.name);
+
+                    // 像點截圖一樣重新 refresh 網頁
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('game', currentGame.id);
+                    // 保持當前語言設定
+                    url.searchParams.set('lang', currentLanguage);
+                    window.location.href = url.toString(); // 同頁重載，確保乾淨環境
+                } else {
+                    console.warn('⚠️ 沒有當前遊戲可以重置');
                 }
             };
 

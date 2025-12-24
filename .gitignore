@@ -68,3 +68,12 @@ ehthumbs.db
 
 # Yarn Integrity file
 .yarn-integrity
+
+# Cloudflare deployment
+.wrangler/
+wrangler.toml.bak
+*.wrangler.toml.bak
+
+# Deployment backups
+games.js.bak
+index.html.bak

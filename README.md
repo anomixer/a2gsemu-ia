@@ -51,6 +51,7 @@
 - ⚠️ **功能限制** - 不支援 ZIP 檔案和自訂音效
 
 ### 方法一：完整功能模式 (推薦)
+線上體驗: https://a2gsemu-ia.pages.dev
 
 ```bash
 # 1. 下載專案
@@ -126,10 +127,11 @@ python -m http.server 8000
 - **模擬** - Pirates!、Balance of Power 等
 
 ### 📊 統計資訊
-- **總計**: 129款遊戲與軟體
+- **總計**: 130款遊戲與軟體
 - **年代**: 1986-2024年
 - **語言**: 單鍵切換的完整中英文雙語介面
 - **描述**: 每款遊戲都有詳細的400字介紹
+- **代理支援**: 44個完整 URL 已轉換為 `/proxy/url/` 格式，提升載入穩定性
 
 ---
 
@@ -200,7 +202,7 @@ a2gsemu-ia/
 │   ├── index_old.html          # IA 嵌入模式 (中文版)
 │   ├── index_en_old.html       # IA 嵌入模式 (英文版)
 │   ├── server.js               # Node.js 後端伺服器
-│   ├── games.js               # 遊戲資料庫 (129 款遊戲)
+│   ├── games.js               # 遊戲資料庫 (130 款遊戲)
 │   └── package.json           # 專案配置與依賴
 │
 ├── 🎮 模擬器核心
@@ -225,6 +227,17 @@ a2gsemu-ia/
 │   └── .vscode/               # VS Code 設定
 │       └── settings.json
 │
+├── 📦 Cloudflare 部署
+│   └── cf-deploy/             # Cloudflare Pages 部署檔案
+│       ├── functions/         # Pages Functions (代理服務)
+│       ├── _redirects         # 路由重定向規則
+│       ├── wrangler.toml      # Cloudflare Pages 配置
+│       ├── worker.js          # 獨立 Worker 版本
+│       ├── cloudflare_deploy.md # 部署指南
+│       ├── deploy-windows.bat # Windows 部署腳本
+│       ├── deploy.sh          # Linux/macOS 部署腳本
+│       └── test-*.js          # 測試腳本
+│
 └── 📦 依賴套件
     └── node_modules/          # Node.js 依賴 (npm install 後產生)
         ├── express/           # Web 框架
@@ -242,7 +255,7 @@ a2gsemu-ia/
 - **`index_old.html`** - IA 嵌入模式 (中文)，純前端，無需後端
 - **`index_en_old.html`** - IA 嵌入模式 (英文)，純前端，無需後端
 - **`server.js`** - Node.js 後端伺服器，提供代理服務和完整功能
-- **`games.js`** - 遊戲資料庫，包含 129 款遊戲的完整資訊
+- **`games.js`** - 遊戲資料庫，包含 130 款遊戲的完整資訊
 
 #### 🔧 技術檔案
 - **`browserfs.min.js`** - 瀏覽器檔案系統模擬
@@ -257,6 +270,46 @@ a2gsemu-ia/
 ---
 
 ## 🌐 部署指南
+
+### 本地部署 (推薦)
+```bash
+# 1. 下載專案
+git clone https://github.com/anomixer/a2gsemu-ia.git
+cd a2gsemu-ia
+
+# 2. 安裝依賴
+npm install
+
+# 3. 啟動伺服器
+npm start
+
+# 4. 開啟瀏覽器
+# 訪問 http://localhost:3000
+```
+
+### Cloudflare Pages 部署
+本專案已完整支援 Cloudflare Pages 部署，享受全球 CDN 加速：
+
+```bash
+# 1. 安裝 Wrangler CLI
+npm install -g wrangler
+
+# 2. 登入 Cloudflare (Windows 用戶建議使用 cmd)
+cmd /c "wrangler login"
+
+# 3. 部署到 Cloudflare Pages
+cd cf-deploy
+cmd /c "wrangler pages deploy .. --project-name=a2gsemu-ia"
+```
+
+**Cloudflare Pages 特色**:
+- ✅ **全球 CDN** - 全球 300+ 資料中心加速
+- ✅ **自動擴展** - 無需維護，自動處理流量
+- ✅ **完整功能** - 支援所有 ZIP 檔案和代理功能
+- ✅ **HTTPS** - 預設啟用安全連線
+- ✅ **零成本** - 免費託管靜態網站
+
+詳細部署說明請參考 `cf-deploy/cloudflare_deploy.md`
 
 ### Vercel 部署
 ```bash

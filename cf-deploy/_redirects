@@ -1,0 +1,17 @@
+# Cloudflare Pages Redirects for Apple IIgs Emulator
+
+# Proxy routes - 處理所有 /proxy/* 請求到 Pages Functions
+/proxy/* /proxy/:splat 200
+
+# 主頁路由
+/ /index.html 200
+
+# 靜態資源
+/games.js /games.js 200
+/browserfs.min.js /browserfs.min.js 200
+/loader.js /loader.js 200
+/favicon.ico /favicon.ico 200
+/logo/* /logo/:splat 200
+
+# 404 fallback
+/* /index.html 404
