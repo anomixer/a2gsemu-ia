@@ -208,6 +208,21 @@ wrangler pages deploy .. --project-name=a2gsemu-ia
 
 ## Recent Major Updates
 
+### MAME 0.284 Core Update (January 2026)
+
+**Objective**: Upgrade the underlying MAME core from an older version to 0.284 to improve compatibility and stability.
+
+**Key Achievements**:
+1.  **Core Upgrade**: Successfully compiled and integrated MAME 0.284 WASM core.
+    *   WASM binary: `mameapple2gs.wasm` (~60MB debug build)
+    *   JS launcher: `mameapple2gs.js`
+2.  **Stability Fixes**:
+    *   **Software Rendering**: Forced `-video soft` argument to bypass WebGL/BGFX initialization crashes in the WASM environment.
+    *   **Exception Catching**: Enabled `-s DISABLE_EXCEPTION_CATCHING=0` in build flags to allow for better error reporting in the browser console.
+    *   **Syntax Repair**: Manually patched `mameapple2gs.js` to fix an Emscripten variable name escaping bug (`_\\$ERRNO_CODES` -> `_$ERRNO_CODES`).
+3.  **Local Dev Improvements**:
+    *   Modified `loader.js` to force loading BIOS files from local path when running on `localhost`, preventing 404 errors from Internet Archive fallbacks during development.
+
 ### Cloudflare Pages Implementation (December 2024)
 
 **Objective**: Deploy Apple IIgs emulator to Cloudflare Pages with full functionality

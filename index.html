@@ -1837,9 +1837,9 @@
 
                     // 使用後端代理 URL，每次都加上時間戳確保重新載入
                     const timestamp = Date.now();
-                    const mameJsUrl = `${SERVER_URL}/proxy/mame/mameapple2gs.js.gz?t=${timestamp}`;
-                    const mameWasmUrl = `${SERVER_URL}/proxy/mame/mameapple2gs.wasm.gz?t=${timestamp}`;
-                    const biosUrl = `${SERVER_URL}/proxy/bios/apple2gs.zip?t=${timestamp}`;
+                    const mameJsUrl = `${SERVER_URL}/mameapple2gs.js?t=${timestamp}`;
+                    const mameWasmUrl = `${SERVER_URL}/mameapple2gs.wasm?t=${timestamp}`;
+                    const biosUrl = `${SERVER_URL}/apple2gs.zip?t=${timestamp}`;
                     const gameUrl = buildFileUrl(game.id, game.file);
 
                     console.log('\n📥 使用後端代理:');

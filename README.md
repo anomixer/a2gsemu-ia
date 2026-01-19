@@ -140,7 +140,7 @@ python -m http.server 8000
 ### 前端技術
 - **HTML5 Canvas** - 遊戲渲染
 - **Emularity** - 模擬器核心
-- **MAME** - Apple IIgs 模擬引擎
+- **MAME** - Apple IIgs 模擬引擎 (v0.284)
 - **響應式 CSS** - 適配各種螢幕尺寸
 - **智能檢測** - 自動檢測後端服務狀態
 - **完整國際化系統** - 具備語言持久化的完整雙語支援

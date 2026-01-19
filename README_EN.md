@@ -140,7 +140,7 @@ Double-click the `index.html` file, system will auto-redirect to `index_old.html
 ### Frontend Technology
 - **HTML5 Canvas** - Game rendering
 - **Emularity** - Emulator core
-- **MAME** - Apple IIgs simulation engine
+- **MAME** - Apple IIgs simulation engine (v0.284)
 - **Responsive CSS** - Adapts to various screen sizes
 - **Smart Detection** - Auto-detects backend service status
 - **Complete i18n System** - Full bilingual support with persistent language settings
