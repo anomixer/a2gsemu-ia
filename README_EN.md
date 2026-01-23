@@ -19,6 +19,9 @@
 - 🔍 **Smart Search** - Search by Chinese/English game names, descriptions, years
 - 🌍 **One-Click Language Toggle** - Single button in top-right corner for instant language switching with persistent settings
 - 📦 **Multi-Format Support** - Supports .woz, .2mg, .po, .dsk and other disk formats
+- 💽 **Hard Disk Support** - Mount hard disk images via `hard1`, `hard2` parameters
+- 🔧 **Expansion Card Support** - Auto-detects and mounts CFFA2 firmware
+- 📂 **ROMs Management** - Centralized `roms/` directory for BIOS and firmware files
 - 🌐 **Multiple Data Sources** - Supports Archive.org, custom URLs, ZIP files
 - ⚡ **Fast Loading** - 24-hour file caching for improved loading speed
 - 🔄 **Auto Fallback** - Automatically switches to IA Loader mode when backend unavailable
@@ -140,7 +143,7 @@ Double-click the `index.html` file, system will auto-redirect to `index_old.html
 ### Frontend Technology
 - **HTML5 Canvas** - Game rendering
 - **Emularity** - Emulator core
-- **MAME** - Apple IIgs simulation engine (v0.284)
+- **MAME** - Apple IIgs simulation engine
 - **Responsive CSS** - Adapts to various screen sizes
 - **Smart Detection** - Auto-detects backend service status
 - **Complete i18n System** - Full bilingual support with persistent language settings
@@ -214,6 +217,11 @@ a2gsemu-ia/
 │   ├── favicon.ico            # Website icon
 │   └── logo/                  # Logo resources
 │       └── emularity_color_small.png
+│
+├── 📂 ROMs (Manual Creation Required)
+│   └── roms/                  # BIOS and expansion card firmware
+│       ├── apple2gs.zip       # Apple IIgs BIOS
+│       └── a2cffa2.zip        # CFFA2 expansion firmware
 │
 ├── 📚 Documentation
 │   ├── README.md              # Project documentation (Chinese)

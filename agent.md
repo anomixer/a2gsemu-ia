@@ -208,21 +208,6 @@ wrangler pages deploy .. --project-name=a2gsemu-ia
 
 ## Recent Major Updates
 
-### MAME 0.284 Core Update (January 2026)
-
-**Objective**: Upgrade the underlying MAME core from an older version to 0.284 to improve compatibility and stability.
-
-**Key Achievements**:
-1.  **Core Upgrade**: Successfully compiled and integrated MAME 0.284 WASM core.
-    *   WASM binary: `mameapple2gs.wasm` (~60MB debug build)
-    *   JS launcher: `mameapple2gs.js`
-2.  **Stability Fixes**:
-    *   **Software Rendering**: Forced `-video soft` argument to bypass WebGL/BGFX initialization crashes in the WASM environment.
-    *   **Exception Catching**: Enabled `-s DISABLE_EXCEPTION_CATCHING=0` in build flags to allow for better error reporting in the browser console.
-    *   **Syntax Repair**: Manually patched `mameapple2gs.js` to fix an Emscripten variable name escaping bug (`_\\$ERRNO_CODES` -> `_$ERRNO_CODES`).
-3.  **Local Dev Improvements**:
-    *   Modified `loader.js` to force loading BIOS files from local path when running on `localhost`, preventing 404 errors from Internet Archive fallbacks during development.
-
 ### Cloudflare Pages Implementation (December 2024)
 
 **Objective**: Deploy Apple IIgs emulator to Cloudflare Pages with full functionality
@@ -296,6 +281,30 @@ const actualUncompressedSize = uncompressedSize || view.getUint32(offset + 24, t
 - **Language Toggle**: Updates URL parameter using `history.replaceState()` for immediate persistence
 - **Screenshot Click**: Preserves current language when refreshing page to load emulator
 - **Sharing Support**: URLs with language parameters maintain language for recipients
+
+### Hard Disk & CFFA2 Support (January 2026)
+**Objective**: Enable support for hard disk images and the CFFA2 expansion card.
+
+**Key Achievements**:
+1. **New Game Parameters**: Added `hard1`, `hard2`, and `args` to `games.js`.
+2. **Auto-Mount Logic**: Automatically mounts `a2cffa2.zip` (CFFA2 BIOS) if `cffa2` is detected in `args`.
+3. **ROMs Directory**: Moved core BIOS files (`apple2gs.zip`, `a2cffa2.zip`) to a dedicated `roms/` subdirectory for better organization.
+4. **Hard Disk Mounting**: Validates and mounts hard disk images from URLs or local server.
+
+**Technical Implementation**:
+```javascript
+// Auto-mount CFFA2 BIOS
+if (game.args.includes('cffa2')) {
+    const cffa2Url = `${SERVER_URL}/roms/a2cffa2.zip?t=${timestamp}`;
+    loaderArgs.push(mountFile('a2cffa2.zip', fetchFile('CFFA2 BIOS', cffa2Url)));
+}
+
+// Hard Disk Mounting
+if (game.hard1) {
+    extraArgs.push('-hard1', '/emulator/' + hard1Name);
+    loaderArgs.push(mountFile(hard1Name, fetchFile('Hard Disk 1', hard1Url)));
+}
+```
 
 ## Future Considerations
 

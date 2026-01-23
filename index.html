@@ -1839,40 +1839,85 @@
                     const timestamp = Date.now();
                     const mameJsUrl = `${SERVER_URL}/mameapple2gs.js?t=${timestamp}`;
                     const mameWasmUrl = `${SERVER_URL}/mameapple2gs.wasm?t=${timestamp}`;
-                    const biosUrl = `${SERVER_URL}/apple2gs.zip?t=${timestamp}`;
-                    const gameUrl = buildFileUrl(game.id, game.file);
-
+                    const biosUrl = `${SERVER_URL}/roms/apple2gs.zip?t=${timestamp}`;
                     console.log('\n📥 使用後端代理:');
                     console.log('   - MAME JS:', mameJsUrl);
                     console.log('   - MAME WASM:', mameWasmUrl);
                     console.log('   - BIOS:', biosUrl);
-                    console.log('   - 遊戲:', gameUrl);
-                    if (game.file2) {
-                        console.log('   - 遊戲 2:', buildFileUrl(game.id, game.file2));
-                    }
-                    console.log('📁 掛載到 emulator/ 目錄');
 
-                    // 檢查是否有第二片磁片
-                    const extraArgs = game.file2
-                        ? ['-flop3', '/emulator/' + (game.file.split('/').pop() || game.file), '-flop4', '/emulator/' + (game.file2.split('/').pop() || game.file2)]
-                        : ['-flop3', '/emulator/' + (game.file.split('/').pop() || game.file)];
-
+                    let extraArgs = [];
                     const loaderArgs = [
                         window.JSMAMELoader.driver('apple2gs'),
                         window.JSMAMELoader.nativeResolution(704, 462),
                         window.JSMAMELoader.emulatorJS(mameJsUrl),
                         window.JSMAMELoader.emulatorWASM(mameWasmUrl),
-                        window.JSMAMELoader.extraArgs(extraArgs),
-                        window.JSMAMELoader.mountFile(game.file.split('/').pop() || game.file, window.JSMAMELoader.fetchFile('Game Disk', gameUrl)),
                         window.JSMAMELoader.mountFile('apple2gs.zip', window.JSMAMELoader.fetchFile('BIOS', biosUrl))
                     ];
 
-                    if (game.file2) {
-                        const game2Url = buildFileUrl(game.id, game.file2);
-                        loaderArgs.push(
-                            window.JSMAMELoader.mountFile(game.file2.split('/').pop() || game.file2, window.JSMAMELoader.fetchFile('Game Disk 2', game2Url))
-                        );
+                    // 檢查是否使用新的 args/硬碟啟動參數
+                    if (game.args || game.hard1 || game.hard2) {
+                        console.log('⚙️ 使用自訂參數啟動');
+
+                        if (game.args) {
+                            // 將 args 字串分割為陣列
+                            const customArgs = game.args.split(' ');
+                            extraArgs.push(...customArgs);
+                            console.log('   - Args:', game.args);
+
+                            // 如果使用 CFFA2 卡，自動掛載其 BIOS 檔案
+                            if (game.args.includes('cffa2')) {
+                                const cffa2Url = `${SERVER_URL}/roms/a2cffa2.zip?t=${timestamp}`;
+                                console.log('   - CFFA2 BIOS:', cffa2Url);
+                                loaderArgs.push(
+                                    window.JSMAMELoader.mountFile('a2cffa2.zip', window.JSMAMELoader.fetchFile('CFFA2 BIOS', cffa2Url))
+                                );
+                            }
+                        }
+
+                        if (game.hard1) {
+                            const hard1Url = buildFileUrl(game.id, game.hard1);
+                            const hard1Name = game.hard1.split('/').pop() || game.hard1;
+                            console.log('   - Hard Disk 1:', hard1Url);
+                            loaderArgs.push(
+                                window.JSMAMELoader.mountFile(hard1Name, window.JSMAMELoader.fetchFile('Hard Disk 1', hard1Url))
+                            );
+                            extraArgs.push('-hard1', '/emulator/' + hard1Name);
+                        }
+
+                        if (game.hard2) {
+                            const hard2Url = buildFileUrl(game.id, game.hard2);
+                            const hard2Name = game.hard2.split('/').pop() || game.hard2;
+                            console.log('   - Hard Disk 2:', hard2Url);
+                            loaderArgs.push(
+                                window.JSMAMELoader.mountFile(hard2Name, window.JSMAMELoader.fetchFile('Hard Disk 2', hard2Url))
+                            );
+                            extraArgs.push('-hard2', '/emulator/' + hard2Name);
+                        }
+                    } else {
+                        // 傳統軟碟邏輯
+                        if (game.file) {
+                            const gameUrl = buildFileUrl(game.id, game.file);
+                            console.log('   - 遊戲:', gameUrl);
+                            loaderArgs.push(
+                                window.JSMAMELoader.mountFile(game.file.split('/').pop() || game.file, window.JSMAMELoader.fetchFile('Game Disk', gameUrl))
+                            );
+                            extraArgs.push('-flop3', '/emulator/' + (game.file.split('/').pop() || game.file));
+                        }
+
+                        if (game.file2) {
+                            const game2Url = buildFileUrl(game.id, game.file2);
+                            console.log('   - 遊戲 2:', game2Url);
+                            loaderArgs.push(
+                                window.JSMAMELoader.mountFile(game.file2.split('/').pop() || game.file2, window.JSMAMELoader.fetchFile('Game Disk 2', game2Url))
+                            );
+                            extraArgs.push('-flop4', '/emulator/' + (game.file2.split('/').pop() || game.file2));
+                        }
                     }
+
+                    // 加入額外參數
+                    loaderArgs.push(window.JSMAMELoader.extraArgs(extraArgs));
+
+                    console.log('📁 掛載到 emulator/ 目錄');
 
                     console.log('🔧 建立 Emulator 實例...');
                     const emulator = new window.Emulator(

@@ -1875,5 +1875,21 @@ window.games = [
     "screenshot": "00_coverscreenshot.jpg",
     "nameCh": "Dream Vision Demo展示",
     "descCh": "Dream Video 是一款多媒體展示和播放實用程式，旨在在 Apple IIGS 上展示高質量的數字影片。它不是一個遊戲，而是一個交互式“媒體播放器”，可將數字化 8 位音頻與全彩圖形序列同步。遊戲體驗包括“導航菜單”以選擇不同的動畫剪輯，展示了硬體在通過 Ensoniq 音效晶片播放複雜樂譜的同時顯示“數百種顏色”的能力。"
+  },
+  {
+    "id": "msdos_Space_Ace_II_-_Borfs_Revenge_1991",
+    "emu": "apple2gs",
+    "hard1": "http://localhost:3000/roms/GSOS601.po",
+    "hard2": "http://localhost:3000/roms/SpaceAce2.po",
+	"args": "-sl7 cffa2",
+    "name": "Space Ace II: Borf's Revenge",
+    "year": "1991 / 2022",
+    "type": "game",
+    "desc": "Space Ace II: Borf's Revenge serves as the high-stakes sequel to the original LaserDisc hit. Commander Borf returns with a vengeance, kidnapping Dexter’s beloved Kimberly to lure the hero into a trap. Retaining the fluid, cinematic animation style of Don Bluth, the game challenges players to navigate perilous environments through quick-time events. As Dexter, players must strategically use 'energizing' power-ups to transform back into his adult persona, Ace, to overcome Borf's deadly minions and dismantle the villain's latest scheme once and for all.",
+    "developer": "Sullivan Bluth / Antoine Vignau & Olivier Zardini",
+    "publisher": "ReadySoft / Brutal Deluxe",
+    "screenshot": "https://www.atarilegend.com/storage/images/game_release_scans/1424.jpg",
+    "nameCh": "太空王牌II：博夫的復仇",
+    "descCh": "Space Ace II: Borf's Revenge 延續了前作的傳奇。邪惡的 Borf 指揮官再次歸來，綁架了 Dexter 的愛人 Kimberly，企圖報復並毀滅地球。這款續作保留了 Don Bluth 標誌性的動畫風格，玩家需要透過精確的反應與判斷，引導 Dexter 在各種致命的關卡中生存。遊戲的核心樂趣在於 Dexter 必須在「少年狀態」與「強壯的 Ace」之間切換，最終深入 Borf 的要塞展開決戰並救出女友。"
   }
 ];
