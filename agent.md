@@ -84,6 +84,12 @@ This is an Apple IIgs online emulator project that allows users to play classic 
    - **Global CDN**: Worldwide acceleration and auto-scaling
    - **Zero Maintenance**: Serverless deployment with enterprise reliability
 
+10. **Apple IIgs 40th Anniversary Branding** (March 2026 Update)
+    - **Logo Integration**: Added custom 40th-anniversary logo globally.
+    - **Dynamic Header**: Placed logo in `index.html` header, clickable to KansasFest.
+    - **README Branding**: Added logo above "Features" section in both Chinese and English READMEs.
+    - **Image Processing**: Custom circular mask processing to ensure transparency and clean rendering on GitHub.
+
 ## Key Files
 
 ### Core Application

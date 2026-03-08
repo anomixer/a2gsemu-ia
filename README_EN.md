@@ -8,7 +8,11 @@
 
 **🌍 Language / 語言**: **English** | [繁體中文](README.md)
 
----
+<p align="center">
+  <a href="https://www.kansasfest.org/2026/01/apple-iigs-theme/" target="_blank">
+    <img src="logo/iigs-40th.png" alt="Apple IIgs 40th Anniversary" width="400">
+  </a>
+</p>
 
 ## ✨ Key Features
 
