@@ -86,12 +86,8 @@ npx http-server
 # 或
 python -m http.server 8000
 
-# 3. 開啟瀏覽器
-# 系統會自動重定向到 index_old.html (IA 嵌入模式)
+# 3. 開啟瀏覽器並造訪 http://localhost:8080 (或其他提示的埠號)
 ```
-
-### 方法三：直接開啟檔案
-直接雙擊 `index.html` 檔案，系統會自動重定向到 `index_old.html` 使用 IA 嵌入模式。
 
 ---
 

@@ -86,12 +86,8 @@ npx http-server
 # or
 python -m http.server 8000
 
-# 3. Open browser
-# System will auto-redirect to index_old.html (IA Embedded Mode)
+# 3. Open browser and visit http://localhost:8080 (or the port shown)
 ```
-
-### Method 3: Direct File Opening
-Double-click the `index.html` file, system will auto-redirect to `index_old.html` using IA Embedded Mode.
 
 ---
 
