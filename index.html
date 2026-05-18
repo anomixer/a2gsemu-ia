@@ -614,14 +614,6 @@
         }
 
             .resizer.collapsed { display: none; }
-    
-        #emulator-frame.scale-fit {
-            width: 100% !important;
-            height: 100% !important;
-            max-width: 100% !important;
-            max-height: 100% !important;
-        }
-
     </style>
 </head>
 
@@ -672,7 +664,6 @@
                         🔊 開啟聲音
                     </button>
                     <div class="control-buttons">
-                        <button class="btn" id="scaleBtn" title="切換畫面比例">🖥️ 縮放適應</button>
                         <button class="btn" id="fullscreenBtn" title="全螢幕">⛶ 全螢幕</button>
                         <button class="btn btn-secondary" id="reloadBtn" title="重新載入">🔄</button>
                     </div>
@@ -1386,33 +1377,6 @@
         }
         window.addEventListener('resize', checkRWD);
         checkRWD();
-
-        
-        const scaleBtn = document.getElementById('scaleBtn');
-        const isEnglish = document.documentElement.lang === 'en';
-
-        // Restore scale setting
-        let isScaleFit = localStorage.getItem('scaleMode') === 'fit';
-        
-        function updateScaleUI() {
-            if (isScaleFit) {
-                emulatorFrame.classList.add('scale-fit');
-                scaleBtn.innerHTML = isEnglish ? '🖥️ Native 1x' : '🖥️ 原生 1x';
-            } else {
-                emulatorFrame.classList.remove('scale-fit');
-                scaleBtn.innerHTML = isEnglish ? '🖥️ Scale to Fit' : '🖥️ 縮放適應';
-            }
-        }
-        
-        // Initialize scale UI
-        if(scaleBtn && emulatorFrame) {
-            updateScaleUI();
-            scaleBtn.addEventListener('click', () => {
-                isScaleFit = !isScaleFit;
-                localStorage.setItem('scaleMode', isScaleFit ? 'fit' : 'native');
-                updateScaleUI();
-            });
-        }
 
         renderGames();
         document.getElementById('totalCount').textContent = games.length;

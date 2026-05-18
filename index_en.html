@@ -622,14 +622,6 @@
         }
 
             .resizer.collapsed { display: none; }
-    
-        #emulator-frame.scale-fit {
-            width: 100% !important;
-            height: 100% !important;
-            max-width: 100% !important;
-            max-height: 100% !important;
-        }
-
     </style>
 </head>
 
@@ -677,7 +669,6 @@
                 <div class="emulator-controls">
                     <div class="game-title-bar" id="gameTitleBar">Loading...</div>
                     <div class="control-buttons">
-                        <button class="btn" id="scaleBtn" title="Toggle Screen Scale">🖥️ Scale to Fit</button>
                         <button class="btn" id="fullscreenBtn" title="Fullscreen">⛶ Fullscreen</button>
                         <button class="btn btn-archive" id="archiveBtn" title="Open on Archive.org for audio control">
                             🔊 Enable Audio
@@ -1401,33 +1392,6 @@
         }
         window.addEventListener('resize', checkRWD);
         checkRWD();
-
-        
-        const scaleBtn = document.getElementById('scaleBtn');
-        const isEnglish = document.documentElement.lang === 'en';
-
-        // Restore scale setting
-        let isScaleFit = localStorage.getItem('scaleMode') === 'fit';
-        
-        function updateScaleUI() {
-            if (isScaleFit) {
-                emulatorFrame.classList.add('scale-fit');
-                scaleBtn.innerHTML = isEnglish ? '🖥️ Native 1x' : '🖥️ 原生 1x';
-            } else {
-                emulatorFrame.classList.remove('scale-fit');
-                scaleBtn.innerHTML = isEnglish ? '🖥️ Scale to Fit' : '🖥️ 縮放適應';
-            }
-        }
-        
-        // Initialize scale UI
-        if(scaleBtn && emulatorFrame) {
-            updateScaleUI();
-            scaleBtn.addEventListener('click', () => {
-                isScaleFit = !isScaleFit;
-                localStorage.setItem('scaleMode', isScaleFit ? 'fit' : 'native');
-                updateScaleUI();
-            });
-        }
 
         renderGames();
         document.getElementById('totalCount').textContent = games.length;
