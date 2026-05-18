@@ -135,7 +135,8 @@ Click "🔊 Enable Audio" to open Archive.org full control panel in new tab
    - Input Settings (key settings)
 
 #### Panel Size Adjustment
-Drag the green separator lines `⋮` on left/right sides to adjust width
+- **Drag to Resize**: Drag the green separator lines `⋮` on left/right sides to adjust the width of the panels.
+- **Click to Collapse**: Click the toggles `◀` or `▶` on the separator edges to collapse or expand the panels instantly. They will automatically collapse on mobile screens (width <= 768px) for an optimal experience.
 
 ## 📝 Game List
 
