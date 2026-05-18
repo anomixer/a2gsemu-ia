@@ -76,6 +76,11 @@ npm start
 ### Method 2: Simple Mode
 Try it online: https://anomixer.github.io/a2gsemu-ia
 
+**Simple Mode Features:**
+- **Zero Backend Dependencies**: Pure static HTML/JS architecture, directly embedding the Internet Archive emulator via iframe.
+- **UI Parity**: Features the exact same "Dual Sliding Drawers" and "Responsive Auto-collapse" design as the full version.
+- **Limitations**: Due to cross-origin iframe restrictions, this version does not support scale-to-fit screen aspect ratio or custom audio configurations.
+
 ```bash
 # 1. Download project (checkout simple mode branch)
 git clone -b OneHtmlFile https://github.com/anomixer/a2gsemu-ia.git
