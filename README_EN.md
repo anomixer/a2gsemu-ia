@@ -18,7 +18,8 @@
 
 - 🎯 **130 Selected Games** - Including classic RPGs, action, puzzle games and more
 - 🔊 **Smart Audio Support** - Auto-detects backend service, seamless sound/silent mode switching
-- 📱 **Responsive Design** - Supports desktop and mobile devices
+- 📱 **Responsive Design & Dual Side-Drawers** - Full mobile and desktop compatibility; redesigned dual sliding drawers supporting mouse width resizing and auto-collapse threshold for smaller desktop viewports (< 1200px)
+- 🔍 **Screen Scale Toggle** - Integrated "Switch to Native 1x / Switch to Scale to Fit" button next to mute control, with memory persistence and dynamic aspect ratio scaling
 - 🎮 **Mouse Lock Feature** - Click game screen to lock mouse, press Esc to release
 - 🔍 **Smart Search** - Search by Chinese/English game names, descriptions, years
 - 🌍 **One-Click Language Toggle** - Single button in top-right corner for instant language switching with persistent settings
@@ -113,6 +114,8 @@ Double-click the `index.html` file, system will auto-redirect to `index_old.html
 
 ### Advanced Features
 - **Mouse Lock** - Click game screen to lock mouse, press `Esc` to release
+- **Collapsible Split Drawers** - Left and right drawers support drag-to-resize, auto-collapse on screens under 768px, and secure anchor alignment for sliding triggers
+- **Persistent Screen Scaling** - Saves chosen screen mode to local storage, automatically preserving state across sessions
 - **Fullscreen Mode** - Click `⛶ Fullscreen` button
 - **MAME Settings** - Press `Tab` to open MAME menu for adjustments
 - **Save/Load** - `Shift+F7` to save, `F7` to load

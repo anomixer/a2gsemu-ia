@@ -103,6 +103,7 @@
             display: flex;
             height: calc(100vh - 80px);
             overflow: hidden;
+            position: relative;
         }
 
         .sidebar {
@@ -113,8 +114,16 @@
             border-right: 3px solid #4CAF50;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            overflow: visible;
             position: relative;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), margin-right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            flex-shrink: 0;
+        }
+
+        .sidebar.collapsed {
+            transform: translateX(-100%);
+            margin-right: -280px;
         }
 
         .search-box {
@@ -350,7 +359,7 @@
         .emulator-content {
             flex: 1;
             display: flex;
-            overflow: hidden;
+            overflow: visible;
             min-height: 0;
         }
 
@@ -402,31 +411,57 @@
             transform-origin: top left;
         }
 
+        #canvas.scale-fit {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            object-fit: contain;
+        }
+
         .info-panel {
             width: 280px;
             min-width: 200px;
             max-width: 400px;
             background: #1a1a1a;
             border-left: 2px solid #4CAF50;
-            overflow-y: auto;
-            padding: 20px;
+            overflow: visible;
+            padding: 0;
             position: relative;
             height: 100%;
             flex: 0 0 auto;
             min-height: 0;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), margin-right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
         }
 
-        .info-panel::-webkit-scrollbar {
+        .info-panel-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
+        }
+
+        .info-panel-content::-webkit-scrollbar {
             width: 6px;
         }
 
-        .info-panel::-webkit-scrollbar-track {
+        .info-panel-content::-webkit-scrollbar-track {
             background: #0a0a0a;
         }
 
-        .info-panel::-webkit-scrollbar-thumb {
+        .info-panel-content::-webkit-scrollbar-thumb {
             background: #4CAF50;
             border-radius: 3px;
+        }
+
+        .info-panel.collapsed {
+            margin-right: -280px;
         }
 
         .info-section {
@@ -535,215 +570,209 @@
         }
 
         @media (max-width: 768px) {
+            .resizer {
+                display: none !important;
+            }
+
+            .drawer-toggle {
+                z-index: 10000 !important;
+            }
+
             .main-container {
-                flex-direction: column;
+                position: relative;
+                height: calc(100vh - 65px) !important;
             }
 
             .sidebar {
-                width: 100%;
-                height: 40%;
-                border-right: none;
-                border-bottom: 3px solid #4CAF50;
-            }
-
-            .resizer {
-                display: none;
-            }
-
-            .emulator-area {
-                height: 60%;
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 85% !important;
+                max-width: 85% !important;
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.8);
+                z-index: 10000;
+                border-right: 3px solid #4CAF50;
             }
 
             .info-panel {
-                display: none;
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: 85% !important;
+                max-width: 85% !important;
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
+                z-index: 10000;
+                border-left: 3px solid #4CAF50;
+            }
+
+            .sidebar.collapsed {
+                transform: translateX(-100%);
+                margin-right: 0;
+            }
+
+            .info-panel.collapsed {
+                transform: translateX(100%);
+                margin-right: 0;
+            }
+
+            .emulator-area {
+                width: 100% !important;
+                height: 100% !important;
+            }
+
+            /* Header RWD Optimization */
+            .header {
+                padding: 10px 5px !important;
+                height: 65px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            
+            .header h1 {
+                font-size: 15px !important;
+                margin: 0 !important;
+                text-align: center !important;
+                width: 100% !important;
+                padding: 0 50px !important;
+            }
+            
+            .header h1 img {
+                height: 16px !important;
+                margin-right: 4px !important;
+            }
+            
+            .header .subtitle {
+                display: none !important;
+            }
+            
+            .header-logo {
+                height: 36px !important;
+                left: 8px !important;
+                top: 14px !important;
+            }
+            
+            .lang-switch {
+                top: 17px !important;
+                right: 45px !important;
+            }
+            
+            .lang-btn {
+                padding: 4px 8px !important;
+                font-size: 11px !important;
+            }
+            
+            .github-link {
+                top: 17px !important;
+                right: 8px !important;
+            }
+            
+            .github-link svg {
+                width: 20px !important;
+                height: 20px !important;
+            }
+
+            /* Canvas Sizing RWD Optimization */
+            .iframe-wrapper {
+                padding: 5px !important;
+                align-items: center !important;
+                justify-content: center !important;
+                overflow: hidden !important;
+            }
+
+            #canvas {
+                max-width: 100% !important;
+                height: auto !important;
+                box-shadow: 0 0 10px rgba(76, 175, 80, 0.5) !important;
+            }
+
+            /* Emulator Controls RWD Optimization */
+            .emulator-controls {
+                flex-wrap: wrap !important;
+                height: auto !important;
+                padding: 8px 12px !important;
+                justify-content: center !important;
+                gap: 6px !important;
+            }
+            
+            .game-title-bar {
+                width: 100% !important;
+                text-align: center !important;
+                font-size: 14px !important;
+                margin-bottom: 2px !important;
+            }
+            
+            .emulator-controls button, 
+            .emulator-controls .control-buttons {
+                font-size: 11px !important;
+                padding: 6px 10px !important;
+                margin: 0 !important;
+            }
+            
+            .emulator-controls .control-buttons {
+                gap: 6px !important;
+            }
+
+            /* Welcome Screen RWD Optimization */
+            .welcome-screen {
+                padding: 20px !important;
+            }
+            
+            .welcome-screen h2 {
+                font-size: 20px !important;
+                margin-bottom: 10px !important;
+            }
+            
+            .welcome-screen p {
+                font-size: 13px !important;
+                line-height: 1.4 !important;
             }
         }
 
-        .sidebar {
-            width: 320px;
+        .resizer.collapsed {
+            display: none;
+        }
+
+        /* Drawer Collapsing and Toggle Styling */
+        .drawer-toggle {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 40px;
             background: #2a2a2a;
-            border-right: 3px solid #4CAF50;
+            border: 1px solid #4CAF50;
             display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 12px 15px;
-            font-size: 14px;
-            background: #1a1a1a;
-            border: none;
-            border-bottom: 2px solid #444;
-            color: #fff;
-            outline: none;
-        }
-
-        .search-box:focus {
-            border-bottom-color: #4CAF50;
-        }
-
-        .game-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px;
-        }
-
-        .game-list::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .game-list::-webkit-scrollbar-track {
-            background: #1a1a1a;
-        }
-
-        .game-list::-webkit-scrollbar-thumb {
-            background: #4CAF50;
-            border-radius: 4px;
-        }
-
-        .game-item {
-            background: #333;
-            padding: 12px;
-            margin-bottom: 8px;
-            border-radius: 6px;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .game-item:hover {
-            background: #3a3a3a;
-            border-color: #4CAF50;
-            transform: translateX(5px);
-        }
-
-        .game-item.active {
-            background: #4CAF50;
-            color: #000;
-        }
-
-        .game-item h3 {
-            font-size: 14px;
-            margin-bottom: 4px;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 2px 6px;
-            border-radius: 3px;
+            color: #4CAF50;
             font-size: 10px;
-            margin-left: 5px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+            z-index: 9999;
+            transition: background 0.2s, color 0.2s;
         }
 
-        .badge-game {
-            background: #2196F3;
+        .left-toggle {
+            border-radius: 0 5px 5px 0;
+            right: -16px;
+            border-left: none;
+        }
+        
+        .right-toggle {
+            border-radius: 5px 0 0 5px;
+            left: -16px;
+            border-right: none;
         }
 
-        .emulator-area {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background: #000;
-        }
-
-        .welcome-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            padding: 40px;
-            text-align: center;
-        }
-
-        .welcome-screen h2 {
-            color: #4CAF50;
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
-
-        .emulator-container {
-            display: none;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .emulator-container.active {
-            display: flex;
-        }
-
-        .emulator-controls {
-            background: #2a2a2a;
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 2px solid #4CAF50;
-        }
-
-        .game-title-bar {
-            flex: 1;
-            color: #4CAF50;
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        .btn {
-            background: #4CAF50;
+        .drawer-toggle:hover {
             color: #000;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 13px;
-            transition: all 0.3s;
-            margin-left: 10px;
-        }
-
-        .btn:hover {
-            background: #45a049;
-            transform: scale(1.05);
-        }
-
-        .emulator-content {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #000;
-            padding: 20px;
-            position: relative;
-        }
-
-        #canvas {
-            display: block;
-            width: 704px;
-            height: 462px;
-            border: none;
-            border-radius: 5px;
-            box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
-            image-rendering: pixelated;
-            image-rendering: crisp-edges;
-            background: #000;
-            cursor: pointer;
-            transform-origin: top left;
-        }
-
-        .loading-tip {
             background: #4CAF50;
-            color: #000;
-            padding: 10px 15px;
-            text-align: center;
-            font-size: 12px;
-            border-bottom: 2px solid #45a049;
-            font-weight: bold;
         }
 
-        .loading-tip.hidden {
-            display: none;
-        }
+
 
         .header-logo {
             position: absolute;
@@ -761,13 +790,7 @@
             transform: scale(1.1);
         }
 
-        @media (max-width: 768px) {
-            .header-logo {
-                height: 40px;
-                left: 10px;
-                top: 5px;
-            }
-        }
+
     </style>
 </head>
 
@@ -799,6 +822,7 @@
         <div class="sidebar" id="sidebar">
             <input type="text" class="search-box" id="searchBox" placeholder="🔍 搜尋遊戲...">
             <div class="game-list" id="gameList"></div>
+            <div class="drawer-toggle left-toggle" id="sidebarToggle">◀</div>
         </div>
 
         <div class="resizer" id="leftResizer"></div>
@@ -828,6 +852,9 @@
                     <button class="btn" id="muteBtn" title="">
                         🔇 靜音
                     </button>
+                    <button class="btn" id="scaleBtn" title="">
+                        🔍 切到縮放適應
+                    </button>
                     <div class="control-buttons">
                         <button class="btn" id="fullscreenBtn" title="">⛶ 全螢幕</button>
                         <button class="btn btn-secondary" id="reloadBtn" title="">🔄</button>
@@ -843,97 +870,100 @@
                     <div class="resizer" id="rightResizer"></div>
 
                     <div class="info-panel" id="infoPanel">
-                        <div class="info-section">
-                            <h3>🎮 Game Information</h3>
-                            <div class="game-info-box">
-                                <p id="gameDescription">Detailed information will be displayed after selecting a game
-                                </p>
+                        <div class="drawer-toggle right-toggle" id="infoToggle">▶</div>
+                        <div class="info-panel-content">
+                            <div class="info-section">
+                                <h3>🎮 Game Information</h3>
+                                <div class="game-info-box">
+                                    <p id="gameDescription">Detailed information will be displayed after selecting a game
+                                    </p>
+                                </div>
+                                <ul id="gameDetails"></ul>
                             </div>
-                            <ul id="gameDetails"></ul>
-                        </div>
 
-                        <div class="info-section">
-                            <h3>💡 Usage Tips</h3>
-                            <ul>
-                                <li>⏱️ First load takes 10-30 seconds, please be patient</li>
-                                <li>🔊 Sound works perfectly! Using backend proxy to solve CORS</li>
-                                <li>⛶ Recommend using fullscreen mode for best experience</li>
-                                <li>💾 MAME automatically saves game state to browser</li>
-                                <li>🎯 Some games support mouse operation</li>
-                                <li>⚡ If game is slow, adjust CPU speed to accelerate</li>
-                                <li>🔄 Press 🔄 to reset if encountering problems</li>
-                            </ul>
-                        </div>
-
-                        <div class="info-section">
-                            <h3>⌨️ General Controls</h3>
-                            <ul>
-                                <li><span class="key-combo">↑ ↓ ← →</span> Arrow keys for movement/selection</li>
-                                <li><span class="key-combo">Space</span> Action/Jump/Shoot</li>
-                                <li><span class="key-combo">Enter</span> Start game/Confirm</li>
-                                <li><span class="key-combo">Esc</span> Pause/Cancel</li>
-                                <li><span class="key-combo">1-9</span> Number key input</li>
-                                <li><span class="key-combo">A-Z</span> Letter key input</li>
-                            </ul>
-                            <ul>
-                                <li><span class="key-combo">Numpad</span> Joystick direction</li>
-                                <li><span class="key-combo">Left/Right Alt</span> Joystick buttons 0,1</li>
-                            </ul>
-                        </div>
-
-                        <div class="info-section">
-                            <h3>🎮 MAME Emulator Controls</h3>
-
-                            <div class="mame-section">
-                                <h4></h4>
+                            <div class="info-section">
+                                <h3>💡 Usage Tips</h3>
                                 <ul>
-                                    <li><span class="key-combo">Scroll Lock</span> Toggle MAME UI mode</li>
-                                    <li><span class="key-combo">Tab</span> Open MAME menu</li>
-                                    <li><span class="key-combo">~</span> (Tilde) Quick menu</li>
-                                    <li><span class="key-combo">P</span> Pause emulator</li>
-                                    <li><span class="key-combo">F4</span> Show palette</li>
-                                    <li><span class="key-combo">F8</span> Decrease frameskip</li>
-                                    <li><span class="key-combo">F9</span> Increase frameskip</li>
+                                    <li>⏱️ First load takes 10-30 seconds, please be patient</li>
+                                    <li>🔊 Sound works perfectly! Using backend proxy to solve CORS</li>
+                                    <li>⛶ Recommend using fullscreen mode for best experience</li>
+                                    <li>💾 MAME automatically saves game state to browser</li>
+                                    <li>🎯 Some games support mouse operation</li>
+                                    <li>⚡ If game is slow, adjust CPU speed to accelerate</li>
+                                    <li>🔄 Press 🔄 to reset if encountering problems</li>
                                 </ul>
                             </div>
 
-                            <div class="mame-section">
-                                <h4></h4>
-                                <p style="font-size:12px; color:#ddd; margin-bottom:8px;">
-                                    First press <span class="key-combo">Scroll Lock</span> to open UI → then press <span
-                                        class="key-combo">Tab</span> → select <span class="highlight">Machine
-                                        Configuration</span>
-                                </p>
+                            <div class="info-section">
+                                <h3>⌨️ General Controls</h3>
                                 <ul>
-                                    <li><strong>CPU Speed:</strong> Adjust CPU execution speed
-                                        <br><small style="color:#888;">Can accelerate slow games or slow down fast
-                                            games</small>
-                                    </li>
-                                    <li><strong>Video Options:</strong> Video settings
-                                        <br><small style="color:#888;">Adjust screen size, filter effects</small>
-                                    </li>
-                                    <li><strong>Audio Options:</strong> Audio settings
-                                        <br><small style="color:#888;">Volume, sample rate adjustment</small>
-                                    </li>
-                                    <li><strong>Input Settings:</strong> Input settings
-                                        <br><small style="color:#888;">Custom key configuration</small>
-                                    </li>
+                                    <li><span class="key-combo">↑ ↓ ← →</span> Arrow keys for movement/selection</li>
+                                    <li><span class="key-combo">Space</span> Action/Jump/Shoot</li>
+                                    <li><span class="key-combo">Enter</span> Start game/Confirm</li>
+                                    <li><span class="key-combo">Esc</span> Pause/Cancel</li>
+                                    <li><span class="key-combo">1-9</span> Number key input</li>
+                                    <li><span class="key-combo">A-Z</span> Letter key input</li>
+                                </ul>
+                                <ul>
+                                    <li><span class="key-combo">Numpad</span> Joystick direction</li>
+                                    <li><span class="key-combo">Left/Right Alt</span> Joystick buttons 0,1</li>
                                 </ul>
                             </div>
-                        </div>
 
-                        <div class="info-section">
-                            <h3>ℹ️ About Apple IIgs</h3>
-                            <p>Apple IIgs is a 16-bit personal computer released by Apple Computer in September 1986,
-                                the last product in the Apple II series.</p>
-                            <p><strong>Main Specifications:</strong></p>
-                            <ul>
-                                <li>2.8 MHz 65C816 processor</li>
-                                <li>256 KB RAM (expandable to 8 MB)</li>
-                                <li>Support for 4096 color display</li>
-                                <li>Ensoniq 5503 sound chip (32 channels)</li>
-                                <li>Backward compatible with Apple II series software</li>
-                            </ul>
+                            <div class="info-section">
+                                <h3>🎮 MAME Emulator Controls</h3>
+
+                                <div class="mame-section">
+                                    <h4></h4>
+                                    <ul>
+                                        <li><span class="key-combo">Scroll Lock</span> Toggle MAME UI mode</li>
+                                        <li><span class="key-combo">Tab</span> Open MAME menu</li>
+                                        <li><span class="key-combo">~</span> (Tilde) Quick menu</li>
+                                        <li><span class="key-combo">P</span> Pause emulator</li>
+                                        <li><span class="key-combo">F4</span> Show palette</li>
+                                        <li><span class="key-combo">F8</span> Decrease frameskip</li>
+                                        <li><span class="key-combo">F9</span> Increase frameskip</li>
+                                    </ul>
+                                </div>
+
+                                <div class="mame-section">
+                                    <h4></h4>
+                                    <p style="font-size:12px; color:#ddd; margin-bottom:8px;">
+                                        First press <span class="key-combo">Scroll Lock</span> to open UI → then press <span
+                                            class="key-combo">Tab</span> → select <span class="highlight">Machine
+                                            Configuration</span>
+                                    </p>
+                                    <ul>
+                                        <li><strong>CPU Speed:</strong> Adjust CPU execution speed
+                                            <br><small style="color:#888;">Can accelerate slow games or slow down fast
+                                                games</small>
+                                        </li>
+                                        <li><strong>Video Options:</strong> Video settings
+                                            <br><small style="color:#888;">Adjust screen size, filter effects</small>
+                                        </li>
+                                        <li><strong>Audio Options:</strong> Audio settings
+                                            <br><small style="color:#888;">Volume, sample rate adjustment</small>
+                                        </li>
+                                        <li><strong>Input Settings:</strong> Input settings
+                                            <br><small style="color:#888;">Custom key configuration</small>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="info-section">
+                                <h3>ℹ️ About Apple IIgs</h3>
+                                <p>Apple IIgs is a 16-bit personal computer released by Apple Computer in September 1986,
+                                    the last product in the Apple II series.</p>
+                                <p><strong>Main Specifications:</strong></p>
+                                <ul>
+                                    <li>2.8 MHz 65C816 processor</li>
+                                    <li>256 KB RAM (expandable to 8 MB)</li>
+                                    <li>Support for 4096 color display</li>
+                                    <li>Ensoniq 5503 sound chip (32 channels)</li>
+                                    <li>Backward compatible with Apple II series software</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -986,6 +1016,9 @@
                     fullscreenHint: '全螢幕',
                     reloadHint: '重新載入',
                     clickToStart: '點截圖開始',
+                    scaleNative: '🔍 切到原生模式1x',
+                    scaleFit: '🔍 切到縮放適應',
+                    scaleHint: '切換畫面比例設定',
                     gameInfo: '🎮 遊戲資訊',
                     gameInfoDesc: '選擇遊戲後顯示詳細資訊',
                     tips: '💡 使用提示',
@@ -1078,6 +1111,9 @@
                     fullscreenHint: 'Fullscreen',
                     reloadHint: 'Reload',
                     clickToStart: 'Click screenshot to start',
+                    scaleNative: '🔍 Switch to Native 1x',
+                    scaleFit: '🔍 Switch to Scale to Fit',
+                    scaleHint: 'Toggle screen scale setting',
                     gameInfo: '🎮 Game Information',
                     gameInfoDesc: 'Detailed information will be displayed after selecting a game',
                     tips: '💡 Usage Tips',
@@ -1210,6 +1246,14 @@
                 if (muteBtn) {
                     updateMuteButton();
                     muteBtn.title = uiMuted ? t('mute') : t('unmute');
+                }
+
+                const scaleBtn = document.getElementById('scaleBtn');
+                const canvas = document.getElementById('canvas');
+                if (scaleBtn && canvas) {
+                    const isFit = canvas.classList.contains('scale-fit');
+                    scaleBtn.innerHTML = isFit ? t('scaleNative') : t('scaleFit');
+                    scaleBtn.title = t('scaleHint');
                 }
 
                 const reloadBtn = document.getElementById('reloadBtn');
@@ -1457,8 +1501,16 @@
             const rightResizer = document.getElementById('rightResizer');
             const gameScreenshot = document.getElementById('gameScreenshot');
             const muteBtn = document.getElementById('muteBtn');
+            const scaleBtn = document.getElementById('scaleBtn');
 
             let uiMuted = false;
+
+            // Sizing Mode Persistence
+            let scaleMode = localStorage.getItem('scaleMode') || 'native';
+            const initialCanvas = document.getElementById('canvas');
+            if (initialCanvas && scaleMode === 'fit') {
+                initialCanvas.classList.add('scale-fit');
+            }
             let isMouseLocked = false;
             let originalTitle = '';
 
@@ -1487,6 +1539,18 @@
                     updateMuteButton();
                 };
                 updateMuteButton();
+            }
+
+            if (scaleBtn) {
+                scaleBtn.onclick = () => {
+                    const canvas = document.getElementById('canvas');
+                    if (canvas) {
+                        const isFit = canvas.classList.toggle('scale-fit');
+                        localStorage.setItem('scaleMode', isFit ? 'fit' : 'native');
+                        scaleBtn.innerHTML = isFit ? t('scaleNative') : t('scaleFit');
+                        window.dispatchEvent(new Event('resize'));
+                    }
+                };
             }
 
             function getBadge(type) {
@@ -2025,6 +2089,16 @@
                 welcomeScreen.style.display = 'none';
                 emulatorContainer.classList.add('active');
 
+                // Auto close sidebar on mobile after selection
+                if (window.innerWidth <= 768) {
+                    const sidebar = document.getElementById('sidebar');
+                    if (sidebar && !sidebar.classList.contains('collapsed')) {
+                        const sidebarToggle = document.getElementById('sidebarToggle');
+                        if (sidebarToggle) sidebarToggle.click();
+                    }
+                }
+                
+
                 gameTitleBar.textContent = `${game.name} - ${t('clickToStart')}`;
 
                 // 使用 updateGameInfo 來更新遊戲資訊，確保語言一致性
@@ -2252,53 +2326,161 @@
                 }
             };
 
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const infoToggle = document.getElementById('infoToggle');
+
+            function toggleSidebar() {
+                const isCollapsed = sidebar.classList.toggle('collapsed');
+                sidebarToggle.textContent = isCollapsed ? '▶' : '◀';
+                const currentWidth = sidebar.offsetWidth;
+                if (isCollapsed) {
+                    sidebar.style.marginRight = `-${currentWidth}px`;
+                } else {
+                    sidebar.style.marginRight = '0';
+                }
+                leftResizer.style.display = isCollapsed ? 'none' : 'block';
+            }
+
+            function toggleInfo() {
+                const isCollapsed = infoPanel.classList.toggle('collapsed');
+                infoToggle.textContent = isCollapsed ? '◀' : '▶';
+                const currentWidth = infoPanel.offsetWidth;
+                if (isCollapsed) {
+                    infoPanel.style.marginRight = `-${currentWidth}px`;
+                } else {
+                    infoPanel.style.marginRight = '0';
+                }
+                rightResizer.style.display = isCollapsed ? 'none' : 'block';
+            }
+
+            if (sidebarToggle) {
+                sidebarToggle.onclick = (e) => { e.stopPropagation(); toggleSidebar(); };
+            }
+            if (infoToggle) {
+                infoToggle.onclick = (e) => { e.stopPropagation(); toggleInfo(); };
+            }
+
+            // Mobile & Small Desktop optimization: Collapse right frame by default if width < 1200
+            if (window.innerWidth < 1200 && infoPanel && infoToggle && rightResizer) {
+                infoPanel.classList.add('collapsed');
+                infoToggle.textContent = '◀';
+                rightResizer.style.display = 'none';
+                infoPanel.style.marginRight = `-${infoPanel.offsetWidth}px`;
+            }
+
+            // Mobile Auto-Close on clicking outside
+            window.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    if (sidebar && !sidebar.contains(e.target) && !sidebar.classList.contains('collapsed') && sidebarToggle && !sidebarToggle.contains(e.target)) {
+                        toggleSidebar();
+                    }
+                    if (infoPanel && !infoPanel.contains(e.target) && !infoPanel.classList.contains('collapsed') && infoToggle && !infoToggle.contains(e.target)) {
+                        toggleInfo();
+                    }
+                }
+            });
+
+            // Mobile/Desktop switch and Small Desktop auto-collapse resize listener
+            let wasMobile = window.innerWidth <= 768;
+            let wasSmallDesktop = window.innerWidth < 1200;
+            window.addEventListener('resize', () => {
+                const isMobile = window.innerWidth <= 768;
+                const isSmallDesktop = window.innerWidth < 1200;
+                
+                if (isMobile !== wasMobile) {
+                    wasMobile = isMobile;
+                    wasSmallDesktop = isSmallDesktop;
+                    
+                    // Force collapse sidebars on mobile if open
+                    if (isMobile) {
+                        if (sidebar && !sidebar.classList.contains('collapsed')) {
+                            toggleSidebar();
+                        }
+                        if (infoPanel && !infoPanel.classList.contains('collapsed')) {
+                            toggleInfo();
+                        }
+                    } else {
+                        // Desktop: restore sidebars display
+                        if (sidebar) {
+                            sidebar.classList.remove('collapsed');
+                            sidebar.style.marginRight = '0';
+                            if (sidebarToggle) {
+                                sidebarToggle.textContent = '◀';
+                            }
+                            leftResizer.style.display = 'block';
+                        }
+                        if (infoPanel) {
+                            if (isSmallDesktop) {
+                                infoPanel.classList.add('collapsed');
+                                infoPanel.style.marginRight = `-${infoPanel.offsetWidth}px`;
+                                if (infoToggle) {
+                                    infoToggle.textContent = '◀';
+                                }
+                                rightResizer.style.display = 'none';
+                            } else {
+                                infoPanel.classList.remove('collapsed');
+                                infoPanel.style.marginRight = '0';
+                                if (infoToggle) {
+                                    infoToggle.textContent = '▶';
+                                }
+                                rightResizer.style.display = 'block';
+                            }
+                        }
+                    }
+                } else if (!isMobile && isSmallDesktop !== wasSmallDesktop) {
+                    // Resizing within desktop mode: transition between large and small desktop
+                    wasSmallDesktop = isSmallDesktop;
+                    if (infoPanel) {
+                        if (isSmallDesktop) {
+                            if (!infoPanel.classList.contains('collapsed')) {
+                                toggleInfo();
+                            }
+                        } else {
+                            if (infoPanel.classList.contains('collapsed')) {
+                                toggleInfo();
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Resizing Logic
+            let isResizingLeft = false;
+            let isResizingRight = false;
+
             leftResizer.addEventListener('mousedown', (e) => {
-                isResizing = true;
+                isResizingLeft = true;
                 document.body.style.cursor = 'col-resize';
                 document.body.style.userSelect = 'none';
             });
 
             rightResizer.addEventListener('mousedown', (e) => {
-                e.preventDefault();
-                const startX = e.clientX;
-                const startWidth = infoPanel.offsetWidth;
-
-                function onMouseMove(e) {
-                    const diff = startX - e.clientX;
-                    const newWidth = startWidth + diff;
-                    if (newWidth >= 250 && newWidth <= 500) {
-                        infoPanel.style.width = newWidth + 'px';
-                    }
-                }
-
-                function onMouseUp() {
-                    document.removeEventListener('mousemove', onMouseMove);
-                    document.removeEventListener('mouseup', onMouseUp);
-                    document.body.style.cursor = '';
-                    document.body.style.userSelect = '';
-                }
-
-                document.addEventListener('mousemove', onMouseMove);
-                document.addEventListener('mouseup', onMouseUp);
+                isResizingRight = true;
                 document.body.style.cursor = 'col-resize';
                 document.body.style.userSelect = 'none';
             });
 
             document.addEventListener('mousemove', (e) => {
-                if (!isResizing) return;
-
-                const newWidth = e.clientX;
-                if (newWidth >= 250 && newWidth <= 500) {
-                    sidebar.style.width = newWidth + 'px';
+                if (isResizingLeft) {
+                    const newWidth = e.clientX;
+                    if (newWidth > 200 && newWidth < 600) {
+                        sidebar.style.width = newWidth + 'px';
+                    }
+                }
+                if (isResizingRight) {
+                    const rect = document.querySelector('.emulator-content').getBoundingClientRect();
+                    const newWidth = rect.right - e.clientX;
+                    if (newWidth > 200 && newWidth < 500) {
+                        infoPanel.style.width = newWidth + 'px';
+                    }
                 }
             });
 
             document.addEventListener('mouseup', () => {
-                if (isResizing) {
-                    isResizing = false;
-                    document.body.style.cursor = '';
-                    document.body.style.userSelect = '';
-                }
+                isResizingLeft = false;
+                isResizingRight = false;
+                document.body.style.cursor = 'default';
+                document.body.style.userSelect = '';
             });
 
             function autoStartFromUrl() {

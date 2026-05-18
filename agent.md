@@ -90,6 +90,23 @@ This is an Apple IIgs online emulator project that allows users to play classic 
     - **README Branding**: Added logo above "Features" section in both Chinese and English READMEs.
     - **Image Processing**: Custom circular mask processing to ensure transparency and clean rendering on GitHub.
 
+11. **Collapsible Left & Right Drawers Layout & Robust Anchor Fix** (May 2026 Update)
+    - **Layout Architecture**: Transitioned the main container to a relative-positioned flex layout supporting dual sliding drawers.
+    - **Sidebar & Info Panel**: Configured CSS transitions and transforms (`transform: translateX()`, `margin-right`) to slide sidebars smoothly out of the flex container layout, expanding the main emulator area.
+    - **Mobile Drawer Overlay**: Implemented fully responsive mobile overlay drawers that collapse automatically on screen width <= 768px, slide in from the screen edges, and auto-close when clicking outside.
+    - **Header, Canvas & Controls RWD Consolidations**: Redesigned the header top layout and emulator controls to dynamically resize and wrap (centering action buttons and adjusting absolute element positions on screen width <= 768px) to prevent layout clashing, and scaled down the canvas dynamically to center it perfectly on mobile viewports.
+    - **Small Desktop Auto-Collapse**: Implemented automatic collapsing of the right game information drawer on desktop screens with a viewport width less than 1200px to optimize center canvas space, while dynamically restoring/expanding it back when the window is resized larger than 1200px.
+    - **Robust Handle Containment & Anti-Decoupling**: Resolved arrow decoupling and clipping issues by nesting the toggle buttons `#sidebarToggle` and `#infoToggle` directly within their respective drawer containers, utilizing relative styling to anchor them perfectly on borders.
+    - **Clipping & Layout Fixes**: Configured the sidebars and emulator content to use `overflow: visible` and wrapped info-panel content inside a scrollable `.info-panel-content` container. Removed `transform: translateX(100%)` from desktop info-panel collapse to prevent double-translating, ensuring that toggle handles remain fully visible and responsive flush with the right screen edge.
+
+12. **Scale Mode Toggle Switch Button (Native 1x / Scale to Fit)** (May 2026 Update)
+    - **Toggle Button**: Integrated a toggler button (`id="scaleBtn"`) right next to the Mute/Sound button in the top control bar.
+    - **Dual Scale Settings**:
+      - **Native 1x Mode (Default)**: Keeps the emulator screen sharp, pixelated, and perfectly rendered at its target `704x462` resolution.
+      - **Scale to Fit Mode**: Applies a new `.scale-fit` class utilizing `object-fit: contain;` and dynamic relative scaling (`width: 100% !important; height: 100% !important; max-width: 100%; max-height: 100%;`) to stretch the canvas to fill the remaining screen space perfectly.
+    - **State Persistence**: Utilized `localStorage` to save the selected `'scaleMode'` (`'fit'` vs `'native'`) and load it automatically on subsequent page loads.
+    - **Dynamic Localization**: Built in full Traditional Chinese / English bilingual labels (`"切到原生模式1x" / "切到縮放適應"` and `"Switch to Native 1x" / "Switch to Scale to Fit"`) that update immediately upon language changes.
+
 ## Key Files
 
 ### Core Application
