@@ -491,28 +491,117 @@
 
         @media (max-width: 768px) {
             .main-container {
-                flex-direction: column;
+                position: relative;
+                height: calc(100vh - 65px) !important;
             }
 
             .sidebar {
-                width: 100%;
-                height: 40%;
-                border-right: none;
-                border-bottom: 3px solid #4CAF50;
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 85% !important;
+                max-width: 85% !important;
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.8);
+                z-index: 10000;
+                border-right: 3px solid #4CAF50;
+                height: 100%;
+            }
+            .sidebar.collapsed {
+                transform: translateX(-100%);
+                margin-right: 0;
             }
 
             .resizer {
-                display: none;
+                display: none !important;
             }
 
             .emulator-area {
-                height: 60%;
+                width: 100% !important;
+                height: 100% !important;
             }
 
             .info-panel {
-                display: none;
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: 85% !important;
+                max-width: 85% !important;
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
+                z-index: 10000;
+                border-left: 3px solid #4CAF50;
+            }
+            .info-panel.collapsed {
+                transform: translateX(100%);
+                margin-right: 0;
             }
         }
+    
+        .sidebar.collapsed {
+            transform: translateX(-100%);
+            margin-right: -320px;
+        }
+
+        .info-panel.collapsed {
+            transform: translateX(100%);
+            margin-right: -320px;
+        }
+
+        /* Drawer Collapsing and Toggle Styling */
+        .drawer-toggle {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 40px;
+            background: #2a2a2a;
+            border: 1px solid #4CAF50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #4CAF50;
+            font-size: 10px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+            z-index: 9999;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .left-toggle {
+            right: 0;
+            border-radius: 5px 0 0 5px;
+            border-right: none;
+            border-left: 1px solid #4CAF50;
+        }
+
+        .sidebar.collapsed .left-toggle {
+            right: -16px;
+            border-radius: 0 5px 5px 0;
+            border-left: none;
+            border-right: 1px solid #4CAF50;
+        }
+        
+        .right-toggle {
+            left: 0;
+            border-radius: 0 5px 5px 0;
+            border-left: none;
+            border-right: 1px solid #4CAF50;
+        }
+
+        .info-panel.collapsed .right-toggle {
+            left: -16px;
+            border-radius: 5px 0 0 5px;
+            border-right: none;
+            border-left: 1px solid #4CAF50;
+        }
+
+        .drawer-toggle:hover {
+            color: #000;
+            background: #4CAF50;
+        }
+
+            .resizer.collapsed { display: none; }
     </style>
 </head>
 
@@ -539,6 +628,7 @@
 
     <div class="main-container">
         <div class="sidebar" id="sidebar">
+            <div class="drawer-toggle left-toggle" id="sidebarToggle" title="折疊選單">◀</div>
             <input type="text" class="search-box" id="searchBox" placeholder="🔍 搜尋遊戲...">
             <div class="game-list" id="gameList"></div>
         </div>
@@ -576,6 +666,7 @@
                     <div class="resizer" id="rightResizer"></div>
 
                     <div class="info-panel" id="infoPanel">
+                        <div class="drawer-toggle right-toggle" id="infoToggle" title="折疊資訊">▶</div>
                         <div class="info-section">
                             <h3>🎮 遊戲資訊</h3>
                             <div class="game-info-box">
@@ -1243,6 +1334,35 @@
                 document.body.style.userSelect = '';
             }
         });
+
+        
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const infoToggle = document.getElementById('infoToggle');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('collapsed');
+            sidebarToggle.innerHTML = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+        }
+
+        function toggleInfo() {
+            infoPanel.classList.toggle('collapsed');
+            infoToggle.innerHTML = infoPanel.classList.contains('collapsed') ? '◀' : '▶';
+        }
+
+        sidebarToggle.addEventListener('click', toggleSidebar);
+        infoToggle.addEventListener('click', toggleInfo);
+
+        // Auto collapse on small screens
+        function checkRWD() {
+            if (window.innerWidth <= 768) {
+                if (!sidebar.classList.contains('collapsed')) toggleSidebar();
+                if (!infoPanel.classList.contains('collapsed')) toggleInfo();
+            } else if (window.innerWidth <= 1200) {
+                if (!infoPanel.classList.contains('collapsed')) toggleInfo();
+            }
+        }
+        window.addEventListener('resize', checkRWD);
+        checkRWD();
 
         renderGames();
         document.getElementById('totalCount').textContent = games.length;
