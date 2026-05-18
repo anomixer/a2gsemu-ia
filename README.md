@@ -77,8 +77,8 @@ npm start
 線上體驗: https://anomixer.github.io/a2gsemu-ia
  
 ```bash
-# 1. 下載專案
-git clone https://github.com/anomixer/a2gsemu-ia.git
+# 1. 下載專案 (切換到簡易版分支)
+git clone -b OneHtmlFile https://github.com/anomixer/a2gsemu-ia.git
 cd a2gsemu-ia
 
 # 2. 使用任何 HTTP 服務器

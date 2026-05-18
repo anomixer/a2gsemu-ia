@@ -77,8 +77,8 @@ npm start
 Try it online: https://anomixer.github.io/a2gsemu-ia
 
 ```bash
-# 1. Download project
-git clone https://github.com/anomixer/a2gsemu-ia.git
+# 1. Download project (checkout simple mode branch)
+git clone -b OneHtmlFile https://github.com/anomixer/a2gsemu-ia.git
 cd a2gsemu-ia
 
 # 2. Use any HTTP server
