@@ -5,14 +5,14 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test-local": "node test-deployment.js http://localhost:3000",
-    "test-pages": "node test-deployment.js https://a2gsemu-ia.pages.dev",
-    "test-worker": "node test-deployment.js https://a2gsemu.workers.dev",
-    "test-zip-local": "node test-zip-files.js http://localhost:3000",
-    "test-zip-pages": "node test-zip-files.js https://a2gsemu-ia.pages.dev",
-    "update-games": "node update-games-for-cloudflare.js",
+    "test-local": "node cf-deploy/test-deployment.js http://localhost:3000",
+    "test-pages": "node cf-deploy/test-deployment.js https://a2gsemu-ia.pages.dev",
+    "test-worker": "node cf-deploy/test-deployment.js https://a2gsemu.workers.dev",
+    "test-zip-local": "node cf-deploy/test-zip-files.js http://localhost:3000",
+    "test-zip-pages": "node cf-deploy/test-zip-files.js https://a2gsemu-ia.pages.dev",
+    "update-games": "node cf-deploy/update-games-for-cloudflare.js",
     "deploy-pages": "cmd /c \"wrangler pages deploy . --project-name=a2gsemu-ia\"",
-    "deploy-worker": "cmd /c \"wrangler deploy --config wrangler-worker.toml\"",
+    "deploy-worker": "cmd /c \"wrangler deploy --config cf-deploy/wrangler-worker.toml\"",
     "deploy-dev": "cmd /c \"wrangler pages dev . --port 3000\""
   },
   "keywords": [

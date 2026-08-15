@@ -17,7 +17,7 @@
 ## ✨ Key Features
 
 - 🎯 **130 Selected Games** - Including classic RPGs, action, puzzle games and more
-- 🔊 **Smart Audio Support** - Auto-detects backend service, seamless sound/silent mode switching
+- 🔊 **Full Audio Support** - Complete sound output via proxy backend (Cloudflare Pages / local server.js)
 - 📱 **Responsive Design & Dual Side-Drawers** - Full mobile and desktop compatibility; redesigned dual sliding drawers supporting mouse width resizing and auto-collapse threshold for smaller desktop viewports (< 1200px)
 - 🔍 **Screen Scale Toggle** - Integrated "Switch to Native 1x / Switch to Scale to Fit" button next to mute control, with memory persistence and dynamic aspect ratio scaling
 - 🎮 **Mouse Lock Feature** - Click game screen to lock mouse, press Esc to release
@@ -26,34 +26,29 @@
 - 📦 **Multi-Format Support** - Supports .woz, .2mg, .po, .dsk and other disk formats
 - 🌐 **Multiple Data Sources** - Supports Archive.org, custom URLs, ZIP files
 - ⚡ **Fast Loading** - 24-hour file caching for improved loading speed
-- 🔄 **Auto Fallback** - Automatically switches to IA Loader mode when backend unavailable
+- 📄 **Dual-Version Architecture** - Full version (this branch, with audio/ZIP) and a zero-backend Simple version (`OneHtmlFile` branch)
 
 ---
 
 ## 🚀 Quick Start
 
-### Smart Mode Detection
-This project features intelligent detection that automatically determines the runtime environment and selects the optimal mode:
+### Two Running Versions
+This project ships as two independent versions; pick based on your hosting:
 
-#### 🔊 Full Functionality Mode (Recommended)
-When `server.js` is detected running:
+#### 🔊 Full Version (this branch / Recommended)
+Uses a proxy backend (this repo's `server.js` or Cloudflare Pages Functions):
 - ✅ **Complete Audio Support** - Sound works perfectly
 - ✅ **ZIP File Support** - Supports compressed file formats
-- ✅ **Auto Pre-download** - Core files pre-loaded
 - ✅ **24-Hour Caching** - Improved loading speed
 - ✅ **CORS Resolution** - Perfect cross-origin solution
+- ✅ **Scale to Fit** - Toggle between Native 1x and Scale to Fit
 
-#### 🔇 IA Embedded Mode (Auto Fallback)
-Automatically switches when detecting:
-- 📁 Direct HTML file opening (`file://` protocol)
-- 🌐 Generic HTTP server (like `npx http-server`)
-- ❌ Backend service not running
-
-This mode features:
-- 🔇 **Silent Mode** - Uses Archive.org embedded emulator
+#### 🔇 Simple Version (`OneHtmlFile` branch)
+Pure static hosting (e.g., GitHub Pages), embedding the Internet Archive emulator via iframe:
+- 🔇 **Silent Mode** - Audio only available inside the IA site
 - 📱 **Pure Frontend** - No backend service required
 - 🌐 **Direct Embedding** - Click game to load IA emulator directly
-- ⚠️ **Limited Features** - No ZIP file support or custom audio
+- ⚠️ **Limited Features** - No ZIP file support, scale-to-fit, or custom audio
 
 ### Method 1: Full Functionality Mode (Recommended)
 Try it online: https://a2gsemu-ia.pages.dev
@@ -150,7 +145,6 @@ python -m http.server 8000
 - **Emularity** - Emulator core
 - **MAME** - Apple IIgs simulation engine
 - **Responsive CSS** - Adapts to various screen sizes
-- **Smart Detection** - Auto-detects backend service status
 - **Complete i18n System** - Full bilingual support with persistent language settings
   - Single-button language toggle (🇺🇸 En ↔ 🇹🇼 中文)
   - Browser language auto-detection on first load
@@ -165,33 +159,21 @@ python -m http.server 8000
 - **ZIP Support** - Direct extraction from ZIP files
 - **Pre-download** - Auto pre-downloads core files for faster loading
 
-### Dual-Mode Architecture
-This project uses intelligent dual-mode architecture that automatically selects the optimal mode based on runtime environment:
+### Dual-Version Architecture
+This project provides two independent versions with complementary trade-offs:
 
-#### 🔊 Full Functionality Mode (`server.js`)
-- **Detection Condition**: Detects `/proxy/bios/apple2gs.zip` endpoint response non-404
+#### 🔊 Full Version (`main` branch)
+- **Hosted at**: Cloudflare Pages (a2gsemu-ia.pages.dev) or local `server.js`
 - **Audio Support**: Complete audio, sound works normally
 - **File Support**: Supports all formats including ZIP files
 - **Caching Mechanism**: 24-hour file caching
-- **Pre-download**: Auto pre-downloads core files
+- **Core Loading**: MAME core & BIOS fetched via `/proxy/mame/`, `/proxy/bios/` proxies (not bundled in the repo)
 
-#### 🔇 IA Embedded Mode (`index_old.html`)
-- **Detection Conditions**: 
-  - `file://` protocol (direct file opening)
-  - HTTP server returns 404 (generic HTTP server)
-  - Network errors or timeouts
-- **Audio Support**: Silent mode, click "Open IA Website" for audio
+#### 🔇 Simple Version (`OneHtmlFile` branch)
+- **Hosted at**: GitHub Pages (anomixer.github.io/a2gsemu-ia)
+- **Audio Support**: Silent mode, audio only inside the IA site
 - **File Support**: Basic formats, no ZIP file support
-- **Loading Method**: Direct Archive.org emulator embedding
-
-#### Smart Detection Process
-```javascript
-// Detection Logic
-1. Check protocol → file:// ? Redirect to index_old.html
-2. Test endpoint → fetch('/proxy/bios/apple2gs.zip')
-3. Check response → 404 ? Redirect to index_old.html
-4. Other status → Use full functionality mode
-```
+- **Loading Method**: Embeds the Archive.org emulator directly via iframe
 
 ### Data Sources
 - **Internet Archive** - Primary game file source
@@ -206,21 +188,25 @@ This project uses intelligent dual-mode architecture that automatically selects 
 ```
 a2gsemu-ia/
 ├── 📄 Core Files
-│   ├── index.html              # Main application (Smart detection + Full functionality)
-│   ├── index_old.html          # IA Embedded mode (Chinese)
-│   ├── index_en_old.html       # IA Embedded mode (English)
-│   ├── server.js               # Node.js backend server
+│   ├── index.html              # Main application (full functionality)
+│   ├── server.js               # Node.js backend server (proxy service)
 │   ├── games.js               # Game database (130 games)
 │   └── package.json           # Project configuration and dependencies
 │
-├── 🎮 Emulator Core
+├── 🎮 Emulator Loader
 │   ├── browserfs.min.js       # Browser file system
-│   ├── loader.js              # Emularity loader
-│   └── mameapple2gs.wasm.gz   # MAME Apple IIgs core
+│   └── loader.js              # Emularity loader
+│   (MAME core & BIOS are fetched at runtime via /proxy/ from Internet Archive, not bundled)
+│
+├── ☁️ Cloudflare Pages (repo root)
+│   ├── functions/proxy/[[path]].js  # Pages Functions proxy handler
+│   ├── _redirects             # Route rules
+│   └── wrangler.toml          # Cloudflare Pages configuration
 │
 ├── 🎨 Resource Files
 │   ├── favicon.ico            # Website icon
 │   └── logo/                  # Logo resources
+│       ├── iigs-40th.png      # 40th anniversary logo
 │       └── emularity_color_small.png
 │
 ├── 📚 Documentation
@@ -229,22 +215,19 @@ a2gsemu-ia/
 │   ├── agent.md               # Development documentation
 │   └── LICENSE                # MIT License
 │
-├── ⚙️ Configuration Files
+├── ⚙️ CI/CD
+│   ├── .github/workflows/cf-deploy.yml  # GitHub Actions auto-deploy (on push to main)
 │   ├── .gitignore             # Git ignore list
-│   ├── package-lock.json      # Dependency lock file
-│   └── .vscode/               # VS Code settings
-│       └── settings.json
+│   └── package-lock.json      # Dependency lock file
 │
-├── 📦 Cloudflare Deployment
-│   └── cf-deploy/             # Cloudflare Pages deployment files
-│       ├── functions/         # Pages Functions (proxy service)
-│       ├── _redirects         # Route redirect rules
-│       ├── wrangler.toml      # Cloudflare Pages configuration
+├── 📦 Auxiliary Cloudflare Scripts
+│   └── cf-deploy/             # Worker version & deploy/test scripts
 │       ├── worker.js          # Standalone Worker version
+│       ├── wrangler-worker.toml # Worker configuration
 │       ├── cloudflare_deploy.md # Deployment guide
-│       ├── deploy-windows.bat # Windows deployment script
-│       ├── deploy.sh          # Linux/macOS deployment script
-│       └── test-*.js          # Test scripts
+│       ├── deploy-windows.bat / deploy.sh  # Manual deployment scripts
+│       ├── test-deployment.js / test-zip-files.js  # Test scripts
+│       └── update-games-for-cloudflare.js  # Game data conversion tool
 │
 └── 📦 Dependencies
     └── node_modules/          # Node.js dependencies (generated after npm install)
@@ -252,28 +235,27 @@ a2gsemu-ia/
         ├── cors/              # CORS handling
         ├── compression/       # File compression
         ├── adm-zip/           # ZIP file processing
-        ├── node-fetch/        # HTTP requests
-        └── ...               # Other dependencies
+        ├── jszip/             # ZIP file processing (frontend)
+        └── node-fetch/        # HTTP requests
 ```
 
 ### File Descriptions
 
 #### 🎯 Main Files
-- **`index.html`** - Main application with smart detection, auto-selects optimal mode
-- **`index_old.html`** - IA Embedded mode (Chinese), pure frontend, no backend required
-- **`index_en_old.html`** - IA Embedded mode (English), pure frontend, no backend required
-- **`server.js`** - Node.js backend server providing proxy services and full functionality
+- **`index.html`** - Main application, full functionality with a proxy backend
+- **`server.js`** - Node.js backend server providing `/proxy/*` proxy services and full functionality
 - **`games.js`** - Game database containing complete information for 130 games
+- **Simple Version (no backend)** - lives on the separate `OneHtmlFile` branch, pure static hosting
 
 #### 🔧 Technical Files
 - **`browserfs.min.js`** - Browser file system simulation
 - **`loader.js`** - Emularity emulator loader
-- **`mameapple2gs.wasm.gz`** - MAME Apple IIgs emulator core
+- **MAME core & BIOS** - Not bundled in the repo; fetched at runtime via `/proxy/mame/`, `/proxy/bios/` proxies
 
 #### 📋 Configuration Files
 - **`package.json`** - Project configuration, dependency management, script definitions
 - **`.gitignore`** - Git version control ignore list
-- **`.vscode/settings.json`** - VS Code editor settings
+- **`wrangler.toml`** - Cloudflare Pages configuration (repo root)
 
 ---
 
@@ -296,19 +278,18 @@ npm start
 ```
 
 ### Cloudflare Pages Deployment
-This project fully supports Cloudflare Pages deployment with global CDN acceleration:
+This project fully supports Cloudflare Pages deployment with global CDN acceleration.
+
+The Pages config (`wrangler.toml`, `_redirects`, `functions/`) lives at the **repository root**, so deployment runs from the root:
 
 ```bash
-# 1. Install Wrangler CLI
-npm install -g wrangler
-
-# 2. Login to Cloudflare (Windows users recommend using cmd)
-cmd /c "wrangler login"
-
-# 3. Deploy to Cloudflare Pages
-cd cf-deploy
-cmd /c "wrangler pages deploy .. --project-name=a2gsemu-ia"
+# Manual deploy (run from the repository root)
+npm run deploy-pages
+# or
+wrangler pages deploy . --project-name=a2gsemu-ia
 ```
+
+**Auto-deploy**: Pushing to the `main` branch triggers GitHub Actions (`.github/workflows/cf-deploy.yml`) automatically — no manual step needed.
 
 **Cloudflare Pages Features**:
 - ✅ **Global CDN** - 300+ data centers worldwide acceleration

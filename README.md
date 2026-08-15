@@ -17,7 +17,7 @@
 ## ✨ 特色功能
 
 - 🎯 **130款精選遊戲** - 包含經典 RPG、動作、益智等各類遊戲
-- 🔊 **智能音效支援** - 自動檢測後端服務，有聲/靜音模式無縫切換
+- 🔊 **完整音效支援** - 透過代理後端（Cloudflare Pages / 本地 server.js）完整輸出聲音
 - 📱 **響應式設計 & 雙側滑動抽屜** - 支援桌面和行動裝置；全新設計的左右側邊欄抽屜佈局，支援滑鼠拖曳調整寬度、桌面小螢幕（寬度 < 1200px）自動收合優化
 - 🔍 **畫面比例切換** - 右上方控制列新增「切到原生模式1x / 切到縮放適應」一鍵切換，支援設定記憶持久化與完美的 RWD 比例縮放
 - 🎮 **滑鼠鎖定功能** - 點擊遊戲畫面鎖定滑鼠，按 Esc 解除
@@ -26,34 +26,29 @@
 - 📦 **多格式支援** - 支援 .woz、.2mg、.po、.dsk 等磁片格式
 - 🌐 **多重資料源** - 支援 Archive.org、自訂 URL、ZIP 檔案
 - ⚡ **快速載入** - 24小時檔案快取，提升載入速度
-- 🔄 **自動回退** - 後端不可用時自動切換至 IA Loader 模式
+- 📄 **雙版本架構** - 完整版（本分支，含音效/ZIP）與零後端簡易版（`OneHtmlFile` 分支）
 
 ---
 
 ## 🚀 快速開始
 
-### 智能模式檢測
-本專案具備智能檢測機制，會自動判斷運行環境並選擇最佳模式：
+### 兩種運行版本
+本專案有兩個獨立版本，依託管方式選擇：
 
-#### 🔊 完整功能模式 (推薦)
-當檢測到 `server.js` 運行時：
+#### 🔊 完整版 (本分支 / 推薦)
+搭配代理後端使用（本 repo 的 `server.js` 或 Cloudflare Pages Functions）：
 - ✅ **完整音效支援** - 聲音完全正常
 - ✅ **ZIP 檔案支援** - 支援壓縮檔案格式
-- ✅ **自動預下載** - 核心檔案預先載入
 - ✅ **24小時快取** - 提升載入速度
 - ✅ **CORS 解決** - 完美解決跨域問題
+- ✅ **縮放適應** - 原生 1x / 縮放適應一鍵切換
 
-#### 🔇 IA 嵌入模式 (自動回退)
-當檢測到以下情況時自動切換：
-- 📁 直接開啟 HTML 檔案 (`file://` 協議)
-- 🌐 使用普通 HTTP 服務器 (如 `npx http-server`)
-- ❌ 未運行 `server.js` 後端服務
-
-此模式特點：
-- 🔇 **靜音模式** - 使用 Archive.org 嵌入式模擬器
+#### 🔇 簡易版 (`OneHtmlFile` 分支)
+純靜態部署（如 GitHub Pages），以 iframe 嵌入 Internet Archive 模擬器：
+- 🔇 **靜音模式** - 需點進 IA 網站才有音效
 - 📱 **純前端** - 無需後端服務
 - 🌐 **直接嵌入** - 點擊遊戲直接載入 IA 模擬器
-- ⚠️ **功能限制** - 不支援 ZIP 檔案和自訂音效
+- ⚠️ **功能限制** - 不支援 ZIP 檔案、縮放適應與自訂音效
 
 ### 方法一：完整功能模式 (推薦)
 線上體驗: https://a2gsemu-ia.pages.dev
@@ -150,8 +145,7 @@ python -m http.server 8000
 - **Emularity** - 模擬器核心
 - **MAME** - Apple IIgs 模擬引擎
 - **響應式 CSS** - 適配各種螢幕尺寸
-- **智能檢測** - 自動檢測後端服務狀態
-- **完整國際化系統** - 具備語言持久化的完整雙語支援
+- **國際化系統** - 具備語言持久化的完整雙語支援
   - 單鍵語言切換 (🇺🇸 En ↔ 🇹🇼 中文)
   - 首次載入時自動檢測瀏覽器語言
   - URL 參數儲存語言設定，支援分享和書籤
@@ -165,33 +159,21 @@ python -m http.server 8000
 - **ZIP 支援** - 直接從 ZIP 檔案提取遊戲
 - **預下載** - 自動預下載核心檔案加速載入
 
-### 雙模式架構
-本專案採用智能雙模式架構，根據運行環境自動選擇最佳模式：
+### 雙版本架構
+本專案提供兩個獨立版本，功能互為取捨：
 
-#### 🔊 完整功能模式 (`server.js`)
-- **檢測條件**: 檢測到 `/proxy/bios/apple2gs.zip` 端點響應非 404
+#### 🔊 完整版 (`main` 分支)
+- **部署位置**: Cloudflare Pages (a2gsemu-ia.pages.dev) 或本地 `server.js`
 - **音效支援**: 完整音效，聲音正常
 - **檔案支援**: 支援所有格式，包括 ZIP 檔案
 - **快取機制**: 24小時檔案快取
-- **預下載**: 自動預下載核心檔案
+- **核心載入**: MAME 核心與 BIOS 透過 `/proxy/mame/`、`/proxy/bios/` 代理載入（不自帶於 repo）
 
-#### 🔇 IA 嵌入模式 (`index_old.html`)
-- **檢測條件**: 
-  - `file://` 協議 (直接開啟檔案)
-  - HTTP 服務器返回 404 (普通 HTTP 服務器)
-  - 網絡錯誤或超時
-- **音效支援**: 靜音模式，需點擊 "開啟 IA 網站" 獲得音效
+#### 🔇 簡易版 (`OneHtmlFile` 分支)
+- **部署位置**: GitHub Pages (anomixer.github.io/a2gsemu-ia)
+- **音效支援**: 靜音模式，需點進 IA 網站才有音效
 - **檔案支援**: 基本格式，不支援 ZIP 檔案
-- **載入方式**: 直接嵌入 Archive.org 模擬器
-
-#### 智能檢測流程
-```javascript
-// 檢測邏輯
-1. 檢查協議 → file:// ? 重定向到 index_old.html
-2. 測試端點 → fetch('/proxy/bios/apple2gs.zip')
-3. 檢查響應 → 404 ? 重定向到 index_old.html
-4. 其他狀態 → 使用完整功能模式
-```
+- **載入方式**: 以 iframe 直接嵌入 Archive.org 模擬器
 
 ### 資料來源
 - **Internet Archive** - 主要遊戲檔案來源
@@ -206,21 +188,25 @@ python -m http.server 8000
 ```
 a2gsemu-ia/
 ├── 📄 核心檔案
-│   ├── index.html              # 主應用程式 (智能檢測 + 完整功能)
-│   ├── index_old.html          # IA 嵌入模式 (中文版)
-│   ├── index_en_old.html       # IA 嵌入模式 (英文版)
-│   ├── server.js               # Node.js 後端伺服器
+│   ├── index.html              # 主應用程式 (完整功能)
+│   ├── server.js               # Node.js 後端伺服器 (代理服務)
 │   ├── games.js               # 遊戲資料庫 (130 款遊戲)
 │   └── package.json           # 專案配置與依賴
 │
-├── 🎮 模擬器核心
+├── 🎮 模擬器載入器
 │   ├── browserfs.min.js       # 瀏覽器檔案系統
-│   ├── loader.js              # Emularity 載入器
-│   └── mameapple2gs.wasm.gz   # MAME Apple IIgs 核心
+│   └── loader.js              # Emularity 載入器
+│   (MAME 核心與 BIOS 透過 /proxy/ 代理自 Internet Archive 載入，不自帶於 repo)
+│
+├── ☁️ Cloudflare Pages (根目錄)
+│   ├── functions/proxy/[[path]].js  # Pages Functions 代理服務
+│   ├── _redirects             # 路由規則
+│   └── wrangler.toml          # Cloudflare Pages 配置
 │
 ├── 🎨 資源檔案
 │   ├── favicon.ico            # 網站圖示
 │   └── logo/                  # 標誌資源
+│       ├── iigs-40th.png      # 40 週年標誌
 │       └── emularity_color_small.png
 │
 ├── 📚 文檔
@@ -229,22 +215,19 @@ a2gsemu-ia/
 │   ├── agent.md               # 開發文檔
 │   └── LICENSE                # MIT 授權條款
 │
-├── ⚙️ 配置檔案
+├── ⚙️ CI/CD
+│   ├── .github/workflows/cf-deploy.yml  # GitHub Actions 自動部署 (push main)
 │   ├── .gitignore             # Git 忽略清單
-│   ├── package-lock.json      # 依賴鎖定檔案
-│   └── .vscode/               # VS Code 設定
-│       └── settings.json
+│   └── package-lock.json      # 依賴鎖定檔案
 │
-├── 📦 Cloudflare 部署
-│   └── cf-deploy/             # Cloudflare Pages 部署檔案
-│       ├── functions/         # Pages Functions (代理服務)
-│       ├── _redirects         # 路由重定向規則
-│       ├── wrangler.toml      # Cloudflare Pages 配置
+├── 📦 Cloudflare 輔助腳本
+│   └── cf-deploy/             # Worker 版本與部署/測試腳本
 │       ├── worker.js          # 獨立 Worker 版本
+│       ├── wrangler-worker.toml # Worker 配置
 │       ├── cloudflare_deploy.md # 部署指南
-│       ├── deploy-windows.bat # Windows 部署腳本
-│       ├── deploy.sh          # Linux/macOS 部署腳本
-│       └── test-*.js          # 測試腳本
+│       ├── deploy-windows.bat / deploy.sh  # 手動部署腳本
+│       ├── test-deployment.js / test-zip-files.js  # 測試腳本
+│       └── update-games-for-cloudflare.js  # 遊戲資料轉換工具
 │
 └── 📦 依賴套件
     └── node_modules/          # Node.js 依賴 (npm install 後產生)
@@ -252,28 +235,27 @@ a2gsemu-ia/
         ├── cors/              # CORS 處理
         ├── compression/       # 檔案壓縮
         ├── adm-zip/           # ZIP 檔案處理
-        ├── node-fetch/        # HTTP 請求
-        └── ...               # 其他依賴
+        ├── jszip/             # ZIP 檔案處理 (前端)
+        └── node-fetch/        # HTTP 請求
 ```
 
 ### 檔案說明
 
 #### 🎯 主要檔案
-- **`index.html`** - 主應用程式，具備智能檢測功能，自動選擇最佳模式
-- **`index_old.html`** - IA 嵌入模式 (中文)，純前端，無需後端
-- **`index_en_old.html`** - IA 嵌入模式 (英文)，純前端，無需後端
-- **`server.js`** - Node.js 後端伺服器，提供代理服務和完整功能
+- **`index.html`** - 主應用程式，搭配代理後端提供完整功能
+- **`server.js`** - Node.js 後端伺服器，提供 `/proxy/*` 代理服務和完整功能
 - **`games.js`** - 遊戲資料庫，包含 130 款遊戲的完整資訊
+- **簡易版 (無後端)** - 位於獨立的 `OneHtmlFile` 分支，純靜態部署
 
 #### 🔧 技術檔案
 - **`browserfs.min.js`** - 瀏覽器檔案系統模擬
 - **`loader.js`** - Emularity 模擬器載入器
-- **`mameapple2gs.wasm.gz`** - MAME Apple IIgs 模擬器核心
+- **MAME 核心與 BIOS** - 不自帶於 repo，執行時透過 `/proxy/mame/`、`/proxy/bios/` 代理載入
 
 #### 📋 配置檔案
 - **`package.json`** - 專案配置，依賴管理，腳本定義
 - **`.gitignore`** - Git 版本控制忽略清單
-- **`.vscode/settings.json`** - VS Code 編輯器設定
+- **`wrangler.toml`** - Cloudflare Pages 配置（根目錄）
 
 ---
 
@@ -296,19 +278,18 @@ npm start
 ```
 
 ### Cloudflare Pages 部署
-本專案已完整支援 Cloudflare Pages 部署，享受全球 CDN 加速：
+本專案已完整支援 Cloudflare Pages 部署，享受全球 CDN 加速。
+
+Pages 配置（`wrangler.toml`、`_redirects`、`functions/`）位於**倉庫根目錄**，因此從根目錄部署：
 
 ```bash
-# 1. 安裝 Wrangler CLI
-npm install -g wrangler
-
-# 2. 登入 Cloudflare (Windows 用戶建議使用 cmd)
-cmd /c "wrangler login"
-
-# 3. 部署到 Cloudflare Pages
-cd cf-deploy
-cmd /c "wrangler pages deploy .. --project-name=a2gsemu-ia"
+# 手動部署 (在倉庫根目錄執行)
+npm run deploy-pages
+# 或
+wrangler pages deploy . --project-name=a2gsemu-ia
 ```
+
+**自動部署**: 推送到 `main` 分支會自動觸發 GitHub Actions（`.github/workflows/cf-deploy.yml`），無需手動操作。
 
 **Cloudflare Pages 特色**:
 - ✅ **全球 CDN** - 全球 300+ 資料中心加速

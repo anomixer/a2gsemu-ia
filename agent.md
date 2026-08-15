@@ -18,8 +18,17 @@ This is an Apple IIgs online emulator project that allows users to play classic 
 
 ### Proxy Architecture
 - **Local**: Express routes with CORS handling
-- **Cloudflare**: Pages Functions in `cf-deploy/functions/proxy/[[path]].js`
+- **Cloudflare**: Pages Functions in `functions/proxy/[[path]].js` (repository root)
 - **Features**: ZIP support, URL validation, 24-hour caching, CORS resolution
+
+### Proxy Endpoints (identical in `server.js` and Pages Functions)
+- `/proxy/bios/:filename` — BIOS files (proxied from `emularity-bios.ux-b.archive.org`)
+- `/proxy/mame/:filename` — MAME core files (proxied from `emularity-engine.ux-b.archive.org`)
+- `/proxy/url/*` — arbitrary full-URL proxy (with validation)
+- `/proxy/zip/:zipUrl/:filename` — file extraction from ZIP archives
+- `/proxy/game/:itemId/:filename` — Archive.org game files
+
+> Note: the MAME core (`mameapple2gs.js.gz` / `mameapple2gs.wasm.gz`) and BIOS are **not stored in the repository** — they are fetched at runtime through the proxy endpoints above.
 
 ## Development History
 
@@ -109,28 +118,26 @@ This is an Apple IIgs online emulator project that allows users to play classic 
 
 ## Key Files
 
-### Core Application
+### Core Application (repository root)
 - `index.html` - Main application (HTML + CSS + JavaScript)
 - `server.js` - Local backend proxy server
-- `games.js` - Game database (130 games, 44 URLs converted to proxy format)
+- `games.js` - Game database (130 games)
 - `package.json` - Dependencies and scripts
 
-### Cloudflare Deployment (`cf-deploy/`)
+### Cloudflare Pages (repository root)
 - `functions/proxy/[[path]].js` - Pages Functions proxy handler
 - `_redirects` - Route configuration
 - `wrangler.toml` - Cloudflare Pages configuration
-- `worker.js` - Standalone Worker version
+- `.github/workflows/cf-deploy.yml` - GitHub Actions: auto-deploys to Pages on every push to `main`
+
+### Auxiliary Scripts (`cf-deploy/`)
+- `worker.js` + `wrangler-worker.toml` - Standalone Worker version
 - `cloudflare_deploy.md` - Deployment guide
-- `deploy-windows.bat` / `deploy.sh` - Automated deployment scripts
-- `test-zip-files.js` - ZIP functionality testing
+- `deploy-windows.bat` / `deploy.sh` - Manual deployment scripts
+- `test-deployment.js` / `test-zip-files.js` - Deployment & ZIP testing
 - `update-games-for-cloudflare.js` - Game data conversion tool
 
-### Development Tools
-- `wikipedia-desc-updater.js` - Automated description generator
-- `src/game-expander.ts` - Game library expansion tool
-- `generate-from-gamelist.js` - Legacy expansion script
-- `expand_games_python.py` - Python expansion tool
-- `Expand-Games.ps1` - PowerShell expansion tool
+> Note: one-off development tools from earlier phases (game expander scripts, Wikipedia description updater, etc.) have been removed from the repository; their output is baked into `games.js`.
 
 ### Documentation
 - `README.md` - Main project documentation (Chinese)
@@ -142,17 +149,19 @@ This is an Apple IIgs online emulator project that allows users to play classic 
 ### Game Data Structure
 ```javascript
 {
-  name: "English Name",           // Primary display name
+  id: "archive_id",              // Archive.org item ID or full URL
+  emu: "apple2gs",              // Emulator core
+  name: "English Name",          // Primary display name
   nameCh: "中文名稱",             // Chinese translation
-  year: 1987,                     // Release year
-  developer: "Developer Name",    // Developer/Publisher
-  type: "Game",                   // Category
-  desc: "400-word description",   // Rich description
+  year: 1987,                    // Release year
+  developer: "Developer Name",   // Developer
+  publisher: "Publisher Name",   // Publisher
+  type: "Game",                  // Category
+  desc: "400-word description",  // Rich description
   descCh: "400字中文描述",        // Chinese description
-  itemId: "archive_id",          // Archive.org item ID or full URL
-  file: "disk1.woz",             // Primary game file
+  file: "disk1.woz",             // Primary game file (name, full URL, or "zip.zip/inner.po")
   file2: "disk2.woz",            // Secondary game file (optional)
-  screenshot: "/proxy/url/...",   // Screenshot (converted to proxy format)
+  screenshot: "/proxy/url/...",  // Screenshot URL (proxy format)
 }
 ```
 
@@ -218,16 +227,21 @@ npm start
 ```
 
 ### 2. Cloudflare Pages (Recommended)
+The Cloudflare Pages config (`wrangler.toml`, `_redirects`, `functions/`) now lives at the **repository root**, so deployment runs from the root rather than `cf-deploy/`.
+
 ```bash
-cd cf-deploy
-wrangler pages deploy .. --project-name=a2gsemu-ia
-# Global CDN deployment with full functionality
+# From the repository root
+npm run deploy-pages
+# = wrangler pages deploy . --project-name=a2gsemu-ia
 ```
 
-### 3. Static Hosting
-- Direct file serving (limited functionality)
-- No ZIP support or audio
-- Automatic fallback to IA embedded mode
+- **Auto-deploy**: `.github/workflows/cf-deploy.yml` triggers `pages deploy .` on every push to `main` (uses `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` secrets).
+- Global CDN deployment with full functionality.
+
+### 3. Simple Mode / Static Hosting
+- The full-featured app requires a proxy backend (local `server.js` or Cloudflare Pages Functions) for audio and ZIP support.
+- A zero-backend **Simple Mode** build lives on the separate **`OneHtmlFile`** branch (served at https://anomixer.github.io/a2gsemu-ia), embedding the Internet Archive emulator directly via iframe.
+- Simple Mode limitations: no ZIP support, no custom audio, no scale-to-fit (cross-origin iframe constraints).
 
 ## Recent Major Updates
 

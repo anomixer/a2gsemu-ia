@@ -7,8 +7,8 @@
 const fs = require('fs');
 const path = require('path');
 
-// 讀取 games.js 檔案
-const gamesPath = path.join(__dirname, 'games.js');
+// 讀取 games.js 檔案（位於 repo 根目錄）
+const gamesPath = path.join(__dirname, '..', 'games.js');
 let gamesContent = fs.readFileSync(gamesPath, 'utf8');
 
 // 轉換函數：將完整 URL 轉換為代理路徑
