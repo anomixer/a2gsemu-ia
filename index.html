@@ -1938,6 +1938,10 @@
                                 console.log('✅ 磁碟 + 組態已寫入 GS² 檔案系統');
                             } catch (e) {
                                 console.error('寫入磁碟/組態失敗:', e);
+                                // Do not let GS² continue with an empty / partial
+                                // virtual disk: that only produces a misleading
+                                // "not a startup disk" message later.
+                                throw e;
                             }
                         }],
                         totalDependencies: 0,

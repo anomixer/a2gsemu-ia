@@ -192,6 +192,7 @@ Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`
     - **Fix**: `startEmulator()` fetches that profile unchanged, writes it to `/uploads/IIgs.gs2`, maps ordinary `file`/`file2` to S5D1/S5D2, and leaves slot 7 for HDD use. A `preRun` readback verifies each browser virtual FS disk's byte length and logs its first boot byte, plus verifies the stored config contains slot 7 `bazfast3`.
 16. **Diagnose `not a startup disk`** (August 2026, `gs2` branch)
     - **Correction**: ROM 3 already provides S5 (800K) and S6 (140K) floppy drives, and boots in order 7 → 6 → 5. Keep ordinary 800K game images on S5; do not force them onto S7 merely because the profile declares a faster `bazfast3` SmartPort there. The `preRun` FS readback makes missing/partial writes immediately visible in the browser console.
+    - **Virtual FS status**: the browser path is implemented end-to-end (`fetch` → `Uint8Array` → `FS.writeFile` → `FS.readFile` length/boot-byte verification → `-ds5d1=/uploads/...`). `preRun` now rethrows verification/write errors so GS² cannot continue with an empty or partial image and mask the real failure as `not a startup disk`.
 
 ## Key Files
 
