@@ -1,0 +1,5 @@
+# Cross-Origin Isolation (COOP/COEP) — required for SharedArrayBuffer / pthreads
+# (GSSquared wasm core is compiled with -pthread)
+/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp

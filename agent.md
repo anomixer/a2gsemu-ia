@@ -9,8 +9,10 @@ This is an Apple IIgs online emulator project that allows users to play classic 
 ### Frontend
 - **Main File**: `index.html` (renamed from `index_emularity_v8.html`)
 - **Game Database**: `games.js` (130 games with English/Chinese names)
-- **Emulator**: Uses Emularity framework with MAME Apple IIgs core
-- **Features**: Mouse lock, full-screen mode, intelligent search, responsive design
+- **Emulator core**:
+  - **`main` / MAME branch**: Emularity framework with the MAME Apple IIgs core (`mameapple2gs.js.gz` / `mameapple2gs.wasm.gz`, ~66 MB).
+  - **`gs2` branch (this branch)**: **GS² (GSSquared)** Apple IIgs core compiled to WebAssembly — `gs2/GSSquared.js` + `gs2/GSSquared.wasm` + `gs2/GSSquared.data` (~4.9 MB wasm + ~3 MB data, SIMD). Fast, native ProDOS/WOZ support, no BIOS mount needed (BIOS is baked into `GSSquared.data`). See the [GS² Engine](#gs2-gssquared-engine---gs2-branch) section for the full dev process.
+- **Features**: Mouse lock, full-screen mode, intelligent search, responsive design, scale-to-fit toggle
 
 ### Backend Options
 1. **Local Server**: `server.js` (Node.js + Express)
@@ -28,7 +30,62 @@ This is an Apple IIgs online emulator project that allows users to play classic 
 - `/proxy/zip/:zipUrl/:filename` — file extraction from ZIP archives
 - `/proxy/game/:itemId/:filename` — Archive.org game files
 
-> Note: the MAME core (`mameapple2gs.js.gz` / `mameapple2gs.wasm.gz`) and BIOS are **not stored in the repository** — they are fetched at runtime through the proxy endpoints above.
+> Note: on the **MAME branch** the core (`mameapple2gs.js.gz` / `mameapple2gs.wasm.gz`) and BIOS are **not stored in the repository** — they are fetched at runtime through the proxy endpoints above. On the **`gs2` branch** the core **is** stored in the repo under `gs2/` (see below), and is served locally via `express.static('.')` / Cloudflare Pages.
+
+## GS² (GSSquared) Engine — `gs2` Branch
+
+The `gs2` branch swaps the MAME core for the **GS²** (GSSquared) Apple IIgs core, a WebAssembly port (SDL3 + Emscripten). Rationale: MAME was slow and its UX was poor; GS² is markedly faster (~5 MB wasm vs 66 MB) and boots native ProDOS without a separate BIOS mount.
+
+### Core files (in-repo, `gs2/`)
+- `gs2/GSSquared.js` — Emscripten runtime + glue (SDL3, audio, canvas, FS)
+- `gs2/GSSquared.wasm` — the core (~4.9 MB, SIMD build)
+- `gs2/GSSquared.data` — preloaded data: BIOS ROMs (`/resources/roms/apple2gs/*.rom`), default system configs, etc. (~3 MB)
+- `gs2/resources/` — runtime resource tree unpacked into the virtual FS
+- `gs2/coi-serviceworker.js` — COI service worker (only needed when the host can't set COOP/COEP headers, e.g. GitHub Pages)
+
+> `loader.js` and `browserfs.min.js` are MAME/Emularity-only; they are **not loaded** by `index.html` on the `gs2` branch.
+
+### How a game launches (`index.html` → `startEmulator`)
+1. **Assemble the disk list** from the `games.js` entry: `file`→slot 5 d1, `file2`→slot 5 d2, `hard1`→slot 7 d1, `hard2`→slot 7 d2. (IIgs slot 5 = 3.5" 800K `bazfast3`; slot 6 = 5.25" `disk_ii`; slot 7 = hard disk `PD_BLOCK3`.)
+2. **Download all disks first** (`downloadWithRetry`, exponential backoff) — resolves each path via `buildFileUrl()`:
+   - leading `/` (e.g. `/4th-and-inches.po`) → served locally from the repo root (`express.static('.')`)
+   - `http(s)://` full URL → `/proxy/url/`
+   - `...zip/inner` → `/proxy/zip/` or `/proxy/game/`
+3. **Write into the Emscripten FS** in `preRun`: `FS.mkdir('/uploads')`, `FS.writeFile('/uploads/<name>', bytes)`, plus a runtime system config `/uploads/iigs_800k.gs2` (cards: slot 3 `second_sight` video, slot 5 `bazfast3`, slot 6 `disk_ii`).
+4. **Launch** `gs2/GSSquared.js` with `Module.arguments = [configPath, '-ds5d1=/uploads/<f>', …]`. GS² auto-launches the config, mounts the disks, and boots.
+
+This is the "browser virtual FS" mount path — the disk bytes are fetched on the JS side and written into the core's virtual FS; no GS² modification is needed to accept a browser-sourced disk image.
+
+### GS² hotkeys (replaces the MAME menu)
+- **F1** — capture mouse (then click the canvas to lock; Esc to release)
+- **F2** — display / CRT shader
+- **F4** — slot / device panel
+- **F6** — joystick
+- **F7** — CRT shader toggle (GS²: **F7 is *not* save state** — GS² has no save/restore in this build; the old MAME F7 / Shift+F7 save-state features are gone on this branch)
+- **F9** — speed control
+- **Ctrl+F12** — soft reset / reboot
+
+### WOZ → raw .po conversion (the 4th & Inches work)
+Many `wozaday_*` games ship only as `.woz` (raw GCR bitstream). The 3.5" 800K drive (`bazfast3`) **refuses a WOZ**: `BazFast: refusing … not a 512-byte block image`. It only accepts a **raw 512-byte block image** (`.po`) — 160 tracks × 10 sectors × 512 B = **819 200 bytes**.
+
+- **Tool**: `tools/woz2po.py` — decodes a WOZ2 3.5" 800K disk to a raw block image.
+  - Parses WOZ2 chunks (`TMAP` track map, `TRKS` descriptors: start-block u16, block-count u16, bit-count u32).
+  - Latches each track's GCR bitstream into nibbles (bit-7 latch), scans every position for the data prologue `D5 AA AD`, and decodes the following **683 6&2-encoded nibbles → 512 bytes** (bit-buffer).
+  - A real data prologue is followed by 683 valid 6&2 nibbles; the tool applies a **90% valid-nibble threshold** to skip false prologue hits in the 4&4 address field.
+  - Missing/undecodable sectors are zero-filled; output is always exactly 819 200 bytes.
+  - Run: `python tools/woz2po.py <in.woz> <out.po>` (Windows: pass the full temp path, since Python's `/tmp` maps to a nonexistent `C:\TMP`).
+- **4th & Inches** specifically: `00playable.woz` → `4th-and-inches.po` (819 200 B). Verified: byte 0 = `$14` (ProDOS boot block) → block 4 = `$0C` (catalog header); track 0 decodes 10/10 clean. ~79% of sectors decode cleanly; the rest are zero-filled.
+- **Wiring**: `games.js` entry `wozaday_4th_and_Inches_IIgs` now uses `"file": "/4th-and-inches.po"` (leading slash → local) and `"screenshot": "/4th-and-inches_screenshot.png"` (a local copy, so it no longer depends on archive.org's flaky download endpoint).
+- **Local screenshot**: several `wozaday_*` games reference bare `00playable_screenshot.png`, which routes through `/proxy/game/` → archive.org. When archive.org 502/503s the image breaks. Fix pattern: download the screenshot into the repo, point `screenshot` at a leading-`/` local path, and note that the screenshot loader in `index.html` has a local-path branch (`screenshot.startsWith('/')`) that serves it from the repo root — the same convention `buildFileUrl` uses for disks.
+
+### COOP/COEP (required for SharedArrayBuffer / pthreads)
+GS² is compiled with pthreads, which needs Cross-Origin Isolation. Both are set in `server.js` (applied to every response) and, for Cloudflare Pages, in the repo-root `_headers`:
+```
+/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
+```
+Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`.
 
 ## Development History
 
@@ -116,6 +173,15 @@ This is an Apple IIgs online emulator project that allows users to play classic 
     - **State Persistence**: Utilized `localStorage` to save the selected `'scaleMode'` (`'fit'` vs `'native'`) and load it automatically on subsequent page loads.
     - **Dynamic Localization**: Built in full Traditional Chinese / English bilingual labels (`"切到原生模式1x" / "切到縮放適應"` and `"Switch to Native 1x" / "Switch to Scale to Fit"`) that update immediately upon language changes.
 
+13. **GS² (GSSquared) Engine Migration + WOZ→.po Conversion** (August 2026, `gs2` branch)
+    - **Branch base**: `gs2` branches off `main` (merge-base is main's tip), and the GS² engine + `roms/` disk images were added on top of that tree.
+    - **Core swap**: dropped the MAME/Emularity stack (`loader.js`, `browserfs.min.js` no longer loaded) and the 66 MB MAME core; added the GS² core under `gs2/` (`GSSquared.js`/`.wasm`/`.data`). GS² boots native ProDOS with the BIOS baked into `GSSquared.data` — no BIOS mount step.
+    - **Launch rewrite** in `index.html`: `startEmulator()` assembles disks (slot 5 d1/d2, slot 7 d1/d2), downloads them, writes them into the Emscripten FS (`FS.writeFile('/uploads/…')`) plus a runtime config `iigs_800k.gs2`, then launches `gs2/GSSquared.js` with `-ds…=` mount args.
+    - **COOP/COEP** headers added in `server.js` + `_headers` (Cloudflare Pages) so `SharedArrayBuffer` is available for the pthreads build.
+    - **WOZ → 800K .po** for `wozaday_*` games that only ship `.woz` (the 3.5" `bazfast3` drive rejects WOZ): built `tools/woz2po.py` (GCR bit-7 latch, `D5 AA AD` prologue scan, 683 6&2 nibbles → 512 B, 90% valid-nibble threshold) and produced `4th-and-inches.po` (819 200 B) from `00playable.woz`.
+    - **4th & Inches wired locally**: `games.js` entry `wozaday_4th_and_Inches_IIgs` now points at `/4th-and-inches.po` and a local `/4th-and-inches_screenshot.png` (downloaded into the repo so it no longer depends on archive.org's flaky download endpoint). The screenshot loader in `index.html` gained a local-path branch (`screenshot.startsWith('/')`) mirroring `buildFileUrl`.
+    - **Status / known limits**: the disk mounts and the 6502 runs (verified via console), but full in-browser play of 4th & Inches is still being validated — see the [WOZ → raw .po conversion](#woz--raw-po-conversion-the-4th--inches-work) notes for the decode coverage (~79% of sectors clean) and the still-open display/letterbox + boot-loop investigation. GS² has **no save/restore** in this build (MAME F7 / Shift+F7 save-state are gone; F7 is now the CRT-shader toggle).
+
 ## Key Files
 
 ### Core Application (repository root)
@@ -123,6 +189,16 @@ This is an Apple IIgs online emulator project that allows users to play classic 
 - `server.js` - Local backend proxy server
 - `games.js` - Game database (130 games)
 - `package.json` - Dependencies and scripts
+
+### GS² branch (in-repo core + disk images)
+- `gs2/GSSquared.js` / `gs2/GSSquared.wasm` / `gs2/GSSquared.data` - GS² (GSSquared) WASM core + preloaded BIOS/resources
+- `gs2/coi-serviceworker.js` - COI service worker (for hosts that can't set COOP/COEP)
+- `_headers` - Cloudflare Pages COOP/COEP headers (required for `SharedArrayBuffer`)
+- `4th-and-inches.po` - WOZ→.po decoded 800K block image for 4th & Inches (served locally)
+- `4th-and-inches_screenshot.png` - local copy of the 4th & Inches screenshot (avoids archive.org flakiness)
+- `roms/GSOS601.po` / `roms/SpaceAce2.po` - Space Ace 2 hard-disk images (slot 7)
+- `tools/woz2po.py` - WOZ2 3.5" 800K → raw `.po` block-image converter (GCR decoder)
+- `tools/debug_*.py`, `tools/dump_info.py`, `tools/woz2raw.py` - intermediate WOZ diagnostic/prototype scripts (kept for reference)
 
 ### Cloudflare Pages (repository root)
 - `functions/proxy/[[path]].js` - Pages Functions proxy handler
@@ -364,6 +440,13 @@ const actualUncompressedSize = uncompressedSize || view.getUint32(offset + 24, t
 - Cloudflare Pages Functions provide excellent serverless proxy capabilities
 - DecompressionStream requires careful async handling
 - Archive.org has unique ZIP file access patterns
+- **GS² / `bazfast3`** only accepts a **raw 512-byte block image** (`.po`, exactly 819 200 B for 3.5" 800K); it rejects a `.woz` bitstream outright (`BazFast: refusing … not a 512-byte block image`) — convert with `tools/woz2po.py` first
+- **GS² needs Cross-Origin Isolation** (COOP/COEP) for `SharedArrayBuffer` (pthreads); without it the core won't run — set in `server.js` and `_headers`
+- **The "browser virtual FS" already exists** — `index.html` fetches the disk and `FS.writeFile`s it into `/uploads/`, then mounts with `-ds…=`; you do **not** need to modify GS² to accept a browser-sourced image, only to supply the right *format* (`.po`, not `.woz`)
+- **Canvas sizing for GS²**: the canvas must keep the IIgs `1288:928` (≈1.39) landscape ratio; forcing `width:100%` *and* `height:100%` in a tall wrapper makes GS² letterbox into a tiny band (and a missing definite width collapses it to `1x1` → black screen). Keep a definite width and derive height from the aspect ratio.
+- **archive.org download endpoints are flaky** (intermittent 502/503): for critical assets (disks, screenshots) prefer a **local copy** in the repo served by `express.static('.')`, referenced by a leading-`/` path, rather than a bare filename routed through `/proxy/game/`
+- **Windows + Python**: `/tmp` maps to a nonexistent `C:\TMP`; pass the real temp path (`%LOCALAPPDATA%\Temp`) when running `tools/woz2po.py`
+- **A stuck 6502 in a tiny PC loop** (e.g. `$6A5F–$6A67` repeating across millions of cycles) means the boot monitor is idling, not a healthy GS/OS desktop — a mount can succeed while the OS still fails to boot if needed sectors are missing
 
 ### Process Improvements
 - Automated tools reduce manual work dramatically

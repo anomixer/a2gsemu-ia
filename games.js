@@ -24,14 +24,14 @@ window.games = [
   {
     "id": "wozaday_4th_and_Inches_IIgs",
     "emu": "apple2gs",
-    "file": "00playable.woz",
+    "file": "/4th-and-inches.po",
     "name": "4th & Inches",
     "year": "1988",
     "type": "game",
     "desc": "4th & Inches is a detailed American football simulation that emphasizes strategic play-calling. Players act as both coach and athlete, choosing formations and plays from a comprehensive playbook before executing them on the field. The gameplay features a side-scrolling view where you control key players to pass, run, or tackle, aiming to outmaneuver the defense and score touchdowns.",
     "developer": "Tony Manso & Sculptured Software",
     "publisher": "Accolade",
-    "screenshot": "00playable_screenshot.png",
+    "screenshot": "/4th-and-inches_screenshot.png",
     "nameCh": "美式足球：第四碼",
     "descCh": "4th & Inches 是一款詳細的美式足球模擬遊戲，強調策略性的比賽指揮。球員既充當教練又充當運動員，從全面的戰術手冊中選擇陣型和比賽，然後在場上執行。遊戲採用橫向捲軸視圖，您可以控制關鍵球員傳球、跑動或攔截，旨在突破防守並達陣得分。"
   },
@@ -1875,5 +1875,20 @@ window.games = [
     "screenshot": "00_coverscreenshot.jpg",
     "nameCh": "Dream Vision Demo展示",
     "descCh": "Dream Video 是一款多媒體展示和播放實用程式，旨在在 Apple IIGS 上展示高質量的數字影片。它不是一個遊戲，而是一個交互式“媒體播放器”，可將數字化 8 位音頻與全彩圖形序列同步。遊戲體驗包括“導航菜單”以選擇不同的動畫剪輯，展示了硬體在通過 Ensoniq 音效晶片播放複雜樂譜的同時顯示“數百種顏色”的能力。"
+  },
+  {
+    "id": "msdos_Space_Ace_II_-_Borfs_Revenge_1991",
+    "emu": "apple2gs",
+    "hard1": "/roms/GSOS601.po",
+    "hard2": "/roms/SpaceAce2.po",
+    "name": "Space Ace II: Borf's Revenge",
+    "year": "1991 / 2022",
+    "type": "game",
+    "desc": "Space Ace II: Borf's Revenge serves as the high-stakes sequel to the original LaserDisc hit. Commander Borf returns with a vengeance, kidnapping Dexter’s beloved Kimberly to lure the hero into a trap. Retaining the fluid, cinematic animation style of Don Bluth, the game challenges players to navigate perilous environments through quick-time events. As Dexter, players must strategically use 'energizing' power-ups to transform back into his adult persona, Ace, to overcome Borf's deadly minions and dismantle the villain's latest scheme once and for all.",
+    "developer": "Sullivan Bluth / Antoine Vignau & Olivier Zardini",
+    "publisher": "ReadySoft / Brutal Deluxe",
+    "screenshot": "https://www.atarilegend.com/storage/images/game_release_scans/1424.jpg",
+    "nameCh": "太空王牌II：博夫的復仇",
+    "descCh": "Space Ace II: Borf's Revenge 延續了前作的傳奇。邪惡的 Borf 指揮官再次歸來，綁架了 Dexter 的愛人 Kimberly，企圖報復並毀滅地球。這款續作保留了 Don Bluth 標誌性的動畫風格，玩家需要透過精確的反應與判斷，引導 Dexter 在各種致命的關卡中生存。遊戲的核心樂趣在於 Dexter 必須在「少年狀態」與「強壯的 Ace」之間切換，最終深入 Borf 的要塞展開決戰並救出女友。"
   }
 ];

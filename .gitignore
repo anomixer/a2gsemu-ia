@@ -54,6 +54,10 @@ temp/
 Thumbs.db
 ehthumbs.db
 
+# Python (tools/)
+__pycache__/
+*.pyc
+
 # TypeScript
 *.tsbuildinfo
 

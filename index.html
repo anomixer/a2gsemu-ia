@@ -366,13 +366,28 @@
         .iframe-wrapper {
             flex: 1;
             display: flex;
-            align-items: flex-start;
-            justify-content: flex-start;
+            align-items: center;
+            justify-content: center;
             background: #000;
             padding: 10px;
             position: relative;
             overflow: auto;
             min-height: 0;
+        }
+
+        #loadingTip {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.75);
+            color: #4CAF50;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            z-index: 10;
+            pointer-events: none;
+            white-space: nowrap;
         }
 
         #gameScreenshot {
@@ -400,7 +415,9 @@
             display: block;
             margin: 0 auto;
             width: 704px;
-            height: 462px;
+            /* GS² NTSC 輸出比例 1288:928（取代 MAME 的 704x462 固定尺寸） */
+            aspect-ratio: 1288 / 928;
+            height: auto;
             border: none;
             border-radius: 5px;
             box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
@@ -880,7 +897,8 @@
                 <div class="emulator-content">
                     <div class="iframe-wrapper">
                         <img id="gameScreenshot" class="hidden" src="" alt="遊戲截圖">
-                        <canvas id="canvas"></canvas>
+                        <canvas id="canvas" oncontextmenu="event.preventDefault()" tabindex="-1"></canvas>
+                        <div id="loadingTip" class="hidden">載入中...</div>
                     </div>
 
                     <div class="resizer" id="rightResizer"></div>
@@ -900,12 +918,12 @@
                             <div class="info-section">
                                 <h3>💡 Usage Tips</h3>
                                 <ul>
-                                    <li>⏱️ First load takes 10-30 seconds, please be patient</li>
+                                    <li>⏱️ First load downloads the emulator core — please be patient</li>
                                     <li>🔊 Sound works perfectly! Using backend proxy to solve CORS</li>
                                     <li>⛶ Recommend using fullscreen mode for best experience</li>
-                                    <li>💾 MAME automatically saves game state to browser</li>
+                                    <li>🖱️ Press F1 then click the screen to capture the mouse</li>
                                     <li>🎯 Some games support mouse operation</li>
-                                    <li>⚡ If game is slow, adjust CPU speed to accelerate</li>
+                                    <li>⚡ If game is slow, press F9 to toggle speed</li>
                                     <li>🔄 Press 🔄 to reset if encountering problems</li>
                                 </ul>
                             </div>
@@ -927,42 +945,34 @@
                             </div>
 
                             <div class="info-section">
-                                <h3>🎮 MAME Emulator Controls</h3>
+                                <h3>🎮 GS² Emulator Controls</h3>
 
                                 <div class="mame-section">
                                     <h4></h4>
                                     <ul>
-                                        <li><span class="key-combo">Scroll Lock</span> Toggle MAME UI mode</li>
-                                        <li><span class="key-combo">Tab</span> Open MAME menu</li>
-                                        <li><span class="key-combo">~</span> (Tilde) Quick menu</li>
-                                        <li><span class="key-combo">P</span> Pause emulator</li>
-                                        <li><span class="key-combo">F4</span> Show palette</li>
-                                        <li><span class="key-combo">F8</span> Decrease frameskip</li>
-                                        <li><span class="key-combo">F9</span> Increase frameskip</li>
+                                        <li><span class="key-combo">F1</span> Capture / release mouse</li>
+                                        <li><span class="key-combo">F2</span> Toggle monitor mode</li>
+                                        <li><span class="key-combo">F3</span> Fullscreen</li>
+                                        <li><span class="key-combo">F4</span> Slot manager</li>
+                                        <li><span class="key-combo">F6</span> Joystick mode</li>
+                                        <li><span class="key-combo">F7</span> CRT shader on/off</li>
+                                        <li><span class="key-combo">F9</span> Speed toggle</li>
+                                        <li><span class="key-combo">Ctrl + F12</span> Control-Reset (reboot)</li>
                                     </ul>
                                 </div>
 
                                 <div class="mame-section">
                                     <h4></h4>
                                     <p style="font-size:12px; color:#ddd; margin-bottom:8px;">
-                                        First press <span class="key-combo">Scroll Lock</span> to open UI → then press <span
-                                            class="key-combo">Tab</span> → select <span class="highlight">Machine
-                                            Configuration</span>
+                                        Mouse: press <span class="key-combo">F1</span> to capture → then
+                                        <strong>click the canvas</strong> to lock the pointer
+                                        (press <span class="key-combo">Esc</span> to release)
                                     </p>
                                     <ul>
-                                        <li><strong>CPU Speed:</strong> Adjust CPU execution speed
-                                            <br><small style="color:#888;">Can accelerate slow games or slow down fast
-                                                games</small>
-                                        </li>
-                                        <li><strong>Video Options:</strong> Video settings
-                                            <br><small style="color:#888;">Adjust screen size, filter effects</small>
-                                        </li>
-                                        <li><strong>Audio Options:</strong> Audio settings
-                                            <br><small style="color:#888;">Volume, sample rate adjustment</small>
-                                        </li>
-                                        <li><strong>Input Settings:</strong> Input settings
-                                            <br><small style="color:#888;">Custom key configuration</small>
-                                        </li>
+                                        <li><strong>Apple Keys:</strong> Left / Right Alt = Open / Closed Apple</li>
+                                        <li><strong>Reboot (IIgs):</strong> Ctrl + F12 + Left Alt</li>
+                                        <li><strong>Slot Manager:</strong> <span class="key-combo">F4</span> to
+                                            configure drives & slots</li>
                                     </ul>
                                 </div>
                             </div>
@@ -986,14 +996,13 @@
             </div>
         </div>
 
-        <script src="./browserfs.min.js"></script>
-        <script src="./loader.js"></script>
         <script src="./games.js"></script>
 
         <script>
             let currentGame = null;
             let currentEmulator = null;
-            let emularityReady = false;
+            let gs2Ready = false;
+            let gs2Launching = false;
 
             // 語言設定初始化
             let currentLanguage = 'zh'; // 預設中文
@@ -1039,7 +1048,7 @@
                     gameInfoDesc: '選擇遊戲後顯示詳細資訊',
                     tips: '💡 使用提示',
                     controls: '⌨️ 一般操作說明',
-                    mameControls: '🎮 MAME 模擬器操作',
+                    mameControls: '🎮 GS² 模擬器操作',
                     about: 'ℹ️ 關於 Apple IIgs',
                     year: '年份',
                     developer: '開發商',
@@ -1051,12 +1060,12 @@
                     typeSpecial: '特別收藏',
                     // 使用提示
                     tipsList: [
-                        '⏱️ 首次載入需要 10-30 秒,請耐心等待',
+                        '⏱️ 首次載入需下載模擬核心,請耐心等待',
                         '🔊 聲音完全正常！使用後端代理解決 CORS',
                         '⛶ 建議使用全螢幕模式以獲得最佳體驗',
-                        '💾 MAME 會自動儲存遊戲狀態到瀏覽器',
+                        '🖱️ 按 F1 再點一下畫面即可捕捉滑鼠',
                         '🎯 部分遊戲支援滑鼠操作',
-                        '⚡ 如遊戲過慢,可調整 CPU 速度加快',
+                        '⚡ 如遊戲過慢,可按 F9 切換速度',
                         '🔄 遇到問題可按 🔄 重置'
                     ],
                     // 一般控制
@@ -1070,30 +1079,24 @@
                         '<span class="key-combo">右邊數字鍵</span> 搖桿方向',
                         '<span class="key-combo">左右Alt</span> 搖桿按鈕0,1'
                     ],
-                    // MAME 控制
+                    // GS² 控制
                     mameBasicTitle: '📋 基本控制',
                     mameBasicList: [
-                        '<span class="key-combo">Scroll Lock</span> 開啟/關閉 MAME UI 模式',
-                        '<span class="key-combo">Tab</span> 開啟 MAME 選單',
-                        '<span class="key-combo">~</span> (波浪號) 快速選單',
-                        '<span class="key-combo">P</span> 暫停模擬器',
-                        '<span class="key-combo">F4</span> 顯示調色盤',
-                        '<span class="key-combo">F8</span> 降低幀率跳過',
-                        '<span class="key-combo">F9</span> 提高幀率跳過'
+                        '<span class="key-combo">F1</span> 捕捉/釋放滑鼠',
+                        '<span class="key-combo">F2</span> 切換顯示模式',
+                        '<span class="key-combo">F3</span> 全螢幕',
+                        '<span class="key-combo">F4</span> 槽位管理',
+                        '<span class="key-combo">F6</span> 搖桿模式',
+                        '<span class="key-combo">F7</span> CRT 陰極射線管效果',
+                        '<span class="key-combo">F9</span> 切換速度',
+                        '<span class="key-combo">Ctrl + F12</span> 控制-重設(重開機)'
                     ],
-                    mameMachineTitle: '⚙️ 機器設定',
-                    mameMachineDesc: '先按 <span class="key-combo">Scroll Lock</span> 開啟 UI → 再按 <span class="key-combo">Tab</span> → 選擇 <span class="highlight">Machine Configuration</span>',
+                    mameMachineTitle: '🖱️ 滑鼠與系統鍵',
+                    mameMachineDesc: '滑鼠:按 <span class="key-combo">F1</span> 捕捉 → 再<strong>點一下畫面</strong>鎖定指標(按 <span class="key-combo">Esc</span> 釋放)',
                     mameMachineList: [
-                        '<strong>CPU Speed:</strong> 調整 CPU 執行速度<br><small style="color:#888;">可加速慢速遊戲或減速過快遊戲</small>',
-                        '<strong>Video Options:</strong> 視訊設定<br><small style="color:#888;">調整畫面大小、濾鏡效果</small>',
-                        '<strong>Audio Options:</strong> 音訊設定<br><small style="color:#888;">音量、取樣率調整</small>',
-                        '<strong>Input Settings:</strong> 輸入設定<br><small style="color:#888;">自訂按鍵配置</small>'
-                    ],
-                    mameSaveTitle: '💾 存檔/讀檔',
-                    mameSaveList: [
-                        '<span class="key-combo">Shift+F7</span> 存檔到當前槽位',
-                        '<span class="key-combo">F7</span> 從當前槽位讀檔',
-                        '支援多個存檔槽位 (0-9)'
+                        '<strong>Apple 鍵:</strong> 左/右 Alt = Open / Closed Apple',
+                        '<strong>重開機 (IIgs):</strong> Ctrl + F12 + 左 Alt',
+                        '<strong>槽位管理:</strong> <span class="key-combo">F4</span> 設定磁碟機與插槽'
                     ],
                     // 關於 Apple IIgs
                     aboutDesc1: 'Apple IIgs 是 Apple Computer 於 1986 年 9 月推出的 16 位元個人電腦,是 Apple II 系列的最後一款產品。',
@@ -1134,7 +1137,7 @@
                     gameInfoDesc: 'Detailed information will be displayed after selecting a game',
                     tips: '💡 Usage Tips',
                     controls: '⌨️ General Controls',
-                    mameControls: '🎮 MAME Emulator Controls',
+                    mameControls: '🎮 GS² Emulator Controls',
                     about: 'ℹ️ About Apple IIgs',
                     year: 'Year',
                     developer: 'Developer',
@@ -1146,12 +1149,12 @@
                     typeSpecial: 'Special',
                     // Usage Tips
                     tipsList: [
-                        '⏱️ First load takes 10-30 seconds, please be patient',
+                        '⏱️ First load downloads the emulator core — please be patient',
                         '🔊 Sound works perfectly! Using backend proxy to solve CORS',
                         '⛶ Recommend using fullscreen mode for best experience',
-                        '💾 MAME automatically saves game state to browser',
+                        '🖱️ Press F1 then click the screen to capture the mouse',
                         '🎯 Some games support mouse operation',
-                        '⚡ If game is slow, adjust CPU speed to accelerate',
+                        '⚡ If game is slow, press F9 to toggle speed',
                         '🔄 Press 🔄 to reset if encountering problems'
                     ],
                     // General Controls
@@ -1165,30 +1168,24 @@
                         '<span class="key-combo">Numpad</span> Joystick direction',
                         '<span class="key-combo">Left/Right Alt</span> Joystick buttons 0,1'
                     ],
-                    // MAME Controls
+                    // GS² Controls
                     mameBasicTitle: '📋 Basic Controls',
                     mameBasicList: [
-                        '<span class="key-combo">Scroll Lock</span> Toggle MAME UI mode',
-                        '<span class="key-combo">Tab</span> Open MAME menu',
-                        '<span class="key-combo">~</span> (Tilde) Quick menu',
-                        '<span class="key-combo">P</span> Pause emulator',
-                        '<span class="key-combo">F4</span> Show palette',
-                        '<span class="key-combo">F8</span> Decrease frameskip',
-                        '<span class="key-combo">F9</span> Increase frameskip'
+                        '<span class="key-combo">F1</span> Capture / release mouse',
+                        '<span class="key-combo">F2</span> Toggle monitor mode',
+                        '<span class="key-combo">F3</span> Fullscreen',
+                        '<span class="key-combo">F4</span> Slot manager',
+                        '<span class="key-combo">F6</span> Joystick mode',
+                        '<span class="key-combo">F7</span> CRT shader on/off',
+                        '<span class="key-combo">F9</span> Speed toggle',
+                        '<span class="key-combo">Ctrl + F12</span> Control-Reset (reboot)'
                     ],
-                    mameMachineTitle: '⚙️ Machine Configuration',
-                    mameMachineDesc: 'First press <span class="key-combo">Scroll Lock</span> to open UI → then press <span class="key-combo">Tab</span> → select <span class="highlight">Machine Configuration</span>',
+                    mameMachineTitle: '🖱️ Mouse & System Keys',
+                    mameMachineDesc: 'Mouse: press <span class="key-combo">F1</span> to capture → then <strong>click the canvas</strong> to lock the pointer (press <span class="key-combo">Esc</span> to release)',
                     mameMachineList: [
-                        '<strong>CPU Speed:</strong> Adjust CPU execution speed<br><small style="color:#888;">Can accelerate slow games or slow down fast games</small>',
-                        '<strong>Video Options:</strong> Video settings<br><small style="color:#888;">Adjust screen size, filter effects</small>',
-                        '<strong>Audio Options:</strong> Audio settings<br><small style="color:#888;">Volume, sample rate adjustment</small>',
-                        '<strong>Input Settings:</strong> Input settings<br><small style="color:#888;">Custom key configuration</small>'
-                    ],
-                    mameSaveTitle: '💾 Save/Load',
-                    mameSaveList: [
-                        '<span class="key-combo">Shift+F7</span> Save to current slot',
-                        '<span class="key-combo">F7</span> Load from current slot',
-                        'Support multiple save slots (0-9)'
+                        '<strong>Apple Keys:</strong> Left / Right Alt = Open / Closed Apple',
+                        '<strong>Reboot (IIgs):</strong> Ctrl + F12 + Left Alt',
+                        '<strong>Slot Manager:</strong> <span class="key-combo">F4</span> to configure drives & slots'
                     ],
                     // About Apple IIgs
                     aboutDesc1: 'Apple IIgs is a 16-bit personal computer released by Apple Computer in September 1986, the last product in the Apple II series.',
@@ -1333,7 +1330,7 @@
                     controlsList2.innerHTML = t('controlsList').slice(6).map(control => `<li>${control}</li>`).join('');
                 }
 
-                // 更新 MAME 控制
+                // 更新 GS² 控制
                 const mameTitle = document.querySelector('.info-section:nth-child(4) h3');
                 if (mameTitle) mameTitle.textContent = t('mameControls');
 
@@ -1371,35 +1368,6 @@
                     const mameMachineList = mameSections[1].querySelector('ul');
                     if (mameMachineList) {
                         mameMachineList.innerHTML = t('mameMachineList').map(item => `<li>${item}</li>`).join('');
-                    }
-                }
-
-                // 動態添加存檔/讀檔區塊（如果不存在）
-                let mameSaveSection = mameSections.length >= 3 ? mameSections[2] : null;
-                if (!mameSaveSection) {
-                    const mameControlsSection = document.querySelector('.info-section:nth-child(4)');
-                    if (mameControlsSection) {
-                        mameSaveSection = document.createElement('div');
-                        mameSaveSection.className = 'mame-section';
-                        mameSaveSection.innerHTML = `
-                            <h4></h4>
-                            <ul></ul>
-                        `;
-                        // 插入到機器設定區塊之後
-                        if (mameSections.length >= 2 && mameSections[1].parentNode) {
-                            mameSections[1].parentNode.insertBefore(mameSaveSection, mameSections[1].nextSibling);
-                        }
-                    }
-                }
-
-                // 存檔/讀檔 - 使用 mameSaveSection 而不是依賴 mameSections.length
-                if (mameSaveSection) {
-                    const mameSaveTitle = mameSaveSection.querySelector('h4');
-                    if (mameSaveTitle) mameSaveTitle.innerHTML = t('mameSaveTitle');
-
-                    const mameSaveList = mameSaveSection.querySelector('ul');
-                    if (mameSaveList) {
-                        mameSaveList.innerHTML = t('mameSaveList').map(item => `<li>${item}</li>`).join('');
                     }
                 }
 
@@ -1540,9 +1508,20 @@
                 }
             };
 
+            // GS² 音訊 context（SDL3 WebAudio backend）
+            function getGs2AudioContext() {
+                try {
+                    if (window.Module && window.Module.SDL3 && window.Module.SDL3.audioContext) {
+                        return window.Module.SDL3.audioContext;
+                    }
+                } catch (e) { }
+                return null;
+            }
+
             function updateMuteButton() {
                 if (!muteBtn) return;
-                const muted = currentEmulator ? currentEmulator.isMuted() : uiMuted;
+                const ctx = getGs2AudioContext();
+                const muted = ctx ? (ctx.state === 'suspended') : uiMuted;
                 uiMuted = muted;
                 muteBtn.innerHTML = muted ? t('mute') : t('unmute');
                 muteBtn.title = muted ? t('mute') : t('unmute');
@@ -1551,7 +1530,10 @@
             if (muteBtn) {
                 muteBtn.onclick = () => {
                     uiMuted = !uiMuted;
-                    if (currentEmulator) currentEmulator.setMute(uiMuted);
+                    const ctx = getGs2AudioContext();
+                    if (ctx) {
+                        if (uiMuted) ctx.suspend(); else ctx.resume();
+                    }
                     updateMuteButton();
                 };
                 updateMuteButton();
@@ -1661,42 +1643,6 @@
 
             const games = dedupeGames(window.games);
 
-            function waitForEmularity() {
-                const startTime = Date.now();
-                return new Promise((resolve, reject) => {
-                    const check = () => {
-                        if (typeof window.Emulator !== 'undefined' && typeof window.JSMAMELoader !== 'undefined' && typeof window.BrowserFS !== 'undefined') {
-                            try {
-                                // 關閉 IndexedDB 快取，避免多次啟動時舊檔案狀態干擾
-                                if (BrowserFS.FileSystem && BrowserFS.FileSystem.IndexedDB) {
-                                    BrowserFS.FileSystem.IndexedDB.isAvailable = () => false;
-                                }
-                            } catch (e) {
-                                console.warn('停用 BrowserFS IndexedDB 失敗:', e);
-                            }
-                            console.log('✅ Emularity 就緒！');
-                            emularityReady = true;
-                            resolve();
-                        } else if (Date.now() - startTime > 20000) {
-                            reject(new Error('逾時'));
-                        } else {
-                            setTimeout(check, 100);
-                        }
-                    };
-                    check();
-                });
-            }
-
-            window.addEventListener('load', async () => {
-                console.log('⏳ 等待 Emularity...');
-                try {
-                    await waitForEmularity();
-                    console.log('✅ 初始化完成！\n');
-                } catch (err) {
-                    console.error('❌ 失敗:', err);
-                }
-            });
-
             let pendingStartGame = null;
             let pendingStartCanvas = null;
 
@@ -1706,6 +1652,10 @@
                     // 檢查是否已經是代理路徑
                     if (game.screenshot.startsWith('/proxy/')) {
                         // 已經是代理路徑，直接使用
+                        gameScreenshot.src = `${SERVER_URL}${game.screenshot}?t=${Date.now()}`;
+                    }
+                    // 本站相對路徑（例如 /4th-and-inches_screenshot.png）→ 本機伺服，不走 archive.org
+                    else if (game.screenshot.startsWith('/')) {
                         gameScreenshot.src = `${SERVER_URL}${game.screenshot}?t=${Date.now()}`;
                     }
                     // 檢查截圖是否為完整 URL (支援任何 HTTP/HTTPS URL)
@@ -1758,29 +1708,21 @@
             }
 
             function recreateCanvas() {
-                const oldCanvas = document.getElementById('canvas');
-                if (!oldCanvas) return null;
-
-                const parent = oldCanvas.parentElement;
-                const newCanvas = document.createElement('canvas');
-                newCanvas.id = 'canvas';
-                oldCanvas.remove();
-                parent.appendChild(newCanvas);
-
-                // 添加滑鼠鎖定功能
-                setupMouseLock(newCanvas);
-
-                return newCanvas;
+                // GS² 模式：SDL 管理同一個 canvas 的尺寸，無需重建
+                return document.getElementById('canvas');
             }
 
-            // 設定滑鼠鎖定功能
+            // 設定滑鼠鎖定功能（GS²：F1 觸發捕捉；瀏覽器要求手勢時由下次 canvas 點擊補上）
             function setupMouseLock(canvas) {
                 if (!canvas) return;
 
-                // 點擊 canvas 時鎖定滑鼠
                 canvas.addEventListener('click', function () {
-                    if (!isMouseLocked) {
-                        canvas.requestPointerLock();
+                    if (window.gssquaredPointerLockPending && document.pointerLockElement !== canvas) {
+                        window.gssquaredPointerLockPending = false;
+                        try {
+                            const req = canvas.requestPointerLock();
+                            if (req && req.catch) req.catch(function () { });
+                        } catch (e) { }
                     }
                 });
 
@@ -1792,13 +1734,6 @@
                     } else {
                         isMouseLocked = false;
                         restoreOriginalTitle();
-                    }
-                });
-
-                // 監聽 Esc 鍵解鎖滑鼠
-                document.addEventListener('keydown', function (e) {
-                    if (e.key === 'Escape' && isMouseLocked) {
-                        document.exitPointerLock();
                     }
                 });
             }
@@ -1818,253 +1753,221 @@
                 }
             }
 
-            function clearBrowserFsEmuDir() {
-                if (!window.BrowserFS || !BrowserFS.BFSRequire) return;
-                try {
-                    const fs = BrowserFS.BFSRequire('fs');
-                    const path = BrowserFS.BFSRequire('path');
-                    const root = '/emulator';
+            function resetEmulatorState(reason = 'switch') {
+                // GS² 模式：每次啟動都是全新頁面載入（點截圖/換遊戲 = 整頁 reload），
+                // 不需要在頁內拆解 WASM 執行時。
+                console.log(`🧹 GS² 狀態重置 (${reason}) — 無需清理`);
+                currentEmulator = null;
+            }
 
-                    const removeRecursive = (dir) => {
-                        if (!fs.existsSync(dir)) return;
-                        fs.readdirSync(dir).forEach((entry) => {
-                            const target = path.join(dir, entry);
-                            const stat = fs.lstatSync(target);
-                            if (stat && stat.isDirectory && stat.isDirectory()) {
-                                removeRecursive(target);
-                            } else {
-                                fs.unlinkSync(target);
-                            }
-                        });
-                        if (dir !== root) {
-                            fs.rmdirSync(dir);
-                        }
-                    };
+            // ===== GS² (GSSquared) 引擎啟動 =====
 
-                    removeRecursive(root);
-                    try {
-                        fs.mkdirSync(root, { recursive: true });
-                    } catch (e) {
-                        if (!fs.existsSync(root)) fs.mkdirSync(root);
-                    }
-                } catch (err) {
-                    console.warn('清理 BrowserFS 模擬器資料夾失敗:', err);
+            function baseName(p) {
+                return (p || '').split('/').pop() || (p || '');
+            }
+
+            function showLoadStatus(text) {
+                const tip = document.getElementById('loadingTip');
+                if (tip) {
+                    tip.classList.remove('hidden');
+                    tip.textContent = text;
                 }
             }
 
-            function resetEmulatorState(reason = 'switch') {
-                console.log(`🧹 清理模擬器狀態 (${reason})...`);
+            // 輔助函數：構建磁碟檔案的可用 URL（沿用代理路由）
+            function buildFileUrl(gameId, filename) {
+                const timestamp = Date.now();
 
-                if (currentEmulator) {
-                    try {
-                        currentEmulator.stop();
-                    } catch (err) {
-                        console.warn('停止模擬器時發生錯誤:', err);
-                    }
-                    currentEmulator = null;
+                // 本站相對路徑（例如 /roms/GSOS601.po 或 /proxy/...）
+                if (filename && filename.startsWith('/')) {
+                    return `${SERVER_URL}${filename}?t=${timestamp}`;
                 }
 
-                // 清理 Emscripten/音訊殘留
-                try { window.Module = null; } catch (e) { }
-                try { delete window.SDL_PauseAudio; } catch (e) { }
+                // 完整 URL (支援任何 HTTP/HTTPS URL)
+                if (filename && (filename.startsWith('http://') || filename.startsWith('https://'))) {
+                    if (filename.includes('.zip/')) {
+                        const zipIndex = filename.indexOf('.zip/');
+                        const zipUrl = filename.substring(0, zipIndex + 4);
+                        const innerFilename = filename.substring(zipIndex + 5);
+                        return `${SERVER_URL}/proxy/zip/${encodeURIComponent(zipUrl)}/${innerFilename}?t=${timestamp}`;
+                    } else {
+                        return `${SERVER_URL}/proxy/url/${encodeURIComponent(filename)}?t=${timestamp}`;
+                    }
+                }
 
-                // 清理 BrowserFS（可能會有 EIO，忽略即可）
-                clearBrowserFsEmuDir();
+                // Archive.org itemId + filename（含 zip 內檔）
+                return `${SERVER_URL}/proxy/game/${gameId}/${filename}?t=${timestamp}`;
+            }
 
-                console.log('✅ 清理完成');
+            // GS² 核心就緒（SDL runtime 完成初始化）
+            function onGs2Ready(game, canvas) {
+                if (gs2Ready) return;
+                gs2Ready = true;
+                console.log('✅ GS² 就緒！');
+
+                if (gameTitleBar) gameTitleBar.textContent = `${game.name} (${game.nameCh})`;
+
+                // 套用靜音（WebAudio 需使用者手勢後才啟動，故也綁一次性的手勢事件補套）
+                const applyMute = () => {
+                    const ctx = getGs2AudioContext();
+                    if (ctx && uiMuted) ctx.suspend();
+                };
+                applyMute();
+                document.addEventListener('pointerdown', applyMute, { once: true });
+                document.addEventListener('keydown', applyMute, { once: true });
+
+                setupMouseLock(canvas);
+                if (canvas && canvas.focus) setTimeout(() => canvas.focus(), 50);
+
+                const loadingTip = document.getElementById('loadingTip');
+                if (loadingTip) loadingTip.classList.add('hidden');
+                hideScreenshot();
             }
 
             async function startEmulator(game, canvas) {
                 if (!game) return;
 
-                console.log(`\n======== 啟動模擬器: ${game.name} ========`);
+                console.log(`\n======== 啟動 GS² 模擬器: ${game.name} ========`);
 
-                // 清理舊狀態
                 resetEmulatorState('start');
 
-                const newCanvas = canvas || recreateCanvas() || document.getElementById('canvas');
-
-                // 確保 canvas 是乾淨的
-                if (newCanvas) {
-                    const ctx = newCanvas.getContext('2d');
-                    if (ctx) {
-                        ctx.clearRect(0, 0, newCanvas.width, newCanvas.height);
-                    }
+                const newCanvas = canvas || recreateCanvas();
+                if (!newCanvas) {
+                    console.error('找不到 canvas，無法啟動');
+                    return;
                 }
 
                 try {
-                    if (!emularityReady) await waitForEmularity();
+                    // 1. 組裝磁碟清單（IIgs slot 對應：slot 5 = 3.5" 800K, slot 6 = 5.25" 140K, slot 7 = 硬碟）
+                    const disks = [];
+                    const pushDisk = (slot, drive, path) => {
+                        if (!path) return;
+                        disks.push({
+                            slot, drive,
+                            name: baseName(path),
+                            url: buildFileUrl(game.id, path)
+                        });
+                    };
+                    // IIgs 遊戲磁片為 3.5" 800K → slot 5 (bazfast3)
+                    pushDisk(5, 1, game.file);
+                    pushDisk(5, 2, game.file2);
+                    pushDisk(7, 1, game.hard1);
+                    pushDisk(7, 2, game.hard2);
+                    if (!disks.length) throw new Error('找不到可掛載的遊戲磁碟檔');
 
-                    console.log('🎯 即將啟動遊戲:', {
-                        id: game.id,
-                        file: game.file,
-                        file2: game.file2,
-                        screenshot: game.screenshot
-                    });
-
-                    console.log('✅ Emularity 就緒');
-                    console.log('📦 初始化 MAME...');
-
-                    // 輔助函數：構建檔案 URL
-                    function buildFileUrl(gameId, filename) {
-                        const timestamp = Date.now();
-
-                        // 檢查是否已經是代理路徑
-                        if (filename && filename.startsWith('/proxy/')) {
-                            // 已經是代理路徑，直接加上時間戳
-                            return `${SERVER_URL}${filename}?t=${timestamp}`;
-                        }
-
-                        // 檢查是否為完整 URL (支援任何 HTTP/HTTPS URL)
-                        if (filename && (filename.startsWith('http://') || filename.startsWith('https://'))) {
-                            // 檢查是否為 ZIP 檔案格式
-                            if (filename.includes('.zip/')) {
-                                // ZIP 檔案格式：提取 ZIP URL 和內部檔案名
-                                const zipIndex = filename.indexOf('.zip/');
-                                const zipUrl = filename.substring(0, zipIndex + 4); // 包含 .zip
-                                const innerFilename = filename.substring(zipIndex + 5); // .zip/ 之後的部分
-
-                                const encodedZipUrl = encodeURIComponent(zipUrl);
-                                return `${SERVER_URL}/proxy/zip/${encodedZipUrl}/${innerFilename}?t=${timestamp}`;
-                            } else {
-                                // 完整 URL：使用 URL 編碼後的路徑
-                                const encodedUrl = encodeURIComponent(filename);
-                                return `${SERVER_URL}/proxy/url/${encodedUrl}?t=${timestamp}`;
-                            }
-                        } else {
-                            // 檢查是否為傳統 ZIP 格式 (例如: game.zip/disk1.po)
-                            if (filename && filename.includes('.zip/')) {
-                                // 傳統 ZIP 格式：使用遊戲路由，讓後端處理 ZIP 邏輯
-                                return `${SERVER_URL}/proxy/game/${gameId}/${filename}?t=${timestamp}`;
-                            } else {
-                                // 傳統格式：itemId + filename
-                                return `${SERVER_URL}/proxy/game/${gameId}/${filename}?t=${timestamp}`;
+                    // 2. 先下載完所有磁碟再載入核心（避免 async preRun 時序問題）
+                    //    proxy 偶發 500 / 慢，失敗自動重試（指數退避）
+                    const downloadWithRetry = async (url, name, maxRetries = 4) => {
+                        let lastErr;
+                        for (let attempt = 1; attempt <= maxRetries; attempt++) {
+                            try {
+                                console.log(`📥 下載磁碟: ${name} (嘗試 ${attempt}/${maxRetries})`);
+                                const freshUrl = url.replace(/([?&])t=\d+/, `$1t=${Date.now()}`);
+                                const res = await fetch(freshUrl);
+                                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                                const bytes = new Uint8Array(await res.arrayBuffer());
+                                console.log(`   ✅ ${(bytes.length / 1048576).toFixed(2)} MB`);
+                                return bytes;
+                            } catch (e) {
+                                lastErr = e;
+                                console.warn(`   ⚠️ 下載失敗 (嘗試 ${attempt}/${maxRetries}): ${e.message}`);
+                                if (attempt < maxRetries) await new Promise(r => setTimeout(r, 2000 * attempt));
                             }
                         }
+                        throw new Error(`磁碟下載失敗: ${name} (${lastErr && lastErr.message})`);
+                    };
+                    for (const d of disks) {
+                        d.bytes = await downloadWithRetry(d.url, d.name);
                     }
 
-                    // 使用後端代理 URL，每次都加上時間戳確保重新載入
-                    const timestamp = Date.now();
-                    const mameJsUrl = `${SERVER_URL}/proxy/mame/mameapple2gs.js.gz?t=${timestamp}`;
-                    const mameWasmUrl = `${SERVER_URL}/proxy/mame/mameapple2gs.wasm.gz?t=${timestamp}`;
-                    const biosUrl = `${SERVER_URL}/proxy/bios/apple2gs.zip?t=${timestamp}`;
-                    const gameUrl = buildFileUrl(game.id, game.file);
+                    // 3. IIgs 組態：video(slot 3) + 3.5" 800K(slot 5) + 5.25"(slot 6)
+                    //    此組態不在預建 .data bundle 內，執行時寫入 FS
+                    const configPath = '/uploads/iigs_800k.gs2';
+                    const configContent = [
+                        'gs2_version = 1',
+                        'id = "iigs-800k-web"',
+                        'name = "Apple IIgs / 800K"',
+                        'description = "Apple IIgs 8MB RAM, 800K 3.5 drive slot 5"',
+                        'platform = "apple2gs"',
+                        '',
+                        '[[cards]]',
+                        'slot = 3',
+                        'card = "second_sight"',
+                        '',
+                        '[[cards]]',
+                        'slot = 5',
+                        'card = "bazfast3"',
+                        '',
+                        '[[cards]]',
+                        'slot = 6',
+                        'card = "disk_ii"',
+                        ''
+                    ].join('\n');
 
-                    console.log('\n📥 使用後端代理:');
-                    console.log('   - MAME JS:', mameJsUrl);
-                    console.log('   - MAME WASM:', mameWasmUrl);
-                    console.log('   - BIOS:', biosUrl);
-                    console.log('   - 遊戲:', gameUrl);
-                    if (game.file2) {
-                        console.log('   - 遊戲 2:', buildFileUrl(game.id, game.file2));
-                    }
-                    console.log('📁 掛載到 emulator/ 目錄');
+                    // 4. 組裝 GS² 啟動參數（自訂組態 + 磁碟掛載）
+                    const args = [configPath];
+                    disks.forEach(d => args.push(`-ds${d.slot}d${d.drive}=/uploads/${d.name}`));
+                    console.log('🚀 GS² 參數:', args.join(' '));
 
-                    // 檢查是否有第二片磁片
-                    const extraArgs = game.file2
-                        ? ['-flop3', '/emulator/' + (game.file.split('/').pop() || game.file), '-flop4', '/emulator/' + (game.file2.split('/').pop() || game.file2)]
-                        : ['-flop3', '/emulator/' + (game.file.split('/').pop() || game.file)];
+                    // 5. 定義全域 Module 並載入 GS² 核心
+                    gs2Launching = true;
+                    window.gssquaredPointerLockPending = false;
+                    window.gssquaredSetStatus = function (text) {
+                        if (text && gs2Launching) showLoadStatus(text);
+                    };
 
-                    const loaderArgs = [
-                        window.JSMAMELoader.driver('apple2gs'),
-                        window.JSMAMELoader.nativeResolution(704, 462),
-                        window.JSMAMELoader.emulatorJS(mameJsUrl),
-                        window.JSMAMELoader.emulatorWASM(mameWasmUrl),
-                        window.JSMAMELoader.extraArgs(extraArgs),
-                        window.JSMAMELoader.mountFile(game.file.split('/').pop() || game.file, window.JSMAMELoader.fetchFile('Game Disk', gameUrl)),
-                        window.JSMAMELoader.mountFile('apple2gs.zip', window.JSMAMELoader.fetchFile('BIOS', biosUrl))
-                    ];
-
-                    if (game.file2) {
-                        const game2Url = buildFileUrl(game.id, game.file2);
-                        loaderArgs.push(
-                            window.JSMAMELoader.mountFile(game.file2.split('/').pop() || game.file2, window.JSMAMELoader.fetchFile('Game Disk 2', game2Url))
-                        );
-                    }
-
-                    console.log('🔧 建立 Emulator 實例...');
-                    const emulator = new window.Emulator(
-                        newCanvas,
-                        null,
-                        new window.JSMAMELoader(...loaderArgs)
-                    );
-
-                    // 確保是全新的實例
-                    currentEmulator = emulator;
-                    // 延後套用 mute，避免 Module 尚未就緒時觸發 ReferenceError
-                    setTimeout(() => {
-                        try {
-                            currentEmulator.setMute(uiMuted);
-                            updateMuteButton();
-                        } catch (e) {
-                            console.warn('套用靜音狀態時失敗，將略過:', e);
-                        }
-                    }, 500);
-
-                    console.log('✅ 實例建立成功');
-                    console.log('🚀 啟動模擬器...');
-
-                    // 啟動模擬器
-                    emulator.start();
-
-                    console.log('⏳ 模擬器啟動中，請稍候...');
-
-                    // 修正：模擬器啟動後確保搜尋框仍可使用
-                    setTimeout(() => {
-                        if (searchBox) {
-                            // 確保搜尋框可以接收輸入
-                            searchBox.removeAttribute('readonly');
-                            searchBox.removeAttribute('disabled');
-                            searchBox.style.pointerEvents = 'auto';
-                            searchBox.tabIndex = 0; // 確保可以獲得焦點
-
-                            // 重新綁定事件監聽器（以防被覆蓋）
-                            const newSearchBox = document.getElementById('searchBox');
-                            if (newSearchBox && !newSearchBox.hasAttribute('data-events-bound')) {
-                                newSearchBox.setAttribute('data-events-bound', 'true');
-                                newSearchBox.addEventListener('input', function (e) {
-                                    e.stopPropagation();
-                                    renderGames(e.target.value);
-                                });
+                    window.Module = {
+                        canvas: newCanvas,
+                        arguments: args,
+                        // 所有核心資源（.wasm / .data / 預載入檔）都在 /gs2/ 目錄
+                        locateFile: function (path, prefix) {
+                            return `${SERVER_URL}/gs2/${path}`;
+                        },
+                        print: function (text) { console.log(text); },
+                        printErr: function (text) { console.error(text); },
+                        preRun: [function () {
+                            try {
+                                FS.mkdir('/uploads');
+                                disks.forEach(d => FS.writeFile('/uploads/' + d.name, d.bytes));
+                                FS.writeFile(configPath, configContent);
+                                console.log('✅ 磁碟 + 組態已寫入 GS² 檔案系統');
+                            } catch (e) {
+                                console.error('寫入磁碟/組態失敗:', e);
                             }
+                        }],
+                        totalDependencies: 0,
+                        monitorRunDependencies: function (left) {
+                            this.totalDependencies = Math.max(this.totalDependencies, left);
+                            this.setStatus(left ?
+                                `載入中... (${this.totalDependencies - left}/${this.totalDependencies})` : '');
+                        },
+                        setStatus: function (text) {
+                            if (window.gssquaredSetStatus) window.gssquaredSetStatus(text);
+                            if (text === '') onGs2Ready(game, newCanvas);
                         }
-                    }, 2000);
+                    };
 
-                    // 定期檢查搜尋框狀態
-                    const searchBoxChecker = setInterval(() => {
-                        if (searchBox && currentEmulator) {
-                            // 確保搜尋框仍然可用
-                            if (searchBox.hasAttribute('readonly') || searchBox.hasAttribute('disabled')) {
-                                searchBox.removeAttribute('readonly');
-                                searchBox.removeAttribute('disabled');
-                            }
-                        } else if (!currentEmulator) {
-                            // 模擬器停止時清除檢查器
-                            clearInterval(searchBoxChecker);
-                        }
-                    }, 5000);
-
-                    setTimeout(() => {
-                        const loadingTip = document.getElementById('loadingTip');
-                        if (loadingTip) loadingTip.classList.add('hidden');
-                        hideScreenshot();
-                    }, 3000);
-
+                    currentEmulator = { game };
                     gameTitleBar.textContent = `${game.name} (${game.nameCh})`;
 
-                    // 設定滑鼠鎖定功能
-                    setupMouseLock(newCanvas);
-
-                    console.log(` 成功: ${game.name}`);
-                    console.log(' 聲音正常！');
+                    const s = document.createElement('script');
+                    s.src = `${SERVER_URL}/gs2/GSSquared.js`;
+                    s.onload = () => console.log('✅ GSSquared.js 載入完成，核心啟動中...');
+                    s.onerror = () => {
+                        gs2Launching = false;
+                        showLoadStatus('❌ GS² 核心載入失敗');
+                        alert('GS² 模擬核心載入失敗，請檢查網路後重試');
+                    };
+                    document.body.appendChild(s);
 
                     console.log('========\n');
 
                 } catch (err) {
+                    gs2Launching = false;
                     console.error(' 失敗:', err);
-                    gameTitleBar.textContent = `${game.name} - 失敗`;
+                    gameTitleBar.textContent = `${game.name} - 啟動失敗`;
                     hideScreenshot();
-                    alert(`失敗：\n\n${err.message}`);
+                    alert(`啟動失敗：\n\n${err.message}`);
                 }
 
                 pendingStartGame = null;
@@ -2074,6 +1977,16 @@
 
             async function loadGame(game, itemElement) {
                 console.log(`\n======== 載入: ${game.name} ========`);
+
+                // GS² 模式：一次一頁。在模擬器頁面點「不同」的遊戲 = 直接切換（整頁 reload）
+                const urlGameId = new URLSearchParams(window.location.search).get('game');
+                if (urlGameId && urlGameId !== game.id) {
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('game', game.id);
+                    url.searchParams.set('lang', currentLanguage);
+                    window.location.href = url.toString();
+                    return;
+                }
 
                 resetEmulatorState('switch-game');
 

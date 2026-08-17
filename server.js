@@ -70,6 +70,14 @@ async function proxyFetchBuffer({ req, res, label, url, contentType }) {
 // 啟用 CORS
 app.use(cors());
 
+// Cross-Origin Isolation (COOP/COEP) — GS² wasm 核心以 pthreads/SharedArrayBuffer 編譯,
+// 瀏覽器需要這兩個 header 才開放 SharedArrayBuffer
+app.use((req, res, next) => {
+    res.set('Cross-Origin-Opener-Policy', 'same-origin');
+    res.set('Cross-Origin-Embedder-Policy', 'require-corp');
+    next();
+});
+
 // 啟用壓縮（但排除已經壓縮的檔案）
 app.use(compression({
     filter: (req, res) => {
