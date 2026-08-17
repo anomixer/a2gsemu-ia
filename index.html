@@ -1886,16 +1886,14 @@
                         d.bytes = await downloadWithRetry(d.url, d.name);
                     }
 
-                    // 3. Use the supplied IIgs.gs2 profile, changing only the
-                    // bazfast3 card location from slot 7 to slot 5 for this test.
+                    // 3. Use the supplied IIgs.gs2 profile unchanged. Its bazfast3
+                    // controller remains in slot 7; disk mount arguments below are
+                    // intentionally tested against slot 5.
                     const configPath = '/uploads/IIgs.gs2';
                     const configUrl = `${SERVER_URL}/gs2/resources/gs2/IIgs.gs2?t=${Date.now()}`;
                     const configResponse = await fetch(configUrl);
                     if (!configResponse.ok) throw new Error(`系統組態下載失敗: HTTP ${configResponse.status}`);
-                    const configContent = (await configResponse.text()).replace(
-                        /slot = 7\s*\ncard = "bazfast3"/,
-                        'slot = 5\ncard = "bazfast3"'
-                    );
+                    const configContent = await configResponse.text();
 
                     // 4. 組裝 GS² 啟動參數（自訂組態 + 磁碟掛載）
                     const args = [configPath];
