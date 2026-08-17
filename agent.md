@@ -51,7 +51,7 @@ The `gs2` branch swaps the MAME core for the **GS²** (GSSquared) Apple IIgs cor
    - leading `/` (e.g. `/4th-and-inches.po`) → served locally from the repo root (`express.static('.')`)
    - `http(s)://` full URL → `/proxy/url/`
    - `...zip/inner` → `/proxy/zip/` or `/proxy/game/`
-3. **Write into the Emscripten FS** in `preRun`: `FS.mkdir('/uploads')`, `FS.writeFile('/uploads/<name>', bytes)`, plus a runtime system config `/uploads/iigs_800k.gs2` (cards: slot 3 `second_sight` video, slot 5 `bazfast3`, slot 6 `disk_ii`, slot 7 `pdblock3`). The slot 7 card is required when a game supplies `hard1`/`hard2` and the launcher emits `-ds7dN=...`.
+3. **Write into the Emscripten FS** in `preRun`: `FS.mkdir('/uploads')`, `FS.writeFile('/uploads/<name>', bytes)`, plus a runtime system config `/uploads/iigs_800k.gs2` (explicit cards: slot 3 `second_sight` video, slot 6 `disk_ii`, slot 7 `pdblock3`). Apple IIgs automatically supplies the default slot 5 `bazfast3` SmartPort, so it must not be declared again. The slot 7 card is required when a game supplies `hard1`/`hard2` and the launcher emits `-ds7dN=...`.
 4. **Launch** `gs2/GSSquared.js` with `Module.arguments = [configPath, '-ds5d1=/uploads/<f>', …]`. GS² auto-launches the config, mounts the disks, and boots.
 
 This is the "browser virtual FS" mount path — the disk bytes are fetched on the JS side and written into the core's virtual FS; no GS² modification is needed to accept a browser-sourced disk image.
@@ -185,6 +185,7 @@ Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`
     - **Initial canvas position**: the main container previously used `height: calc(100vh - 80px)`, while the real header height is content-dependent. That left the emulator content region with the wrong height and could make the first canvas render appear below the centred frame until the scale toggle dispatched a resize event.
     - **Layout fix**: `body` is now a column flex container and `.main-container` uses `flex: 1` with `min-height: 0`, so the available emulator height follows the actual header. Native mode keeps its definite 704px width/aspect ratio while `max-width`/`max-height` prevent overflow and preserve centering; scale-to-fit remains opt-in through `.scale-fit`.
     - **Hard-disk controller fix**: the generated `/uploads/iigs_800k.gs2` now declares `[[cards]] slot = 7, card = "pdblock3"`. Previously hard-disk files were downloaded and passed as `-ds7dN`, but no slot 7 controller existed, so a disk could appear requested without being usable for boot.
+    - **Duplicate-card correction**: GS²'s Apple IIgs platform already installs the default slot 5 `bazfast3`; declaring another `bazfast3` in the generated config causes `Multiple instances of card bazfast3 are not allowed`. The runtime config now leaves slot 5 implicit.
     - **Verification**: `git diff --check`, `node --check server.js`, `node --check games.js`, and an inline-script syntax check all pass. A browser/manual boot test is still recommended for each disk format, especially the partially decoded 4th & Inches `.po` image.
 
 ## Key Files
