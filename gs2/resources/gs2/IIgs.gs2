@@ -1,0 +1,12 @@
+gs2_version = 1
+id = "f9edb0a4-b4f7-4021-86af-9936edb3a356"
+name = "Apple IIgs"
+description = "Apple IIgs 8MB RAM"
+platform = "apple2gs_rom3"
+clock = "ntsc"
+scanner = "apple2gs"
+builtin = false
+
+[[cards]]
+slot = 7
+card = "bazfast3"

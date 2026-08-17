@@ -1854,9 +1854,10 @@
                             url: buildFileUrl(game.id, path)
                         });
                     };
-                    // IIgs 遊戲磁片為 3.5" 800K → slot 5 (bazfast3)
-                    pushDisk(5, 1, game.file);
-                    pushDisk(5, 2, game.file2);
+                    // The supplied IIgs.gs2 profile places the 3.5" 800K bazfast3
+                    // controller in slot 7 (S7D1/S7D2).
+                    pushDisk(7, 1, game.file);
+                    pushDisk(7, 2, game.file2);
                     pushDisk(7, 1, game.hard1);
                     pushDisk(7, 2, game.hard2);
                     if (!disks.length) throw new Error('找不到可掛載的遊戲磁碟檔');
@@ -1886,30 +1887,14 @@
                         d.bytes = await downloadWithRetry(d.url, d.name);
                     }
 
-                    // 3. IIgs 組態：video(slot 3) + 3.5" 800K(slot 5) + 5.25"(slot 6)
-                    //    此組態不在預建 .data bundle 內，執行時寫入 FS
-                    const configPath = '/uploads/iigs_800k.gs2';
-                    const configContent = [
-                        'gs2_version = 1',
-                        'id = "iigs-800k-web"',
-                        'name = "Apple IIgs / 800K"',
-                        'description = "Apple IIgs 8MB RAM, 800K 3.5 drive slot 5"',
-                        'platform = "apple2gs"',
-                        '',
-                        '[[cards]]',
-                        'slot = 3',
-                        'card = "second_sight"',
-                        '',
-                        '[[cards]]',
-                        'slot = 6',
-                        'card = "disk_ii"',
-                        '',
-                        // Hard-disk images passed as -ds7dN require this controller.
-                        '[[cards]]',
-                        'slot = 7',
-                        'card = "pdblock3"',
-                        ''
-                    ].join('\n');
+                    // 3. Use the supplied IIgs.gs2 profile. It selects the ROM 3
+                    // IIgs machine and installs bazfast3 in slot 7, which is the
+                    // boot device expected by the bundled Apple IIgs setup.
+                    const configPath = '/uploads/IIgs.gs2';
+                    const configUrl = `${SERVER_URL}/gs2/resources/gs2/IIgs.gs2?t=${Date.now()}`;
+                    const configResponse = await fetch(configUrl);
+                    if (!configResponse.ok) throw new Error(`系統組態下載失敗: HTTP ${configResponse.status}`);
+                    const configContent = await configResponse.text();
 
                     // 4. 組裝 GS² 啟動參數（自訂組態 + 磁碟掛載）
                     const args = [configPath];
