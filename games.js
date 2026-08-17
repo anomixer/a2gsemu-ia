@@ -24,7 +24,7 @@ window.games = [
   {
     "id": "wozaday_4th_and_Inches_IIgs",
     "emu": "apple2gs",
-    "file": "/4th-and-inches.po",
+    "file": "00playable.woz",
     "name": "4th & Inches",
     "year": "1988",
     "type": "game",

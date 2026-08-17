@@ -193,6 +193,9 @@ Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`
 16. **Diagnose `not a startup disk`** (August 2026, `gs2` branch)
     - **Correction**: ROM 3 already provides S5 (800K) and S6 (140K) floppy drives, and boots in order 7 → 6 → 5. Keep ordinary 800K game images on S5; do not force them onto S7 merely because the profile declares a faster `bazfast3` SmartPort there. The `preRun` FS readback makes missing/partial writes immediately visible in the browser console.
     - **Virtual FS status**: the browser path is implemented end-to-end (`fetch` → `Uint8Array` → `FS.writeFile` → `FS.readFile` length/boot-byte verification → `-ds5d1=/uploads/...`). `preRun` now rethrows verification/write errors so GS² cannot continue with an empty or partial image and mask the real failure as `not a startup disk`.
+17. **Restore the original 4th & Inches WOZ image** (August 2026, `gs2` branch)
+    - The earlier WOZ→`.po` conversion was an incorrect assumption for GS². GS² supports WOZ directly through `bazfast3`, so the partial/incorrect `4th-and-inches.po` must not be used for this game.
+    - `games.js` is restored to the original `"file": "00playable.woz"` entry from `origin/v0.284`. The browser flow downloads that WOZ and writes its bytes unchanged into `/uploads/` before mounting it at S5D1.
 
 ## Key Files
 
