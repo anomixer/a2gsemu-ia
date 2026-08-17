@@ -1854,9 +1854,11 @@
                             url: buildFileUrl(game.id, path)
                         });
                     };
-                    // IIgs.gs2 keeps the bazfast3 controller in slot 7 (S7D1/S7D2).
-                    pushDisk(7, 1, game.file);
-                    pushDisk(7, 2, game.file2);
+                    // ROM 3 provides the normal 3.5" 800K drive in slot 5
+                    // (S5D1/S5D2). Slot 7's bazfast3 is reserved for fast SmartPort
+                    // hard-disk use and must not receive ordinary floppy games.
+                    pushDisk(5, 1, game.file);
+                    pushDisk(5, 2, game.file2);
                     pushDisk(7, 1, game.hard1);
                     pushDisk(7, 2, game.hard2);
                     if (!disks.length) throw new Error('找不到可掛載的遊戲磁碟檔');
@@ -1886,8 +1888,9 @@
                         d.bytes = await downloadWithRetry(d.url, d.name);
                     }
 
-                    // 3. Use the supplied IIgs.gs2 profile unchanged. Its bazfast3
-                    // controller and disk mount arguments both use slot 7.
+                    // 3. Use the supplied IIgs.gs2 profile unchanged. ROM 3's
+                    // built-in slot 5/6 drives handle normal floppy boot; its
+                    // slot 7 bazfast3 remains available for hard disks.
                     const configPath = '/uploads/IIgs.gs2';
                     const configUrl = `${SERVER_URL}/gs2/resources/gs2/IIgs.gs2?t=${Date.now()}`;
                     const configResponse = await fetch(configUrl);

@@ -46,13 +46,13 @@ The `gs2` branch swaps the MAME core for the **GS²** (GSSquared) Apple IIgs cor
 > `loader.js` and `browserfs.min.js` are MAME/Emularity-only; they are **not loaded** by `index.html` on the `gs2` branch.
 
 ### How a game launches (`index.html` → `startEmulator`)
-1. **Assemble the disk list** from the `games.js` entry: `file`→slot 5 d1, `file2`→slot 5 d2, `hard1`→slot 7 d1, `hard2`→slot 7 d2. (IIgs slot 5 = 3.5" 800K `bazfast3`; slot 6 = 5.25" `disk_ii`; slot 7 = hard disk `PD_BLOCK3`.)
+1. **Assemble the disk list** from the `games.js` entry: `file`→slot 5 d1, `file2`→slot 5 d2, `hard1`→slot 7 d1, `hard2`→slot 7 d2. (ROM 3 slot 5 = normal 3.5" 800K floppy; slot 6 = 140K floppy; slot 7 = optional fast `bazfast3` SmartPort/HDD.)
 2. **Download all disks first** (`downloadWithRetry`, exponential backoff) — resolves each path via `buildFileUrl()`:
    - leading `/` (e.g. `/4th-and-inches.po`) → served locally from the repo root (`express.static('.')`)
    - `http(s)://` full URL → `/proxy/url/`
    - `...zip/inner` → `/proxy/zip/` or `/proxy/game/`
 3. **Download and write into the Emscripten FS** in `preRun`: `FS.mkdir('/uploads')`, `FS.writeFile('/uploads/<name>', bytes)`, plus the supplied `gs2/resources/gs2/IIgs.gs2` profile copied to `/uploads/IIgs.gs2`. This profile selects `apple2gs_rom3` and declares `bazfast3` in slot 7.
-4. **Launch** `gs2/GSSquared.js` with `Module.arguments = ['/uploads/IIgs.gs2', '-ds7d1=/uploads/<f>', …]`. The supplied profile keeps `bazfast3` in slot 7, so the disk mount must target slot 7 as well.
+4. **Launch** `gs2/GSSquared.js` with `Module.arguments = ['/uploads/IIgs.gs2', '-ds5d1=/uploads/<f>', …]`. ROM 3's normal 800K floppy is slot 5; slot 7 `bazfast3` is reserved for fast SmartPort/HDD use.
 
 This is the "browser virtual FS" mount path — the disk bytes are fetched on the JS side and written into the core's virtual FS; no GS² modification is needed to accept a browser-sourced disk image.
 
@@ -176,7 +176,7 @@ Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`
 13. **GS² (GSSquared) Engine Migration + WOZ→.po Conversion** (August 2026, `gs2` branch)
     - **Branch base**: `gs2` branches off `main` (merge-base is main's tip), and the GS² engine + `roms/` disk images were added on top of that tree.
     - **Core swap**: dropped the MAME/Emularity stack (`loader.js`, `browserfs.min.js` no longer loaded) and the 66 MB MAME core; added the GS² core under `gs2/` (`GSSquared.js`/`.wasm`/`.data`). GS² boots native ProDOS with the BIOS baked into `GSSquared.data` — no BIOS mount step.
-    - **Launch rewrite** in `index.html`: `startEmulator()` assembles disks (slot 5 d1/d2, slot 7 d1/d2), downloads them, writes them into the Emscripten FS (`FS.writeFile('/uploads/…')`) plus a runtime config `iigs_800k.gs2`, then launches `gs2/GSSquared.js` with `-ds…=` mount args.
+    - **Launch rewrite** in `index.html`: `startEmulator()` assembles disks (ordinary files on slot 5 d1/d2, hard disks on slot 7 d1/d2), downloads them, writes them into the Emscripten FS (`FS.writeFile('/uploads/…')`) plus the supplied `IIgs.gs2` config, then launches `gs2/GSSquared.js` with `-ds…=` mount args.
     - **COOP/COEP** headers added in `server.js` + `_headers` (Cloudflare Pages) so `SharedArrayBuffer` is available for the pthreads build.
     - **WOZ → 800K .po** for `wozaday_*` games that only ship `.woz` (the 3.5" `bazfast3` drive rejects WOZ): built `tools/woz2po.py` (GCR bit-7 latch, `D5 AA AD` prologue scan, 683 6&2 nibbles → 512 B, 90% valid-nibble threshold) and produced `4th-and-inches.po` (819 200 B) from `00playable.woz`.
     - **4th & Inches wired locally**: `games.js` entry `wozaday_4th_and_Inches_IIgs` now points at `/4th-and-inches.po` and a local `/4th-and-inches_screenshot.png` (downloaded into the repo so it no longer depends on archive.org's flaky download endpoint). The screenshot loader in `index.html` gained a local-path branch (`screenshot.startsWith('/')`) mirroring `buildFileUrl`.
@@ -188,11 +188,10 @@ Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`
     - **Duplicate-card correction**: GS²'s Apple IIgs platform already installs the default slot 5 `bazfast3`; declaring another `bazfast3` in the generated config causes `Multiple instances of card bazfast3 are not allowed`. The runtime config now leaves slot 5 implicit.
     - **Verification**: `git diff --check`, `node --check server.js`, `node --check games.js`, and an inline-script syntax check all pass. A browser/manual boot test is still recommended for each disk format, especially the partially decoded 4th & Inches `.po` image.
 15. **Use the supplied IIgs boot profile** (August 2026, `gs2` branch)
-    - **Symptom**: the generated profile mounted a 3.5-inch disk as S5D1 but did not boot; the supplied `gs2/resources/gs2/IIgs.gs2` declares the ROM 3 machine and puts `bazfast3` at slot 7.
-    - **Fix**: `startEmulator()` fetches that profile unchanged, writes it to `/uploads/IIgs.gs2`, and maps `file`/`file2` to S7D1/S7D2. A `preRun` readback now verifies each browser virtual FS disk's byte length and logs its first boot byte, plus verifies the stored config contains slot 7 `bazfast3`.
+    - **Symptom**: a temporary experiment incorrectly treated the profile's slot 7 `bazfast3` as the normal floppy controller.
+    - **Fix**: `startEmulator()` fetches that profile unchanged, writes it to `/uploads/IIgs.gs2`, maps ordinary `file`/`file2` to S5D1/S5D2, and leaves slot 7 for HDD use. A `preRun` readback verifies each browser virtual FS disk's byte length and logs its first boot byte, plus verifies the stored config contains slot 7 `bazfast3`.
 16. **Diagnose `not a startup disk`** (August 2026, `gs2` branch)
-    - **Root cause**: a temporary test mounted `4th-and-inches.po` as S5D1 while the supplied `IIgs.gs2` profile's `bazfast3` controller is S7. The image was written to the browser virtual FS, but the active boot controller was looking at a different slot.
-    - **Correction**: keep the profile and mount slot aligned at S7; the `preRun` FS readback makes missing/partial writes immediately visible in the browser console.
+    - **Correction**: ROM 3 already provides S5 (800K) and S6 (140K) floppy drives, and boots in order 7 → 6 → 5. Keep ordinary 800K game images on S5; do not force them onto S7 merely because the profile declares a faster `bazfast3` SmartPort there. The `preRun` FS readback makes missing/partial writes immediately visible in the browser console.
 
 ## Key Files
 
