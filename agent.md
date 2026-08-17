@@ -52,7 +52,7 @@ The `gs2` branch swaps the MAME core for the **GS²** (GSSquared) Apple IIgs cor
    - `http(s)://` full URL → `/proxy/url/`
    - `...zip/inner` → `/proxy/zip/` or `/proxy/game/`
 3. **Download and write into the Emscripten FS** in `preRun`: `FS.mkdir('/uploads')`, `FS.writeFile('/uploads/<name>', bytes)`, plus the supplied `gs2/resources/gs2/IIgs.gs2` profile copied to `/uploads/IIgs.gs2`. This profile selects `apple2gs_rom3` and declares `bazfast3` in slot 7.
-4. **Launch** `gs2/GSSquared.js` with `Module.arguments = ['/uploads/IIgs.gs2', '-ds7d1=/uploads/<f>', …]`. GS² auto-launches the config, mounts the disks, and boots.
+4. **Launch** `gs2/GSSquared.js` with `Module.arguments = ['/uploads/IIgs.gs2', '-ds5d1=/uploads/<f>', …]`. For the current slot-5 test, the launcher rewrites the supplied profile's `bazfast3` card from slot 7 to slot 5 before writing it to the virtual FS.
 
 This is the "browser virtual FS" mount path — the disk bytes are fetched on the JS side and written into the core's virtual FS; no GS² modification is needed to accept a browser-sourced disk image.
 
@@ -189,7 +189,7 @@ Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`
     - **Verification**: `git diff --check`, `node --check server.js`, `node --check games.js`, and an inline-script syntax check all pass. A browser/manual boot test is still recommended for each disk format, especially the partially decoded 4th & Inches `.po` image.
 15. **Use the supplied IIgs boot profile** (August 2026, `gs2` branch)
     - **Symptom**: the generated profile mounted a 3.5-inch disk as S5D1 but did not boot; the supplied `gs2/resources/gs2/IIgs.gs2` declares the ROM 3 machine and puts `bazfast3` at slot 7.
-    - **Fix**: `startEmulator()` now fetches that profile, writes it to `/uploads/IIgs.gs2`, and maps `file`/`file2` to S7D1/S7D2. This also avoids maintaining a conflicting hand-built card list.
+    - **Fix**: `startEmulator()` now fetches that profile, rewrites its `bazfast3` card to slot 5 for the current test, writes it to `/uploads/IIgs.gs2`, and maps `file`/`file2` to S5D1/S5D2. This also avoids maintaining a conflicting hand-built card list.
 
 ## Key Files
 
