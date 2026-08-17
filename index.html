@@ -1854,9 +1854,9 @@
                             url: buildFileUrl(game.id, path)
                         });
                     };
-                    // Use slot 5 for the 3.5" 800K bazfast3 controller (S5D1/S5D2).
-                    pushDisk(5, 1, game.file);
-                    pushDisk(5, 2, game.file2);
+                    // IIgs.gs2 keeps the bazfast3 controller in slot 7 (S7D1/S7D2).
+                    pushDisk(7, 1, game.file);
+                    pushDisk(7, 2, game.file2);
                     pushDisk(7, 1, game.hard1);
                     pushDisk(7, 2, game.hard2);
                     if (!disks.length) throw new Error('找不到可掛載的遊戲磁碟檔');
@@ -1887,8 +1887,7 @@
                     }
 
                     // 3. Use the supplied IIgs.gs2 profile unchanged. Its bazfast3
-                    // controller remains in slot 7; disk mount arguments below are
-                    // intentionally tested against slot 5.
+                    // controller and disk mount arguments both use slot 7.
                     const configPath = '/uploads/IIgs.gs2';
                     const configUrl = `${SERVER_URL}/gs2/resources/gs2/IIgs.gs2?t=${Date.now()}`;
                     const configResponse = await fetch(configUrl);
@@ -1919,8 +1918,20 @@
                         preRun: [function () {
                             try {
                                 FS.mkdir('/uploads');
-                                disks.forEach(d => FS.writeFile('/uploads/' + d.name, d.bytes));
+                                disks.forEach(d => {
+                                    const fsPath = '/uploads/' + d.name;
+                                    FS.writeFile(fsPath, d.bytes);
+                                    const stored = FS.readFile(fsPath);
+                                    if (stored.length !== d.bytes.length) {
+                                        throw new Error(`磁碟寫入驗證失敗: ${d.name} (${stored.length}/${d.bytes.length})`);
+                                    }
+                                    console.log(`✅ browser virtual FS: ${d.name} -> ${fsPath} (${stored.length} bytes, boot byte $${stored[0].toString(16).padStart(2, '0')})`);
+                                });
                                 FS.writeFile(configPath, configContent);
+                                const storedConfig = FS.readFile(configPath, { encoding: 'utf8' });
+                                if (!storedConfig.includes('card = "bazfast3"') || !storedConfig.includes('slot = 7')) {
+                                    throw new Error('GS² 組態寫入驗證失敗: slot 7 bazfast3');
+                                }
                                 console.log('✅ 磁碟 + 組態已寫入 GS² 檔案系統');
                             } catch (e) {
                                 console.error('寫入磁碟/組態失敗:', e);

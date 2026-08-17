@@ -52,7 +52,7 @@ The `gs2` branch swaps the MAME core for the **GS²** (GSSquared) Apple IIgs cor
    - `http(s)://` full URL → `/proxy/url/`
    - `...zip/inner` → `/proxy/zip/` or `/proxy/game/`
 3. **Download and write into the Emscripten FS** in `preRun`: `FS.mkdir('/uploads')`, `FS.writeFile('/uploads/<name>', bytes)`, plus the supplied `gs2/resources/gs2/IIgs.gs2` profile copied to `/uploads/IIgs.gs2`. This profile selects `apple2gs_rom3` and declares `bazfast3` in slot 7.
-4. **Launch** `gs2/GSSquared.js` with `Module.arguments = ['/uploads/IIgs.gs2', '-ds5d1=/uploads/<f>', …]`. For the current test, the supplied profile remains unchanged with `bazfast3` in slot 7 while the disk mount arguments target slot 5.
+4. **Launch** `gs2/GSSquared.js` with `Module.arguments = ['/uploads/IIgs.gs2', '-ds7d1=/uploads/<f>', …]`. The supplied profile keeps `bazfast3` in slot 7, so the disk mount must target slot 7 as well.
 
 This is the "browser virtual FS" mount path — the disk bytes are fetched on the JS side and written into the core's virtual FS; no GS² modification is needed to accept a browser-sourced disk image.
 
@@ -189,7 +189,10 @@ Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`
     - **Verification**: `git diff --check`, `node --check server.js`, `node --check games.js`, and an inline-script syntax check all pass. A browser/manual boot test is still recommended for each disk format, especially the partially decoded 4th & Inches `.po` image.
 15. **Use the supplied IIgs boot profile** (August 2026, `gs2` branch)
     - **Symptom**: the generated profile mounted a 3.5-inch disk as S5D1 but did not boot; the supplied `gs2/resources/gs2/IIgs.gs2` declares the ROM 3 machine and puts `bazfast3` at slot 7.
-    - **Fix**: `startEmulator()` now fetches that profile unchanged, writes it to `/uploads/IIgs.gs2`, and maps `file`/`file2` to S5D1/S5D2 for the current slot-routing test. This also avoids maintaining a conflicting hand-built card list.
+    - **Fix**: `startEmulator()` fetches that profile unchanged, writes it to `/uploads/IIgs.gs2`, and maps `file`/`file2` to S7D1/S7D2. A `preRun` readback now verifies each browser virtual FS disk's byte length and logs its first boot byte, plus verifies the stored config contains slot 7 `bazfast3`.
+16. **Diagnose `not a startup disk`** (August 2026, `gs2` branch)
+    - **Root cause**: a temporary test mounted `4th-and-inches.po` as S5D1 while the supplied `IIgs.gs2` profile's `bazfast3` controller is S7. The image was written to the browser virtual FS, but the active boot controller was looking at a different slot.
+    - **Correction**: keep the profile and mount slot aligned at S7; the `preRun` FS readback makes missing/partial writes immediately visible in the browser console.
 
 ## Key Files
 
