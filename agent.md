@@ -51,7 +51,7 @@ The `gs2` branch swaps the MAME core for the **GS²** (GSSquared) Apple IIgs cor
    - leading `/` (e.g. `/4th-and-inches.po`) → served locally from the repo root (`express.static('.')`)
    - `http(s)://` full URL → `/proxy/url/`
    - `...zip/inner` → `/proxy/zip/` or `/proxy/game/`
-3. **Write into the Emscripten FS** in `preRun`: `FS.mkdir('/uploads')`, `FS.writeFile('/uploads/<name>', bytes)`, plus a runtime system config `/uploads/iigs_800k.gs2` (cards: slot 3 `second_sight` video, slot 5 `bazfast3`, slot 6 `disk_ii`).
+3. **Write into the Emscripten FS** in `preRun`: `FS.mkdir('/uploads')`, `FS.writeFile('/uploads/<name>', bytes)`, plus a runtime system config `/uploads/iigs_800k.gs2` (cards: slot 3 `second_sight` video, slot 5 `bazfast3`, slot 6 `disk_ii`, slot 7 `pdblock3`). The slot 7 card is required when a game supplies `hard1`/`hard2` and the launcher emits `-ds7dN=...`.
 4. **Launch** `gs2/GSSquared.js` with `Module.arguments = [configPath, '-ds5d1=/uploads/<f>', …]`. GS² auto-launches the config, mounts the disks, and boots.
 
 This is the "browser virtual FS" mount path — the disk bytes are fetched on the JS side and written into the core's virtual FS; no GS² modification is needed to accept a browser-sourced disk image.
@@ -181,6 +181,11 @@ Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`
     - **WOZ → 800K .po** for `wozaday_*` games that only ship `.woz` (the 3.5" `bazfast3` drive rejects WOZ): built `tools/woz2po.py` (GCR bit-7 latch, `D5 AA AD` prologue scan, 683 6&2 nibbles → 512 B, 90% valid-nibble threshold) and produced `4th-and-inches.po` (819 200 B) from `00playable.woz`.
     - **4th & Inches wired locally**: `games.js` entry `wozaday_4th_and_Inches_IIgs` now points at `/4th-and-inches.po` and a local `/4th-and-inches_screenshot.png` (downloaded into the repo so it no longer depends on archive.org's flaky download endpoint). The screenshot loader in `index.html` gained a local-path branch (`screenshot.startsWith('/')`) mirroring `buildFileUrl`.
     - **Status / known limits**: the disk mounts and the 6502 runs (verified via console), but full in-browser play of 4th & Inches is still being validated — see the [WOZ → raw .po conversion](#woz--raw-po-conversion-the-4th--inches-work) notes for the decode coverage (~79% of sectors clean) and the still-open display/letterbox + boot-loop investigation. GS² has **no save/restore** in this build (MAME F7 / Shift+F7 save-state are gone; F7 is now the CRT-shader toggle).
+14. **GS² initial layout and hard-disk boot fixes** (August 2026, `gs2` branch)
+    - **Initial canvas position**: the main container previously used `height: calc(100vh - 80px)`, while the real header height is content-dependent. That left the emulator content region with the wrong height and could make the first canvas render appear below the centred frame until the scale toggle dispatched a resize event.
+    - **Layout fix**: `body` is now a column flex container and `.main-container` uses `flex: 1` with `min-height: 0`, so the available emulator height follows the actual header. Native mode keeps its definite 704px width/aspect ratio while `max-width`/`max-height` prevent overflow and preserve centering; scale-to-fit remains opt-in through `.scale-fit`.
+    - **Hard-disk controller fix**: the generated `/uploads/iigs_800k.gs2` now declares `[[cards]] slot = 7, card = "pdblock3"`. Previously hard-disk files were downloaded and passed as `-ds7dN`, but no slot 7 controller existed, so a disk could appear requested without being usable for boot.
+    - **Verification**: `git diff --check`, `node --check server.js`, `node --check games.js`, and an inline-script syntax check all pass. A browser/manual boot test is still recommended for each disk format, especially the partially decoded 4th & Inches `.po` image.
 
 ## Key Files
 

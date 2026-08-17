@@ -18,6 +18,8 @@
             color: #fff;
             height: 100vh;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .header {
@@ -101,7 +103,8 @@
 
         .main-container {
             display: flex;
-            height: calc(100vh - 80px);
+            flex: 1;
+            min-height: 0;
             overflow: hidden;
             position: relative;
         }
@@ -418,6 +421,9 @@
             /* GS² NTSC 輸出比例 1288:928（取代 MAME 的 704x462 固定尺寸） */
             aspect-ratio: 1288 / 928;
             height: auto;
+            /* Keep native 1x when possible, but never let it overflow its flex box. */
+            max-width: 100%;
+            max-height: 100%;
             border: none;
             border-radius: 5px;
             box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
@@ -1901,6 +1907,11 @@
                         '[[cards]]',
                         'slot = 6',
                         'card = "disk_ii"',
+                        '',
+                        // Hard-disk images passed as -ds7dN require this controller.
+                        '[[cards]]',
+                        'slot = 7',
+                        'card = "pdblock3"',
                         ''
                     ].join('\n');
 
