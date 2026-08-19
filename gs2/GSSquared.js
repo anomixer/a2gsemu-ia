@@ -85,7 +85,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\USER\AppData\Local\Temp\tmpqtzxq011.js
+// include: C:\Users\USER\AppData\Local\Temp\tmp5hwvarab.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -458,67 +458,71 @@ Module["expectedDataFileDownloads"]++;
       "start": 1655e3,
       "end": 1655e3
     }, {
-      "filename": "/resources/shaders/crt.frag.hlsl",
+      "filename": "/resources/shaders/crt.frag.dxil",
       "start": 1655e3,
-      "end": 1656730
+      "end": 1659668
+    }, {
+      "filename": "/resources/shaders/crt.frag.hlsl",
+      "start": 1659668,
+      "end": 1661630
     }, {
       "filename": "/resources/shaders/crt.frag.metal",
-      "start": 1656730,
-      "end": 1658406
+      "start": 1661630,
+      "end": 1663306
     }, {
       "filename": "/resources/shaders/crt.frag.metal.orig",
-      "start": 1658406,
-      "end": 1659668
+      "start": 1663306,
+      "end": 1664568
     }, {
       "filename": "/resources/sounds/.assembled.stamp",
-      "start": 1659668,
-      "end": 1659668
+      "start": 1664568,
+      "end": 1664568
     }, {
       "filename": "/resources/sounds/shugart-close.wav",
-      "start": 1659668,
-      "end": 1698018
+      "start": 1664568,
+      "end": 1702918
     }, {
       "filename": "/resources/sounds/shugart-drive.wav",
-      "start": 1698018,
-      "end": 1853104
+      "start": 1702918,
+      "end": 1858004
     }, {
       "filename": "/resources/sounds/shugart-head.wav",
-      "start": 1853104,
-      "end": 1889790
+      "start": 1858004,
+      "end": 1894690
     }, {
       "filename": "/resources/sounds/shugart-open.wav",
-      "start": 1889790,
-      "end": 1934028
+      "start": 1894690,
+      "end": 1938928
     }, {
       "filename": "/resources/sounds/shugart-stop.wav",
-      "start": 1934028,
-      "end": 1943706
+      "start": 1938928,
+      "end": 1948606
     }, {
       "filename": "/resources/vdisk/drivers.hdv",
-      "start": 1943706,
-      "end": 2992282
+      "start": 1948606,
+      "end": 2997182
     } ],
-    "remote_package_size": 2992282
+    "remote_package_size": 2997182
   });
 })();
 
-// end include: C:\Users\USER\AppData\Local\Temp\tmpqtzxq011.js
-// include: C:\Users\USER\AppData\Local\Temp\tmppu4s6kfd.js
+// end include: C:\Users\USER\AppData\Local\Temp\tmp5hwvarab.js
+// include: C:\Users\USER\AppData\Local\Temp\tmpgfp3wk28.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\USER\AppData\Local\Temp\tmppu4s6kfd.js
-// include: C:\Users\USER\AppData\Local\Temp\tmp9huu1tpe.js
+// end include: C:\Users\USER\AppData\Local\Temp\tmpgfp3wk28.js
+// include: C:\Users\USER\AppData\Local\Temp\tmp5at1ivtz.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\USER\AppData\Local\Temp\tmp9huu1tpe.js
+// end include: C:\Users\USER\AppData\Local\Temp\tmp5at1ivtz.js
 var arguments_ = [];
 
 var thisProgram = "./this.program";
@@ -9937,22 +9941,33 @@ function checkIncomingModuleAPI() {
 }
 
 var ASM_CONSTS = {
-  524204: $0 => {
+  530860: $0 => {
     if (window.gssquaredSetStatus) {
       window.gssquaredSetStatus(UTF8ToString($0));
     }
   },
-  524288: () => {
+  530944: () => {
+    var c = document.querySelector("#canvas");
+    if (c) {
+      c.style.aspectRatio = "1288 / 928";
+      c.style.removeProperty("width");
+      c.style.removeProperty("height");
+      c.style.removeProperty("max-width");
+      c.style.removeProperty("max-height");
+      var _forceReflow = c.offsetWidth;
+    }
+  },
+  531214: () => {
     if (window.gssquaredConfirmQuit) {
       window.gssquaredConfirmQuit();
     }
   },
-  524360: () => {
+  531286: () => {
     if (window.gssquaredPrepareCanvasForRestart) {
       window.gssquaredPrepareCanvasForRestart();
     }
   },
-  524456: () => {
+  531382: () => {
     window.dispatchEvent(new Event("resize"));
     setTimeout(function() {
       window.dispatchEvent(new Event("resize"));
@@ -9964,7 +9979,7 @@ var ASM_CONSTS = {
       window.dispatchEvent(new Event("resize"));
     }, 200);
   },
-  524733: $0 => {
+  531659: $0 => {
     var want = $0 !== 0;
     window.gssquaredPointerLockPending = want;
     if (!want && document.pointerLockElement) {
@@ -9976,7 +9991,7 @@ var ASM_CONSTS = {
       } catch (e) {}
     }
   },
-  525092: $0 => {
+  532018: $0 => {
     var str = UTF8ToString($0) + "\n\n" + "Abort/Retry/Ignore/AlwaysIgnore? [ariA] :";
     var reply = window.prompt(str, "i");
     if (reply === null) {
@@ -9984,7 +9999,7 @@ var ASM_CONSTS = {
     }
     return reply.length === 1 ? reply.charCodeAt(0) : -1;
   },
-  525307: $0 => {
+  532233: $0 => {
     var parms = new URLSearchParams(window.location.search);
     for (const [key, value] of parms) {
       if (key.startsWith("SDL_")) {
@@ -9998,7 +10013,7 @@ var ASM_CONSTS = {
       }
     }
   },
-  525614: () => {
+  532540: () => {
     if (typeof (AudioContext) !== "undefined") {
       return true;
     } else if (typeof (webkitAudioContext) !== "undefined") {
@@ -10006,7 +10021,7 @@ var ASM_CONSTS = {
     }
     return false;
   },
-  525761: () => {
+  532687: () => {
     if ((typeof (navigator.mediaDevices) !== "undefined") && (typeof (navigator.mediaDevices.getUserMedia) !== "undefined")) {
       return true;
     } else if (typeof (navigator.webkitGetUserMedia) !== "undefined") {
@@ -10014,7 +10029,7 @@ var ASM_CONSTS = {
     }
     return false;
   },
-  525995: $0 => {
+  532921: $0 => {
     if (typeof (Module["SDL3"]) === "undefined") {
       Module["SDL3"] = {};
     }
@@ -10038,8 +10053,8 @@ var ASM_CONSTS = {
     }
     return (SDL3.audioContext !== undefined);
   },
-  526558: () => Module["SDL3"].audioContext.sampleRate,
-  526609: ($0, $1, $2, $3) => {
+  533484: () => Module["SDL3"].audioContext.sampleRate,
+  533535: ($0, $1, $2, $3) => {
     var SDL3 = Module["SDL3"];
     var have_microphone = function(stream) {
       if (SDL3.audio_recording.silenceTimer !== undefined) {
@@ -10081,7 +10096,7 @@ var ASM_CONSTS = {
       }, have_microphone, no_microphone);
     }
   },
-  528450: ($0, $1, $2, $3) => {
+  535376: ($0, $1, $2, $3) => {
     var SDL3 = Module["SDL3"];
     SDL3.audio_playback.scriptProcessorNode = SDL3.audioContext["createScriptProcessor"]($1, 0, $0);
     SDL3.audio_playback.scriptProcessorNode["onaudioprocess"] = function(e) {
@@ -10113,7 +10128,7 @@ var ASM_CONSTS = {
       SDL3.audio_playback.silenceTimer = setInterval(silence_callback, ($1 / SDL3.audioContext.sampleRate) * 1e3);
     }
   },
-  529766: $0 => {
+  536692: $0 => {
     var SDL3 = Module["SDL3"];
     if ($0) {
       if (SDL3.audio_recording.silenceTimer !== undefined) {
@@ -10147,7 +10162,7 @@ var ASM_CONSTS = {
       SDL3.audioContext = undefined;
     }
   },
-  530922: ($0, $1) => {
+  537848: ($0, $1) => {
     var buf = $0 >>> 2;
     var SDL3 = Module["SDL3"];
     var numChannels = SDL3.audio_playback.currentPlaybackBuffer["numberOfChannels"];
@@ -10161,7 +10176,7 @@ var ASM_CONSTS = {
       }
     }
   },
-  531437: ($0, $1) => {
+  538363: ($0, $1) => {
     var SDL3 = Module["SDL3"];
     var numChannels = SDL3.audio_recording.currentRecordingBuffer.numberOfChannels;
     for (var c = 0; c < numChannels; ++c) {
@@ -10180,14 +10195,14 @@ var ASM_CONSTS = {
       }
     }
   },
-  532064: () => {
+  538990: () => {
     if (typeof (Module["SDL3"]) === "undefined") {
       Module["SDL3"] = {};
     }
     Module["SDL3"].camera = {};
   },
-  532165: () => (navigator.mediaDevices === undefined) ? 0 : 1,
-  532224: ($0, $1, $2, $3, $4, $5, $6) => {
+  539091: () => (navigator.mediaDevices === undefined) ? 0 : 1,
+  539150: ($0, $1, $2, $3, $4, $5, $6) => {
     const device = $0;
     const w = $1;
     const h = $2;
@@ -10261,7 +10276,7 @@ var ASM_CONSTS = {
       dynCall("iiiiii", outcome, [ device, 0, 0, 0, 0 ]);
     });
   },
-  534515: () => {
+  541441: () => {
     const SDL3 = Module["SDL3"];
     if ((typeof (SDL3) === "undefined") || (typeof (SDL3.camera) === "undefined") || (typeof (SDL3.camera.stream) === "undefined")) {
       return;
@@ -10269,7 +10284,7 @@ var ASM_CONSTS = {
     SDL3.camera.stream.getTracks().forEach(track => track.stop());
     SDL3.camera = {};
   },
-  534766: ($0, $1, $2) => {
+  541692: ($0, $1, $2) => {
     const w = $0;
     const h = $1;
     const rgba = $2;
@@ -10282,12 +10297,12 @@ var ASM_CONSTS = {
     (growMemViews(), HEAPU8).set(imgrgba, rgba);
     return 1;
   },
-  535144: () => {
+  542070: () => {
     if (typeof (Module["SDL3"]) !== "undefined") {
       Module["SDL3"].camera = undefined;
     }
   },
-  535231: ($0, $1, $2, $3) => {
+  542157: ($0, $1, $2, $3) => {
     var w = $0;
     var h = $1;
     var pixels = $2;
@@ -10346,7 +10361,7 @@ var ASM_CONSTS = {
     }
     SDL3.ctx.putImageData(SDL3.image, 0, 0);
   },
-  536462: () => {
+  543388: () => {
     if (!Module["SDL3"]) {
       Module["SDL3"] = {};
     }
@@ -10375,7 +10390,7 @@ var ASM_CONSTS = {
       }
     });
   },
-  537196: ($0, $1, $2, $3, $4) => {
+  544122: ($0, $1, $2, $3, $4) => {
     var w = $0;
     var h = $1;
     var hot_x = $2;
@@ -10396,20 +10411,20 @@ var ASM_CONSTS = {
     stringToUTF8(url, urlBuf, url.length + 1);
     return urlBuf;
   },
-  537854: $0 => {
+  544780: $0 => {
     if (Module["canvas"]) {
       Module["canvas"].style["cursor"] = UTF8ToString($0);
     }
   },
-  537937: () => {
+  544863: () => {
     if (Module["canvas"]) {
       Module["canvas"].style["cursor"] = "none";
     }
   },
-  538006: () => Module["SDL3"]["mouse_x"],
-  538044: () => Module["SDL3"]["mouse_y"],
-  538082: $0 => Module["SDL3"]["mouse_buttons"][$0],
-  538130: $0 => {
+  544932: () => Module["SDL3"]["mouse_x"],
+  544970: () => Module["SDL3"]["mouse_y"],
+  545008: $0 => Module["SDL3"]["mouse_buttons"][$0],
+  545056: $0 => {
     var target = document;
     if (target) {
       target.sdlEventHandlerMouseButtonUpGlobal = function(event) {
@@ -10423,7 +10438,7 @@ var ASM_CONSTS = {
       target.addEventListener("pointerup", target.sdlEventHandlerMouseButtonUpGlobal);
     }
   },
-  538473: $0 => {
+  545399: $0 => {
     if (typeof (Module["SDL3"]) === "undefined") {
       Module["SDL3"] = {};
     }
@@ -10463,7 +10478,7 @@ var ASM_CONSTS = {
       };
     }
   },
-  539460: $0 => {
+  546386: $0 => {
     var id = UTF8ToString($0);
     try {
       var canvas = document.querySelector(id);
@@ -10473,14 +10488,14 @@ var ASM_CONSTS = {
     } catch (e) {}
     return false;
   },
-  539626: () => {
+  546552: () => {
     var target = document;
     if (target) {
       target.removeEventListener("pointerup", target.sdlEventHandlerMouseButtonUpGlobal);
       target.sdlEventHandlerMouseButtonUpGlobal = undefined;
     }
   },
-  539808: ($0, $1) => {
+  546734: ($0, $1) => {
     var target = document.querySelector(UTF8ToString($1));
     if (target) {
       var SDL3 = Module["SDL3"];
@@ -10518,7 +10533,7 @@ var ASM_CONSTS = {
       target.addEventListener("pointerup", target.sdlEventHandlerPointerGeneric);
     }
   },
-  541142: ($0, $1, $2) => {
+  548068: ($0, $1, $2) => {
     var target = document.querySelector(UTF8ToString($1));
     if (target) {
       var data = $0;
@@ -10547,7 +10562,7 @@ var ASM_CONSTS = {
       };
       target.addEventListener("dragover", SDL3.eventHandlerDropDragover);
       SDL3.drop_count = 0;
-      if (!FS.analyzePath("/tmp/filedrop").exists) FS.mkdir("/tmp/filedrop");
+      FS.mkdir("/tmp/filedrop");
       SDL3.eventHandlerDropDrop = function(event) {
         event.preventDefault();
         if (event.dataTransfer.types.includes("text/plain")) {
@@ -10586,7 +10601,7 @@ var ASM_CONSTS = {
       target.addEventListener("dragleave", SDL3.eventHandlerDropDragend);
     }
   },
-  543295: $0 => {
+  550221: $0 => {
     var target = document.querySelector(UTF8ToString($0));
     if (target) {
       var SDL3 = Module["SDL3"];
@@ -10602,7 +10617,7 @@ var ASM_CONSTS = {
       SDL3.eventHandlerDropDragend = undefined;
     }
   },
-  544125: $0 => {
+  551051: $0 => {
     var target = document.querySelector(UTF8ToString($0));
     if (target) {
       target.removeEventListener("pointerenter", target.sdlEventHandlerPointerEnter);
@@ -10617,7 +10632,7 @@ var ASM_CONSTS = {
       target.sdlEventHandlerPointerGeneric = undefined;
     }
   },
-  544859: () => {
+  551785: () => {
     if (!window.matchMedia) {
       return -1;
     }
@@ -10629,7 +10644,7 @@ var ASM_CONSTS = {
     }
     return -1;
   },
-  545068: () => {
+  551994: () => {
     if (typeof (Module["SDL3"]) !== "undefined") {
       var SDL3 = Module["SDL3"];
       SDL3.themeChangedMatchMedia.removeEventListener("change", SDL3.eventHandlerThemeChanged);
@@ -10637,17 +10652,17 @@ var ASM_CONSTS = {
       SDL3.eventHandlerThemeChanged = undefined;
     }
   },
-  545321: () => window.innerWidth,
-  545351: () => window.innerHeight,
-  545382: $0 => {
+  552247: () => window.innerWidth,
+  552277: () => window.innerHeight,
+  552308: $0 => {
     Module["requestFullscreen"] = function(lockPointer, resizeCanvas) {
       _requestFullscreenThroughSDL($0);
     };
   },
-  545491: () => {
+  552417: () => {
     Module["requestFullscreen"] = function(lockPointer, resizeCanvas) {};
   },
-  545565: () => {
+  552491: () => {
     if (window.matchMedia) {
       if (typeof (Module["SDL3"]) === "undefined") {
         Module["SDL3"] = {};
@@ -10660,7 +10675,7 @@ var ASM_CONSTS = {
       SDL3.themeChangedMatchMedia.addEventListener("change", SDL3.eventHandlerThemeChanged);
     }
   },
-  545956: ($0, $1, $2, $3, $4) => {
+  552882: ($0, $1, $2, $3, $4) => {
     var title = UTF8ToString($0);
     var message = UTF8ToString($1);
     var background = UTF8ToString($2);
@@ -10680,7 +10695,7 @@ var ASM_CONSTS = {
     dialog.append(p);
     dialog.showModal();
   },
-  546497: ($0, $1, $2, $3, $4, $5, $6, $7) => {
+  553423: ($0, $1, $2, $3, $4, $5, $6, $7) => {
     var dialog_id = UTF8ToString($0);
     var text = UTF8ToString($1);
     var responseId = $2;
@@ -10721,7 +10736,7 @@ var ASM_CONSTS = {
     dialog.append(button);
     return true;
   },
-  547506: $0 => {
+  554432: $0 => {
     var dialog_id = UTF8ToString($0);
     var dialog = document.getElementById(dialog_id);
     if (!dialog) {
@@ -10729,7 +10744,7 @@ var ASM_CONSTS = {
     }
     return dialog.open;
   },
-  547644: $0 => {
+  554570: $0 => {
     var dialog_id = UTF8ToString($0);
     var dialog = document.getElementById(dialog_id);
     if (!dialog) {
@@ -10741,13 +10756,13 @@ var ASM_CONSTS = {
       return 0;
     }
   },
-  547826: ($0, $1) => {
+  554752: ($0, $1) => {
     alert(UTF8ToString($0) + "\n\n" + UTF8ToString($1));
   },
-  547883: $0 => {
+  554809: $0 => {
     window.open(UTF8ToString($0), "_blank");
   },
-  547923: $0 => {
+  554849: $0 => {
     var accept = UTF8ToString($0);
     try {
       FS.mkdir("/uploads");
@@ -10787,6 +10802,38 @@ var ASM_CONSTS = {
       reader.readAsArrayBuffer(file);
     }, false);
     input.click();
+  },
+  555927: $0 => {
+    var c = document.querySelector("#canvas");
+    if (!c) {
+      return;
+    }
+    if ($0) {
+      c.style.aspectRatio = "1288 / 928";
+      window.gssquaredSsTextMode = true;
+      if (window.gssquaredResizeSsCanvas) window.gssquaredResizeSsCanvas();
+    } else {
+      window.gssquaredSsTextMode = false;
+      c.style.aspectRatio = "1288 / 928";
+      c.style.removeProperty("width");
+      c.style.removeProperty("height");
+      c.style.removeProperty("max-width");
+      c.style.removeProperty("max-height");
+    }
+    var _forceReflow = c.offsetWidth;
+    window.dispatchEvent(new Event("resize"));
+    setTimeout(function() {
+      window.dispatchEvent(new Event("resize"));
+    }, 16);
+    setTimeout(function() {
+      window.dispatchEvent(new Event("resize"));
+    }, 50);
+    setTimeout(function() {
+      window.dispatchEvent(new Event("resize"));
+    }, 100);
+    setTimeout(function() {
+      window.dispatchEvent(new Event("resize"));
+    }, 200);
   }
 };
 

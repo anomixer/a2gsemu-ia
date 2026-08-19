@@ -75,6 +75,28 @@
             filter: drop-shadow(0 0 5px rgba(76, 175, 80, 0.3));
         }
 
+        .gs2-link {
+            position: absolute;
+            top: 15px;
+            right: 70px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .gs2-link img {
+            width: 30px;
+            height: 30px;
+            filter: drop-shadow(0 0 5px rgba(255, 199, 40, 0.35));
+        }
+
+        .gs2-link:hover {
+            transform: scale(1.1);
+        }
+
         .lang-switch {
             position: absolute;
             top: 15px;
@@ -317,6 +339,34 @@
             color: #4CAF50;
             font-weight: bold;
             font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .game-title-text {
+            min-width: 0;
+        }
+
+        .slot7-toggle {
+            flex: 0 0 auto;
+            border: 0;
+            background: transparent;
+            color: #f4d35e;
+            cursor: pointer;
+            font-size: 20px;
+            line-height: 1;
+            padding: 2px 4px;
+            opacity: 1;
+        }
+
+        .slot7-toggle.slot5 {
+            filter: grayscale(1);
+            opacity: 0.35;
+        }
+
+        .slot7-toggle.locked {
+            cursor: default;
         }
 
         .control-buttons {
@@ -435,11 +485,8 @@
         }
 
         #canvas.scale-fit {
-            width: 100% !important;
-            height: 100% !important;
-            max-width: 100% !important;
-            max-height: 100% !important;
-            object-fit: contain;
+            max-width: 100%;
+            max-height: 100%;
         }
 
         .info-panel {
@@ -691,6 +738,11 @@
                 top: 17px !important;
                 right: 8px !important;
             }
+
+            .gs2-link {
+                top: 17px !important;
+                right: 88px !important;
+            }
             
             .github-link svg {
                 width: 20px !important;
@@ -839,6 +891,10 @@
             title="Apple IIgs 40th Anniversary - KansasFest">
             <img src="logo/iigs-40th.png" class="header-logo" alt="Apple IIgs 40th Anniversary Logo">
         </a>
+        <a href="https://github.com/anomixer/gssquared" target="_blank" class="gs2-link"
+            title="Powered by GSSquared" aria-label="Powered by GSSquared">
+            <img src="gs2/gssquared-mark.png" alt="Powered by GSSquared">
+        </a>
         <a href="https://github.com/anomixer/a2gsemu-ia" target="_blank" class="github-link" title="View on GitHub">
             <svg width="32" height="32" viewBox="0 0 16 16" fill="currentColor">
                 <path
@@ -851,7 +907,7 @@
                 <span id="langText">🇹🇼 中文</span>
             </button>
         </div>
-        <h1><a href="/" style="color: #4CAF50; text-decoration: none;"><img src="favicon.ico" alt="Apple"
+        <h1><a href="#" id="homeTitleLink" style="color: #4CAF50; text-decoration: none;"><img src="favicon.ico" alt="Apple"
                     style="height: 24px; vertical-align: middle; margin-right: 8px;"> Apple
                 IIgs 線上模擬器 🎮</a></h1>
         <p class="subtitle">共 <span id="totalCount">0</span> 款精選遊戲與軟體</p>
@@ -972,7 +1028,7 @@
                                     <p style="font-size:12px; color:#ddd; margin-bottom:8px;">
                                         Mouse: press <span class="key-combo">F1</span> to capture → then
                                         <strong>click the canvas</strong> to lock the pointer
-                                        (press <span class="key-combo">Esc</span> to release)
+                                        (press <span class="key-combo">Esc/F1</span> to restore the mouse cursor)
                                     </p>
                                     <ul>
                                         <li><strong>Apple Keys:</strong> Left / Right Alt = Open / Closed Apple</li>
@@ -1002,6 +1058,7 @@
             </div>
         </div>
 
+        <script src="./jszip.min.js"></script>
         <script src="./games.js"></script>
 
         <script>
@@ -1029,7 +1086,7 @@
             // 完整的 i18n 翻譯對象
             const i18n = {
                 zh: {
-                    title: 'Apple IIgs 線上模擬器 🎮',
+                    title: 'Apple IIgs 線上模擬器 v2.0',
                     subtitle: '共 {count} 款精選遊戲與軟體',
                     searchPlaceholder: '🔍 搜尋遊戲...',
                     welcomeTitle: '歡迎使用 Apple IIgs 模擬器',
@@ -1098,7 +1155,7 @@
                         '<span class="key-combo">Ctrl + F12</span> 控制-重設(重開機)'
                     ],
                     mameMachineTitle: '🖱️ 滑鼠與系統鍵',
-                    mameMachineDesc: '滑鼠:按 <span class="key-combo">F1</span> 捕捉 → 再<strong>點一下畫面</strong>鎖定指標(按 <span class="key-combo">Esc</span> 釋放)',
+                    mameMachineDesc: '滑鼠:按 <span class="key-combo">F1</span> 捕捉 → 再<strong>點一下畫面</strong>鎖定指標(按 <span class="key-combo">ESC/F1</span> 恢復滑鼠游標)',
                     mameMachineList: [
                         '<strong>Apple 鍵:</strong> 左/右 Alt = Open / Closed Apple',
                         '<strong>重開機 (IIgs):</strong> Ctrl + F12 + 左 Alt',
@@ -1115,10 +1172,14 @@
                         '向下相容 Apple II 系列軟體'
                     ],
                     // 滑鼠提示
-                    mouseHint: '按 Esc 鍵恢復滑鼠游標'
+                        mouseHint: '按 ESC/F1 恢復滑鼠游標',
+                        slot7FixedHint: '固定使用 Slot 7 硬碟',
+                        slot7To5Hint: '目前 Slot 7；點擊改用 Slot 5',
+                        slot5To7Hint: '目前 Slot 5；點擊改用 Slot 7',
+                        slotToggleLabel: '切換 Slot 5/7'
                 },
                 en: {
-                    title: 'Apple IIgs Online Emulator 🎮',
+                    title: 'Apple IIgs Online Emulator v2.0',
                     subtitle: '{count} Selected Games & Software',
                     searchPlaceholder: '🔍 Search games...',
                     welcomeTitle: 'Welcome to Apple IIgs Emulator',
@@ -1187,7 +1248,7 @@
                         '<span class="key-combo">Ctrl + F12</span> Control-Reset (reboot)'
                     ],
                     mameMachineTitle: '🖱️ Mouse & System Keys',
-                    mameMachineDesc: 'Mouse: press <span class="key-combo">F1</span> to capture → then <strong>click the canvas</strong> to lock the pointer (press <span class="key-combo">Esc</span> to release)',
+                    mameMachineDesc: 'Mouse: press <span class="key-combo">F1</span> to capture → then <strong>click the canvas</strong> to lock the pointer (press <span class="key-combo">Esc/F1</span> to restore the mouse cursor)',
                     mameMachineList: [
                         '<strong>Apple Keys:</strong> Left / Right Alt = Open / Closed Apple',
                         '<strong>Reboot (IIgs):</strong> Ctrl + F12 + Left Alt',
@@ -1204,7 +1265,11 @@
                         'Backward compatible with Apple II series software'
                     ],
                     // Mouse hint
-                    mouseHint: 'Press Esc to restore mouse cursor'
+                        mouseHint: 'Press ESC/F1 to restore the mouse cursor',
+                        slot7FixedHint: 'Fixed to Slot 7 hard disk',
+                        slot7To5Hint: 'Currently Slot 7; click to use Slot 5',
+                        slot5To7Hint: 'Currently Slot 5; click to use Slot 7',
+                        slotToggleLabel: 'Switch Slot 5/7'
                 }
             };
 
@@ -1492,6 +1557,7 @@
             const gameScreenshot = document.getElementById('gameScreenshot');
             const muteBtn = document.getElementById('muteBtn');
             const scaleBtn = document.getElementById('scaleBtn');
+            const iframeWrapper = document.querySelector('.iframe-wrapper');
 
             let uiMuted = false;
 
@@ -1552,6 +1618,11 @@
                         const isFit = canvas.classList.toggle('scale-fit');
                         localStorage.setItem('scaleMode', isFit ? 'fit' : 'native');
                         scaleBtn.innerHTML = isFit ? t('scaleNative') : t('scaleFit');
+                        if (isFit) fitCanvasToViewport();
+                        else {
+                            canvas.style.width = '';
+                            canvas.style.height = '';
+                        }
                         window.dispatchEvent(new Event('resize'));
                     }
                 };
@@ -1573,6 +1644,41 @@
                     canvas.style.transform = `scale(${currentZoom})`;
                     canvas.style.transformOrigin = 'top left';
                 }
+            }
+
+            function fitCanvasToViewport() {
+                const canvas = document.getElementById('canvas');
+                if (!canvas || !iframeWrapper || !canvas.classList.contains('scale-fit')) return;
+                const width = iframeWrapper.clientWidth;
+                const height = iframeWrapper.clientHeight;
+                if (width <= 0 || height <= 0) return;
+
+                const aspect = 1288 / 928;
+                // Keep a small safety margin.  The GS² output can draw a few
+                // pixels beyond its nominal logical viewport during startup;
+                // fitting exactly to the wrapper makes the rightmost glyphs
+                // disappear at some browser sizes.
+                const safetyMargin = 32;
+                const fittedWidth = Math.min(width - safetyMargin, (height - safetyMargin) * aspect);
+                const fittedHeight = fittedWidth / aspect;
+                canvas.style.width = `${Math.floor(fittedWidth)}px`;
+                canvas.style.height = `${Math.floor(fittedHeight)}px`;
+            }
+
+            function refreshGs2CanvasPresentation() {
+                fitCanvasToViewport();
+                window.dispatchEvent(new Event('resize'));
+            }
+
+            if (iframeWrapper && typeof ResizeObserver !== 'undefined') {
+                new ResizeObserver(() => requestAnimationFrame(() => {
+                    fitCanvasToViewport();
+                    // SDL uses the canvas output size for its logical
+                    // presentation. Re-run the same resize path as the
+                    // manual scale button after CSS sizing settles.
+                    window.dispatchEvent(new Event('resize'));
+                }))
+                    .observe(iframeWrapper);
             }
 
             console.log('⭐ 開始載入 Emularity v8 (Backend Proxy)...');
@@ -1648,6 +1754,33 @@
             }
 
             const games = dedupeGames(window.games);
+
+            const homeTitleLink = document.getElementById('homeTitleLink');
+            if (homeTitleLink) {
+                homeTitleLink.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const url = new URL(window.location.href);
+                    url.pathname = '/';
+                    url.searchParams.delete('game');
+                    url.searchParams.set('lang', currentLanguage);
+                    window.location.href = url.toString();
+                });
+            }
+
+            const slotPreferenceKey = 'gs2.diskSlots';
+            function restoreSlotPreference(game) {
+                if (!game || game.hard1 || game.hard2) return;
+                try {
+                    const saved = JSON.parse(localStorage.getItem(slotPreferenceKey) || '{}');
+                    const slots = saved[game.id];
+                    if (Array.isArray(slots) && slots.every(spec => /^s[57]d[12]$/i.test(spec))) {
+                        game.diskSlots = slots;
+                    }
+                } catch (e) {
+                    console.warn('GS² slot 設定讀取失敗:', e);
+                }
+            }
+            games.forEach(restoreSlotPreference);
 
             let pendingStartGame = null;
             let pendingStartCanvas = null;
@@ -1744,18 +1877,75 @@
                 });
             }
 
+            function isBlockImagePath(path) {
+                return typeof path === 'string' && /\.(?:po|2mg)(?:[?#]|$)/i.test(path);
+            }
+
+            function gameCanUseSlot7(game) {
+                return Boolean(game && (game.hard1 || game.hard2 ||
+                    [game.file, game.file2].some(isBlockImagePath)));
+            }
+
+            function gameUsesSlot7(game) {
+                return Array.isArray(game && game.diskSlots) &&
+                    game.diskSlots.some(spec => /^s7d[12]$/i.test(spec));
+            }
+
+            function toggleGameSlot(game) {
+                if (!game || game.hard1 || game.hard2 || !gameCanUseSlot7(game)) return;
+                const useSlot7 = !gameUsesSlot7(game);
+                const files = [game.file, game.file2];
+                game.diskSlots = files.map((path, index) =>
+                    path ? `s${useSlot7 ? 7 : 5}d${index + 1}` : `s${useSlot7 ? 7 : 5}d${index + 1}`
+                );
+                try {
+                    const saved = JSON.parse(localStorage.getItem(slotPreferenceKey) || '{}');
+                    saved[game.id] = game.diskSlots;
+                    localStorage.setItem(slotPreferenceKey, JSON.stringify(saved));
+                } catch (e) {
+                    console.warn('GS² slot 設定儲存失敗:', e);
+                }
+                renderGameTitle();
+                if (currentEmulator && currentGame === game) {
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('game', game.id);
+                    url.searchParams.set('lang', currentLanguage);
+                    window.location.href = url.toString();
+                }
+            }
+
+            function renderGameTitle() {
+                if (!gameTitleBar || !currentGame) return;
+                const originalTitle = `${currentGame.name} (${currentGame.nameCh})`;
+                const hasHardDisk = Boolean(currentGame.hard1 || currentGame.hard2);
+                const showSlotIcon = gameCanUseSlot7(currentGame);
+                const slot7 = gameUsesSlot7(currentGame);
+                const icon = showSlotIcon ?
+                    `<button class="slot7-toggle ${slot7 ? '' : 'slot5'} ${hasHardDisk ? 'locked' : ''}" ` +
+                    `title="${hasHardDisk ? t('slot7FixedHint') : (slot7 ? t('slot7To5Hint') : t('slot5To7Hint'))}" ` +
+                    `aria-label="${hasHardDisk ? t('slot7FixedHint') : t('slotToggleLabel')}" ${hasHardDisk ? 'disabled' : ''}>💽</button>` : '';
+                gameTitleBar.innerHTML = `<span class="game-title-text">${originalTitle}</span>${icon}`;
+                const toggle = gameTitleBar.querySelector('.slot7-toggle:not([disabled])');
+                if (toggle) toggle.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    toggleGameSlot(currentGame);
+                });
+            }
+
             // 更新標題顯示滑鼠提示
             function updateTitleWithMouseHint() {
                 if (gameTitleBar && currentGame) {
                     originalTitle = `${currentGame.name} (${currentGame.nameCh})`;
-                    gameTitleBar.innerHTML = `${originalTitle} - <span style="color: #FFD700;">${t('mouseHint')}</span>`;
+                    renderGameTitle();
+                    gameTitleBar.insertAdjacentHTML('beforeend', ` <span style="color: #FFD700;">- ${t('mouseHint')}</span>`);
                 }
             }
 
             // 恢復原始標題
             function restoreOriginalTitle() {
                 if (gameTitleBar && originalTitle) {
-                    gameTitleBar.textContent = originalTitle;
+                    renderGameTitle();
                 }
             }
 
@@ -1811,7 +2001,24 @@
                 gs2Ready = true;
                 console.log('✅ GS² 就緒！');
 
-                if (gameTitleBar) gameTitleBar.textContent = `${game.name} (${game.nameCh})`;
+                // Apply the same layout pass as the scale button on first boot.
+                // SDL may size the canvas while the surrounding flex layout is
+                // still settling; without this pass the picture can start low
+                // in the frame until the user toggles scaling manually.
+                if (canvas) {
+                    canvas.classList.add('scale-fit');
+                    localStorage.setItem('scaleMode', 'fit');
+                    if (scaleBtn) {
+                        scaleBtn.innerHTML = t('scaleNative');
+                    }
+                    refreshGs2CanvasPresentation();
+                    requestAnimationFrame(refreshGs2CanvasPresentation);
+                    setTimeout(refreshGs2CanvasPresentation, 100);
+                    setTimeout(refreshGs2CanvasPresentation, 500);
+                }
+
+                currentGame = game;
+                renderGameTitle();
 
                 // 套用靜音（WebAudio 需使用者手勢後才啟動，故也綁一次性的手勢事件補套）
                 const applyMute = () => {
@@ -1848,17 +2055,28 @@
                     const disks = [];
                     const pushDisk = (slot, drive, path) => {
                         if (!path) return;
+                        const archiveMatch = typeof path === 'string' && /^(.*\.zip)\/(.+)$/i.exec(path);
+                        const sourcePath = archiveMatch ? archiveMatch[1] : path;
                         disks.push({
                             slot, drive,
-                            name: baseName(path),
-                            url: buildFileUrl(game.id, path)
+                            name: archiveMatch ? baseName(archiveMatch[2]) : baseName(path),
+                            url: buildFileUrl(game.id, sourcePath),
+                            archiveEntry: archiveMatch ? archiveMatch[2] : null
                         });
                     };
-                    // ROM 3 provides the normal 3.5" 800K drive in slot 5
-                    // (S5D1/S5D2). Slot 7's bazfast3 is reserved for fast SmartPort
-                    // hard-disk use and must not receive ordinary floppy games.
-                    pushDisk(5, 1, game.file);
-                    pushDisk(5, 2, game.file2);
+                    const mountSpec = (spec, path) => {
+                        if (!path) return;
+                        const match = typeof spec === 'string' && /^s([567])d([12])$/i.exec(spec);
+                        if (!match) throw new Error(`無效的 GS² 磁碟掛載位置: ${spec}`);
+                        pushDisk(Number(match[1]), Number(match[2]), path);
+                    };
+                    // diskSlots aligns with file/file2.  games.js supplies an
+                    // explicit tested override or defaults PO to accelerated S7
+                    // and WOZ/other floppy formats to compatible S5.
+                    const diskSlots = Array.isArray(game.diskSlots) ? game.diskSlots : ['s5d1', 's5d2'];
+                    mountSpec(diskSlots[0] || 's5d1', game.file);
+                    mountSpec(diskSlots[1] || 's5d2', game.file2);
+                    // Hard-disk images are always SmartPort devices.
                     pushDisk(7, 1, game.hard1);
                     pushDisk(7, 2, game.hard2);
                     if (!disks.length) throw new Error('找不到可掛載的遊戲磁碟檔');
@@ -1884,8 +2102,18 @@
                         }
                         throw new Error(`磁碟下載失敗: ${name} (${lastErr && lastErr.message})`);
                     };
+                    const extractZipEntry = async (bytes, entryName, displayName) => {
+                        if (!window.JSZip) throw new Error('ZIP 解壓縮元件未載入');
+                        const archive = await window.JSZip.loadAsync(bytes);
+                        const entry = archive.file(entryName) || archive.file(baseName(entryName));
+                        if (!entry) throw new Error(`ZIP 內找不到磁碟映像: ${entryName}`);
+                        const extracted = await entry.async('uint8array');
+                        console.log(`   ✅ 解壓縮 ${displayName}: ${(extracted.length / 1048576).toFixed(2)} MB`);
+                        return extracted;
+                    };
                     for (const d of disks) {
                         d.bytes = await downloadWithRetry(d.url, d.name);
+                        if (d.archiveEntry) d.bytes = await extractZipEntry(d.bytes, d.archiveEntry, d.name);
                     }
 
                     // 3. Use the supplied IIgs.gs2 profile unchanged. ROM 3's
@@ -1919,8 +2147,46 @@
                         print: function (text) { console.log(text); },
                         printErr: function (text) { console.error(text); },
                         preRun: [function () {
+                            // Keep the a2g host shell compatible with the
+                            // latest GS² web runtime. SDL's Emscripten file
+                            // dialog may repeat mkdir/rmdir calls while the
+                            // emulator is restarted in the same page.
+                            if (!window.gssquaredFsCompatInstalled) {
+                                const origMkdir = FS.mkdir.bind(FS);
+                                FS.mkdir = function (path, mode) {
+                                    try { return origMkdir(path, mode); }
+                                    catch (e) {
+                                        if (e && e.errno === 20) return undefined;
+                                        throw e;
+                                    }
+                                };
+                                const origRmdir = FS.rmdir.bind(FS);
+                                FS.rmdir = function (path) {
+                                    try { return origRmdir(path); }
+                                    catch (e) {
+                                        if (e && e.errno === 44) return undefined;
+                                        throw e;
+                                    }
+                                };
+                                window.gssquaredFsCompatInstalled = true;
+                            }
                             try {
                                 FS.mkdir('/uploads');
+                                // Keep the browser HUD unobtrusive on startup. The
+                                // emulator reads this before creating its menus;
+                                // F4 can still open the OSD and users can re-enable
+                                // Drives from Display > HUD during the session.
+                                try { FS.mkdir('/persistent'); } catch (e) {
+                                    if (!e || (e.errno !== 20 && e.errno !== 17)) throw e;
+                                }
+                                FS.writeFile('/persistent/system_settings.toml', [
+                                    'gs2_settings_version = 1',
+                                    '',
+                                    '[hud]',
+                                    'stats = false',
+                                    'drives = false',
+                                    ''
+                                ].join('\n'));
                                 disks.forEach(d => {
                                     const fsPath = '/uploads/' + d.name;
                                     FS.writeFile(fsPath, d.bytes);
@@ -1957,7 +2223,8 @@
                     };
 
                     currentEmulator = { game };
-                    gameTitleBar.textContent = `${game.name} (${game.nameCh})`;
+                    currentGame = game;
+                    renderGameTitle();
 
                     const s = document.createElement('script');
                     s.src = `${SERVER_URL}/gs2/GSSquared.js`;
@@ -2037,7 +2304,8 @@
                 }
                 
 
-                gameTitleBar.textContent = `${game.name} - ${t('clickToStart')}`;
+                currentGame = game;
+                renderGameTitle();
 
                 // 使用 updateGameInfo 來更新遊戲資訊，確保語言一致性
                 updateGameInfo(game);

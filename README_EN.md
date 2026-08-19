@@ -1,4 +1,4 @@
-# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs Online Emulator
+# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs Online Emulator v2.0
 
 🎮 **Experience classic Apple IIgs games and software in your browser!**
 
@@ -20,22 +20,29 @@
 - 🔊 **Full Audio Support** - Complete sound output via proxy backend (Cloudflare Pages / local server.js)
 - 📱 **Responsive Design & Dual Side-Drawers** - Full mobile and desktop compatibility; redesigned dual sliding drawers supporting mouse width resizing and auto-collapse threshold for smaller desktop viewports (< 1200px)
 - 🔍 **Screen Scale Toggle** - Integrated "Switch to Native 1x / Switch to Scale to Fit" button next to mute control, with memory persistence and dynamic aspect ratio scaling
-- 🎮 **Mouse Lock Feature** - Click game screen to lock mouse, press Esc to release
+- 🎮 **Mouse Lock Feature** - Click game screen to lock mouse, press ESC/F1 to restore the mouse cursor
 - 🔍 **Smart Search** - Search by Chinese/English game names, descriptions, years
 - 🌍 **One-Click Language Toggle** - Single button in top-right corner for instant language switching with persistent settings
 - 📦 **Multi-Format Support** - Supports .woz, .2mg, .po, .dsk and other disk formats
 - 🌐 **Multiple Data Sources** - Supports Archive.org, custom URLs, ZIP files
 - ⚡ **Fast Loading** - 24-hour file caching for improved loading speed
-- 📄 **Dual-Version Architecture** - Full version (this branch, with audio/ZIP) and a zero-backend Simple version (`OneHtmlFile` branch)
+- 📄 **Three Runtime Versions** - GS² accelerated, MAME full, and zero-backend simple versions
 
 ---
 
 ## 🚀 Quick Start
 
-### Two Running Versions
-This project ships as two independent versions; pick based on your hosting:
+### Three Running Versions
+This project ships with three independent runtime versions:
 
-#### 🔊 Full Version (this branch / Recommended)
+#### 🔊💽 v2.0 Accelerated (`main` branch / GSSquared core / Highly Recommended)
+Uses the GS² (GSSquared) WebAssembly core for fast startup and disk access:
+- ✅ **Adjustable emulation speed** - Hold the right mouse button to accelerate emulation; speed can also be adjusted through the GS² UI
+- ✅ **Accelerated floppy access** - Compatible floppy images can use slot 7 for faster loading; incompatible games remain on slot 5
+- ✅ **WOZ / PO / 2MG support** - Images are mounted directly through the browser virtual filesystem
+- ✅ **Native GS² display and audio** - Smaller core and faster startup
+
+#### 🔊 Full Version (`mame0239` branch / MAME core / Recommended)
 Uses a proxy backend (this repo's `server.js` or Cloudflare Pages Functions):
 - ✅ **Complete Audio Support** - Sound works perfectly
 - ✅ **ZIP File Support** - Supports compressed file formats
@@ -109,12 +116,13 @@ python -m http.server 8000
 - **Letter Keys** `A-Z` - Letter input
 
 ### Advanced Features
-- **Mouse Lock** - Click game screen to lock mouse, press `Esc` to release
+- **Mouse Lock** - Click game screen to lock mouse, press `ESC/F1` to restore the mouse cursor
 - **Collapsible Split Drawers** - Left and right drawers support drag-to-resize, auto-collapse on screens under 768px, and secure anchor alignment for sliding triggers
 - **Persistent Screen Scaling** - Saves chosen screen mode to local storage, automatically preserving state across sessions
+- **Persistent Disk Slot Selection** - Use the disk icon beside a game title to switch slot 5/slot 7; the choice is saved per game, and switching during emulation automatically restarts with the new mount
 - **Fullscreen Mode** - Click `⛶ Fullscreen` button
-- **MAME Settings** - Press `Tab` to open MAME menu for adjustments
-- **Save/Load** - `Shift+F7` to save, `F7` to load
+- **MAME Settings (`mame0239` branch only)** - Press `Tab` to open the MAME menu for adjustments
+- **MAME Save/Load (`mame0239` branch only)** - `Shift+F7` saves and `F7` loads; the GS² build on `main` currently has no save/restore, and uses `F7` for the CRT shader toggle
 - **Language Persistence** - Language settings are automatically saved, won't change after page reload or clicking game screenshots
 - **URL Sharing** - Share URLs with language parameters, recipients will see the same language interface
 
@@ -159,10 +167,14 @@ python -m http.server 8000
 - **ZIP Support** - Direct extraction from ZIP files
 - **Pre-download** - Auto pre-downloads core files for faster loading
 
-### Dual-Version Architecture
-This project provides two independent versions with complementary trade-offs:
+### Version and Deployment Architecture
+This project provides three independent runtime versions with complementary trade-offs:
 
-#### 🔊 Full Version (`main` branch)
+#### 🔊💽 GS² Accelerated Version (`main` branch)
+- **Core loading**: GS² WebAssembly core and resources are bundled under `gs2/`
+- **Disk access**: Select accelerated slot 7 or floppy slot 5 based on game compatibility
+
+#### 🔊 Full Version (`mame0239` branch)
 - **Hosted at**: Cloudflare Pages (a2gsemu-ia.pages.dev) or local `server.js`
 - **Audio Support**: Complete audio, sound works normally
 - **File Support**: Supports all formats including ZIP files
@@ -193,10 +205,21 @@ a2gsemu-ia/
 │   ├── games.js               # Game database (130 games)
 │   └── package.json           # Project configuration and dependencies
 │
-├── 🎮 Emulator Loader
-│   ├── browserfs.min.js       # Browser file system
-│   └── loader.js              # Emularity loader
+├── 🎮 GS² Core (`main` branch)
+│   ├── gs2/GSSquared.js       # Emscripten runtime and GS² launcher
+│   ├── gs2/GSSquared.wasm     # GS² WebAssembly core
+│   ├── gs2/GSSquared.data     # BIOS, ROMs, and preloaded resources
+│   ├── gs2/resources/         # GS² virtual filesystem resources
+│   └── gs2/gssquared-mark.png # GSSquared brand mark
+│
+├── 🎮 MAME Loader (`mame0239` branch)
+│   ├── browserfs.min.js       # Browser file system (MAME/Emularity)
+│   └── loader.js              # Emularity loader (MAME/Emularity)
 │   (MAME core & BIOS are fetched at runtime via /proxy/ from Internet Archive, not bundled)
+│
+├── 💾 Hard Disk Images
+│   ├── roms/GSOS601.zip       # Compressed ProDOS hard-disk image (unpacked at load)
+│   └── roms/SpaceAce2.po      # Game hard-disk image for GS²
 │
 ├── ☁️ Cloudflare Pages (repo root)
 │   ├── functions/proxy/[[path]].js  # Pages Functions proxy handler

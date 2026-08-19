@@ -31,7 +31,7 @@ window.games = [
     "desc": "4th & Inches is a detailed American football simulation that emphasizes strategic play-calling. Players act as both coach and athlete, choosing formations and plays from a comprehensive playbook before executing them on the field. The gameplay features a side-scrolling view where you control key players to pass, run, or tackle, aiming to outmaneuver the defense and score touchdowns.",
     "developer": "Tony Manso & Sculptured Software",
     "publisher": "Accolade",
-    "screenshot": "/4th-and-inches_screenshot.png",
+    "screenshot": "00playable_screenshot.png",
     "nameCh": "美式足球：第四碼",
     "descCh": "4th & Inches 是一款詳細的美式足球模擬遊戲，強調策略性的比賽指揮。球員既充當教練又充當運動員，從全面的戰術手冊中選擇陣型和比賽，然後在場上執行。遊戲採用橫向捲軸視圖，您可以控制關鍵球員傳球、跑動或攔截，旨在突破防守並達陣得分。"
   },
@@ -182,6 +182,7 @@ window.games = [
     "id": "a2gs_Battle_Chess_1989_Interplay",
     "emu": "apple2gs",
     "file": "Battle_Chess_1989_Interplay.2mg",
+    "diskSlots": ["s5d1"],
     "name": "Battle Chess",
     "year": "1989",
     "type": "game",
@@ -351,6 +352,7 @@ window.games = [
     "id": "a2gs_Cogito_1992_Brutal_Deluxe_FW",
     "emu": "apple2gs",
     "file": "SystemDisk.2mg",
+    "diskSlots": ["s5d1", "s5d2"],
     "name": "Cogito",
     "year": "1993",
     "type": "game",
@@ -599,6 +601,7 @@ window.games = [
     "id": "a2gs_GBA_Championship_Basketball_Two-On-Two_1987_Gamestar_Activision",
     "emu": "apple2gs",
     "file": "GBA_Championship_Basketball_Two-On-Two_1987_Gamestar_Activision.2mg",
+    "diskSlots": ["s5d1"],
     "name": "GBA Championship Basketball: Two on Two",
     "year": "1987",
     "type": "game",
@@ -1188,6 +1191,7 @@ window.games = [
     "id": "a2gs_Sea_Strike_1987_PBI_Software",
     "emu": "apple2gs",
     "file": "Sea_Strike_1987_PBI_Software.2mg",
+    "diskSlots": ["s5d1"],
     "name": "Sea Strike",
     "year": "1987",
     "type": "game",
@@ -1202,6 +1206,7 @@ window.games = [
     "id": "a2gs_Sensei_1991_Miami_Software_FW",
     "emu": "apple2gs",
     "file": "Sensei_1991_Miami_Software_FW.2mg",
+    "diskSlots": ["s5d1"],
     "name": "Sensei",
     "year": "1991",
     "type": "game",
@@ -1216,6 +1221,7 @@ window.games = [
     "id": "wozaday_Serve_and_Volley_IIgs",
     "emu": "apple2gs",
     "file": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fe2gs_0750_Serve_Volley%2F0750_Serve__Volley.po",
+    "diskSlots": ["s5d1"],
     "name": "Serve & Volley",
     "year": "1988",
     "type": "game",
@@ -1289,6 +1295,7 @@ window.games = [
     "id": "a2gs_Silent_Service_1987_Microprose",
     "emu": "apple2gs",
     "file": "Silent_Service_1987_Microprose.2mg",
+    "diskSlots": ["s5d1"],
     "name": "Silent Service",
     "year": "1987",
     "type": "game",
@@ -1405,6 +1412,7 @@ window.games = [
     "id": "a2gs_Space_Shark_1990_Toolbox",
     "emu": "apple2gs",
     "file": "Space_Shark_1990_Toolbox.2mg",
+    "diskSlots": ["s5d1"],
     "name": "Space Shark",
     "year": "1990",
     "type": "game",
@@ -1723,6 +1731,7 @@ window.games = [
     "emu": "apple2gs",
     "file": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fe2gs_1171_Windwalker_Disk_1%2F1171_Windwalker_Disk_1.po",
     "file2": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fe2gs_1172_Windwalker_Disk_2%2F1172_Windwalker_Disk_2.po",
+    "diskSlots": ["s5d1", "s5d2"],
     "name": "Windwalker",
     "year": "1990",
     "type": "game",
@@ -1879,7 +1888,7 @@ window.games = [
   {
     "id": "msdos_Space_Ace_II_-_Borfs_Revenge_1991",
     "emu": "apple2gs",
-    "hard1": "/roms/GSOS601.po",
+    "hard1": "/roms/GSOS601.zip/GSOS601.po",
     "hard2": "/roms/SpaceAce2.po",
     "name": "Space Ace II: Borf's Revenge",
     "year": "1991 / 2022",
@@ -1892,3 +1901,22 @@ window.games = [
     "descCh": "Space Ace II: Borf's Revenge 延續了前作的傳奇。邪惡的 Borf 指揮官再次歸來，綁架了 Dexter 的愛人 Kimberly，企圖報復並毀滅地球。這款續作保留了 Don Bluth 標誌性的動畫風格，玩家需要透過精確的反應與判斷，引導 Dexter 在各種致命的關卡中生存。遊戲的核心樂趣在於 Dexter 必須在「少年狀態」與「強壯的 Ace」之間切換，最終深入 Borf 的要塞展開決戰並救出女友。"
   }
 ];
+
+// GS² playback hint for Space Ace II: 14.3MHz produces smooth gameplay.
+const spaceAceGs2 = window.games.find((game) => game.id === 'msdos_Space_Ace_II_-_Borfs_Revenge_1991');
+if (spaceAceGs2) {
+  spaceAceGs2.desc += ' For GS², set the emulation speed to 14.3MHz for smooth gameplay.';
+  spaceAceGs2.descCh += ' 搭配 GS² 使用時，請將模擬速度調整至 14.3MHz，即可流暢運行。';
+}
+
+// GS² mount policy for floppy images.  The explicit diskSlots field is the
+// per-game override used after boot testing.  Until a game is classified,
+// PO/2MG block images try the accelerated SmartPort path (S7); WOZ and other
+// floppy formats retain the compatible IWM path (S5).
+window.games.forEach((game) => {
+  if (game.diskSlots || (!game.file && !game.file2)) return;
+  const isBlockImage = (path) => typeof path === 'string' && /\.(?:po|2mg)(?:[?#]|$)/i.test(path);
+  game.diskSlots = [game.file, game.file2].map((path, index) =>
+    isBlockImage(path) ? `s7d${index + 1}` : `s5d${index + 1}`
+  );
+});

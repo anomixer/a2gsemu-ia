@@ -1,4 +1,4 @@
-# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs 線上模擬器
+# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs 線上模擬器 v2.0
 
 🎮 **在瀏覽器中體驗經典的 Apple IIgs 遊戲與軟體！**
 
@@ -20,22 +20,29 @@
 - 🔊 **完整音效支援** - 透過代理後端（Cloudflare Pages / 本地 server.js）完整輸出聲音
 - 📱 **響應式設計 & 雙側滑動抽屜** - 支援桌面和行動裝置；全新設計的左右側邊欄抽屜佈局，支援滑鼠拖曳調整寬度、桌面小螢幕（寬度 < 1200px）自動收合優化
 - 🔍 **畫面比例切換** - 右上方控制列新增「切到原生模式1x / 切到縮放適應」一鍵切換，支援設定記憶持久化與完美的 RWD 比例縮放
-- 🎮 **滑鼠鎖定功能** - 點擊遊戲畫面鎖定滑鼠，按 Esc 解除
+- 🎮 **滑鼠鎖定功能** - 點擊遊戲畫面鎖定滑鼠，按 ESC/F1 恢復滑鼠游標
 - 🔍 **智能搜尋** - 支援中英文遊戲名稱、描述、年份搜尋
 - 🌍 **單鍵語言切換** - 右上角單一按鈕，一鍵切換中英文介面，語言設定持久保存
 - 📦 **多格式支援** - 支援 .woz、.2mg、.po、.dsk 等磁片格式
 - 🌐 **多重資料源** - 支援 Archive.org、自訂 URL、ZIP 檔案
 - ⚡ **快速載入** - 24小時檔案快取，提升載入速度
-- 📄 **雙版本架構** - 完整版（本分支，含音效/ZIP）與零後端簡易版（`OneHtmlFile` 分支）
+- 📄 **三種運行版本** - GS² 加速版、MAME 完整版與零後端簡易版
 
 ---
 
 ## 🚀 快速開始
 
-### 兩種運行版本
-本專案有兩個獨立版本，依託管方式選擇：
+### 三種運行版本
+本專案提供三種獨立運行版本，依需求選擇：
 
-#### 🔊 完整版 (本分支 / 推薦)
+#### 🔊💽 v2.0 加速版 (`main` 分支 / GSSquared 核心 / 極推薦)
+使用 GS² (GSSquared) WebAssembly 核心，提供快速啟動與磁碟存取：
+- ✅ **可切換執行速度** - 按住滑鼠右鍵即可加速模擬速度，透過 GS² 介面可調整速度
+- ✅ **軟碟加速存取** - 可將相容的軟碟映像掛載到硬碟 slot 7，加速載入；不相容的遊戲仍使用 slot 5
+- ✅ **WOZ / PO / 2MG 支援** - 直接透過瀏覽器虛擬檔案系統掛載映像
+- ✅ **原生 GS² 顯示與音效** - 較小的核心、快速啟動
+
+#### 🔊 完整版 (`mame0239` 分支 / MAME 核心 / 推薦)
 搭配代理後端使用（本 repo 的 `server.js` 或 Cloudflare Pages Functions）：
 - ✅ **完整音效支援** - 聲音完全正常
 - ✅ **ZIP 檔案支援** - 支援壓縮檔案格式
@@ -109,12 +116,13 @@ python -m http.server 8000
 - **字母鍵** `A-Z` - 字母輸入
 
 ### 進階功能
-- **滑鼠鎖定** - 點擊遊戲畫面鎖定滑鼠，按 `Esc` 解除
+- **滑鼠鎖定** - 點擊遊戲畫面鎖定滑鼠，按 `ESC/F1` 恢復滑鼠游標
 - **雙側抽屜拉伸與縮放** - 左右抽屜支援滑鼠拖曳調整寬度，行動裝置下（寬度 <= 768px）自動收合隱藏，點擊拉出時箭頭與邊框精準錨定
 - **畫面比例持久化** - 按下畫面比例切換後設定會自動儲存到瀏覽器，下次加載時自動恢復
+- **磁碟 slot 設定持久化** - 點擊遊戲標題旁的磁碟圖示切換 slot 5／slot 7 後會記住設定；遊戲執行中切換會自動重新啟動並套用新掛載位置
 - **全螢幕模式** - 點擊 `⛶ 全螢幕` 按鈕
-- **MAME 設定** - 按 `Tab` 開啟 MAME 選單調整設定
-- **存檔/讀檔** - `Shift+F7` 存檔，`F7` 讀檔
+- **MAME 設定（僅 `mame0239` 分支）** - 按 `Tab` 開啟 MAME 選單調整設定
+- **MAME 存檔/讀檔（僅 `mame0239` 分支）** - `Shift+F7` 存檔，`F7` 讀檔；`main` 的 GS² 建置目前不提供存檔／讀檔，`F7` 用於 CRT shader 切換
 - **語言持久化** - 語言設定會自動保存，重新載入頁面或點擊遊戲截圖後語言不會改變
 - **URL 分享** - 可以分享帶有語言參數的 URL，接收者會看到相同的語言介面
 
@@ -159,10 +167,14 @@ python -m http.server 8000
 - **ZIP 支援** - 直接從 ZIP 檔案提取遊戲
 - **預下載** - 自動預下載核心檔案加速載入
 
-### 雙版本架構
-本專案提供兩個獨立版本，功能互為取捨：
+### 版本與部署架構
+本專案提供三個獨立運行版本，功能互為取捨：
 
-#### 🔊 完整版 (`main` 分支)
+#### 🔊💽 GS² 加速版 (`main` 分支)
+- **核心載入**: GS² WebAssembly 核心與資源自帶於 `gs2/`
+- **磁碟存取**: 依遊戲相容性選擇 slot 7 加速或 slot 5 軟碟模式
+
+#### 🔊 完整版 (`mame0239` 分支)
 - **部署位置**: Cloudflare Pages (a2gsemu-ia.pages.dev) 或本地 `server.js`
 - **音效支援**: 完整音效，聲音正常
 - **檔案支援**: 支援所有格式，包括 ZIP 檔案
@@ -193,10 +205,21 @@ a2gsemu-ia/
 │   ├── games.js               # 遊戲資料庫 (130 款遊戲)
 │   └── package.json           # 專案配置與依賴
 │
-├── 🎮 模擬器載入器
-│   ├── browserfs.min.js       # 瀏覽器檔案系統
-│   └── loader.js              # Emularity 載入器
+├── 🎮 GS² 核心 (`main` 分支)
+│   ├── gs2/GSSquared.js       # Emscripten 執行環境與 GS² 啟動器
+│   ├── gs2/GSSquared.wasm     # GS² WebAssembly 核心
+│   ├── gs2/GSSquared.data     # BIOS、ROM 與預載資源
+│   ├── gs2/resources/         # GS² 虛擬檔案系統資源
+│   └── gs2/gssquared-mark.png # GSSquared 品牌圖示
+│
+├── 🎮 MAME 載入器（`mame0239` 分支）
+│   ├── browserfs.min.js       # 瀏覽器檔案系統（MAME/Emularity）
+│   └── loader.js              # Emularity 載入器（MAME/Emularity）
 │   (MAME 核心與 BIOS 透過 /proxy/ 代理自 Internet Archive 載入，不自帶於 repo)
+│
+├── 💾 硬碟映像
+│   ├── roms/GSOS601.zip       # 壓縮後的 ProDOS 硬碟映像（載入時解壓）
+│   └── roms/SpaceAce2.po      # GS² 可用的遊戲硬碟映像
 │
 ├── ☁️ Cloudflare Pages (根目錄)
 │   ├── functions/proxy/[[path]].js  # Pages Functions 代理服務

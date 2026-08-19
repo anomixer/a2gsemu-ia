@@ -3,6 +3,6 @@ name = "a2gsemu-ia"
 compatibility_date = "2024-12-24"
 
 # Pages 專案配置
-pages_build_output_dir = ".."
+pages_build_output_dir = "."
 
-# Pages 專案不需要額外的 build 配置，直接部署上層目錄的靜態檔案
+# Pages 專案不需要額外的 build 配置，直接部署 repo 根目錄的靜態檔案
