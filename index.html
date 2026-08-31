@@ -367,6 +367,8 @@
 
         .slot7-toggle.locked {
             cursor: default;
+            filter: grayscale(1);
+            opacity: 0.5;
         }
 
         .control-buttons {
@@ -1885,8 +1887,8 @@
             }
 
             function gameCanUseSlot7(game) {
-                return Boolean(game && (game.hard1 || game.hard2 ||
-                    [game.file, game.file2].some(isBlockImagePath)));
+                if (!game || game.hard1 || game.hard2 || game.poLarge) return true;
+                return [game.file, game.file2].some(isBlockImagePath);
             }
 
             function gameUsesSlot7(game) {
@@ -1895,7 +1897,7 @@
             }
 
             function toggleGameSlot(game) {
-                if (!game || game.hard1 || game.hard2 || !gameCanUseSlot7(game)) return;
+                if (!game || game.hard1 || game.hard2 || game.poLarge) return;
                 const useSlot7 = !gameUsesSlot7(game);
                 const files = [game.file, game.file2];
                 game.diskSlots = files.map((path, index) =>
@@ -1921,12 +1923,13 @@
                 if (!gameTitleBar || !currentGame) return;
                 const originalTitle = `${currentGame.name} (${currentGame.nameCh})`;
                 const hasHardDisk = Boolean(currentGame.hard1 || currentGame.hard2);
+                const slotLocked = Boolean(currentGame.poLarge);
                 const showSlotIcon = gameCanUseSlot7(currentGame);
                 const slot7 = gameUsesSlot7(currentGame);
                 const icon = showSlotIcon ?
-                    `<button class="slot7-toggle ${slot7 ? '' : 'slot5'} ${hasHardDisk ? 'locked' : ''}" ` +
-                    `title="${hasHardDisk ? t('slot7FixedHint') : (slot7 ? t('slot7To5Hint') : t('slot5To7Hint'))}" ` +
-                    `aria-label="${hasHardDisk ? t('slot7FixedHint') : t('slotToggleLabel')}" ${hasHardDisk ? 'disabled' : ''}>💽</button>` : '';
+                    `<button class="slot7-toggle ${slot7 ? '' : 'slot5'} ${(hasHardDisk || slotLocked) ? 'locked' : ''}" ` +
+                    `title="${(hasHardDisk || slotLocked) ? t('slot7FixedHint') : (slot7 ? t('slot7To5Hint') : t('slot5To7Hint'))}" ` +
+                    `aria-label="${(hasHardDisk || slotLocked) ? t('slot7FixedHint') : t('slotToggleLabel')}" ${(hasHardDisk || slotLocked) ? 'disabled' : ''}>💽</button>` : '';
                 gameTitleBar.innerHTML = `<span class="game-title-text">${originalTitle}</span>${icon}`;
                 const toggle = gameTitleBar.querySelector('.slot7-toggle:not([disabled])');
                 if (toggle) toggle.addEventListener('click', (event) => {

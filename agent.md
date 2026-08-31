@@ -2,13 +2,13 @@
 
 ## Project Overview
 
-This is an Apple IIgs online emulator project that allows users to play classic Apple IIgs games directly in their web browser. The project has evolved through multiple iterations and now serves 130 carefully curated games with rich descriptions, modern web features, and full Cloudflare Pages deployment support.
+This is an Apple IIgs online emulator project that allows users to play classic Apple IIgs games directly in their web browser. The project has evolved through multiple iterations and now serves 131 carefully curated games with rich descriptions, modern web features, and full Cloudflare Pages deployment support.
 
 ## Architecture
 
 ### Frontend
 - **Main File**: `index.html` (renamed from `index_emularity_v8.html`)
-- **Game Database**: `games.js` (130 games with English/Chinese names)
+- **Game Database**: `games.js` (131 games with English/Chinese names)
 - **Emulator core**:
   - **`mame0239` branch**: Emularity framework with the MAME Apple IIgs core (`mameapple2gs.js.gz` / `mameapple2gs.wasm.gz`, ~66 MB).
   - **`main` branch (this branch)**: **GS² (GSSquared)** Apple IIgs core compiled to WebAssembly — `gs2/GSSquared.js` + `gs2/GSSquared.wasm` + `gs2/GSSquared.data` (~4.9 MB wasm + ~3 MB data, SIMD). Fast, native ProDOS/WOZ support, no BIOS mount needed (BIOS is baked into `GSSquared.data`). See the [GS² Engine](#gs2-gssquared-engine---main-branch) section for the full dev process.
@@ -91,7 +91,7 @@ Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`
 
 ### Major Tasks Completed
 
-1. **Game Library Expansion** (70 → 130 games)
+1. **Game Library Expansion** (70 → 131 games)
    - Created automated expansion tools (JavaScript, Python, PowerShell)
    - Integrated Archive.org search functionality
    - Added deduplication and quality scoring
@@ -202,7 +202,7 @@ Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`
 ### Core Application (repository root)
 - `index.html` - Main application (HTML + CSS + JavaScript)
 - `server.js` - Local backend proxy server
-- `games.js` - Game database (130 games)
+- `games.js` - Game database (131 games)
 - `package.json` - Dependencies and scripts
 
 ### GS² branch (in-repo core + disk images)
@@ -630,6 +630,9 @@ unless a regression investigation specifically requires it.
   failed boot and add an explicit S5 `diskSlots` override per title.
 - User-facing mouse guidance now consistently says `ESC/F1` restores the mouse
   cursor in both Chinese and English README/UI text.
+- `poLarge: true` marks `.po` images larger than 800K that must remain on S7.
+  `index.html` shows the slot icon as greyed-out/disabled for these titles and
+  blocks the slot-5 toggle. `Time Pilot GS` is the first title using this flag.
 
 ### GS² branding and title UI (2026-08-19)
 

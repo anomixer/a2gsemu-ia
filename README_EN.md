@@ -16,7 +16,7 @@
 
 ## ✨ Key Features
 
-- 🎯 **130 Selected Games** - Including classic RPGs, action, puzzle games and more
+- 🎯 **131 Selected Games** - Including classic RPGs, action, puzzle games and more
 - 🔊 **Full Audio Support** - Complete sound output via proxy backend (Cloudflare Pages / local server.js)
 - 📱 **Responsive Design & Dual Side-Drawers** - Full mobile and desktop compatibility; redesigned dual sliding drawers supporting mouse width resizing and auto-collapse threshold for smaller desktop viewports (< 1200px)
 - 🔍 **Screen Scale Toggle** - Integrated "Switch to Native 1x / Switch to Scale to Fit" button next to mute control, with memory persistence and dynamic aspect ratio scaling
@@ -138,7 +138,7 @@ python -m http.server 8000
 - **Simulation** - Pirates!, Balance of Power, etc.
 
 ### 📊 Statistics
-- **Total**: 130 games and software
+- **Total**: 131 games and software
 - **Era**: 1986-2024
 - **Language**: Complete bilingual interface with one-click switching
 - **Descriptions**: Each game has detailed 400-word descriptions
@@ -202,7 +202,7 @@ a2gsemu-ia/
 ├── 📄 Core Files
 │   ├── index.html              # Main application (full functionality)
 │   ├── server.js               # Node.js backend server (proxy service)
-│   ├── games.js               # Game database (130 games)
+│   ├── games.js               # Game database (131 games)
 │   └── package.json           # Project configuration and dependencies
 │
 ├── 🎮 GS² Core (`main` branch)
@@ -267,7 +267,7 @@ a2gsemu-ia/
 #### 🎯 Main Files
 - **`index.html`** - Main application, full functionality with a proxy backend
 - **`server.js`** - Node.js backend server providing `/proxy/*` proxy services and full functionality
-- **`games.js`** - Game database containing complete information for 130 games
+- **`games.js`** - Game database containing complete information for 131 games
 - **Simple Version (no backend)** - lives on the separate `OneHtmlFile` branch, pure static hosting
 
 #### 🔧 Technical Files

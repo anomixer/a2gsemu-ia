@@ -1582,6 +1582,22 @@ window.games = [
     "descCh": "為了拯救孤兒院免於喪失抵押品贖回權，玩家通過基於地圖的棋盤遊戲引導拉里、科利和莫伊。選擇空間會觸發基於經典電影短片的各種迷你游戲，例如扔餡餅大戰、醫院競賽或“吃餅乾”競賽。目標是在遊戲內 30 天內收集足夠的金錢，同時避開邪惡的銀行家 Fleecem。"
   },
   {
+    "id": "https://github.com/StewBC/Time-Pilot",
+    "emu": "apple2gs",
+    "file": "https://github.com/StewBC/Time-Pilot/releases/download/V1.8/timepilot_gs_v1.6.po",
+    "name": "Time Pilot GS",
+    "year": "2024",
+    "type": "game",
+    "desc": "Time Pilot is a multidirectional shooter arcade game developed by Konami in 1982. Players pilot a plane through five different eras—1910, 1940, 1970, 2000, and the future—defeating enemy aircraft and avoiding collision. Time Pilot GS is a 2024 Apple IIgs remake by Stefan Wessels, faithfully recreating the classic arcade experience with authentic scrolling action on the Apple IIgs platform.",
+    "descCh": "《Time Pilot》是一款由Konami於1982年開發的多方向射擊街機遊戲。玩家駕駛飛機穿越五個不同時代——1910、1940、1970、2000和未來——擊敗敵機並避免碰撞。Time Pilot GS 是 Stefan Wessels 於2024年為Apple IIgs開發的remake作品，在Apple IIgs平台上忠實重現了經典的街機體驗。",
+    "developer": "Stefan Wessels",
+    "publisher": "Brutal Deluxe Software",
+    "screenshot": "https://www.brutaldeluxe.fr/public/timepilot/timepilot1.jpg",
+    "nameCh": "時光戰機 GS",
+    "diskSlots": ["s7d1"],
+    "poLarge": true
+  },
+  {
     "id": "a2gs_Tinies_The_1994_Brutal_Deluxe_FW",
     "emu": "apple2gs",
     "file": "SystemDisk.2mg",
