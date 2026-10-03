@@ -202,9 +202,14 @@
         }
 
         .game-item.active {
-            background: #4CAF50;
-            color: #000;
-            border-color: #4CAF50;
+            background: rgba(76, 175, 80, 0.15) !important;
+            border: 2px solid #4CAF50 !important;
+        }
+
+        .game-item.playing {
+            border: 2px solid #4CAF50 !important;
+            border-left: 6px solid #4CAF50 !important;
+            background: rgba(76, 175, 80, 0.1) !important;
         }
 
         .game-item h3 {
@@ -218,18 +223,10 @@
             font-weight: normal;
         }
 
-        .game-item.active .name-en {
-            color: #333;
-        }
-
         .game-item .year {
             font-size: 11px;
             color: #666;
             margin-top: 4px;
-        }
-
-        .game-item.active .year {
-            color: #222;
         }
 
         .badge {
@@ -367,6 +364,8 @@
 
         .slot7-toggle.locked {
             cursor: default;
+            filter: grayscale(1);
+            opacity: 0.5;
         }
 
         .control-buttons {
@@ -915,7 +914,10 @@
 
     <div class="main-container">
         <div class="sidebar" id="sidebar">
-            <input type="text" class="search-box" id="searchBox" placeholder="🔍 搜尋遊戲...">
+            <div class="search-container" style="display: flex; border-bottom: 2px solid #444; background: #1a1a1a;">
+                <input type="text" class="search-box" id="searchBox" placeholder="🔍 搜尋遊戲..." style="border-bottom: none; flex-grow: 1; min-width: 0;">
+                <button id="sortToggleBtn" title="切換排序方式 (A→Z)" style="background: transparent; border: none; color: #aaa; cursor: pointer; padding: 0 10px; font-size: 14px; white-space: nowrap; transition: color 0.3s; display: flex; align-items: center; justify-content: center;">🔤 A→Z</button>
+            </div>
             <div class="game-list" id="gameList"></div>
             <div class="drawer-toggle left-toggle" id="sidebarToggle">◀</div>
         </div>
@@ -1059,7 +1061,7 @@
         </div>
 
         <script src="./jszip.min.js"></script>
-        <script src="./games.js"></script>
+        <script src="./games.js?v=2.2"></script>
 
         <script>
             let currentGame = null;
@@ -1070,37 +1072,51 @@
             // 語言設定初始化
             let currentLanguage = 'zh'; // 預設中文
 
-            // 優先從 URL 參數讀取語言設定
+            // 優先順序: URL param > localStorage > 瀏覽器語言
             const initialUrlParams = new URLSearchParams(window.location.search);
             const urlLang = initialUrlParams.get('lang');
             if (urlLang === 'en' || urlLang === 'zh') {
                 currentLanguage = urlLang;
+                localStorage.setItem('language', urlLang);
             } else {
-                // 如果 URL 沒有語言參數，則檢測瀏覽器語言
-                const browserLang = navigator.language || navigator.userLanguage;
-                if (browserLang.startsWith('en')) {
-                    currentLanguage = 'en';
+                const savedLang = localStorage.getItem('language');
+                if (savedLang === 'en' || savedLang === 'zh') {
+                    currentLanguage = savedLang;
+                } else {
+                    // 如果 localStorage 也沒有，則檢測瀏覽器語言
+                    const browserLang = navigator.language || navigator.userLanguage;
+                    if (browserLang.startsWith('en')) {
+                        currentLanguage = 'en';
+                    }
                 }
             }
 
             // 完整的 i18n 翻譯對象
             const i18n = {
                 zh: {
-                    title: 'Apple IIgs 線上模擬器 v2.0',
+                    title: 'Apple IIgs 線上模擬器 v2.2',
                     subtitle: '共 {count} 款精選遊戲與軟體',
                     searchPlaceholder: '🔍 搜尋遊戲...',
                     welcomeTitle: '歡迎使用 Apple IIgs 模擬器',
                     welcomeText: '👈 請從左側選擇一款遊戲或軟體開始',
                     welcomeDesc: 'Apple IIgs 是 Apple II 系列的第五代產品<br>於 1986 年發布,擁有 16 位元處理器和彩色圖形能力',
                     welcomeFeatures: '🎮 Apple IIgs 線上模擬器<br>• 使用 Node.js 後端代理<br>• 完全解決 CORS 問題<br>• 🔊 聲音完全正常！',
-                    openIA: '🌐 開啟 IA 網站',
+                    openIA: '🌐 開啟來源網站',
                     mute: '🔇 靜音',
                     unmute: '🔊 有聲',
                     fullscreen: '⛶ 全螢幕',
                     exitFullscreen: '⛶ 退出全螢幕',
                     reload: '🔄',
                     langSwitch: '切換語言',
-                    openIAHint: '在 Archive.org 開啟以控制聲音',
+                    sortAZ: '🔤 A→Z',
+                    sortZA: '🔡 Z→A',
+                    sortOldNew: '📅 舊→新',
+                    sortNewOld: '📅 新→舊',
+                    sortAZTitle: '切換排序方式 (A→Z)',
+                    sortZATitle: '切換排序方式 (Z→A)',
+                    sortOldNewTitle: '切換排序方式 (年份舊→新)',
+                    sortNewOldTitle: '切換排序方式 (年份新→舊)',
+                    openIAHint: '在來源網站開啟',
                     fullscreenHint: '全螢幕',
                     reloadHint: '重新載入',
                     clickToStart: '點截圖開始',
@@ -1179,21 +1195,29 @@
                         slotToggleLabel: '切換 Slot 5/7'
                 },
                 en: {
-                    title: 'Apple IIgs Online Emulator v2.0',
+                    title: 'Apple IIgs Online Emulator v2.2',
                     subtitle: '{count} Selected Games & Software',
                     searchPlaceholder: '🔍 Search games...',
                     welcomeTitle: 'Welcome to Apple IIgs Emulator',
                     welcomeText: '👈 Please select a game or software from the left to start',
                     welcomeDesc: 'Apple IIgs is the fifth generation of Apple II series<br>Released in 1986 with 16-bit processor and color graphics capability',
                     welcomeFeatures: '🎮 Apple IIgs Online Emulator<br>• Using Node.js backend proxy<br>• Completely solves CORS issues<br>• 🔊 Sound works perfectly!',
-                    openIA: '🌐 Open IA Site',
+                    openIA: '🌐 Open Source Site',
                     mute: '🔇 Mute',
                     unmute: '🔊 Sound',
                     fullscreen: '⛶ Fullscreen',
                     exitFullscreen: '⛶ Exit Fullscreen',
                     reload: '🔄',
                     langSwitch: 'Switch Language',
-                    openIAHint: 'Open on Archive.org to control sound',
+                    sortAZ: '🔤 A→Z',
+                    sortZA: '🔡 Z→A',
+                    sortOldNew: '📅 Old→New',
+                    sortNewOld: '📅 New→Old',
+                    sortAZTitle: 'Toggle Sort (A→Z)',
+                    sortZATitle: 'Toggle Sort (Z→A)',
+                    sortOldNewTitle: 'Toggle Sort (Old→New)',
+                    sortNewOldTitle: 'Toggle Sort (New→Old)',
+                    openIAHint: 'Open on Source Site',
                     fullscreenHint: 'Fullscreen',
                     reloadHint: 'Reload',
                     clickToStart: 'Click screenshot to start',
@@ -1357,6 +1381,15 @@
                     langToggle.title = t('langSwitch');
                 }
 
+                // 同步更新排序按鈕文字
+                const sortToggleBtn = document.getElementById('sortToggleBtn');
+                if (sortToggleBtn && typeof currentSortMode !== 'undefined') {
+                    const sortLabels = [t('sortAZ'), t('sortZA'), t('sortOldNew'), t('sortNewOld')];
+                    const sortTitles = [t('sortAZTitle'), t('sortZATitle'), t('sortOldNewTitle'), t('sortNewOldTitle')];
+                    sortToggleBtn.textContent = sortLabels[currentSortMode];
+                    sortToggleBtn.title = sortTitles[currentSortMode];
+                }
+
                 // 更新資訊面板
                 updateInfoPanel();
 
@@ -1461,6 +1494,7 @@
             // 語言切換功能
             function switchLanguage() {
                 currentLanguage = currentLanguage === 'zh' ? 'en' : 'zh';
+                localStorage.setItem('language', currentLanguage);
 
                 // 更新 URL 中的語言參數
                 const url = new URL(window.location.href);
@@ -1492,7 +1526,7 @@
                 // 更新遊戲描述（根據語言選擇）
                 const gameDescription = document.getElementById('gameDescription');
                 if (gameDescription) {
-                    gameDescription.textContent = currentLanguage === 'zh' ? (game.descCh || game.desc) : (game.desc || game.descCh);
+                    gameDescription.innerHTML = currentLanguage === 'zh' ? (game.descCh || game.desc) : (game.desc || game.descCh);
                 }
 
                 // 更新遊戲詳細資訊
@@ -1739,8 +1773,6 @@
                     const key = normalizeTitleKey(game);
                     if (!key) return;
                     const normalized = normalizeGame(game);
-                    const unreleased = /unreleased/i.test(normalized.name || '') || /unreleased/i.test(normalized.desc || '');
-                    if (unreleased) return;
                     const score = scoreGame(normalized);
                     const existing = bestByKey.get(key);
                     if (!existing || score > existing.score) {
@@ -1885,8 +1917,8 @@
             }
 
             function gameCanUseSlot7(game) {
-                return Boolean(game && (game.hard1 || game.hard2 ||
-                    [game.file, game.file2].some(isBlockImagePath)));
+                if (!game || game.hard1 || game.hard2 || game.poLarge) return true;
+                return [game.file, game.file2].some(isBlockImagePath);
             }
 
             function gameUsesSlot7(game) {
@@ -1895,11 +1927,12 @@
             }
 
             function toggleGameSlot(game) {
-                if (!game || game.hard1 || game.hard2 || !gameCanUseSlot7(game)) return;
+                if (!game || game.hard1 || game.hard2 || game.poLarge) return;
                 const useSlot7 = !gameUsesSlot7(game);
                 const files = [game.file, game.file2];
                 game.diskSlots = files.map((path, index) =>
-                    path ? `s${useSlot7 ? 7 : 5}d${index + 1}` : `s${useSlot7 ? 7 : 5}d${index + 1}`
+                    path ? 's' + (useSlot7 ? 7 : 5) + 'd' + (index + 1)
+                         : 's' + (useSlot7 ? 7 : 5) + 'd' + (index + 1)
                 );
                 try {
                     const saved = JSON.parse(localStorage.getItem(slotPreferenceKey) || '{}');
@@ -1921,12 +1954,13 @@
                 if (!gameTitleBar || !currentGame) return;
                 const originalTitle = `${currentGame.name} (${currentGame.nameCh})`;
                 const hasHardDisk = Boolean(currentGame.hard1 || currentGame.hard2);
+                const slotLocked = Boolean(currentGame.poLarge);
                 const showSlotIcon = gameCanUseSlot7(currentGame);
                 const slot7 = gameUsesSlot7(currentGame);
                 const icon = showSlotIcon ?
-                    `<button class="slot7-toggle ${slot7 ? '' : 'slot5'} ${hasHardDisk ? 'locked' : ''}" ` +
-                    `title="${hasHardDisk ? t('slot7FixedHint') : (slot7 ? t('slot7To5Hint') : t('slot5To7Hint'))}" ` +
-                    `aria-label="${hasHardDisk ? t('slot7FixedHint') : t('slotToggleLabel')}" ${hasHardDisk ? 'disabled' : ''}>💽</button>` : '';
+                    `<button class="slot7-toggle ${slot7 ? '' : 'slot5'} ${(hasHardDisk || slotLocked) ? 'locked' : ''}" ` +
+                    `title="${(hasHardDisk || slotLocked) ? t('slot7FixedHint') : (slot7 ? t('slot7To5Hint') : t('slot5To7Hint'))}" ` +
+                    `aria-label="${(hasHardDisk || slotLocked) ? t('slot7FixedHint') : t('slotToggleLabel')}" ${(hasHardDisk || slotLocked) ? 'disabled' : ''}>💽</button>` : '';
                 gameTitleBar.innerHTML = `<span class="game-title-text">${originalTitle}</span>${icon}`;
                 const toggle = gameTitleBar.querySelector('.slot7-toggle:not([disabled])');
                 if (toggle) toggle.addEventListener('click', (event) => {
@@ -2047,6 +2081,10 @@
 
                 resetEmulatorState('start');
 
+                document.querySelectorAll('.game-item.playing').forEach(el => el.classList.remove('playing'));
+                const itemEl = document.querySelector(`.game-item[data-id="${game.id}"]`);
+                if (itemEl) itemEl.classList.add('playing');
+
                 const newCanvas = canvas || recreateCanvas();
                 if (!newCanvas) {
                     console.error('找不到 canvas，無法啟動');
@@ -2062,9 +2100,9 @@
                         const sourcePath = archiveMatch ? archiveMatch[1] : path;
                         disks.push({
                             slot, drive,
-                            name: archiveMatch ? baseName(archiveMatch[2]) : baseName(path),
+                            name: archiveMatch ? decodeURIComponent(baseName(archiveMatch[2])) : decodeURIComponent(baseName(path)),
                             url: buildFileUrl(game.id, sourcePath),
-                            archiveEntry: archiveMatch ? archiveMatch[2] : null
+                            archiveEntry: archiveMatch ? decodeURIComponent(archiveMatch[2]) : null
                         });
                     };
                     const mountSpec = (spec, path) => {
@@ -2176,20 +2214,7 @@
                             try {
                                 FS.mkdir('/uploads');
                                 // Keep the browser HUD unobtrusive on startup. The
-                                // emulator reads this before creating its menus;
-                                // F4 can still open the OSD and users can re-enable
                                 // Drives from Display > HUD during the session.
-                                try { FS.mkdir('/persistent'); } catch (e) {
-                                    if (!e || (e.errno !== 20 && e.errno !== 17)) throw e;
-                                }
-                                FS.writeFile('/persistent/system_settings.toml', [
-                                    'gs2_settings_version = 1',
-                                    '',
-                                    '[hud]',
-                                    'stats = false',
-                                    'drives = false',
-                                    ''
-                                ].join('\n'));
                                 disks.forEach(d => {
                                     const fsPath = '/uploads/' + d.name;
                                     FS.writeFile(fsPath, d.bytes);
@@ -2199,7 +2224,12 @@
                                     }
                                     console.log(`✅ browser virtual FS: ${d.name} -> ${fsPath} (${stored.length} bytes, boot byte $${stored[0].toString(16).padStart(2, '0')})`);
                                 });
-                                FS.writeFile(configPath, configContent);
+                                let finalConfigContent = configContent;
+                                if (game.name === 'Cogito Return' || game.name.includes('Cogito Return')) {
+                                    finalConfigContent += '\n[[cards]]\nslot = 3\ncard = "second_sight"\n';
+                                    console.log('Inserted Second Sight card for Cogito Return');
+                                }
+                                FS.writeFile(configPath, finalConfigContent);
                                 const storedConfig = FS.readFile(configPath, { encoding: 'utf8' });
                                 if (!storedConfig.includes('card = "bazfast3"') || !storedConfig.includes('slot = 7')) {
                                     throw new Error('GS² 組態寫入驗證失敗: slot 7 bazfast3');
@@ -2333,8 +2363,34 @@
                 currentGame = game;
             }
 
+            let currentSortMode = parseInt(localStorage.getItem('sortMode') || '0', 10);
+            if (isNaN(currentSortMode) || currentSortMode < 0 || currentSortMode > 3) currentSortMode = 0;
+
+            const sortToggleBtn = document.getElementById('sortToggleBtn');
+            if (sortToggleBtn) {
+                // Set initial button label from persisted state
+                const sortLabelsInit = [t('sortAZ'), t('sortZA'), t('sortOldNew'), t('sortNewOld')];
+                const sortTitlesInit = [t('sortAZTitle'), t('sortZATitle'), t('sortOldNewTitle'), t('sortNewOldTitle')];
+                sortToggleBtn.textContent = sortLabelsInit[currentSortMode];
+                sortToggleBtn.title = sortTitlesInit[currentSortMode];
+
+                sortToggleBtn.addEventListener('click', () => {
+                    currentSortMode = (currentSortMode + 1) % 4;
+                    localStorage.setItem('sortMode', currentSortMode);
+                    const sortLabels = [t('sortAZ'), t('sortZA'), t('sortOldNew'), t('sortNewOld')];
+                    const sortTitles = [t('sortAZTitle'), t('sortZATitle'), t('sortOldNewTitle'), t('sortNewOldTitle')];
+                    sortToggleBtn.textContent = sortLabels[currentSortMode];
+                    sortToggleBtn.title = sortTitles[currentSortMode];
+                    renderGames(searchBox.value);
+                });
+            }
+
+
             function renderGames(filter = '') {
                 gameList.innerHTML = '';
+                
+                const urlParams = new URLSearchParams(window.location.search);
+                const urlGameId = urlParams.get('game');
 
                 if (!filter.trim()) {
                     // 沒有過濾條件時顯示所有遊戲
@@ -2355,6 +2411,19 @@
                 filtered = filtered.sort((a, b) => {
                     const w = typeWeight(a.type) - typeWeight(b.type);
                     if (w !== 0) return w;
+                    
+                    let aYear = parseInt(a.year) || 0;
+                    let bYear = parseInt(b.year) || 0;
+                    
+                    if (currentSortMode === 1) {
+                        return String(b.name || '').localeCompare(String(a.name || ''));
+                    } else if (currentSortMode === 2) {
+                        if (aYear !== bYear) return aYear - bYear;
+                        return String(a.name || '').localeCompare(String(b.name || ''));
+                    } else if (currentSortMode === 3) {
+                        if (aYear !== bYear) return bYear - aYear;
+                        return String(a.name || '').localeCompare(String(b.name || ''));
+                    }
                     return String(a.name || '').localeCompare(String(b.name || ''));
                 });
 
@@ -2377,6 +2446,13 @@
                     filtered.forEach(game => {
                         const item = document.createElement('div');
                         item.className = 'game-item';
+                        
+                        const isPlaying = (currentEmulator && currentEmulator.game && currentEmulator.game.id === game.id) || (urlGameId === game.id);
+                        if (isPlaying) {
+                            item.classList.add('playing');
+                            item.classList.add('active');
+                        }
+                        
                         item.dataset.id = game.id;
 
                         // 根據語言決定顯示順序

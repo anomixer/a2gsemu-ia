@@ -41,7 +41,17 @@ async function proxyFetchBuffer({ req, res, label, url, contentType }) {
     logProxyRequestStart(reqId, label, req, url);
 
     try {
-        const response = await fetch(url);
+        const headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        };
+        try {
+            const parsedUrl = new URL(url);
+            const parts = parsedUrl.hostname.split('.');
+            const rootDomain = parts.length > 2 ? parts.slice(-2).join('.') : parsedUrl.hostname;
+            headers['Referer'] = `${parsedUrl.protocol}//${rootDomain}/`;
+        } catch (_) {}
+
+        const response = await fetch(url, { headers });
 
         if (!response.ok) {
             console.error(`${label} [${reqId}] ❌ upstream HTTP ${response.status}`);
