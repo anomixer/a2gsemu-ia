@@ -2,13 +2,13 @@
 
 ## Project Overview
 
-This is an Apple IIgs online emulator project that allows users to play classic Apple IIgs games directly in their web browser. The project has evolved through multiple iterations and now serves 130 carefully curated games with rich descriptions, modern web features, and full Cloudflare Pages deployment support.
+This is an Apple IIgs online emulator project that allows users to play classic Apple IIgs games directly in their web browser. The project has evolved through multiple iterations and now serves 160 carefully curated games with rich descriptions, modern web features, and full Cloudflare Pages deployment support.
 
 ## Architecture
 
 ### Frontend
 - **Main File**: `index.html` (renamed from `index_emularity_v8.html`)
-- **Game Database**: `games.js` (130 games with English/Chinese names)
+- **Game Database**: `games.js` (160 games with English/Chinese names)
 - **Emulator core**:
   - **`mame0239` branch**: Emularity framework with the MAME Apple IIgs core (`mameapple2gs.js.gz` / `mameapple2gs.wasm.gz`, ~66 MB).
   - **`main` branch (this branch)**: **GS² (GSSquared)** Apple IIgs core compiled to WebAssembly — `gs2/GSSquared.js` + `gs2/GSSquared.wasm` + `gs2/GSSquared.data` (~4.9 MB wasm + ~3 MB data, SIMD). Fast, native ProDOS/WOZ support, no BIOS mount needed (BIOS is baked into `GSSquared.data`). See the [GS² Engine](#gs2-gssquared-engine---main-branch) section for the full dev process.
@@ -46,7 +46,7 @@ The `main` branch uses the **GS²** (GSSquared) Apple IIgs core, a WebAssembly p
 > `loader.js` and `browserfs.min.js` are MAME/Emularity-only; they are **not loaded** by `index.html` on the `main` branch.
 
 ### How a game launches (`index.html` → `startEmulator`)
-1. **Assemble the disk list** from the `games.js` entry: `file`→slot 5 d1, `file2`→slot 5 d2, `hard1`→slot 7 d1, `hard2`→slot 7 d2. (ROM 3 slot 5 = normal 3.5" 800K floppy; slot 6 = 140K floppy; slot 7 = optional fast `bazfast3` SmartPort/HDD.)
+1. **Assemble the disk list** from the `games.js` entry: `file`→slot 5 d1, `file2`→slot 5 d2, `hard1`→slot 7 d1, `hard2`→slot 7 d2. (ROM 3 slot 5 = normal 3.5" 800K floppy; slot 6 = 141K floppy; slot 7 = optional fast `bazfast3` SmartPort/HDD.)
 2. **Download all disks first** (`downloadWithRetry`, exponential backoff) — resolves each path via `buildFileUrl()`:
   - leading `/` → served locally from the repo root (`express.static('.')`); bare game assets such as `00playable.woz` use the Archive.org game proxy
    - `http(s)://` full URL → `/proxy/url/`
@@ -91,7 +91,7 @@ Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`
 
 ### Major Tasks Completed
 
-1. **Game Library Expansion** (70 → 130 games)
+1. **Game Library Expansion** (70 → 160 games)
    - Created automated expansion tools (JavaScript, Python, PowerShell)
    - Integrated Archive.org search functionality
    - Added deduplication and quality scoring
@@ -191,18 +191,45 @@ Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`
     - **Symptom**: a temporary experiment incorrectly treated the profile's slot 7 `bazfast3` as the normal floppy controller.
     - **Fix**: `startEmulator()` fetches that profile unchanged, writes it to `/uploads/IIgs.gs2`, maps ordinary `file`/`file2` to S5D1/S5D2, and leaves slot 7 for HDD use. A `preRun` readback verifies each browser virtual FS disk's byte length and logs its first boot byte, plus verifies the stored config contains slot 7 `bazfast3`.
 16. **Diagnose `not a startup disk`** (August 2026, formerly `gs2`, now `main`)
-    - **Correction**: ROM 3 already provides S5 (800K) and S6 (140K) floppy drives, and boots in order 7 → 6 → 5. Keep ordinary 800K game images on S5; do not force them onto S7 merely because the profile declares a faster `bazfast3` SmartPort there. The `preRun` FS readback makes missing/partial writes immediately visible in the browser console.
+    - **Correction**: ROM 3 already provides S5 (800K) and S6 (160K) floppy drives, and boots in order 7 → 6 → 5. Keep ordinary 800K game images on S5; do not force them onto S7 merely because the profile declares a faster `bazfast3` SmartPort there. The `preRun` FS readback makes missing/partial writes immediately visible in the browser console.
     - **Virtual FS status**: the browser path is implemented end-to-end (`fetch` → `Uint8Array` → `FS.writeFile` → `FS.readFile` length/boot-byte verification → `-ds5d1=/uploads/...`). `preRun` now rethrows verification/write errors so GS² cannot continue with an empty or partial image and mask the real failure as `not a startup disk`.
 17. **Restore the original 4th & Inches WOZ image** (August 2026, formerly `gs2`, now `main`)
     - The earlier WOZ→`.po` conversion was an incorrect assumption for GS². GS² supports WOZ directly through `bazfast3`, so the partial/incorrect `4th-and-inches.po` must not be used for this game.
     - `games.js` is restored to the original `"file": "00playable.woz"` entry from `origin/v0.284`. The browser flow downloads that WOZ and writes its bytes unchanged into `/uploads/` before mounting it at S5D1.
+
+18. **v2.2 Game Library Expansion + UI Persistence** (October 2026)
+    - **28 new 2026/2025 homebrew/port games added** to `games.js` (total: 160 games):
+      - **DOOM IIgs** — 65816 assembly port by Webifi; `hard1` on slot 7; requires 14.3 MHz hint in desc.
+      - **Sinistar.gs** — dual-disk (SystemDisk + sinistargs.2mg); `diskSlots: ["s7d1", "s7d2"]` (both on S7 so GS² boots SystemDisk from S7D1 first).
+      - **Pitfall GS** — single self-bootable `.2mg`; `diskSlots: ["s7d1"]`.
+      - **Montezuma's Revenge GS** — single self-bootable `.po`; `diskSlots: ["s7d1"]`.
+      - **The Ocelot Cemetery** — dual-disk (SystemDisk + game `.po`); `diskSlots: ["s7d1", "s7d2"]`.
+      - **The Vera Cruz Affair** — dual-disk (SystemDisk + game `.po`); `diskSlots: ["s7d1", "s7d2"]` (2025 port).
+      - **The Sydney Affair** — dual-disk (SystemDisk + game `.po`); `diskSlots: ["s7d1", "s7d2"]` (2025 port).
+      - **The Santa Fe Case** — dual-disk (SystemDisk + game `.po`); `diskSlots: ["s7d1", "s7d2"]` (2025 port).
+      - **The Secret of Anubis** — dual-disk (SystemDisk + game `.po`); `diskSlots: ["s7d1", "s7d2"]` (2025 port).
+      - **19 Brutal Deluxe games added** (total 160) - incl. Dragon Lair series, Space Ace HD, Cogito Return, etc.
+    - **Dual-disk S7 slot policy**: GS² boots in order S7 → S6 → S5. For dual-disk games using a ProDOS SystemDisk + a game disk, both disks must be assigned to the **same slot** (e.g., `["s7d1", "s7d2"]`). Mixing slots (e.g., SystemDisk on S5D1 + game disk on S7D1) causes GS² to try the game disk first and fail with `unable to load prodos`. Single self-bootable disks can go directly to S7D1.
+    - **SystemDisk Local Optimization**: Replaced all external Archive.org URLs and dynamic proxy lookups for `SystemDisk.2mg` across the entire database with the local repo path `/roms/SystemDisk.2mg`. This leverages Cloudflare CDN caching and improves boot reliability and speed for all dual-disk games.
+    - **Sort mode localStorage persist**: `currentSortMode` is loaded from `localStorage.getItem('sortMode')` on init and saved on each click. Initial button label is set from the persisted value.
+    - **Language localStorage persist**: Priority chain is now `URL param → localStorage ('language') → browser language detection`. Language is written to localStorage both on init (when URL param present) and on every toggle. This replaces URL-param-only persistence so direct navigation to `/` retains the last chosen language.
+    - **i18n sort labels**: Sort button labels (`A→Z`, `Z→A`, `Old→New`, `New→Old`) are fully translated via the `i18n` system and update immediately on language switch.
+
+19. **v2.2 Core Enhancements & Bug Fixes** (October 2026)
+    - **Active/Playing Game Highlighting**: UI now explicitly indicates which game is active/booting using a green border and background (`.playing` and `.active` classes) based on the URL `?game=` parameter, surviving page reloads and ensuring absolute consistency.
+    - **GS² 14.3MHz Manual Speed Requirement**: Discovered that the GS² engine handles CPU speed as a transient, unsaved state that cannot be persisted via `system_settings.toml` or `IIgs.gs2`. Removed previous configuration injection attempts; demanding titles (like Space Ace, Dragon's Lair, DOOM) require the user to manually select 14.3 MHz from the emulator menu.
+    - **Hardware Expansion Injection**: Dynamically injected `card = "second_sight"` configuration on slot 3 into `IIgs.gs2` for games explicitly requiring it (e.g., *Cogito Return*), enhancing color support.
+    - **ZIP Extractor Filename Fix**: Resolved `DecompressionStream` ZIP extraction failure causing HTTP 404s for games like *Enoncés mathématiques (FR)* that contain spaces (`%20`) by running `decodeURIComponent` on the `archiveEntry` filename before passing it to `JSZip`.
+    - **Game Roster Refinement**: Upgraded several `.woz` entries to more reliable `.2mg` dual-disk setups containing `SystemDisk` (e.g., *Full Metal Planet*, *Mazer II*, *Columns GS*). Added *Apple IIgs Karate* to the game list.
+    - **S7 Hard Disk Optimization**: Massively updated the game database links, replacing `s5` floppy images (`.woz`) with `s7` hard disk compatible formats (`.2mg` / `.po`) for over 90% of the library. Booting and playing from the Slot 7 SmartPort hard drive provides significantly faster read/write speeds, drastically improving load times and overall gameplay experience.
+    - **Version bumped to v2.2** in `index.html` titles, `README.md`, and `README_EN.md`.
 
 ## Key Files
 
 ### Core Application (repository root)
 - `index.html` - Main application (HTML + CSS + JavaScript)
 - `server.js` - Local backend proxy server
-- `games.js` - Game database (130 games)
+- `games.js` - Game database (160 games)
 - `package.json` - Dependencies and scripts
 
 ### GS² branch (in-repo core + disk images)
@@ -630,22 +657,25 @@ unless a regression investigation specifically requires it.
   failed boot and add an explicit S5 `diskSlots` override per title.
 - User-facing mouse guidance now consistently says `ESC/F1` restores the mouse
   cursor in both Chinese and English README/UI text.
+- `poLarge: true` marks `.po` images larger than 800K that must remain on S7.
+  `index.html` shows the slot icon as greyed-out/disabled for these titles and
+  blocks the slot-5 toggle. `Time Pilot GS` is the first title using this flag.
 
 ### GS² branding and title UI (2026-08-19)
 
-- The gs2 web title is localized as `Apple IIgs 線上模擬器 v2.0` in Chinese and
-  `Apple IIgs Online Emulator v2.0` in English.
+- The gs2 web title is localized as `Apple IIgs 線上模擬器 v2.2 快速載入版 ⚡` in Chinese and
+  `Apple IIgs Online Emulator v2.2 Fast Load Edition ⚡` in English.
 - Keep the Apple favicon beside the title; it is intentionally not replaced by
   the GS² mark.
 - The upper-right GSSquared link uses `gs2/gssquared-mark.png`, links to
   `https://github.com/anomixer/gssquared`, and exposes the tooltip/accessible
   label `Powered by GSSquared`.
-- The GS² v2.0 README feature list documents the right-mouse-button shortcut for
+- The GS² v2.2 README feature list documents the right-mouse-button shortcut for
   accelerating emulation speed.
 - Slot 5/slot 7 choices made with the title disk button are persisted per game
   in `localStorage` (`gs2.diskSlots`). If the emulator is already running, the
   page reloads with the selected game so the new mount slot is actually applied.
-- The README titles include the v2.0 naming; project branding details belong to
+- The README titles include the v2.2 naming; project branding details belong to
   the application UI rather than the README header.
 - README usage sections now document persistent per-game disk-slot selection and
   automatic restart when switching slots during emulation.

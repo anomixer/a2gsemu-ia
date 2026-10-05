@@ -1,4 +1,4 @@
-# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs Online Emulator v2.0
+# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs Online Emulator v2.2 Fast Load Edition ⚡
 
 🎮 **Experience classic Apple IIgs games and software in your browser!**
 
@@ -16,13 +16,13 @@
 
 ## ✨ Key Features
 
-- 🎯 **130 Selected Games** - Including classic RPGs, action, puzzle games and more
+- 🎯 **160 Selected Games** - Including classic RPGs, action, puzzle games and more
 - 🔊 **Full Audio Support** - Complete sound output via proxy backend (Cloudflare Pages / local server.js)
 - 📱 **Responsive Design & Dual Side-Drawers** - Full mobile and desktop compatibility; redesigned dual sliding drawers supporting mouse width resizing and auto-collapse threshold for smaller desktop viewports (< 1200px)
 - 🔍 **Screen Scale Toggle** - Integrated "Switch to Native 1x / Switch to Scale to Fit" button next to mute control, with memory persistence and dynamic aspect ratio scaling
 - 🎮 **Mouse Lock Feature** - Click game screen to lock mouse, press ESC/F1 to restore the mouse cursor
-- 🔍 **Smart Search** - Search by Chinese/English game names, descriptions, years
-- 🌍 **One-Click Language Toggle** - Single button in top-right corner for instant language switching with persistent settings
+- 🔍 **Smart Search & Sorting** - Search by Chinese/English game names, descriptions, and years; full i18n sort (A→Z, Year Old→New) with sort preference persisted via localStorage
+- 🌍 **One-Click Language Toggle** - Single button in top-right corner for instant language switching; language preference persisted via localStorage so direct navigation retains your last choice
 - 📦 **Multi-Format Support** - Supports .woz, .2mg, .po, .dsk and other disk formats
 - 🌐 **Multiple Data Sources** - Supports Archive.org, custom URLs, ZIP files
 - ⚡ **Fast Loading** - 24-hour file caching for improved loading speed
@@ -35,10 +35,10 @@
 ### Three Running Versions
 This project ships with three independent runtime versions:
 
-#### 🔊💽 v2.0 Accelerated (`main` branch / GSSquared core / Highly Recommended)
+#### 🔊💽 v2.2 Accelerated (`main` branch / GSSquared core / Highly Recommended)
 Uses the GS² (GSSquared) WebAssembly core for fast startup and disk access:
 - ✅ **Adjustable emulation speed** - Hold the right mouse button to accelerate emulation; speed can also be adjusted through the GS² UI
-- ✅ **Accelerated floppy access** - Compatible floppy images can use slot 7 for faster loading; incompatible games remain on slot 5
+- ✅ **S7 Hard Disk Optimization** - Over 90% of the library has been optimized to boot via the Slot 7 SmartPort hard drive, offering significantly faster read/write speeds than traditional S5 floppies and vastly improving the gameplay experience.
 - ✅ **WOZ / PO / 2MG support** - Images are mounted directly through the browser virtual filesystem
 - ✅ **Native GS² display and audio** - Smaller core and faster startup
 
@@ -138,7 +138,7 @@ python -m http.server 8000
 - **Simulation** - Pirates!, Balance of Power, etc.
 
 ### 📊 Statistics
-- **Total**: 130 games and software
+- **Total**: 160 games and software
 - **Era**: 1986-2024
 - **Language**: Complete bilingual interface with one-click switching
 - **Descriptions**: Each game has detailed 400-word descriptions
@@ -202,7 +202,7 @@ a2gsemu-ia/
 ├── 📄 Core Files
 │   ├── index.html              # Main application (full functionality)
 │   ├── server.js               # Node.js backend server (proxy service)
-│   ├── games.js               # Game database (130 games)
+│   ├── games.js               # Game database (160 games)
 │   └── package.json           # Project configuration and dependencies
 │
 ├── 🎮 GS² Core (`main` branch)
@@ -267,7 +267,7 @@ a2gsemu-ia/
 #### 🎯 Main Files
 - **`index.html`** - Main application, full functionality with a proxy backend
 - **`server.js`** - Node.js backend server providing `/proxy/*` proxy services and full functionality
-- **`games.js`** - Game database containing complete information for 130 games
+- **`games.js`** - Game database containing complete information for 160 games
 - **Simple Version (no backend)** - lives on the separate `OneHtmlFile` branch, pure static hosting
 
 #### 🔧 Technical Files
