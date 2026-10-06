@@ -2380,8 +2380,9 @@ window.games = [
 // GS² playback hint for demanding games: 14.3MHz produces smooth gameplay.
 window.games.forEach((game) => {
   if (game.name.includes("Space Ace") || game.name.includes("Dragon's Lair") || game.name.includes("DOOM")) {
-    game.desc += '<br><br><span class="highlight">For GS², set the emulation speed to 14.3MHz for smooth gameplay.</span>';
-    game.descCh += '<br><br><span class="highlight">搭配 GS² 使用時，請將模擬速度調整至 14.3MHz，即可流暢運行。</span>';
+    game.speed = "14.3mhz";
+    game.desc += '<br><br><span class="highlight">For GS², the emulation speed will be adjusted to 14.3MHz for smooth gameplay.</span>';
+    game.descCh += '<br><br><span class="highlight">搭配 GS² 使用時，會將模擬速度調整至 14.3MHz，以便流暢運行。</span>';
   }
 });
 

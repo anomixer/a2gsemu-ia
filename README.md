@@ -1,4 +1,4 @@
-# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs 線上模擬器 v2.2 快速載入版 ⚡
+# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs 線上模擬器 v2.3 快速載入版 ⚡
 
 🎮 **在瀏覽器中體驗經典的 Apple IIgs 遊戲與軟體！**
 
@@ -35,9 +35,10 @@
 ### 三種運行版本
 本專案提供三種獨立運行版本，依需求選擇：
 
-#### 🔊💽 v2.2 加速版 (`main` 分支 / GSSquared 核心 / 極推薦)
+#### 🔊💽 v2.3 加速版 (`main` 分支 / GSSquared 核心 / 極推薦)
 使用 GS² (GSSquared) WebAssembly 核心，提供快速啟動與磁碟存取：
-- ✅ **可切換執行速度** - 按住滑鼠右鍵即可加速模擬速度，透過 GS² 介面可調整速度
+- ✅ **14.3MHz 自動超頻加速** - 針對 DOOM IIgs、Space Ace 系列、Dragon's Lair 系列等高需求作品，開機時自動設定為 14.3MHz 高速運行，遊玩體驗更流暢。
+- ✅ **可切換執行速度** - 按住滑鼠右鍵即可加速模擬速度，透過 GS² 介面亦可調整速度
 - ✅ **S7 硬碟極速載入** - 超過 90% 的遊戲已最佳化為支援 Slot 7 SmartPort 硬碟模式開機，讀寫速度比傳統 S5 軟碟快上許多，大幅提升遊戲體驗。
 - ✅ **WOZ / PO / 2MG 支援** - 直接透過瀏覽器虛擬檔案系統掛載映像
 - ✅ **原生 GS² 顯示與音效** - 較小的核心、快速啟動

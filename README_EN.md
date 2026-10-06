@@ -1,4 +1,4 @@
-# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs Online Emulator v2.2 Fast Load Edition ⚡
+# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs Online Emulator v2.3 Fast Load Edition ⚡
 
 🎮 **Experience classic Apple IIgs games and software in your browser!**
 
@@ -35,8 +35,9 @@
 ### Three Running Versions
 This project ships with three independent runtime versions:
 
-#### 🔊💽 v2.2 Accelerated (`main` branch / GSSquared core / Highly Recommended)
+#### 🔊💽 v2.3 Accelerated (`main` branch / GSSquared core / Highly Recommended)
 Uses the GS² (GSSquared) WebAssembly core for fast startup and disk access:
+- ✅ **Automatic 14.3MHz Acceleration** - High-demand titles (e.g. DOOM IIgs, Space Ace series, Dragon's Lair series) automatically boot at 14.3MHz for a significantly smoother gameplay experience.
 - ✅ **Adjustable emulation speed** - Hold the right mouse button to accelerate emulation; speed can also be adjusted through the GS² UI
 - ✅ **S7 Hard Disk Optimization** - Over 90% of the library has been optimized to boot via the Slot 7 SmartPort hard drive, offering significantly faster read/write speeds than traditional S5 floppies and vastly improving the gameplay experience.
 - ✅ **WOZ / PO / 2MG support** - Images are mounted directly through the browser virtual filesystem

@@ -85,7 +85,7 @@ if (ENVIRONMENT_IS_NODE) {
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: C:\Users\USER\AppData\Local\Temp\tmp5hwvarab.js
+// include: C:\Users\USER\AppData\Local\Temp\tmpprixbeo8.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -167,6 +167,7 @@ Module["expectedDataFileDownloads"]++;
         if (!check) throw new Error(msg);
       }
       Module["FS_createPath"]("/", "resources", true, true);
+      Module["FS_createPath"]("/resources", "floppyimages", true, true);
       Module["FS_createPath"]("/resources", "fonts", true, true);
       Module["FS_createPath"]("/resources", "gs2", true, true);
       Module["FS_createPath"]("/resources", "img", true, true);
@@ -230,299 +231,363 @@ Module["expectedDataFileDownloads"]++;
   }
   loadPackage({
     "files": [ {
-      "filename": "/resources/fonts/.assembled.stamp",
+      "filename": "/resources/floppyimages/.assembled.stamp",
       "start": 0,
       "end": 0
     }, {
-      "filename": "/resources/fonts/OpenSans-Regular.ttf",
+      "filename": "/resources/floppyimages/blank-35-prodos.woz",
       "start": 0,
-      "end": 217360
+      "end": 1328824
+    }, {
+      "filename": "/resources/floppyimages/blank-525-dos33.woz",
+      "start": 1328824,
+      "end": 1563505
+    }, {
+      "filename": "/resources/floppyimages/blank-525-prodos.woz",
+      "start": 1563505,
+      "end": 1798186
+    }, {
+      "filename": "/resources/floppyimages/blank-525-unformatted.woz",
+      "start": 1798186,
+      "end": 1799804
+    }, {
+      "filename": "/resources/floppyimages/prodos-boot.bin",
+      "start": 1799804,
+      "end": 1800316
+    }, {
+      "filename": "/resources/fonts/.assembled.stamp",
+      "start": 1800316,
+      "end": 1800316
+    }, {
+      "filename": "/resources/fonts/OpenSans-Regular.ttf",
+      "start": 1800316,
+      "end": 2017676
     }, {
       "filename": "/resources/fonts/OxygenMono-Regular.ttf",
-      "start": 217360,
-      "end": 286300
+      "start": 2017676,
+      "end": 2086616
+    }, {
+      "filename": "/resources/gs2-config.icns",
+      "start": 2086616,
+      "end": 2360619
     }, {
       "filename": "/resources/gs2.icns",
-      "start": 286300,
-      "end": 823979
+      "start": 2360619,
+      "end": 3407986
     }, {
       "filename": "/resources/gs2/.assembled.stamp",
-      "start": 823979,
-      "end": 823979
+      "start": 3407986,
+      "end": 3407986
     }, {
       "filename": "/resources/gs2/DualMockingboard.gs2",
-      "start": 823979,
-      "end": 824344
+      "start": 3407986,
+      "end": 3408351
+    }, {
+      "filename": "/resources/gs2/IIPlus_ThunderClock.gs2",
+      "start": 3408351,
+      "end": 3408618
     }, {
       "filename": "/resources/gs2/IIe_65816.gs2",
-      "start": 824344,
-      "end": 824763
+      "start": 3408618,
+      "end": 3409037
     }, {
       "filename": "/resources/gs2/IIe_AppleMouseIII.gs2",
-      "start": 824763,
-      "end": 825128
+      "start": 3409037,
+      "end": 3409402
     }, {
       "filename": "/resources/gs2/IIe_PAL.gs2",
-      "start": 825128,
-      "end": 825580
+      "start": 3409402,
+      "end": 3409854
+    }, {
+      "filename": "/resources/gs2/IIe_ThunderClock.gs2",
+      "start": 3409854,
+      "end": 3410134
     }, {
       "filename": "/resources/gs2/IIgs_DiskII.gs2",
-      "start": 825580,
-      "end": 825750
+      "start": 3410134,
+      "end": 3410304
     }, {
       "filename": "/resources/img/.assembled.stamp",
-      "start": 825750,
-      "end": 825750
+      "start": 3410304,
+      "end": 3410304
     }, {
       "filename": "/resources/img/IBM_VGA_8x16.png",
-      "start": 825750,
-      "end": 827929
+      "start": 3410304,
+      "end": 3412483
     }, {
       "filename": "/resources/img/atlas.png",
-      "start": 827929,
-      "end": 1076440
+      "start": 3412483,
+      "end": 3665103
+    }, {
+      "filename": "/resources/img/mimetype-gs2-128.png",
+      "start": 3665103,
+      "end": 3675867
+    }, {
+      "filename": "/resources/img/mimetype-gs2-16.png",
+      "start": 3675867,
+      "end": 3676642
+    }, {
+      "filename": "/resources/img/mimetype-gs2-256.png",
+      "start": 3676642,
+      "end": 3701862
+    }, {
+      "filename": "/resources/img/mimetype-gs2-32.png",
+      "start": 3701862,
+      "end": 3703849
+    }, {
+      "filename": "/resources/img/mimetype-gs2-48.png",
+      "start": 3703849,
+      "end": 3707144
     }, {
       "filename": "/resources/roms/.assembled.stamp",
-      "start": 1076440,
-      "end": 1076440
+      "start": 3707144,
+      "end": 3707144
     }, {
       "filename": "/resources/roms/apple2/char.rom",
-      "start": 1076440,
-      "end": 1078488
+      "start": 3707144,
+      "end": 3709192
     }, {
       "filename": "/resources/roms/apple2/main.rom",
-      "start": 1078488,
-      "end": 1090776
+      "start": 3709192,
+      "end": 3721480
     }, {
       "filename": "/resources/roms/apple2_plus/char.rom",
-      "start": 1090776,
-      "end": 1092824
+      "start": 3721480,
+      "end": 3723528
     }, {
       "filename": "/resources/roms/apple2_plus/main.rom",
-      "start": 1092824,
-      "end": 1105112
+      "start": 3723528,
+      "end": 3735816
     }, {
       "filename": "/resources/roms/apple2e/char.rom",
-      "start": 1105112,
-      "end": 1109208
+      "start": 3735816,
+      "end": 3739912
     }, {
       "filename": "/resources/roms/apple2e/main.rom",
-      "start": 1109208,
-      "end": 1125592
+      "start": 3739912,
+      "end": 3756296
     }, {
       "filename": "/resources/roms/apple2e_enh/342-0265-A.bin",
-      "start": 1125592,
-      "end": 1129688
+      "start": 3756296,
+      "end": 3760392
     }, {
       "filename": "/resources/roms/apple2e_enh/342-0349-B.bin",
-      "start": 1129688,
-      "end": 1146072
+      "start": 3760392,
+      "end": 3776776
     }, {
       "filename": "/resources/roms/apple2e_enh/char.rom",
-      "start": 1146072,
-      "end": 1150168
+      "start": 3776776,
+      "end": 3780872
     }, {
       "filename": "/resources/roms/apple2e_enh/main.rom",
-      "start": 1150168,
-      "end": 1166552
+      "start": 3780872,
+      "end": 3797256
     }, {
       "filename": "/resources/roms/apple2gs/char.rom",
-      "start": 1166552,
-      "end": 1182936
+      "start": 3797256,
+      "end": 3813640
     }, {
       "filename": "/resources/roms/apple2gs/main.rom",
-      "start": 1182936,
-      "end": 1314008
+      "start": 3813640,
+      "end": 3944712
     }, {
       "filename": "/resources/roms/apple2gs_rom3/char.rom",
-      "start": 1314008,
-      "end": 1330392
+      "start": 3944712,
+      "end": 3961096
     }, {
       "filename": "/resources/roms/apple2gs_rom3/main.rom",
-      "start": 1330392,
-      "end": 1592536
+      "start": 3961096,
+      "end": 4223240
     }, {
       "filename": "/resources/roms/cards/applemouseiii/342-0270-C.bin",
-      "start": 1592536,
-      "end": 1594584
+      "start": 4223240,
+      "end": 4225288
     }, {
       "filename": "/resources/roms/cards/diskii/diskii_firmware.rom",
-      "start": 1594584,
-      "end": 1594840
+      "start": 4225288,
+      "end": 4225544
     }, {
       "filename": "/resources/roms/cards/keyglu/rom01-adb-341s0345.bin",
-      "start": 1594840,
-      "end": 1597912
+      "start": 4225544,
+      "end": 4228616
     }, {
       "filename": "/resources/roms/cards/keyglu/rom03-adb-341s0632-2.bin",
-      "start": 1597912,
-      "end": 1602008
+      "start": 4228616,
+      "end": 4232712
     }, {
       "filename": "/resources/roms/cards/memexp/memexp.rom",
-      "start": 1602008,
-      "end": 1606104
+      "start": 4232712,
+      "end": 4236808
     }, {
       "filename": "/resources/roms/cards/mouse/mouse.rom",
-      "start": 1606104,
-      "end": 1606360
+      "start": 4236808,
+      "end": 4237064
     }, {
       "filename": "/resources/roms/cards/parallel/parallel.rom",
-      "start": 1606360,
-      "end": 1606616
+      "start": 4237064,
+      "end": 4237320
     }, {
       "filename": "/resources/roms/cards/pdblock2/pdblock2.rom",
-      "start": 1606616,
-      "end": 1606872
+      "start": 4237320,
+      "end": 4237576
     }, {
       "filename": "/resources/roms/cards/pdblock3/pdblock3.rom",
-      "start": 1606872,
-      "end": 1608920
+      "start": 4237576,
+      "end": 4239624
     }, {
       "filename": "/resources/roms/cards/secondsight/font_ansi_8x16.bin",
-      "start": 1608920,
-      "end": 1613016
+      "start": 4239624,
+      "end": 4243720
+    }, {
+      "filename": "/resources/roms/cards/secondsight/font_ansi_8x8.bin",
+      "start": 4243720,
+      "end": 4245768
     }, {
       "filename": "/resources/roms/cards/secondsight/font_apple_8x16.bin",
-      "start": 1613016,
-      "end": 1617112
+      "start": 4245768,
+      "end": 4249864
     }, {
       "filename": "/resources/roms/cards/ssc/341-0065-A.bin",
-      "start": 1617112,
-      "end": 1619160
+      "start": 4249864,
+      "end": 4251912
     }, {
       "filename": "/resources/roms/cards/tcp/tcp.rom",
-      "start": 1619160,
-      "end": 1621208
+      "start": 4251912,
+      "end": 4253960
     }, {
       "filename": "/resources/roms/cards/videx/videx-2.4.rom",
-      "start": 1621208,
-      "end": 1622232
+      "start": 4253960,
+      "end": 4254984
     }, {
       "filename": "/resources/roms/cards/videx/videx-apl.bin",
-      "start": 1622232,
-      "end": 1624280
+      "start": 4254984,
+      "end": 4257032
     }, {
       "filename": "/resources/roms/cards/videx/videx-epson.bin",
-      "start": 1624280,
-      "end": 1626328
+      "start": 4257032,
+      "end": 4259080
     }, {
       "filename": "/resources/roms/cards/videx/videx-french.bin",
-      "start": 1626328,
-      "end": 1628376
+      "start": 4259080,
+      "end": 4261128
     }, {
       "filename": "/resources/roms/cards/videx/videx-german.bin",
-      "start": 1628376,
-      "end": 1630424
+      "start": 4261128,
+      "end": 4263176
     }, {
       "filename": "/resources/roms/cards/videx/videx-inverse.bin",
-      "start": 1630424,
-      "end": 1632472
+      "start": 4263176,
+      "end": 4265224
     }, {
       "filename": "/resources/roms/cards/videx/videx-katakana.bin",
-      "start": 1632472,
-      "end": 1634520
+      "start": 4265224,
+      "end": 4267272
     }, {
       "filename": "/resources/roms/cards/videx/videx-lc.bin",
-      "start": 1634520,
-      "end": 1636568
+      "start": 4267272,
+      "end": 4269320
     }, {
       "filename": "/resources/roms/cards/videx/videx-normal.bin",
-      "start": 1636568,
-      "end": 1638616
+      "start": 4269320,
+      "end": 4271368
     }, {
       "filename": "/resources/roms/cards/videx/videx-spanish.bin",
-      "start": 1638616,
-      "end": 1640664
+      "start": 4271368,
+      "end": 4273416
     }, {
       "filename": "/resources/roms/cards/videx/videx-super.bin",
-      "start": 1640664,
-      "end": 1642712
+      "start": 4273416,
+      "end": 4275464
     }, {
       "filename": "/resources/roms/cards/videx/videx-symbol.bin",
-      "start": 1642712,
-      "end": 1644760
+      "start": 4275464,
+      "end": 4277512
     }, {
       "filename": "/resources/roms/cards/videx/videx-ultra.bin",
-      "start": 1644760,
-      "end": 1648856
+      "start": 4277512,
+      "end": 4281608
     }, {
       "filename": "/resources/roms/cards/videx/videx-unverified.bin",
-      "start": 1648856,
-      "end": 1652952
+      "start": 4281608,
+      "end": 4285704
     }, {
       "filename": "/resources/roms/cards/videx/videx-upper.bin",
-      "start": 1652952,
-      "end": 1655e3
+      "start": 4285704,
+      "end": 4287752
     }, {
       "filename": "/resources/shaders/.assembled.stamp",
-      "start": 1655e3,
-      "end": 1655e3
+      "start": 4287752,
+      "end": 4287752
     }, {
       "filename": "/resources/shaders/crt.frag.dxil",
-      "start": 1655e3,
-      "end": 1659668
+      "start": 4287752,
+      "end": 4292420
     }, {
       "filename": "/resources/shaders/crt.frag.hlsl",
-      "start": 1659668,
-      "end": 1661630
+      "start": 4292420,
+      "end": 4294382
     }, {
       "filename": "/resources/shaders/crt.frag.metal",
-      "start": 1661630,
-      "end": 1663306
+      "start": 4294382,
+      "end": 4296058
     }, {
       "filename": "/resources/shaders/crt.frag.metal.orig",
-      "start": 1663306,
-      "end": 1664568
+      "start": 4296058,
+      "end": 4297320
+    }, {
+      "filename": "/resources/shaders/crt.frag.spv",
+      "start": 4297320,
+      "end": 4299548
     }, {
       "filename": "/resources/sounds/.assembled.stamp",
-      "start": 1664568,
-      "end": 1664568
+      "start": 4299548,
+      "end": 4299548
     }, {
       "filename": "/resources/sounds/shugart-close.wav",
-      "start": 1664568,
-      "end": 1702918
+      "start": 4299548,
+      "end": 4337898
     }, {
       "filename": "/resources/sounds/shugart-drive.wav",
-      "start": 1702918,
-      "end": 1858004
+      "start": 4337898,
+      "end": 4492984
     }, {
       "filename": "/resources/sounds/shugart-head.wav",
-      "start": 1858004,
-      "end": 1894690
+      "start": 4492984,
+      "end": 4529670
     }, {
       "filename": "/resources/sounds/shugart-open.wav",
-      "start": 1894690,
-      "end": 1938928
+      "start": 4529670,
+      "end": 4573908
     }, {
       "filename": "/resources/sounds/shugart-stop.wav",
-      "start": 1938928,
-      "end": 1948606
+      "start": 4573908,
+      "end": 4583586
     }, {
       "filename": "/resources/vdisk/drivers.hdv",
-      "start": 1948606,
-      "end": 2997182
+      "start": 4583586,
+      "end": 5632162
     } ],
-    "remote_package_size": 2997182
+    "remote_package_size": 5632162
   });
 })();
 
-// end include: C:\Users\USER\AppData\Local\Temp\tmp5hwvarab.js
-// include: C:\Users\USER\AppData\Local\Temp\tmpgfp3wk28.js
+// end include: C:\Users\USER\AppData\Local\Temp\tmpprixbeo8.js
+// include: C:\Users\USER\AppData\Local\Temp\tmpbc27mj74.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: C:\Users\USER\AppData\Local\Temp\tmpgfp3wk28.js
-// include: C:\Users\USER\AppData\Local\Temp\tmp5at1ivtz.js
+// end include: C:\Users\USER\AppData\Local\Temp\tmpbc27mj74.js
+// include: C:\Users\USER\AppData\Local\Temp\tmps1s919op.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: C:\Users\USER\AppData\Local\Temp\tmp5at1ivtz.js
+// end include: C:\Users\USER\AppData\Local\Temp\tmps1s919op.js
 var arguments_ = [];
 
 var thisProgram = "./this.program";
@@ -764,9 +829,19 @@ function checkStackCookie() {
 // end include: runtime_stack_check.js
 // include: runtime_exceptions.js
 // Base Emscripten EH error class
-class EmscriptenEH {}
+class EmscriptenEH extends Error {}
 
 class EmscriptenSjLj extends EmscriptenEH {}
+
+class CppException extends EmscriptenEH {
+  constructor(excPtr) {
+    super(excPtr);
+    this.excPtr = excPtr;
+    const excInfo = getExceptionMessage(this);
+    this.name = excInfo[0];
+    this.message = excInfo[1];
+  }
+}
 
 // end include: runtime_exceptions.js
 // include: runtime_debug.js
@@ -2014,6 +2089,33 @@ var findStringEnd = (heapOrArray, idx, maxBytesToRead, ignoreNul) => {
 
 var ___assert_fail = (condition, filename, line, func) => abort(`Assertion failed: ${UTF8ToString(condition)}, at: ` + [ filename ? UTF8ToString(filename) : "unknown filename", line, func ? UTF8ToString(func) : "unknown function" ]);
 
+var exceptionCaught = [];
+
+var uncaughtExceptionCount = 0;
+
+var ___cxa_begin_catch = ptr => {
+  var info = new ExceptionInfo(ptr);
+  if (!info.get_caught()) {
+    info.set_caught(true);
+    uncaughtExceptionCount--;
+  }
+  info.set_rethrown(false);
+  exceptionCaught.push(info);
+  return ___cxa_get_exception_ptr(ptr);
+};
+
+var exceptionLast = null;
+
+var ___cxa_end_catch = () => {
+  // Clear state flag.
+  _setThrew(0, 0);
+  assert(exceptionCaught.length > 0);
+  // Call destructor if one is registered then clear it.
+  var info = exceptionCaught.pop();
+  ___cxa_decrement_exception_refcount(info.excPtr);
+  exceptionLast = null;
+};
+
 class ExceptionInfo {
   // excPtr - Thrown object pointer to wrap. Metadata pointer is calculated from it.
   constructor(excPtr) {
@@ -2060,14 +2162,100 @@ class ExceptionInfo {
   }
 }
 
-var uncaughtExceptionCount = 0;
+var setTempRet0 = val => __emscripten_tempret_set(val);
+
+var findMatchingCatch = args => {
+  var thrown = exceptionLast?.excPtr;
+  if (!thrown) {
+    // just pass through the null ptr
+    setTempRet0(0);
+    return 0;
+  }
+  var info = new ExceptionInfo(thrown);
+  info.set_adjusted_ptr(thrown);
+  var thrownType = info.get_type();
+  if (!thrownType) {
+    // just pass through the thrown ptr
+    setTempRet0(0);
+    return thrown;
+  }
+  // can_catch receives a **, add indirection
+  // The different catch blocks are denoted by different types.
+  // Due to inheritance, those types may not precisely match the
+  // type of the thrown object. Find one which matches, and
+  // return the type of the catch block which should be called.
+  for (var caughtType of args) {
+    if (caughtType === 0 || caughtType === thrownType) {
+      // Catch all clause matched or exactly the same type is caught
+      break;
+    }
+    var adjusted_ptr_addr = info.ptr + 16;
+    if (___cxa_can_catch(caughtType, thrownType, adjusted_ptr_addr)) {
+      setTempRet0(caughtType);
+      return thrown;
+    }
+  }
+  setTempRet0(thrownType);
+  return thrown;
+};
+
+var ___cxa_find_matching_catch_2 = () => findMatchingCatch([]);
+
+var ___cxa_find_matching_catch_3 = arg0 => findMatchingCatch([ arg0 ]);
+
+var ___cxa_find_matching_catch_4 = (arg0, arg1) => findMatchingCatch([ arg0, arg1 ]);
+
+var ___cxa_rethrow = () => {
+  if (!exceptionCaught.length) {
+    abort("no exception to throw");
+  }
+  var info = exceptionCaught.at(-1);
+  var ptr = info.excPtr;
+  info.set_rethrown(true);
+  info.set_caught(false);
+  uncaughtExceptionCount++;
+  ___cxa_increment_exception_refcount(ptr);
+  exceptionLast = new CppException(ptr);
+  throw exceptionLast;
+};
+
+var getExceptionMessageCommon = ptr => {
+  var sp = stackSave();
+  var type_addr_addr = stackAlloc(4);
+  var message_addr_addr = stackAlloc(4);
+  ___get_exception_message(ptr, type_addr_addr, message_addr_addr);
+  var type_addr = (growMemViews(), HEAPU32)[((type_addr_addr) >> 2)];
+  var message_addr = (growMemViews(), HEAPU32)[((message_addr_addr) >> 2)];
+  var type = UTF8ToString(type_addr);
+  _free(type_addr);
+  var message;
+  if (message_addr) {
+    message = UTF8ToString(message_addr);
+    _free(message_addr);
+  }
+  stackRestore(sp);
+  return [ type, message ];
+};
+
+var getExceptionMessage = exn => getExceptionMessageCommon(exn.excPtr);
 
 var ___cxa_throw = (ptr, type, destructor) => {
   var info = new ExceptionInfo(ptr);
   // Initialize ExceptionInfo content after it was allocated in __cxa_allocate_exception.
   info.init(type, destructor);
+  ___cxa_increment_exception_refcount(ptr);
+  exceptionLast = new CppException(ptr);
   uncaughtExceptionCount++;
-  assert(false, "Exception thrown, but exception catching is not enabled. Compile with -sNO_DISABLE_EXCEPTION_CATCHING or -sEXCEPTION_CATCHING_ALLOWED=[..] to catch.");
+  throw exceptionLast;
+};
+
+var ___cxa_uncaught_exceptions = () => uncaughtExceptionCount;
+
+var ___resumeException = ptr => {
+  if (!exceptionLast) {
+    exceptionLast = new CppException(ptr);
+  }
+  throw exceptionLast;
 };
 
 var PATH = {
@@ -5467,11 +5655,71 @@ function ___syscall_readlinkat(dirfd, path, buf, bufsize) {
   }
 }
 
+function ___syscall_renameat(olddirfd, oldpath, newdirfd, newpath) {
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(16, 0, 1, olddirfd, oldpath, newdirfd, newpath);
+  try {
+    oldpath = SYSCALLS.getStr(oldpath);
+    newpath = SYSCALLS.getStr(newpath);
+    oldpath = SYSCALLS.calculateAt(olddirfd, oldpath);
+    newpath = SYSCALLS.calculateAt(newdirfd, newpath);
+    FS.rename(oldpath, newpath);
+    return 0;
+  } catch (e) {
+    if (typeof FS == "undefined" || !(e.name === "ErrnoError")) throw e;
+    return -e.errno;
+  }
+}
+
+function ___syscall_rmdir(path) {
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(17, 0, 1, path);
+  try {
+    path = SYSCALLS.getStr(path);
+    FS.rmdir(path);
+    return 0;
+  } catch (e) {
+    if (typeof FS == "undefined" || !(e.name === "ErrnoError")) throw e;
+    return -e.errno;
+  }
+}
+
 function ___syscall_stat64(path, buf) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(16, 0, 1, path, buf);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(18, 0, 1, path, buf);
   try {
     path = SYSCALLS.getStr(path);
     return SYSCALLS.writeStat(buf, FS.stat(path));
+  } catch (e) {
+    if (typeof FS == "undefined" || !(e.name === "ErrnoError")) throw e;
+    return -e.errno;
+  }
+}
+
+function ___syscall_truncate64(path, length) {
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(19, 0, 1, path, length);
+  length = bigintToI53Checked(length);
+  try {
+    if (isNaN(length)) return -22;
+    path = SYSCALLS.getStr(path);
+    FS.truncate(path, length);
+    return 0;
+  } catch (e) {
+    if (typeof FS == "undefined" || !(e.name === "ErrnoError")) throw e;
+    return -e.errno;
+  }
+}
+
+function ___syscall_unlinkat(dirfd, path, flags) {
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(20, 0, 1, dirfd, path, flags);
+  try {
+    path = SYSCALLS.getStr(path);
+    path = SYSCALLS.calculateAt(dirfd, path);
+    if (!flags) {
+      FS.unlink(path);
+    } else if (flags === 512) {
+      FS.rmdir(path);
+    } else {
+      return -28;
+    }
+    return 0;
   } catch (e) {
     if (typeof FS == "undefined" || !(e.name === "ErrnoError")) throw e;
     return -e.errno;
@@ -5693,7 +5941,7 @@ function __localtime_js(time, tmPtr) {
 }
 
 function __mmap_js(len, prot, flags, fd, offset, allocated, addr) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(17, 0, 1, len, prot, flags, fd, offset, allocated, addr);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(21, 0, 1, len, prot, flags, fd, offset, allocated, addr);
   offset = bigintToI53Checked(offset);
   try {
     // musl's mmap doesn't allow values over a certain limit
@@ -5712,7 +5960,7 @@ function __mmap_js(len, prot, flags, fd, offset, allocated, addr) {
 }
 
 function __munmap_js(addr, len, prot, flags, fd, offset) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(18, 0, 1, addr, len, prot, flags, fd, offset);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(22, 0, 1, addr, len, prot, flags, fd, offset);
   offset = bigintToI53Checked(offset);
   try {
     var stream = SYSCALLS.getStreamFromFD(fd);
@@ -6275,7 +6523,7 @@ var getCanvasSizeCallingThread = (target, width, height) => {
 };
 
 function getCanvasSizeMainThread(target, width, height) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(20, 0, 1, target, width, height);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(24, 0, 1, target, width, height);
   return getCanvasSizeCallingThread(target, width, height);
 }
 
@@ -6329,7 +6577,7 @@ var setCanvasElementSizeCallingThread = (target, width, height) => {
 };
 
 function setCanvasElementSizeMainThread(target, width, height) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(21, 0, 1, target, width, height);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(25, 0, 1, target, width, height);
   return setCanvasElementSizeCallingThread(target, width, height);
 }
 
@@ -6512,7 +6760,7 @@ var JSEvents_requestFullscreen = (target, strategy) => {
 };
 
 function _emscripten_exit_fullscreen() {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(19, 0, 1);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(23, 0, 1);
   if (!JSEvents.fullscreenEnabled()) return -1;
   // Make sure no queued up calls will fire after this.
   JSEvents.removeDeferredCalls(JSEvents_requestFullscreen);
@@ -6542,7 +6790,7 @@ var requestPointerLock = target => {
 };
 
 function _emscripten_exit_pointerlock() {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(22, 0, 1);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(26, 0, 1);
   // Make sure no queued up calls will fire after this.
   JSEvents.removeDeferredCalls(requestPointerLock);
   if (!document.exitPointerLock) return -1;
@@ -6561,19 +6809,19 @@ var __emscripten_runtime_keepalive_clear = () => {
 };
 
 function _emscripten_force_exit(status) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(23, 0, 1, status);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(27, 0, 1, status);
   warnOnce("emscripten_force_exit cannot actually shut down the runtime, as the build does not have EXIT_RUNTIME set");
   __emscripten_runtime_keepalive_clear();
   _exit(status);
 }
 
 function _emscripten_get_device_pixel_ratio() {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(24, 0, 1);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(28, 0, 1);
   return globalThis.devicePixelRatio ?? 1;
 }
 
 function _emscripten_get_element_css_size(target, width, height) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(25, 0, 1, target, width, height);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(29, 0, 1, target, width, height);
   target = findEventTarget(target);
   if (!target) return -4;
   var rect = getBoundingClientRect(target);
@@ -6611,7 +6859,7 @@ var fillGamepadEventData = (eventStruct, e) => {
 };
 
 function _emscripten_get_gamepad_status(index, gamepadState) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(26, 0, 1, index, gamepadState);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(30, 0, 1, index, gamepadState);
   assert(JSEvents.lastGamepadState, "emscripten_get_gamepad_status() called before emscripten_sample_gamepad_data()");
   // INVALID_PARAM is returned on a Gamepad index that never was there.
   if (index < 0 || index >= JSEvents.lastGamepadState.length) return -5;
@@ -6638,7 +6886,7 @@ var _emscripten_get_main_loop_timing = (mode, value) => {
 };
 
 function _emscripten_get_num_gamepads() {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(27, 0, 1);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(31, 0, 1);
   assert(JSEvents.lastGamepadState, "emscripten_get_num_gamepads() called before emscripten_sample_gamepad_data()");
   // N.B. Do not call emscripten_get_num_gamepads() unless having first called emscripten_sample_gamepad_data(), and that has returned EMSCRIPTEN_RESULT_SUCCESS.
   // Otherwise the following line will throw an exception.
@@ -7119,12 +7367,12 @@ var getPreloadedImageData = (path, w, h) => {
 };
 
 function _emscripten_get_preloaded_image_data(path, w, h) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(28, 0, 1, path, w, h);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(32, 0, 1, path, w, h);
   return getPreloadedImageData(UTF8ToString(path), w, h);
 }
 
 function _emscripten_get_preloaded_image_data_from_FILE(file, w, h) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(29, 0, 1, file, w, h);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(33, 0, 1, file, w, h);
   var fd = _fileno(file);
   var stream = FS.getStream(fd);
   if (stream) {
@@ -7134,7 +7382,7 @@ function _emscripten_get_preloaded_image_data_from_FILE(file, w, h) {
 }
 
 function _emscripten_get_screen_size(width, height) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(30, 0, 1, width, height);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(34, 0, 1, width, height);
   (growMemViews(), HEAP32)[((width) >> 2)] = screen.width;
   (growMemViews(), HEAP32)[((height) >> 2)] = screen.height;
 }
@@ -8899,7 +9147,7 @@ var doRequestFullscreen = (target, strategy) => {
 };
 
 function _emscripten_request_fullscreen_strategy(target, deferUntilInEventHandler, fullscreenStrategy) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(31, 0, 1, target, deferUntilInEventHandler, fullscreenStrategy);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(35, 0, 1, target, deferUntilInEventHandler, fullscreenStrategy);
   var strategy = {
     scaleMode: (growMemViews(), HEAP32)[((fullscreenStrategy) >> 2)],
     canvasResolutionScaleMode: (growMemViews(), HEAP32)[(((fullscreenStrategy) + (4)) >> 2)],
@@ -8913,7 +9161,7 @@ function _emscripten_request_fullscreen_strategy(target, deferUntilInEventHandle
 }
 
 function _emscripten_request_pointerlock(target, deferUntilInEventHandler) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(32, 0, 1, target, deferUntilInEventHandler);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(36, 0, 1, target, deferUntilInEventHandler);
   target = findEventTarget(target);
   if (!target) return -4;
   if (!target.requestPointerLock) {
@@ -8996,7 +9244,7 @@ var _emscripten_resize_heap = requestedSize => {
 };
 
 /** @suppress {checkTypes} */ function _emscripten_sample_gamepad_data() {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(33, 0, 1);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(37, 0, 1);
   try {
     if (navigator.getGamepads) return (JSEvents.lastGamepadState = navigator.getGamepads()) ? 0 : -1;
   } catch (e) {
@@ -9032,7 +9280,7 @@ var registerBeforeUnloadEventCallback = (target, userData, useCapture, callbackf
 };
 
 function _emscripten_set_beforeunload_callback_on_thread(userData, callbackfunc, targetThread) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(34, 0, 1, userData, callbackfunc, targetThread);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(38, 0, 1, userData, callbackfunc, targetThread);
   if (typeof onbeforeunload == "undefined") return -1;
   // beforeunload callback can only be registered on the main browser thread, because the page will go away immediately after returning from the handler,
   // and there is no time to start proxying it anywhere.
@@ -9065,12 +9313,12 @@ var registerFocusEventCallback = (target, userData, useCapture, callbackfunc, ev
 };
 
 function _emscripten_set_blur_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(35, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(39, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
   return registerFocusEventCallback(target, userData, useCapture, callbackfunc, 12, "blur", targetThread);
 }
 
 function _emscripten_set_element_css_size(target, width, height) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(36, 0, 1, target, width, height);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(40, 0, 1, target, width, height);
   target = findEventTarget(target);
   if (!target) return -4;
   target.style.width = width + "px";
@@ -9079,7 +9327,7 @@ function _emscripten_set_element_css_size(target, width, height) {
 }
 
 function _emscripten_set_focus_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(37, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(41, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
   return registerFocusEventCallback(target, userData, useCapture, callbackfunc, 13, "focus", targetThread);
 }
 
@@ -9127,7 +9375,7 @@ var registerFullscreenChangeEventCallback = (target, userData, useCapture, callb
 };
 
 function _emscripten_set_fullscreenchange_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(38, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(42, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
   if (!JSEvents.fullscreenEnabled()) return -1;
   target = findEventTarget(target);
   if (!target) return -4;
@@ -9160,13 +9408,13 @@ var registerGamepadEventCallback = (target, userData, useCapture, callbackfunc, 
 };
 
 function _emscripten_set_gamepadconnected_callback_on_thread(userData, useCapture, callbackfunc, targetThread) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(39, 0, 1, userData, useCapture, callbackfunc, targetThread);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(43, 0, 1, userData, useCapture, callbackfunc, targetThread);
   if (_emscripten_sample_gamepad_data()) return -1;
   return registerGamepadEventCallback(2, userData, useCapture, callbackfunc, 26, "gamepadconnected", targetThread);
 }
 
 function _emscripten_set_gamepaddisconnected_callback_on_thread(userData, useCapture, callbackfunc, targetThread) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(40, 0, 1, userData, useCapture, callbackfunc, targetThread);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(44, 0, 1, userData, useCapture, callbackfunc, targetThread);
   if (_emscripten_sample_gamepad_data()) return -1;
   return registerGamepadEventCallback(2, userData, useCapture, callbackfunc, 27, "gamepaddisconnected", targetThread);
 }
@@ -9208,17 +9456,17 @@ var registerKeyEventCallback = (target, userData, useCapture, callbackfunc, even
 };
 
 function _emscripten_set_keydown_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(41, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(45, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
   return registerKeyEventCallback(target, userData, useCapture, callbackfunc, 2, "keydown", targetThread);
 }
 
 function _emscripten_set_keypress_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(42, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(46, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
   return registerKeyEventCallback(target, userData, useCapture, callbackfunc, 1, "keypress", targetThread);
 }
 
 function _emscripten_set_keyup_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(43, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(47, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
   return registerKeyEventCallback(target, userData, useCapture, callbackfunc, 3, "keyup", targetThread);
 }
 
@@ -9279,7 +9527,7 @@ var registerOrientationChangeEventCallback = (target, userData, useCapture, call
 };
 
 function _emscripten_set_orientationchange_callback_on_thread(userData, useCapture, callbackfunc, targetThread) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(44, 0, 1, userData, useCapture, callbackfunc, targetThread);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(48, 0, 1, userData, useCapture, callbackfunc, targetThread);
   if (!window.screen || !screen.orientation) return -1;
   return registerOrientationChangeEventCallback(screen.orientation, userData, useCapture, callbackfunc, 18, "change", targetThread);
 }
@@ -9317,7 +9565,7 @@ var registerPointerlockChangeEventCallback = (target, userData, useCapture, call
 };
 
 function _emscripten_set_pointerlockchange_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(45, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(49, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
   if (!document.body?.requestPointerLock) {
     return -1;
   }
@@ -9372,7 +9620,7 @@ var registerUiEventCallback = (target, userData, useCapture, callbackfunc, event
 };
 
 function _emscripten_set_resize_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(46, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(50, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
   return registerUiEventCallback(target, userData, useCapture, callbackfunc, 10, "resize", targetThread);
 }
 
@@ -9406,7 +9654,7 @@ var registerVisibilityChangeEventCallback = (target, userData, useCapture, callb
 };
 
 function _emscripten_set_visibilitychange_callback_on_thread(userData, useCapture, callbackfunc, targetThread) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(47, 0, 1, userData, useCapture, callbackfunc, targetThread);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(51, 0, 1, userData, useCapture, callbackfunc, targetThread);
   if (!specialHTMLTargets[1]) {
     return -4;
   }
@@ -9463,7 +9711,7 @@ var registerWheelEventCallback = (target, userData, useCapture, callbackfunc, ev
 };
 
 function _emscripten_set_wheel_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(48, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(52, 0, 1, target, userData, useCapture, callbackfunc, targetThread);
   target = findEventTarget(target);
   if (!target) return -4;
   if (typeof target.onwheel != "undefined") {
@@ -9474,7 +9722,7 @@ function _emscripten_set_wheel_callback_on_thread(target, userData, useCapture, 
 }
 
 function _emscripten_set_window_title(title) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(49, 0, 1, title);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(53, 0, 1, title);
   return document.title = UTF8ToString(title);
 }
 
@@ -9569,7 +9817,7 @@ var getEnvStrings = () => {
 };
 
 function _environ_get(__environ, environ_buf) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(50, 0, 1, __environ, environ_buf);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(54, 0, 1, __environ, environ_buf);
   var bufSize = 0;
   var envp = 0;
   for (var string of getEnvStrings()) {
@@ -9582,7 +9830,7 @@ function _environ_get(__environ, environ_buf) {
 }
 
 function _environ_sizes_get(penviron_count, penviron_buf_size) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(51, 0, 1, penviron_count, penviron_buf_size);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(55, 0, 1, penviron_count, penviron_buf_size);
   var strings = getEnvStrings();
   (growMemViews(), HEAPU32)[((penviron_count) >> 2)] = strings.length;
   var bufSize = 0;
@@ -9594,7 +9842,7 @@ function _environ_sizes_get(penviron_count, penviron_buf_size) {
 }
 
 function _fd_close(fd) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(52, 0, 1, fd);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(56, 0, 1, fd);
   try {
     var stream = SYSCALLS.getStreamFromFD(fd);
     FS.close(stream);
@@ -9606,7 +9854,7 @@ function _fd_close(fd) {
 }
 
 function _fd_fdstat_get(fd, pbuf) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(53, 0, 1, fd, pbuf);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(57, 0, 1, fd, pbuf);
   try {
     var rightsBase = 0;
     var rightsInheriting = 0;
@@ -9647,7 +9895,7 @@ function _fd_fdstat_get(fd, pbuf) {
 };
 
 function _fd_read(fd, iov, iovcnt, pnum) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(54, 0, 1, fd, iov, iovcnt, pnum);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(58, 0, 1, fd, iov, iovcnt, pnum);
   try {
     var stream = SYSCALLS.getStreamFromFD(fd);
     var num = doReadv(stream, iov, iovcnt);
@@ -9660,7 +9908,7 @@ function _fd_read(fd, iov, iovcnt, pnum) {
 }
 
 function _fd_seek(fd, offset, whence, newOffset) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(55, 0, 1, fd, offset, whence, newOffset);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(59, 0, 1, fd, offset, whence, newOffset);
   offset = bigintToI53Checked(offset);
   try {
     if (isNaN(offset)) return 22;
@@ -9697,7 +9945,7 @@ function _fd_seek(fd, offset, whence, newOffset) {
 };
 
 function _fd_write(fd, iov, iovcnt, pnum) {
-  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(56, 0, 1, fd, iov, iovcnt, pnum);
+  if (ENVIRONMENT_IS_PTHREAD) return proxyToMainThread(60, 0, 1, fd, iov, iovcnt, pnum);
   try {
     var stream = SYSCALLS.getStreamFromFD(fd);
     var num = doWritev(stream, iov, iovcnt);
@@ -9708,6 +9956,8 @@ function _fd_write(fd, iov, iovcnt, pnum) {
     return e.errno;
   }
 }
+
+var _llvm_eh_typeid_for = type => type;
 
 var _random_get = (buffer, size) => randomFill((growMemViews(), HEAPU8).subarray(buffer, buffer + size));
 
@@ -9912,11 +10162,11 @@ Module["FS_createDataFile"] = FS_createDataFile;
 
 Module["FS_createLazyFile"] = FS_createLazyFile;
 
-var missingLibrarySymbols = [ "writeI53ToI64Clamped", "writeI53ToI64Signaling", "writeI53ToU64Clamped", "writeI53ToU64Signaling", "convertI32PairToI53", "convertI32PairToI53Checked", "convertU32PairToI53", "getTempRet0", "setTempRet0", "createNamedFunction", "withStackSave", "inetPton4", "inetNtop4", "inetPton6", "inetNtop6", "readSockaddr", "writeSockaddr", "getDynCaller", "asmjsMangle", "HandleAllocator", "addOnInit", "addOnPostCtor", "addOnPreMain", "STACK_SIZE", "STACK_ALIGN", "POINTER_SIZE", "ASSERTIONS", "convertJsFunctionToWasm", "getEmptyTableSlot", "updateTableMap", "getFunctionAddress", "addFunction", "removeFunction", "intArrayToString", "AsciiToString", "stringToAscii", "UTF16ToString", "stringToUTF16", "lengthBytesUTF16", "UTF32ToString", "stringToUTF32", "lengthBytesUTF32", "registerMouseEventCallback", "fillDeviceOrientationEventData", "registerDeviceOrientationEventCallback", "fillDeviceMotionEventData", "registerDeviceMotionEventCallback", "hideEverythingExceptGivenElement", "restoreHiddenElements", "softFullscreenResizeWebGLRenderTarget", "registerPointerlockErrorEventCallback", "registerTouchEventCallback", "fillBatteryEventData", "registerBatteryEventCallback", "jsStackTrace", "getCallstack", "convertPCtoSourceLocation", "wasiRightsToMuslOFlags", "wasiOFlagsToMuslOFlags", "setImmediateWrapped", "safeRequestAnimationFrame", "clearImmediateWrapped", "registerPostMainLoop", "registerPreMainLoop", "getPromise", "makePromise", "idsToPromises", "makePromiseCallback", "findMatchingCatch", "incrementUncaughtExceptionCount", "decrementUncaughtExceptionCount", "Browser_asyncPrepareDataCounter", "arraySum", "addDays", "getSocketFromFD", "getSocketAddress", "FS_mkdirTree", "_setNetworkCallback", "writeGLArray", "emscripten_webgl_destroy_context_before_on_calling_thread", "registerWebGlEventCallback", "runAndAbortIfError", "ALLOC_NORMAL", "ALLOC_STACK", "allocate", "writeStringToMemory", "writeAsciiToMemory", "allocateUTF8", "allocateUTF8OnStack", "demangle", "stackTrace", "getNativeTypeSize" ];
+var missingLibrarySymbols = [ "writeI53ToI64Clamped", "writeI53ToI64Signaling", "writeI53ToU64Clamped", "writeI53ToU64Signaling", "convertI32PairToI53", "convertI32PairToI53Checked", "convertU32PairToI53", "getTempRet0", "createNamedFunction", "withStackSave", "inetPton4", "inetNtop4", "inetPton6", "inetNtop6", "readSockaddr", "writeSockaddr", "getDynCaller", "asmjsMangle", "HandleAllocator", "addOnInit", "addOnPostCtor", "addOnPreMain", "STACK_SIZE", "STACK_ALIGN", "POINTER_SIZE", "ASSERTIONS", "convertJsFunctionToWasm", "getEmptyTableSlot", "updateTableMap", "getFunctionAddress", "addFunction", "removeFunction", "intArrayToString", "AsciiToString", "stringToAscii", "UTF16ToString", "stringToUTF16", "lengthBytesUTF16", "UTF32ToString", "stringToUTF32", "lengthBytesUTF32", "registerMouseEventCallback", "fillDeviceOrientationEventData", "registerDeviceOrientationEventCallback", "fillDeviceMotionEventData", "registerDeviceMotionEventCallback", "hideEverythingExceptGivenElement", "restoreHiddenElements", "softFullscreenResizeWebGLRenderTarget", "registerPointerlockErrorEventCallback", "registerTouchEventCallback", "fillBatteryEventData", "registerBatteryEventCallback", "jsStackTrace", "getCallstack", "convertPCtoSourceLocation", "wasiRightsToMuslOFlags", "wasiOFlagsToMuslOFlags", "setImmediateWrapped", "safeRequestAnimationFrame", "clearImmediateWrapped", "registerPostMainLoop", "registerPreMainLoop", "getPromise", "makePromise", "idsToPromises", "makePromiseCallback", "incrementUncaughtExceptionCount", "decrementUncaughtExceptionCount", "Browser_asyncPrepareDataCounter", "arraySum", "addDays", "getSocketFromFD", "getSocketAddress", "FS_mkdirTree", "_setNetworkCallback", "writeGLArray", "emscripten_webgl_destroy_context_before_on_calling_thread", "registerWebGlEventCallback", "runAndAbortIfError", "ALLOC_NORMAL", "ALLOC_STACK", "allocate", "writeStringToMemory", "writeAsciiToMemory", "allocateUTF8", "allocateUTF8OnStack", "demangle", "stackTrace", "getNativeTypeSize" ];
 
 missingLibrarySymbols.forEach(missingLibrarySymbol);
 
-var unexportedSymbols = [ "run", "out", "err", "callMain", "abort", "wasmExports", "writeStackCookie", "checkStackCookie", "writeI53ToI64", "readI53FromI64", "readI53FromU64", "INT53_MAX", "INT53_MIN", "bigintToI53Checked", "HEAP8", "HEAPU8", "HEAP16", "HEAPU16", "HEAP32", "HEAPU32", "HEAPF32", "HEAPF64", "HEAP64", "HEAPU64", "stackSave", "stackRestore", "stackAlloc", "ptrToString", "zeroMemory", "exitJS", "getHeapMax", "growMemory", "ENV", "ERRNO_CODES", "strError", "DNS", "Protocols", "Sockets", "timers", "warnOnce", "readEmAsmArgsArray", "readEmAsmArgs", "runEmAsmFunction", "runMainThreadEmAsm", "jstoi_q", "getExecutableName", "autoResumeAudioContext", "dynCall", "handleException", "keepRuntimeAlive", "runtimeKeepalivePush", "runtimeKeepalivePop", "callUserCallback", "maybeExit", "asyncLoad", "alignMemory", "mmapAlloc", "wasmTable", "wasmMemory", "getUniqueRunDependency", "noExitRuntime", "addOnPreRun", "addOnExit", "addOnPostRun", "freeTableIndexes", "functionsInTableMap", "setValue", "getValue", "PATH", "PATH_FS", "UTF8Decoder", "UTF8ArrayToString", "stringToUTF8Array", "stringToUTF8", "lengthBytesUTF8", "intArrayFromString", "UTF16Decoder", "stringToUTF8OnStack", "writeArrayToMemory", "JSEvents", "registerKeyEventCallback", "specialHTMLTargets", "maybeCStringToJsString", "findEventTarget", "findCanvasEventTarget", "getBoundingClientRect", "fillMouseEventData", "registerWheelEventCallback", "registerUiEventCallback", "registerFocusEventCallback", "screenOrientation", "fillOrientationChangeEventData", "registerOrientationChangeEventCallback", "fillFullscreenChangeEventData", "registerFullscreenChangeEventCallback", "JSEvents_requestFullscreen", "JSEvents_resizeCanvasForFullscreen", "registerRestoreOldStyle", "setLetterbox", "currentFullscreenStrategy", "restoreOldWindowedStyle", "doRequestFullscreen", "fillPointerlockChangeEventData", "registerPointerlockChangeEventCallback", "requestPointerLock", "fillVisibilityChangeEventData", "registerVisibilityChangeEventCallback", "fillGamepadEventData", "registerGamepadEventCallback", "registerBeforeUnloadEventCallback", "setCanvasElementSizeCallingThread", "setCanvasElementSizeMainThread", "setCanvasElementSize", "getCanvasSizeCallingThread", "getCanvasSizeMainThread", "getCanvasElementSize", "UNWIND_CACHE", "ExitStatus", "getEnvStrings", "checkWasiClock", "doReadv", "doWritev", "initRandomFill", "randomFill", "safeSetTimeout", "emSetImmediate", "emClearImmediate_deps", "emClearImmediate", "promiseMap", "uncaughtExceptionCount", "exceptionCaught", "ExceptionInfo", "Browser", "requestFullscreen", "requestFullScreen", "setCanvasSize", "getUserMedia", "createContext", "getPreloadedImageData__data", "wget", "MONTH_DAYS_REGULAR", "MONTH_DAYS_LEAP", "MONTH_DAYS_REGULAR_CUMULATIVE", "MONTH_DAYS_LEAP_CUMULATIVE", "isLeapYear", "ydayFromDate", "SYSCALLS", "preloadPlugins", "FS_createPreloadedFile", "FS_modeStringToFlags", "FS_getMode", "FS_fileDataToTypedArray", "FS_stdin_getChar_buffer", "FS_stdin_getChar", "FS_readFile", "FS_root", "FS_mounts", "FS_devices", "FS_streams", "FS_nextInode", "FS_nameTable", "FS_currentPath", "FS_initialized", "FS_ignorePermissions", "FS_filesystems", "FS_syncFSRequests", "FS_lookupPath", "FS_getPath", "FS_hashName", "FS_hashAddNode", "FS_hashRemoveNode", "FS_lookupNode", "FS_createNode", "FS_destroyNode", "FS_isRoot", "FS_isMountpoint", "FS_isFile", "FS_isDir", "FS_isLink", "FS_isChrdev", "FS_isBlkdev", "FS_isFIFO", "FS_isSocket", "FS_flagsToPermissionString", "FS_nodePermissions", "FS_mayLookup", "FS_mayCreate", "FS_mayDelete", "FS_mayOpen", "FS_checkOpExists", "FS_nextfd", "FS_getStreamChecked", "FS_getStream", "FS_createStream", "FS_closeStream", "FS_dupStream", "FS_doSetAttr", "FS_chrdev_stream_ops", "FS_major", "FS_minor", "FS_makedev", "FS_registerDevice", "FS_getDevice", "FS_getMounts", "FS_syncfs", "FS_mount", "FS_unmount", "FS_lookup", "FS_mknod", "FS_statfs", "FS_statfsStream", "FS_statfsNode", "FS_create", "FS_mkdir", "FS_mkdev", "FS_symlink", "FS_rename", "FS_rmdir", "FS_readdir", "FS_readlink", "FS_stat", "FS_fstat", "FS_lstat", "FS_doChmod", "FS_chmod", "FS_lchmod", "FS_fchmod", "FS_doChown", "FS_chown", "FS_lchown", "FS_fchown", "FS_doTruncate", "FS_truncate", "FS_ftruncate", "FS_utime", "FS_open", "FS_close", "FS_isClosed", "FS_llseek", "FS_read", "FS_write", "FS_mmap", "FS_msync", "FS_ioctl", "FS_writeFile", "FS_cwd", "FS_chdir", "FS_createDefaultDirectories", "FS_createDefaultDevices", "FS_createSpecialDirectories", "FS_createStandardStreams", "FS_staticInit", "FS_init", "FS_quit", "FS_findObject", "FS_analyzePath", "FS_createFile", "FS_forceLoadFile", "MEMFS", "TTY", "PIPEFS", "SOCKFS", "tempFixedLengthArray", "miniTempWebGLFloatBuffers", "miniTempWebGLIntBuffers", "heapObjectForWebGLType", "toTypedArrayIndex", "webgl_enable_ANGLE_instanced_arrays", "webgl_enable_OES_vertex_array_object", "webgl_enable_WEBGL_draw_buffers", "webgl_enable_WEBGL_multi_draw", "webgl_enable_EXT_polygon_offset_clamp", "webgl_enable_EXT_clip_control", "webgl_enable_WEBGL_polygon_mode", "GL", "emscriptenWebGLGet", "computeUnpackAlignedImageSize", "colorChannelsInGlTextureFormat", "emscriptenWebGLGetTexPixelData", "emscriptenWebGLGetUniform", "webglGetUniformLocation", "webglPrepareUniformLocationsBeforeFirstUse", "webglGetLeftBracePos", "emscriptenWebGLGetVertexAttrib", "__glGetActiveAttribOrUniform", "AL", "GLUT", "EGL", "GLEW", "IDBStore", "SDL", "SDL_gfx", "waitAsyncPolyfilled", "print", "printErr", "jstoi_s", "PThread", "terminateWorker", "cleanupThread", "registerTLSInit", "spawnThread", "exitOnMainThread", "proxyToMainThread", "proxiedJSCallArgs", "invokeEntryPoint", "checkMailbox", "IDBFS" ];
+var unexportedSymbols = [ "run", "out", "err", "callMain", "abort", "wasmExports", "writeStackCookie", "checkStackCookie", "writeI53ToI64", "readI53FromI64", "readI53FromU64", "INT53_MAX", "INT53_MIN", "bigintToI53Checked", "HEAP8", "HEAPU8", "HEAP16", "HEAPU16", "HEAP32", "HEAPU32", "HEAPF32", "HEAPF64", "HEAP64", "HEAPU64", "stackSave", "stackRestore", "stackAlloc", "setTempRet0", "ptrToString", "zeroMemory", "exitJS", "getHeapMax", "growMemory", "ENV", "ERRNO_CODES", "strError", "DNS", "Protocols", "Sockets", "timers", "warnOnce", "readEmAsmArgsArray", "readEmAsmArgs", "runEmAsmFunction", "runMainThreadEmAsm", "jstoi_q", "getExecutableName", "autoResumeAudioContext", "dynCall", "handleException", "keepRuntimeAlive", "runtimeKeepalivePush", "runtimeKeepalivePop", "callUserCallback", "maybeExit", "asyncLoad", "alignMemory", "mmapAlloc", "wasmTable", "wasmMemory", "getUniqueRunDependency", "noExitRuntime", "addOnPreRun", "addOnExit", "addOnPostRun", "freeTableIndexes", "functionsInTableMap", "setValue", "getValue", "PATH", "PATH_FS", "UTF8Decoder", "UTF8ArrayToString", "stringToUTF8Array", "stringToUTF8", "lengthBytesUTF8", "intArrayFromString", "UTF16Decoder", "stringToUTF8OnStack", "writeArrayToMemory", "JSEvents", "registerKeyEventCallback", "specialHTMLTargets", "maybeCStringToJsString", "findEventTarget", "findCanvasEventTarget", "getBoundingClientRect", "fillMouseEventData", "registerWheelEventCallback", "registerUiEventCallback", "registerFocusEventCallback", "screenOrientation", "fillOrientationChangeEventData", "registerOrientationChangeEventCallback", "fillFullscreenChangeEventData", "registerFullscreenChangeEventCallback", "JSEvents_requestFullscreen", "JSEvents_resizeCanvasForFullscreen", "registerRestoreOldStyle", "setLetterbox", "currentFullscreenStrategy", "restoreOldWindowedStyle", "doRequestFullscreen", "fillPointerlockChangeEventData", "registerPointerlockChangeEventCallback", "requestPointerLock", "fillVisibilityChangeEventData", "registerVisibilityChangeEventCallback", "fillGamepadEventData", "registerGamepadEventCallback", "registerBeforeUnloadEventCallback", "setCanvasElementSizeCallingThread", "setCanvasElementSizeMainThread", "setCanvasElementSize", "getCanvasSizeCallingThread", "getCanvasSizeMainThread", "getCanvasElementSize", "UNWIND_CACHE", "ExitStatus", "getEnvStrings", "checkWasiClock", "doReadv", "doWritev", "initRandomFill", "randomFill", "safeSetTimeout", "emSetImmediate", "emClearImmediate_deps", "emClearImmediate", "promiseMap", "uncaughtExceptionCount", "exceptionLast", "exceptionCaught", "ExceptionInfo", "findMatchingCatch", "getExceptionMessageCommon", "incrementExceptionRefcount", "decrementExceptionRefcount", "getExceptionMessage", "Browser", "requestFullscreen", "requestFullScreen", "setCanvasSize", "getUserMedia", "createContext", "getPreloadedImageData__data", "wget", "MONTH_DAYS_REGULAR", "MONTH_DAYS_LEAP", "MONTH_DAYS_REGULAR_CUMULATIVE", "MONTH_DAYS_LEAP_CUMULATIVE", "isLeapYear", "ydayFromDate", "SYSCALLS", "preloadPlugins", "FS_createPreloadedFile", "FS_modeStringToFlags", "FS_getMode", "FS_fileDataToTypedArray", "FS_stdin_getChar_buffer", "FS_stdin_getChar", "FS_readFile", "FS_root", "FS_mounts", "FS_devices", "FS_streams", "FS_nextInode", "FS_nameTable", "FS_currentPath", "FS_initialized", "FS_ignorePermissions", "FS_filesystems", "FS_syncFSRequests", "FS_lookupPath", "FS_getPath", "FS_hashName", "FS_hashAddNode", "FS_hashRemoveNode", "FS_lookupNode", "FS_createNode", "FS_destroyNode", "FS_isRoot", "FS_isMountpoint", "FS_isFile", "FS_isDir", "FS_isLink", "FS_isChrdev", "FS_isBlkdev", "FS_isFIFO", "FS_isSocket", "FS_flagsToPermissionString", "FS_nodePermissions", "FS_mayLookup", "FS_mayCreate", "FS_mayDelete", "FS_mayOpen", "FS_checkOpExists", "FS_nextfd", "FS_getStreamChecked", "FS_getStream", "FS_createStream", "FS_closeStream", "FS_dupStream", "FS_doSetAttr", "FS_chrdev_stream_ops", "FS_major", "FS_minor", "FS_makedev", "FS_registerDevice", "FS_getDevice", "FS_getMounts", "FS_syncfs", "FS_mount", "FS_unmount", "FS_lookup", "FS_mknod", "FS_statfs", "FS_statfsStream", "FS_statfsNode", "FS_create", "FS_mkdir", "FS_mkdev", "FS_symlink", "FS_rename", "FS_rmdir", "FS_readdir", "FS_readlink", "FS_stat", "FS_fstat", "FS_lstat", "FS_doChmod", "FS_chmod", "FS_lchmod", "FS_fchmod", "FS_doChown", "FS_chown", "FS_lchown", "FS_fchown", "FS_doTruncate", "FS_truncate", "FS_ftruncate", "FS_utime", "FS_open", "FS_close", "FS_isClosed", "FS_llseek", "FS_read", "FS_write", "FS_mmap", "FS_msync", "FS_ioctl", "FS_writeFile", "FS_cwd", "FS_chdir", "FS_createDefaultDirectories", "FS_createDefaultDevices", "FS_createSpecialDirectories", "FS_createStandardStreams", "FS_staticInit", "FS_init", "FS_quit", "FS_findObject", "FS_analyzePath", "FS_createFile", "FS_forceLoadFile", "MEMFS", "TTY", "PIPEFS", "SOCKFS", "tempFixedLengthArray", "miniTempWebGLFloatBuffers", "miniTempWebGLIntBuffers", "heapObjectForWebGLType", "toTypedArrayIndex", "webgl_enable_ANGLE_instanced_arrays", "webgl_enable_OES_vertex_array_object", "webgl_enable_WEBGL_draw_buffers", "webgl_enable_WEBGL_multi_draw", "webgl_enable_EXT_polygon_offset_clamp", "webgl_enable_EXT_clip_control", "webgl_enable_WEBGL_polygon_mode", "GL", "emscriptenWebGLGet", "computeUnpackAlignedImageSize", "colorChannelsInGlTextureFormat", "emscriptenWebGLGetTexPixelData", "emscriptenWebGLGetUniform", "webglGetUniformLocation", "webglPrepareUniformLocationsBeforeFirstUse", "webglGetLeftBracePos", "emscriptenWebGLGetVertexAttrib", "__glGetActiveAttribOrUniform", "AL", "GLUT", "EGL", "GLEW", "IDBStore", "SDL", "SDL_gfx", "waitAsyncPolyfilled", "print", "printErr", "jstoi_s", "PThread", "terminateWorker", "cleanupThread", "registerTLSInit", "spawnThread", "exitOnMainThread", "proxyToMainThread", "proxiedJSCallArgs", "invokeEntryPoint", "checkMailbox", "IDBFS" ];
 
 unexportedSymbols.forEach(unexportedRuntimeSymbol);
 
@@ -9928,7 +10178,7 @@ unexportedSymbols.forEach(unexportedRuntimeSymbol);
 // either synchronously or asynchronously from other threads in postMessage()d
 // or internally queued events. This way a pthread in a Worker can synchronously
 // access e.g. the DOM on the main thread.
-var proxiedFunctionTable = [ _proc_exit, exitOnMainThread, ___syscall_chmod, ___syscall_fchmod, ___syscall_fcntl64, ___syscall_fdatasync, ___syscall_fstat64, ___syscall_ftruncate64, ___syscall_getcwd, ___syscall_getdents64, ___syscall_ioctl, ___syscall_lstat64, ___syscall_mkdirat, ___syscall_newfstatat, ___syscall_openat, ___syscall_readlinkat, ___syscall_stat64, __mmap_js, __munmap_js, _emscripten_exit_fullscreen, getCanvasSizeMainThread, setCanvasElementSizeMainThread, _emscripten_exit_pointerlock, _emscripten_force_exit, _emscripten_get_device_pixel_ratio, _emscripten_get_element_css_size, _emscripten_get_gamepad_status, _emscripten_get_num_gamepads, _emscripten_get_preloaded_image_data, _emscripten_get_preloaded_image_data_from_FILE, _emscripten_get_screen_size, _emscripten_request_fullscreen_strategy, _emscripten_request_pointerlock, _emscripten_sample_gamepad_data, _emscripten_set_beforeunload_callback_on_thread, _emscripten_set_blur_callback_on_thread, _emscripten_set_element_css_size, _emscripten_set_focus_callback_on_thread, _emscripten_set_fullscreenchange_callback_on_thread, _emscripten_set_gamepadconnected_callback_on_thread, _emscripten_set_gamepaddisconnected_callback_on_thread, _emscripten_set_keydown_callback_on_thread, _emscripten_set_keypress_callback_on_thread, _emscripten_set_keyup_callback_on_thread, _emscripten_set_orientationchange_callback_on_thread, _emscripten_set_pointerlockchange_callback_on_thread, _emscripten_set_resize_callback_on_thread, _emscripten_set_visibilitychange_callback_on_thread, _emscripten_set_wheel_callback_on_thread, _emscripten_set_window_title, _environ_get, _environ_sizes_get, _fd_close, _fd_fdstat_get, _fd_read, _fd_seek, _fd_write ];
+var proxiedFunctionTable = [ _proc_exit, exitOnMainThread, ___syscall_chmod, ___syscall_fchmod, ___syscall_fcntl64, ___syscall_fdatasync, ___syscall_fstat64, ___syscall_ftruncate64, ___syscall_getcwd, ___syscall_getdents64, ___syscall_ioctl, ___syscall_lstat64, ___syscall_mkdirat, ___syscall_newfstatat, ___syscall_openat, ___syscall_readlinkat, ___syscall_renameat, ___syscall_rmdir, ___syscall_stat64, ___syscall_truncate64, ___syscall_unlinkat, __mmap_js, __munmap_js, _emscripten_exit_fullscreen, getCanvasSizeMainThread, setCanvasElementSizeMainThread, _emscripten_exit_pointerlock, _emscripten_force_exit, _emscripten_get_device_pixel_ratio, _emscripten_get_element_css_size, _emscripten_get_gamepad_status, _emscripten_get_num_gamepads, _emscripten_get_preloaded_image_data, _emscripten_get_preloaded_image_data_from_FILE, _emscripten_get_screen_size, _emscripten_request_fullscreen_strategy, _emscripten_request_pointerlock, _emscripten_sample_gamepad_data, _emscripten_set_beforeunload_callback_on_thread, _emscripten_set_blur_callback_on_thread, _emscripten_set_element_css_size, _emscripten_set_focus_callback_on_thread, _emscripten_set_fullscreenchange_callback_on_thread, _emscripten_set_gamepadconnected_callback_on_thread, _emscripten_set_gamepaddisconnected_callback_on_thread, _emscripten_set_keydown_callback_on_thread, _emscripten_set_keypress_callback_on_thread, _emscripten_set_keyup_callback_on_thread, _emscripten_set_orientationchange_callback_on_thread, _emscripten_set_pointerlockchange_callback_on_thread, _emscripten_set_resize_callback_on_thread, _emscripten_set_visibilitychange_callback_on_thread, _emscripten_set_wheel_callback_on_thread, _emscripten_set_window_title, _environ_get, _environ_sizes_get, _fd_close, _fd_fdstat_get, _fd_read, _fd_seek, _fd_write ];
 
 function checkIncomingModuleAPI() {
   ignoredModuleProp("fetchSettings");
@@ -9941,12 +10191,12 @@ function checkIncomingModuleAPI() {
 }
 
 var ASM_CONSTS = {
-  530860: $0 => {
+  549876: $0 => {
     if (window.gssquaredSetStatus) {
       window.gssquaredSetStatus(UTF8ToString($0));
     }
   },
-  530944: () => {
+  549960: () => {
     var c = document.querySelector("#canvas");
     if (c) {
       c.style.aspectRatio = "1288 / 928";
@@ -9957,17 +10207,17 @@ var ASM_CONSTS = {
       var _forceReflow = c.offsetWidth;
     }
   },
-  531214: () => {
+  550230: () => {
     if (window.gssquaredConfirmQuit) {
       window.gssquaredConfirmQuit();
     }
   },
-  531286: () => {
+  550302: () => {
     if (window.gssquaredPrepareCanvasForRestart) {
       window.gssquaredPrepareCanvasForRestart();
     }
   },
-  531382: () => {
+  550398: () => {
     window.dispatchEvent(new Event("resize"));
     setTimeout(function() {
       window.dispatchEvent(new Event("resize"));
@@ -9979,7 +10229,15 @@ var ASM_CONSTS = {
       window.dispatchEvent(new Event("resize"));
     }, 200);
   },
-  531659: $0 => {
+  550675: ($0, $1) => {
+    if (typeof window.__gs2OnPutDone === "function") {
+      window.__gs2OnPutDone($0, UTF8ToString($1));
+    }
+  },
+  550777: () => {
+    window.dispatchEvent(new Event("resize"));
+  },
+  550824: $0 => {
     var want = $0 !== 0;
     window.gssquaredPointerLockPending = want;
     if (!want && document.pointerLockElement) {
@@ -9991,7 +10249,7 @@ var ASM_CONSTS = {
       } catch (e) {}
     }
   },
-  532018: $0 => {
+  551183: $0 => {
     var str = UTF8ToString($0) + "\n\n" + "Abort/Retry/Ignore/AlwaysIgnore? [ariA] :";
     var reply = window.prompt(str, "i");
     if (reply === null) {
@@ -9999,7 +10257,7 @@ var ASM_CONSTS = {
     }
     return reply.length === 1 ? reply.charCodeAt(0) : -1;
   },
-  532233: $0 => {
+  551398: $0 => {
     var parms = new URLSearchParams(window.location.search);
     for (const [key, value] of parms) {
       if (key.startsWith("SDL_")) {
@@ -10013,7 +10271,7 @@ var ASM_CONSTS = {
       }
     }
   },
-  532540: () => {
+  551705: () => {
     if (typeof (AudioContext) !== "undefined") {
       return true;
     } else if (typeof (webkitAudioContext) !== "undefined") {
@@ -10021,7 +10279,7 @@ var ASM_CONSTS = {
     }
     return false;
   },
-  532687: () => {
+  551852: () => {
     if ((typeof (navigator.mediaDevices) !== "undefined") && (typeof (navigator.mediaDevices.getUserMedia) !== "undefined")) {
       return true;
     } else if (typeof (navigator.webkitGetUserMedia) !== "undefined") {
@@ -10029,7 +10287,7 @@ var ASM_CONSTS = {
     }
     return false;
   },
-  532921: $0 => {
+  552086: $0 => {
     if (typeof (Module["SDL3"]) === "undefined") {
       Module["SDL3"] = {};
     }
@@ -10053,8 +10311,8 @@ var ASM_CONSTS = {
     }
     return (SDL3.audioContext !== undefined);
   },
-  533484: () => Module["SDL3"].audioContext.sampleRate,
-  533535: ($0, $1, $2, $3) => {
+  552649: () => Module["SDL3"].audioContext.sampleRate,
+  552700: ($0, $1, $2, $3) => {
     var SDL3 = Module["SDL3"];
     var have_microphone = function(stream) {
       if (SDL3.audio_recording.silenceTimer !== undefined) {
@@ -10096,7 +10354,7 @@ var ASM_CONSTS = {
       }, have_microphone, no_microphone);
     }
   },
-  535376: ($0, $1, $2, $3) => {
+  554541: ($0, $1, $2, $3) => {
     var SDL3 = Module["SDL3"];
     SDL3.audio_playback.scriptProcessorNode = SDL3.audioContext["createScriptProcessor"]($1, 0, $0);
     SDL3.audio_playback.scriptProcessorNode["onaudioprocess"] = function(e) {
@@ -10128,7 +10386,7 @@ var ASM_CONSTS = {
       SDL3.audio_playback.silenceTimer = setInterval(silence_callback, ($1 / SDL3.audioContext.sampleRate) * 1e3);
     }
   },
-  536692: $0 => {
+  555857: $0 => {
     var SDL3 = Module["SDL3"];
     if ($0) {
       if (SDL3.audio_recording.silenceTimer !== undefined) {
@@ -10162,7 +10420,7 @@ var ASM_CONSTS = {
       SDL3.audioContext = undefined;
     }
   },
-  537848: ($0, $1) => {
+  557013: ($0, $1) => {
     var buf = $0 >>> 2;
     var SDL3 = Module["SDL3"];
     var numChannels = SDL3.audio_playback.currentPlaybackBuffer["numberOfChannels"];
@@ -10176,7 +10434,7 @@ var ASM_CONSTS = {
       }
     }
   },
-  538363: ($0, $1) => {
+  557528: ($0, $1) => {
     var SDL3 = Module["SDL3"];
     var numChannels = SDL3.audio_recording.currentRecordingBuffer.numberOfChannels;
     for (var c = 0; c < numChannels; ++c) {
@@ -10195,14 +10453,14 @@ var ASM_CONSTS = {
       }
     }
   },
-  538990: () => {
+  558155: () => {
     if (typeof (Module["SDL3"]) === "undefined") {
       Module["SDL3"] = {};
     }
     Module["SDL3"].camera = {};
   },
-  539091: () => (navigator.mediaDevices === undefined) ? 0 : 1,
-  539150: ($0, $1, $2, $3, $4, $5, $6) => {
+  558256: () => (navigator.mediaDevices === undefined) ? 0 : 1,
+  558315: ($0, $1, $2, $3, $4, $5, $6) => {
     const device = $0;
     const w = $1;
     const h = $2;
@@ -10276,7 +10534,7 @@ var ASM_CONSTS = {
       dynCall("iiiiii", outcome, [ device, 0, 0, 0, 0 ]);
     });
   },
-  541441: () => {
+  560606: () => {
     const SDL3 = Module["SDL3"];
     if ((typeof (SDL3) === "undefined") || (typeof (SDL3.camera) === "undefined") || (typeof (SDL3.camera.stream) === "undefined")) {
       return;
@@ -10284,7 +10542,7 @@ var ASM_CONSTS = {
     SDL3.camera.stream.getTracks().forEach(track => track.stop());
     SDL3.camera = {};
   },
-  541692: ($0, $1, $2) => {
+  560857: ($0, $1, $2) => {
     const w = $0;
     const h = $1;
     const rgba = $2;
@@ -10297,12 +10555,12 @@ var ASM_CONSTS = {
     (growMemViews(), HEAPU8).set(imgrgba, rgba);
     return 1;
   },
-  542070: () => {
+  561235: () => {
     if (typeof (Module["SDL3"]) !== "undefined") {
       Module["SDL3"].camera = undefined;
     }
   },
-  542157: ($0, $1, $2, $3) => {
+  561322: ($0, $1, $2, $3) => {
     var w = $0;
     var h = $1;
     var pixels = $2;
@@ -10361,7 +10619,7 @@ var ASM_CONSTS = {
     }
     SDL3.ctx.putImageData(SDL3.image, 0, 0);
   },
-  543388: () => {
+  562553: () => {
     if (!Module["SDL3"]) {
       Module["SDL3"] = {};
     }
@@ -10390,7 +10648,7 @@ var ASM_CONSTS = {
       }
     });
   },
-  544122: ($0, $1, $2, $3, $4) => {
+  563287: ($0, $1, $2, $3, $4) => {
     var w = $0;
     var h = $1;
     var hot_x = $2;
@@ -10411,20 +10669,20 @@ var ASM_CONSTS = {
     stringToUTF8(url, urlBuf, url.length + 1);
     return urlBuf;
   },
-  544780: $0 => {
+  563945: $0 => {
     if (Module["canvas"]) {
       Module["canvas"].style["cursor"] = UTF8ToString($0);
     }
   },
-  544863: () => {
+  564028: () => {
     if (Module["canvas"]) {
       Module["canvas"].style["cursor"] = "none";
     }
   },
-  544932: () => Module["SDL3"]["mouse_x"],
-  544970: () => Module["SDL3"]["mouse_y"],
-  545008: $0 => Module["SDL3"]["mouse_buttons"][$0],
-  545056: $0 => {
+  564097: () => Module["SDL3"]["mouse_x"],
+  564135: () => Module["SDL3"]["mouse_y"],
+  564173: $0 => Module["SDL3"]["mouse_buttons"][$0],
+  564221: $0 => {
     var target = document;
     if (target) {
       target.sdlEventHandlerMouseButtonUpGlobal = function(event) {
@@ -10438,7 +10696,7 @@ var ASM_CONSTS = {
       target.addEventListener("pointerup", target.sdlEventHandlerMouseButtonUpGlobal);
     }
   },
-  545399: $0 => {
+  564564: $0 => {
     if (typeof (Module["SDL3"]) === "undefined") {
       Module["SDL3"] = {};
     }
@@ -10478,7 +10736,7 @@ var ASM_CONSTS = {
       };
     }
   },
-  546386: $0 => {
+  565551: $0 => {
     var id = UTF8ToString($0);
     try {
       var canvas = document.querySelector(id);
@@ -10488,14 +10746,14 @@ var ASM_CONSTS = {
     } catch (e) {}
     return false;
   },
-  546552: () => {
+  565717: () => {
     var target = document;
     if (target) {
       target.removeEventListener("pointerup", target.sdlEventHandlerMouseButtonUpGlobal);
       target.sdlEventHandlerMouseButtonUpGlobal = undefined;
     }
   },
-  546734: ($0, $1) => {
+  565899: ($0, $1) => {
     var target = document.querySelector(UTF8ToString($1));
     if (target) {
       var SDL3 = Module["SDL3"];
@@ -10533,7 +10791,7 @@ var ASM_CONSTS = {
       target.addEventListener("pointerup", target.sdlEventHandlerPointerGeneric);
     }
   },
-  548068: ($0, $1, $2) => {
+  567233: ($0, $1, $2) => {
     var target = document.querySelector(UTF8ToString($1));
     if (target) {
       var data = $0;
@@ -10601,7 +10859,7 @@ var ASM_CONSTS = {
       target.addEventListener("dragleave", SDL3.eventHandlerDropDragend);
     }
   },
-  550221: $0 => {
+  569386: $0 => {
     var target = document.querySelector(UTF8ToString($0));
     if (target) {
       var SDL3 = Module["SDL3"];
@@ -10617,7 +10875,7 @@ var ASM_CONSTS = {
       SDL3.eventHandlerDropDragend = undefined;
     }
   },
-  551051: $0 => {
+  570216: $0 => {
     var target = document.querySelector(UTF8ToString($0));
     if (target) {
       target.removeEventListener("pointerenter", target.sdlEventHandlerPointerEnter);
@@ -10632,7 +10890,7 @@ var ASM_CONSTS = {
       target.sdlEventHandlerPointerGeneric = undefined;
     }
   },
-  551785: () => {
+  570950: () => {
     if (!window.matchMedia) {
       return -1;
     }
@@ -10644,7 +10902,7 @@ var ASM_CONSTS = {
     }
     return -1;
   },
-  551994: () => {
+  571159: () => {
     if (typeof (Module["SDL3"]) !== "undefined") {
       var SDL3 = Module["SDL3"];
       SDL3.themeChangedMatchMedia.removeEventListener("change", SDL3.eventHandlerThemeChanged);
@@ -10652,17 +10910,17 @@ var ASM_CONSTS = {
       SDL3.eventHandlerThemeChanged = undefined;
     }
   },
-  552247: () => window.innerWidth,
-  552277: () => window.innerHeight,
-  552308: $0 => {
+  571412: () => window.innerWidth,
+  571442: () => window.innerHeight,
+  571473: $0 => {
     Module["requestFullscreen"] = function(lockPointer, resizeCanvas) {
       _requestFullscreenThroughSDL($0);
     };
   },
-  552417: () => {
+  571582: () => {
     Module["requestFullscreen"] = function(lockPointer, resizeCanvas) {};
   },
-  552491: () => {
+  571656: () => {
     if (window.matchMedia) {
       if (typeof (Module["SDL3"]) === "undefined") {
         Module["SDL3"] = {};
@@ -10675,7 +10933,7 @@ var ASM_CONSTS = {
       SDL3.themeChangedMatchMedia.addEventListener("change", SDL3.eventHandlerThemeChanged);
     }
   },
-  552882: ($0, $1, $2, $3, $4) => {
+  572047: ($0, $1, $2, $3, $4) => {
     var title = UTF8ToString($0);
     var message = UTF8ToString($1);
     var background = UTF8ToString($2);
@@ -10695,7 +10953,7 @@ var ASM_CONSTS = {
     dialog.append(p);
     dialog.showModal();
   },
-  553423: ($0, $1, $2, $3, $4, $5, $6, $7) => {
+  572588: ($0, $1, $2, $3, $4, $5, $6, $7) => {
     var dialog_id = UTF8ToString($0);
     var text = UTF8ToString($1);
     var responseId = $2;
@@ -10736,7 +10994,7 @@ var ASM_CONSTS = {
     dialog.append(button);
     return true;
   },
-  554432: $0 => {
+  573597: $0 => {
     var dialog_id = UTF8ToString($0);
     var dialog = document.getElementById(dialog_id);
     if (!dialog) {
@@ -10744,7 +11002,7 @@ var ASM_CONSTS = {
     }
     return dialog.open;
   },
-  554570: $0 => {
+  573735: $0 => {
     var dialog_id = UTF8ToString($0);
     var dialog = document.getElementById(dialog_id);
     if (!dialog) {
@@ -10756,30 +11014,53 @@ var ASM_CONSTS = {
       return 0;
     }
   },
-  554752: ($0, $1) => {
+  573917: ($0, $1) => {
     alert(UTF8ToString($0) + "\n\n" + UTF8ToString($1));
   },
-  554809: $0 => {
+  573974: $0 => {
     window.open(UTF8ToString($0), "_blank");
   },
-  554849: $0 => {
+  574014: () => {
+    if (window.__gs2FileGestureInstalled) return;
+    window.__gs2FileGestureInstalled = true;
+    var canvas = (typeof Module !== "undefined" && Module["canvas"]) || document.getElementById("canvas");
+    document.addEventListener("click", function(ev) {
+      if (!canvas || ev.target !== canvas) return;
+      try {
+        ccall("gs2_web_user_gesture", null, [], []);
+      } catch (err) {
+        console.error("gs2_web_user_gesture", err);
+      }
+    }, false);
+  },
+  574428: ($0, $1) => {
     var accept = UTF8ToString($0);
+    var generation = $1;
     try {
       FS.mkdir("/uploads");
     } catch (e) {}
     var input = document.createElement("input");
     input.type = "file";
+    input.setAttribute("data-gs2-file", "1");
     if (accept) input.accept = accept;
-    input.style.display = "none";
+    input.style.position = "fixed";
+    input.style.left = "-1000px";
+    input.style.top = "0";
+    input.style.width = "20px";
+    input.style.height = "20px";
+    input.style.opacity = "0";
     document.body.appendChild(input);
     var cleanup = function() {
       if (input && input.parentNode) input.parentNode.removeChild(input);
     };
+    var deliver = function(path) {
+      ccall("gs2_web_file_selected_if", null, [ "number", "string" ], [ generation, path ]);
+      cleanup();
+    };
     input.addEventListener("change", function(event) {
       var file = event.target.files && event.target.files[0];
       if (!file) {
-        ccall("gs2_web_file_selected", null, [ "string" ], [ "" ]);
-        cleanup();
+        deliver("");
         return;
       }
       var reader = new FileReader;
@@ -10788,22 +11069,66 @@ var ASM_CONSTS = {
         try {
           var data = new Uint8Array(e.target.result);
           FS.writeFile(path, data);
-          ccall("gs2_web_file_selected", null, [ "string" ], [ path ]);
+          deliver(path);
         } catch (err) {
           console.error("web_open_file_dialog: write failed", err);
-          ccall("gs2_web_file_selected", null, [ "string" ], [ "" ]);
+          deliver("");
         }
-        cleanup();
       };
       reader.onerror = function() {
-        ccall("gs2_web_file_selected", null, [ "string" ], [ "" ]);
-        cleanup();
+        deliver("");
       };
       reader.readAsArrayBuffer(file);
     }, false);
-    input.click();
+    input.addEventListener("cancel", function() {
+      deliver("");
+    }, false);
+    var opened = false;
+    try {
+      if (typeof input.showPicker === "function") {
+        input.showPicker();
+        opened = true;
+      }
+    } catch (err) {
+      console.warn("web_open_file_dialog: showPicker failed", err);
+    }
+    if (!opened) {
+      try {
+        input.click();
+      } catch (err) {
+        console.error("web_open_file_dialog: picker blocked", err);
+        deliver("");
+      }
+    }
   },
-  555927: $0 => {
+  576006: ($0, $1, $2, $3) => {
+    var url = UTF8ToString($0);
+    var path = UTF8ToString($1);
+    var token = UTF8ToString($2);
+    var generation = $3;
+    var bytes;
+    try {
+      bytes = FS.readFile(path);
+    } catch (err) {
+      ccall("gs2_web_put_done", null, [ "number", "number", "string" ], [ generation, 0, String(err) ]);
+      return;
+    }
+    fetch(url, {
+      method: "PUT",
+      mode: "cors",
+      credentials: "omit",
+      headers: {
+        "Content-Type": "application/x-tar",
+        "X-GS2-Save-Token": token
+      },
+      body: bytes
+    }).then(function(resp) {
+      ccall("gs2_web_put_done", null, [ "number", "number", "string" ], [ generation, resp.status, "" ]);
+    }).catch(function(err) {
+      ccall("gs2_web_put_done", null, [ "number", "number", "string" ], [ generation, 0, String(err) ]);
+    });
+  },
+  576682: $0 => {
     var c = document.querySelector("#canvas");
     if (!c) {
       return;
@@ -10844,6 +11169,14 @@ var _main = Module["_main"] = makeInvalidEarlyAccess("_main");
 
 var _gssquared_enter_control_panel = Module["_gssquared_enter_control_panel"] = makeInvalidEarlyAccess("_gssquared_enter_control_panel");
 
+var _gs2_web_put_done = Module["_gs2_web_put_done"] = makeInvalidEarlyAccess("_gs2_web_put_done");
+
+var _gs2_web_pack_needs_save = Module["_gs2_web_pack_needs_save"] = makeInvalidEarlyAccess("_gs2_web_pack_needs_save");
+
+var _gs2_web_save_collection = Module["_gs2_web_save_collection"] = makeInvalidEarlyAccess("_gs2_web_save_collection");
+
+var _gs2_web_user_gesture = Module["_gs2_web_user_gesture"] = makeInvalidEarlyAccess("_gs2_web_user_gesture");
+
 var _SDL_free = Module["_SDL_free"] = makeInvalidEarlyAccess("_SDL_free");
 
 var _SDL_malloc = Module["_SDL_malloc"] = makeInvalidEarlyAccess("_SDL_malloc");
@@ -10880,6 +11213,8 @@ var _Emscripten_SendSystemThemeChangedEvent = Module["_Emscripten_SendSystemThem
 
 var _requestFullscreenThroughSDL = Module["_requestFullscreenThroughSDL"] = makeInvalidEarlyAccess("_requestFullscreenThroughSDL");
 
+var _gs2_web_file_selected_if = Module["_gs2_web_file_selected_if"] = makeInvalidEarlyAccess("_gs2_web_file_selected_if");
+
 var _gs2_web_file_selected = Module["_gs2_web_file_selected"] = makeInvalidEarlyAccess("_gs2_web_file_selected");
 
 var __emscripten_tls_init = makeInvalidEarlyAccess("__emscripten_tls_init");
@@ -10912,6 +11247,8 @@ var __emscripten_check_mailbox = makeInvalidEarlyAccess("__emscripten_check_mail
 
 var _setThrew = makeInvalidEarlyAccess("_setThrew");
 
+var __emscripten_tempret_set = makeInvalidEarlyAccess("__emscripten_tempret_set");
+
 var _emscripten_stack_init = makeInvalidEarlyAccess("_emscripten_stack_init");
 
 var _emscripten_stack_set_limits = makeInvalidEarlyAccess("_emscripten_stack_set_limits");
@@ -10924,6 +11261,16 @@ var __emscripten_stack_alloc = makeInvalidEarlyAccess("__emscripten_stack_alloc"
 
 var _emscripten_stack_get_current = makeInvalidEarlyAccess("_emscripten_stack_get_current");
 
+var ___cxa_decrement_exception_refcount = makeInvalidEarlyAccess("___cxa_decrement_exception_refcount");
+
+var ___cxa_increment_exception_refcount = makeInvalidEarlyAccess("___cxa_increment_exception_refcount");
+
+var ___get_exception_message = makeInvalidEarlyAccess("___get_exception_message");
+
+var ___cxa_can_catch = makeInvalidEarlyAccess("___cxa_can_catch");
+
+var ___cxa_get_exception_ptr = makeInvalidEarlyAccess("___cxa_get_exception_ptr");
+
 var __indirect_function_table = makeInvalidEarlyAccess("__indirect_function_table");
 
 var wasmTable = makeInvalidEarlyAccess("wasmTable");
@@ -10932,6 +11279,10 @@ function assignWasmExports(wasmExports) {
   assert(typeof wasmExports["fileno"] != "undefined", "missing Wasm export: fileno");
   assert(typeof wasmExports["__main_argc_argv"] != "undefined", "missing Wasm export: __main_argc_argv");
   assert(typeof wasmExports["gssquared_enter_control_panel"] != "undefined", "missing Wasm export: gssquared_enter_control_panel");
+  assert(typeof wasmExports["gs2_web_put_done"] != "undefined", "missing Wasm export: gs2_web_put_done");
+  assert(typeof wasmExports["gs2_web_pack_needs_save"] != "undefined", "missing Wasm export: gs2_web_pack_needs_save");
+  assert(typeof wasmExports["gs2_web_save_collection"] != "undefined", "missing Wasm export: gs2_web_save_collection");
+  assert(typeof wasmExports["gs2_web_user_gesture"] != "undefined", "missing Wasm export: gs2_web_user_gesture");
   assert(typeof wasmExports["SDL_free"] != "undefined", "missing Wasm export: SDL_free");
   assert(typeof wasmExports["SDL_malloc"] != "undefined", "missing Wasm export: SDL_malloc");
   assert(typeof wasmExports["SDL_calloc"] != "undefined", "missing Wasm export: SDL_calloc");
@@ -10950,6 +11301,7 @@ function assignWasmExports(wasmExports) {
   assert(typeof wasmExports["Emscripten_SendDragFileEvent"] != "undefined", "missing Wasm export: Emscripten_SendDragFileEvent");
   assert(typeof wasmExports["Emscripten_SendSystemThemeChangedEvent"] != "undefined", "missing Wasm export: Emscripten_SendSystemThemeChangedEvent");
   assert(typeof wasmExports["requestFullscreenThroughSDL"] != "undefined", "missing Wasm export: requestFullscreenThroughSDL");
+  assert(typeof wasmExports["gs2_web_file_selected_if"] != "undefined", "missing Wasm export: gs2_web_file_selected_if");
   assert(typeof wasmExports["gs2_web_file_selected"] != "undefined", "missing Wasm export: gs2_web_file_selected");
   assert(typeof wasmExports["_emscripten_tls_init"] != "undefined", "missing Wasm export: _emscripten_tls_init");
   assert(typeof wasmExports["pthread_self"] != "undefined", "missing Wasm export: pthread_self");
@@ -10966,16 +11318,26 @@ function assignWasmExports(wasmExports) {
   assert(typeof wasmExports["_emscripten_thread_exit"] != "undefined", "missing Wasm export: _emscripten_thread_exit");
   assert(typeof wasmExports["_emscripten_check_mailbox"] != "undefined", "missing Wasm export: _emscripten_check_mailbox");
   assert(typeof wasmExports["setThrew"] != "undefined", "missing Wasm export: setThrew");
+  assert(typeof wasmExports["_emscripten_tempret_set"] != "undefined", "missing Wasm export: _emscripten_tempret_set");
   assert(typeof wasmExports["emscripten_stack_init"] != "undefined", "missing Wasm export: emscripten_stack_init");
   assert(typeof wasmExports["emscripten_stack_set_limits"] != "undefined", "missing Wasm export: emscripten_stack_set_limits");
   assert(typeof wasmExports["emscripten_stack_get_free"] != "undefined", "missing Wasm export: emscripten_stack_get_free");
   assert(typeof wasmExports["_emscripten_stack_restore"] != "undefined", "missing Wasm export: _emscripten_stack_restore");
   assert(typeof wasmExports["_emscripten_stack_alloc"] != "undefined", "missing Wasm export: _emscripten_stack_alloc");
   assert(typeof wasmExports["emscripten_stack_get_current"] != "undefined", "missing Wasm export: emscripten_stack_get_current");
+  assert(typeof wasmExports["__cxa_decrement_exception_refcount"] != "undefined", "missing Wasm export: __cxa_decrement_exception_refcount");
+  assert(typeof wasmExports["__cxa_increment_exception_refcount"] != "undefined", "missing Wasm export: __cxa_increment_exception_refcount");
+  assert(typeof wasmExports["__get_exception_message"] != "undefined", "missing Wasm export: __get_exception_message");
+  assert(typeof wasmExports["__cxa_can_catch"] != "undefined", "missing Wasm export: __cxa_can_catch");
+  assert(typeof wasmExports["__cxa_get_exception_ptr"] != "undefined", "missing Wasm export: __cxa_get_exception_ptr");
   assert(typeof wasmExports["__indirect_function_table"] != "undefined", "missing Wasm export: __indirect_function_table");
   _fileno = createExportWrapper("fileno", 1);
   _main = Module["_main"] = createExportWrapper("__main_argc_argv", 2);
   _gssquared_enter_control_panel = Module["_gssquared_enter_control_panel"] = createExportWrapper("gssquared_enter_control_panel", 0);
+  _gs2_web_put_done = Module["_gs2_web_put_done"] = createExportWrapper("gs2_web_put_done", 3);
+  _gs2_web_pack_needs_save = Module["_gs2_web_pack_needs_save"] = createExportWrapper("gs2_web_pack_needs_save", 0);
+  _gs2_web_save_collection = Module["_gs2_web_save_collection"] = createExportWrapper("gs2_web_save_collection", 0);
+  _gs2_web_user_gesture = Module["_gs2_web_user_gesture"] = createExportWrapper("gs2_web_user_gesture", 0);
   _SDL_free = Module["_SDL_free"] = createExportWrapper("SDL_free", 1);
   _SDL_malloc = Module["_SDL_malloc"] = createExportWrapper("SDL_malloc", 1);
   _SDL_calloc = Module["_SDL_calloc"] = createExportWrapper("SDL_calloc", 2);
@@ -10994,6 +11356,7 @@ function assignWasmExports(wasmExports) {
   _Emscripten_SendDragFileEvent = Module["_Emscripten_SendDragFileEvent"] = createExportWrapper("Emscripten_SendDragFileEvent", 2);
   _Emscripten_SendSystemThemeChangedEvent = Module["_Emscripten_SendSystemThemeChangedEvent"] = createExportWrapper("Emscripten_SendSystemThemeChangedEvent", 0);
   _requestFullscreenThroughSDL = Module["_requestFullscreenThroughSDL"] = createExportWrapper("requestFullscreenThroughSDL", 1);
+  _gs2_web_file_selected_if = Module["_gs2_web_file_selected_if"] = createExportWrapper("gs2_web_file_selected_if", 2);
   _gs2_web_file_selected = Module["_gs2_web_file_selected"] = createExportWrapper("gs2_web_file_selected", 1);
   __emscripten_tls_init = createExportWrapper("_emscripten_tls_init", 0);
   _pthread_self = wasmExports["pthread_self"];
@@ -11010,12 +11373,18 @@ function assignWasmExports(wasmExports) {
   __emscripten_thread_exit = createExportWrapper("_emscripten_thread_exit", 1);
   __emscripten_check_mailbox = createExportWrapper("_emscripten_check_mailbox", 0);
   _setThrew = createExportWrapper("setThrew", 2);
+  __emscripten_tempret_set = createExportWrapper("_emscripten_tempret_set", 1);
   _emscripten_stack_init = wasmExports["emscripten_stack_init"];
   _emscripten_stack_set_limits = wasmExports["emscripten_stack_set_limits"];
   _emscripten_stack_get_free = wasmExports["emscripten_stack_get_free"];
   __emscripten_stack_restore = wasmExports["_emscripten_stack_restore"];
   __emscripten_stack_alloc = wasmExports["_emscripten_stack_alloc"];
   _emscripten_stack_get_current = wasmExports["emscripten_stack_get_current"];
+  ___cxa_decrement_exception_refcount = createExportWrapper("__cxa_decrement_exception_refcount", 1);
+  ___cxa_increment_exception_refcount = createExportWrapper("__cxa_increment_exception_refcount", 1);
+  ___get_exception_message = createExportWrapper("__get_exception_message", 3);
+  ___cxa_can_catch = createExportWrapper("__cxa_can_catch", 3);
+  ___cxa_get_exception_ptr = createExportWrapper("__cxa_get_exception_ptr", 1);
   __indirect_function_table = wasmTable = wasmExports["__indirect_function_table"];
 }
 
@@ -11024,7 +11393,15 @@ var wasmImports;
 function assignWasmImports() {
   wasmImports = {
     /** @export */ __assert_fail: ___assert_fail,
+    /** @export */ __cxa_begin_catch: ___cxa_begin_catch,
+    /** @export */ __cxa_end_catch: ___cxa_end_catch,
+    /** @export */ __cxa_find_matching_catch_2: ___cxa_find_matching_catch_2,
+    /** @export */ __cxa_find_matching_catch_3: ___cxa_find_matching_catch_3,
+    /** @export */ __cxa_find_matching_catch_4: ___cxa_find_matching_catch_4,
+    /** @export */ __cxa_rethrow: ___cxa_rethrow,
     /** @export */ __cxa_throw: ___cxa_throw,
+    /** @export */ __cxa_uncaught_exceptions: ___cxa_uncaught_exceptions,
+    /** @export */ __resumeException: ___resumeException,
     /** @export */ __syscall_chmod: ___syscall_chmod,
     /** @export */ __syscall_fchmod: ___syscall_fchmod,
     /** @export */ __syscall_fcntl64: ___syscall_fcntl64,
@@ -11039,7 +11416,11 @@ function assignWasmImports() {
     /** @export */ __syscall_newfstatat: ___syscall_newfstatat,
     /** @export */ __syscall_openat: ___syscall_openat,
     /** @export */ __syscall_readlinkat: ___syscall_readlinkat,
+    /** @export */ __syscall_renameat: ___syscall_renameat,
+    /** @export */ __syscall_rmdir: ___syscall_rmdir,
     /** @export */ __syscall_stat64: ___syscall_stat64,
+    /** @export */ __syscall_truncate64: ___syscall_truncate64,
+    /** @export */ __syscall_unlinkat: ___syscall_unlinkat,
     /** @export */ _abort_js: __abort_js,
     /** @export */ _emscripten_init_main_thread_js: __emscripten_init_main_thread_js,
     /** @export */ _emscripten_notify_mailbox_postmessage: __emscripten_notify_mailbox_postmessage,
@@ -11276,29 +11657,76 @@ function assignWasmImports() {
     /** @export */ fd_read: _fd_read,
     /** @export */ fd_seek: _fd_seek,
     /** @export */ fd_write: _fd_write,
+    /** @export */ invoke_di,
+    /** @export */ invoke_diii,
+    /** @export */ invoke_diiiii,
+    /** @export */ invoke_fi,
+    /** @export */ invoke_fii,
+    /** @export */ invoke_fiii,
+    /** @export */ invoke_fiiiiii,
+    /** @export */ invoke_i,
+    /** @export */ invoke_ii,
+    /** @export */ invoke_iid,
+    /** @export */ invoke_iif,
     /** @export */ invoke_iii,
+    /** @export */ invoke_iiifii,
     /** @export */ invoke_iiii,
+    /** @export */ invoke_iiiif,
     /** @export */ invoke_iiiii,
+    /** @export */ invoke_iiiiid,
+    /** @export */ invoke_iiiiii,
+    /** @export */ invoke_iiiiiii,
+    /** @export */ invoke_iiiiiiifii,
+    /** @export */ invoke_iiiiiiii,
+    /** @export */ invoke_iiiiiiiii,
+    /** @export */ invoke_iiiiiiiiiii,
+    /** @export */ invoke_iiiiiiiiiiii,
+    /** @export */ invoke_iiiiiiiiiiiii,
+    /** @export */ invoke_iiiiiiiiiiiiiii,
+    /** @export */ invoke_iiiiij,
+    /** @export */ invoke_iiiiiji,
+    /** @export */ invoke_iiiij,
+    /** @export */ invoke_iiij,
+    /** @export */ invoke_iiiji,
+    /** @export */ invoke_iiijii,
+    /** @export */ invoke_iij,
+    /** @export */ invoke_iiji,
+    /** @export */ invoke_iijji,
+    /** @export */ invoke_iijjj,
+    /** @export */ invoke_j,
+    /** @export */ invoke_ji,
+    /** @export */ invoke_jii,
+    /** @export */ invoke_jiii,
+    /** @export */ invoke_jiiii,
     /** @export */ invoke_v,
+    /** @export */ invoke_vi,
+    /** @export */ invoke_viff,
     /** @export */ invoke_vii,
+    /** @export */ invoke_viif,
+    /** @export */ invoke_viiffffffi,
+    /** @export */ invoke_viiffffi,
     /** @export */ invoke_viii,
+    /** @export */ invoke_viiiffffffi,
+    /** @export */ invoke_viiiffffi,
+    /** @export */ invoke_viiiffi,
     /** @export */ invoke_viiii,
     /** @export */ invoke_viiiii,
+    /** @export */ invoke_viiiiii,
     /** @export */ invoke_viiiiiii,
+    /** @export */ invoke_viiiiiiii,
+    /** @export */ invoke_viiiiiiiiii,
+    /** @export */ invoke_viiiiiiiiiii,
+    /** @export */ invoke_viiiiiiiiiiiiiii,
+    /** @export */ invoke_viij,
+    /** @export */ invoke_viiji,
+    /** @export */ invoke_viijii,
+    /** @export */ invoke_vij,
+    /** @export */ invoke_viji,
+    /** @export */ invoke_vijiji,
+    /** @export */ llvm_eh_typeid_for: _llvm_eh_typeid_for,
     /** @export */ memory: wasmMemory,
     /** @export */ random_get: _random_get
   };
-}
-
-function invoke_viiii(index, a1, a2, a3, a4) {
-  var sp = stackSave();
-  try {
-    getWasmTableEntry(index)(a1, a2, a3, a4);
-  } catch (e) {
-    stackRestore(sp);
-    if (!(e instanceof EmscriptenEH)) throw e;
-    _setThrew(1, 0);
-  }
 }
 
 function invoke_iii(index, a1, a2) {
@@ -11312,10 +11740,43 @@ function invoke_iii(index, a1, a2) {
   }
 }
 
-function invoke_iiiii(index, a1, a2, a3, a4) {
+function invoke_ii(index, a1) {
   var sp = stackSave();
   try {
-    return getWasmTableEntry(index)(a1, a2, a3, a4);
+    return getWasmTableEntry(index)(a1);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_vi(index, a1) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiii(index, a1, a2, a3) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_i(index) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)();
   } catch (e) {
     stackRestore(sp);
     if (!(e instanceof EmscriptenEH)) throw e;
@@ -11334,10 +11795,10 @@ function invoke_v(index) {
   }
 }
 
-function invoke_iiii(index, a1, a2, a3) {
+function invoke_iiiiii(index, a1, a2, a3, a4, a5) {
   var sp = stackSave();
   try {
-    return getWasmTableEntry(index)(a1, a2, a3);
+    return getWasmTableEntry(index)(a1, a2, a3, a4, a5);
   } catch (e) {
     stackRestore(sp);
     if (!(e instanceof EmscriptenEH)) throw e;
@@ -11367,10 +11828,365 @@ function invoke_viii(index, a1, a2, a3) {
   }
 }
 
+function invoke_viiii(index, a1, a2, a3, a4) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1, a2, a3, a4);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viiji(index, a1, a2, a3, a4) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1, a2, a3, a4);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiii(index, a1, a2, a3, a4) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiiiii(index, a1, a2, a3, a4, a5, a6) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4, a5, a6);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiiiiiii(index, a1, a2, a3, a4, a5, a6, a7, a8) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4, a5, a6, a7, a8);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_j(index) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)();
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+    return 0n;
+  }
+}
+
 function invoke_viiiii(index, a1, a2, a3, a4, a5) {
   var sp = stackSave();
   try {
     getWasmTableEntry(index)(a1, a2, a3, a4, a5);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiij(index, a1, a2, a3, a4) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_fi(index, a1) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iijji(index, a1, a2, a3, a4) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_jii(index, a1, a2) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+    return 0n;
+  }
+}
+
+function invoke_iiiiij(index, a1, a2, a3, a4, a5) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4, a5);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viff(index, a1, a2, a3) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1, a2, a3);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viiiiii(index, a1, a2, a3, a4, a5, a6) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1, a2, a3, a4, a5, a6);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viij(index, a1, a2, a3) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1, a2, a3);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiiiiii(index, a1, a2, a3, a4, a5, a6, a7) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4, a5, a6, a7);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iijjj(index, a1, a2, a3, a4) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiif(index, a1, a2, a3, a4) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viif(index, a1, a2, a3) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1, a2, a3);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_fii(index, a1, a2) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_ji(index, a1) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+    return 0n;
+  }
+}
+
+function invoke_iiiiiji(index, a1, a2, a3, a4, a5, a6) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4, a5, a6);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiij(index, a1, a2, a3) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_vij(index, a1, a2) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1, a2);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_vijiji(index, a1, a2, a3, a4, a5) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1, a2, a3, a4, a5);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiji(index, a1, a2, a3) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiji(index, a1, a2, a3, a4) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiijii(index, a1, a2, a3, a4, a5) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4, a5);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiifii(index, a1, a2, a3, a4, a5) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4, a5);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iij(index, a1, a2) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iif(index, a1, a2) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iid(index, a1, a2) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_di(index, a1) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1);
   } catch (e) {
     stackRestore(sp);
     if (!(e instanceof EmscriptenEH)) throw e;
@@ -11386,6 +12202,261 @@ function invoke_viiiiiii(index, a1, a2, a3, a4, a5, a6, a7) {
     stackRestore(sp);
     if (!(e instanceof EmscriptenEH)) throw e;
     _setThrew(1, 0);
+  }
+}
+
+function invoke_viiiiiiii(index, a1, a2, a3, a4, a5, a6, a7, a8) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1, a2, a3, a4, a5, a6, a7, a8);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viji(index, a1, a2, a3) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1, a2, a3);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viiiiiiiiiii(index, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_fiiiiii(index, a1, a2, a3, a4, a5, a6) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4, a5, a6);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viiiffi(index, a1, a2, a3, a4, a5, a6) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1, a2, a3, a4, a5, a6);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viiffffi(index, a1, a2, a3, a4, a5, a6, a7) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1, a2, a3, a4, a5, a6, a7);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viiffffffi(index, a1, a2, a3, a4, a5, a6, a7, a8, a9) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1, a2, a3, a4, a5, a6, a7, a8, a9);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiiiiifii(index, a1, a2, a3, a4, a5, a6, a7, a8, a9) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4, a5, a6, a7, a8, a9);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiiiiiiiiiiiii(index, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_diiiii(index, a1, a2, a3, a4, a5) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4, a5);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viiiffffffi(index, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viiiffffi(index, a1, a2, a3, a4, a5, a6, a7, a8) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1, a2, a3, a4, a5, a6, a7, a8);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viiiiiiiiii(index, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viijii(index, a1, a2, a3, a4, a5) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1, a2, a3, a4, a5);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiiid(index, a1, a2, a3, a4, a5) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4, a5);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiiiiiiiii(index, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_jiiii(index, a1, a2, a3, a4) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+    return 0n;
+  }
+}
+
+function invoke_iiiiiiiiiiiii(index, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_fiii(index, a1, a2, a3) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_diii(index, a1, a2, a3) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_iiiiiiiiiiii(index, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_viiiiiiiiiiiiiii(index, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15) {
+  var sp = stackSave();
+  try {
+    getWasmTableEntry(index)(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+  }
+}
+
+function invoke_jiii(index, a1, a2, a3) {
+  var sp = stackSave();
+  try {
+    return getWasmTableEntry(index)(a1, a2, a3);
+  } catch (e) {
+    stackRestore(sp);
+    if (!(e instanceof EmscriptenEH)) throw e;
+    _setThrew(1, 0);
+    return 0n;
   }
 }
 

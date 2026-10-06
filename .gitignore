@@ -81,3 +81,7 @@ wrangler.toml.bak
 # Deployment backups
 games.js.bak
 index.html.bak
+
+# GS2 build sources and backups
+gs2_src/
+gs2/backup_*/

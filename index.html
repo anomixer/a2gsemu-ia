@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apple IIgs 線上模擬器 v2.2 快速載入版 ⚡</title>
+    <title>Apple IIgs 線上模擬器 v2.3 快速載入版 ⚡</title>
     <style>
         * {
             box-sizing: border-box;
@@ -1094,7 +1094,7 @@
             // 完整的 i18n 翻譯對象
             const i18n = {
                 zh: {
-                    title: 'Apple IIgs 線上模擬器 v2.2 快速載入版 ⚡',
+                    title: 'Apple IIgs 線上模擬器 v2.3 快速載入版 ⚡',
                     subtitle: '共 {count} 款精選遊戲與軟體',
                     searchPlaceholder: '🔍 搜尋遊戲...',
                     welcomeTitle: '歡迎使用 Apple IIgs 模擬器',
@@ -1195,7 +1195,7 @@
                         slotToggleLabel: '切換 Slot 5/7'
                 },
                 en: {
-                    title: 'Apple IIgs Online Emulator v2.2 Fast Load Edition ⚡',
+                    title: 'Apple IIgs Online Emulator v2.3 Fast Load Edition ⚡',
                     subtitle: '{count} Selected Games & Software',
                     searchPlaceholder: '🔍 Search games...',
                     welcomeTitle: 'Welcome to Apple IIgs Emulator',
@@ -2228,6 +2228,21 @@
                                 if (game.name === 'Cogito Return' || game.name.includes('Cogito Return')) {
                                     finalConfigContent += '\n[[cards]]\nslot = 3\ncard = "second_sight"\n';
                                     console.log('Inserted Second Sight card for Cogito Return');
+                                }
+                                const targetSpeed = game.speed || (
+                                    (game.name && (game.name.includes("Space Ace") || game.name.includes("Dragon's Lair") || game.name.includes("DOOM")))
+                                        ? "14.3mhz"
+                                        : null
+                                );
+                                if (targetSpeed) {
+                                    if (finalConfigContent.includes('speed =')) {
+                                        finalConfigContent = finalConfigContent.replace(/speed\s*=\s*"[^"]*"/, `speed = "${targetSpeed}"`);
+                                    } else if (finalConfigContent.includes('scanner =')) {
+                                        finalConfigContent = finalConfigContent.replace(/(scanner\s*=\s*"[^"]*")/, `$1\nspeed = "${targetSpeed}"`);
+                                    } else {
+                                        finalConfigContent = `speed = "${targetSpeed}"\n` + finalConfigContent;
+                                    }
+                                    console.log(`⚡ 已設定 GS² 運行速度: ${targetSpeed} (${game.name})`);
                                 }
                                 FS.writeFile(configPath, finalConfigContent);
                                 const storedConfig = FS.readFile(configPath, { encoding: 'utf8' });

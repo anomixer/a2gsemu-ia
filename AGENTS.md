@@ -217,12 +217,12 @@ Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`
 
 19. **v2.2 Core Enhancements & Bug Fixes** (October 2026)
     - **Active/Playing Game Highlighting**: UI now explicitly indicates which game is active/booting using a green border and background (`.playing` and `.active` classes) based on the URL `?game=` parameter, surviving page reloads and ensuring absolute consistency.
-    - **GS² 14.3MHz Manual Speed Requirement**: Discovered that the GS² engine handles CPU speed as a transient, unsaved state that cannot be persisted via `system_settings.toml` or `IIgs.gs2`. Removed previous configuration injection attempts; demanding titles (like Space Ace, Dragon's Lair, DOOM) require the user to manually select 14.3 MHz from the emulator menu.
+    - **GS² v1.0 Upgrade & 14.3MHz Automatic Acceleration**: Upgraded GS² engine from v0.10 to v1.0 (`v1.0.1969`). In GS² v1.0, the core officially parses `speed = "14.3mhz"` and `display = "rgb"` directly from `.gs2` machine profiles via `parse_speed()`. Integrated dynamic speed injection into `/uploads/IIgs.gs2` for high-performance demanding titles (e.g., *DOOM IIgs*, *Space Ace* series, *Dragon's Lair* series) so they automatically launch at 14.3 MHz with smooth gameplay without requiring manual user switching.
     - **Hardware Expansion Injection**: Dynamically injected `card = "second_sight"` configuration on slot 3 into `IIgs.gs2` for games explicitly requiring it (e.g., *Cogito Return*), enhancing color support.
     - **ZIP Extractor Filename Fix**: Resolved `DecompressionStream` ZIP extraction failure causing HTTP 404s for games like *Enoncés mathématiques (FR)* that contain spaces (`%20`) by running `decodeURIComponent` on the `archiveEntry` filename before passing it to `JSZip`.
     - **Game Roster Refinement**: Upgraded several `.woz` entries to more reliable `.2mg` dual-disk setups containing `SystemDisk` (e.g., *Full Metal Planet*, *Mazer II*, *Columns GS*). Added *Apple IIgs Karate* to the game list.
     - **S7 Hard Disk Optimization**: Massively updated the game database links, replacing `s5` floppy images (`.woz`) with `s7` hard disk compatible formats (`.2mg` / `.po`) for over 90% of the library. Booting and playing from the Slot 7 SmartPort hard drive provides significantly faster read/write speeds, drastically improving load times and overall gameplay experience.
-    - **Version bumped to v2.2** in `index.html` titles, `README.md`, and `README_EN.md`.
+    - **Version bumped to v2.3** in `index.html` titles, `README.md`, and `README_EN.md`.
 
 ## Key Files
 
@@ -663,19 +663,19 @@ unless a regression investigation specifically requires it.
 
 ### GS² branding and title UI (2026-08-19)
 
-- The gs2 web title is localized as `Apple IIgs 線上模擬器 v2.2 快速載入版 ⚡` in Chinese and
-  `Apple IIgs Online Emulator v2.2 Fast Load Edition ⚡` in English.
+- The gs2 web title is localized as `Apple IIgs 線上模擬器 v2.3 快速載入版 ⚡` in Chinese and
+  `Apple IIgs Online Emulator v2.3 Fast Load Edition ⚡` in English.
 - Keep the Apple favicon beside the title; it is intentionally not replaced by
   the GS² mark.
 - The upper-right GSSquared link uses `gs2/gssquared-mark.png`, links to
   `https://github.com/anomixer/gssquared`, and exposes the tooltip/accessible
   label `Powered by GSSquared`.
-- The GS² v2.2 README feature list documents the right-mouse-button shortcut for
+- The GS² v2.3 README feature list documents the right-mouse-button shortcut for
   accelerating emulation speed.
 - Slot 5/slot 7 choices made with the title disk button are persisted per game
   in `localStorage` (`gs2.diskSlots`). If the emulator is already running, the
   page reloads with the selected game so the new mount slot is actually applied.
-- The README titles include the v2.2 naming; project branding details belong to
+- The README titles include the v2.3 naming; project branding details belong to
   the application UI rather than the README header.
 - README usage sections now document persistent per-game disk-slot selection and
   automatic restart when switching slots during emulation.
