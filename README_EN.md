@@ -16,7 +16,7 @@
 
 ## ✨ Key Features
 
-- 🎯 **160 Selected Games** - Including classic RPGs, action, puzzle games and more
+- 🎯 **162 Selected Games** - Including classic RPGs, action, puzzle games and more
 - 🔊 **Full Audio Support** - Complete sound output via proxy backend (Cloudflare Pages / local server.js)
 - 📱 **Responsive Design & Dual Side-Drawers** - Full mobile and desktop compatibility; redesigned dual sliding drawers supporting mouse width resizing and auto-collapse threshold for smaller desktop viewports (< 1200px)
 - 🔍 **Screen Scale Toggle** - Integrated "Switch to Native 1x / Switch to Scale to Fit" button next to mute control, with memory persistence and dynamic aspect ratio scaling
@@ -37,7 +37,7 @@ This project ships with three independent runtime versions:
 
 #### 🔊💽 v2.3 Accelerated (`main` branch / GSSquared core / Highly Recommended)
 Uses the GS² (GSSquared) WebAssembly core for fast startup and disk access:
-- ✅ **Automatic 14.3MHz Acceleration** - High-demand titles (e.g. DOOM IIgs, Space Ace series, Dragon's Lair series) automatically boot at 14.3MHz for a significantly smoother gameplay experience.
+- ✅ **Automatic 14.3MHz Acceleration** - High-demand titles (e.g. DOOM IIgs, SilkyGS, Space Ace series, Dragon's Lair series) automatically boot at 14.3MHz for a significantly smoother gameplay experience.
 - ✅ **Adjustable emulation speed** - Hold the right mouse button to accelerate emulation; speed can also be adjusted through the GS² UI
 - ✅ **S7 Hard Disk Optimization** - Over 90% of the library has been optimized to boot via the Slot 7 SmartPort hard drive, offering significantly faster read/write speeds than traditional S5 floppies and vastly improving the gameplay experience.
 - ✅ **WOZ / PO / 2MG support** - Images are mounted directly through the browser virtual filesystem
@@ -139,8 +139,8 @@ python -m http.server 8000
 - **Simulation** - Pirates!, Balance of Power, etc.
 
 ### 📊 Statistics
-- **Total**: 160 games and software
-- **Era**: 1986-2024
+- **Total**: 162 games and software
+- **Era**: 1986-2026
 - **Language**: Complete bilingual interface with one-click switching
 - **Descriptions**: Each game has detailed 400-word descriptions
 - **Proxy Support**: 44 full URLs converted to `/proxy/url/` format for improved loading stability
@@ -203,7 +203,7 @@ a2gsemu-ia/
 ├── 📄 Core Files
 │   ├── index.html              # Main application (full functionality)
 │   ├── server.js               # Node.js backend server (proxy service)
-│   ├── games.js               # Game database (160 games)
+│   ├── games.js               # Game database (162 games)
 │   └── package.json           # Project configuration and dependencies
 │
 ├── 🎮 GS² Core (`main` branch)
@@ -268,7 +268,7 @@ a2gsemu-ia/
 #### 🎯 Main Files
 - **`index.html`** - Main application, full functionality with a proxy backend
 - **`server.js`** - Node.js backend server providing `/proxy/*` proxy services and full functionality
-- **`games.js`** - Game database containing complete information for 160 games
+- **`games.js`** - Game database containing complete information for 162 games
 - **Simple Version (no backend)** - lives on the separate `OneHtmlFile` branch, pure static hosting
 
 #### 🔧 Technical Files

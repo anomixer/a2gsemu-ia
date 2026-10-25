@@ -2,13 +2,13 @@
 
 ## Project Overview
 
-This is an Apple IIgs online emulator project that allows users to play classic Apple IIgs games directly in their web browser. The project has evolved through multiple iterations and now serves 160 carefully curated games with rich descriptions, modern web features, and full Cloudflare Pages deployment support.
+This is an Apple IIgs online emulator project that allows users to play classic Apple IIgs games directly in their web browser. The project has evolved through multiple iterations and now serves 162 carefully curated games with rich descriptions, modern web features, and full Cloudflare Pages deployment support.
 
 ## Architecture
 
 ### Frontend
 - **Main File**: `index.html` (renamed from `index_emularity_v8.html`)
-- **Game Database**: `games.js` (160 games with English/Chinese names)
+- **Game Database**: `games.js` (162 games with English/Chinese names)
 - **Emulator core**:
   - **`mame0239` branch**: Emularity framework with the MAME Apple IIgs core (`mameapple2gs.js.gz` / `mameapple2gs.wasm.gz`, ~66 MB).
   - **`main` branch (this branch)**: **GS² (GSSquared)** Apple IIgs core compiled to WebAssembly — `gs2/GSSquared.js` + `gs2/GSSquared.wasm` + `gs2/GSSquared.data` (~4.9 MB wasm + ~3 MB data, SIMD). Fast, native ProDOS/WOZ support, no BIOS mount needed (BIOS is baked into `GSSquared.data`). See the [GS² Engine](#gs2-gssquared-engine---main-branch) section for the full dev process.
@@ -224,12 +224,18 @@ Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`
     - **S7 Hard Disk Optimization**: Massively updated the game database links, replacing `s5` floppy images (`.woz`) with `s7` hard disk compatible formats (`.2mg` / `.po`) for over 90% of the library. Booting and playing from the Slot 7 SmartPort hard drive provides significantly faster read/write speeds, drastically improving load times and overall gameplay experience.
     - **Version bumped to v2.3** in `index.html` titles, `README.md`, and `README_EN.md`.
 
+20. **v2.3 Game Library Addition: SilkyGS (2026)** (October 2026)
+    - **SilkyGS Added**: Added Lucas Scharenbroich's 2026 NES port pack to `games.js` (total: 162 games).
+    - **Dual-disk S7 Setup**: Configured with `file: "/roms/SystemDisk.2mg"` on S7D1 and `file2: "https://github.com/lscharen/silky-gs/releases/latest/download/SilkyGS.2mg"` on S7D2 (`diskSlots: ["s7d1", "s7d2"]`).
+    - **Automatic 14.3MHz Acceleration**: Included in the 14.3MHz auto-acceleration list for smooth 60fps Super Hi-Res rendering.
+    - **Core Update**: Integrated the updated GS² v1.0 engine binaries (`GSSquared.wasm`, `GSSquared.js`, `GSSquared.data`).
+
 ## Key Files
 
 ### Core Application (repository root)
 - `index.html` - Main application (HTML + CSS + JavaScript)
 - `server.js` - Local backend proxy server
-- `games.js` - Game database (160 games)
+- `games.js` - Game database (162 games)
 - `package.json` - Dependencies and scripts
 
 ### GS² branch (in-repo core + disk images)

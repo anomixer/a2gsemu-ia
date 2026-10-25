@@ -1,7 +1,7 @@
 /**
  * Apple IIgs Game Database
  * Generated: 2025/12/24 11:12:25
- * Total titles: 130
+ * Total titles: 162
  * 
  **/
 
@@ -1367,6 +1367,22 @@ window.games = [
     "descCh": "在這款二戰潛艇模擬器中，您在太平洋指揮一艘美國潛艇。玩家管理各種站點，包括潛望鏡、地圖和發動機室。遊戲玩法側重於隱身和戰術：在看不見的情況下航行攔截日本車隊，計算魚雷彈道，以及執行緊急潛水以躲避敵人的深水炸彈。"
   },
   {
+    "id": "https://github.com/lscharen/silky-gs",
+    "emu": "apple2gs",
+    "file": "/roms/SystemDisk.2mg",
+    "file2": "https://github.com/lscharen/silky-gs/releases/latest/download/SilkyGS.2mg",
+    "diskSlots": ["s7d1", "s7d2"],
+    "name": "SilkyGS",
+    "year": "2026",
+    "type": "game",
+    "desc": "The SilkyGS port pack is Lucas Scharenbroich's collection of classic NES games running natively on the Apple IIgs, released in October 2026 (v0.0.1). Rather than emulating the NES, each game's 6502 code is disassembled, converted to Merlin32 source, and patched by hand to run natively on the 65816 processor. The runtime hooks PPU and APU registers, rendering directly to Super Hi-Res with compiled tiles and sprites, while driving the Ensoniq DOC sound chip. The pack includes 11 iconic games: Super Mario Bros., Contra, The Legend of Zelda, Balloon Fight, Donkey Kong, Mario Bros., Ice Climber, Excitebike, Tengen Tetris, Lights Out, and Hunt the Wumpus. Mount beside SystemDisk to boot into GS/OS, then open the SilkyGS disk volume to launch any game.",
+    "descCh": "《SilkyGS 移植合輯》（SilkyGS Port Pack）由 Lucas Scharenbroich 於 2026 年 10 月發布（v0.0.1），將 11 款經典紅白機（NES/FC）遊戲原生移植至 Apple IIgs 平台上運行。本作並非模擬器，而是將 NES 遊戲的 6502 程式碼反組譯後轉換為 Merlin32 來源碼，並人工修補以原生 65816 組合語言執行。運行庫攔截 PPU 與 APU 暫存器寫入，以編譯後的圖塊與精靈直接繪製至 Super Hi-Res 畫面，並透過 Ensoniq DOC 晶片演奏音樂音效。收錄作品包括《超級瑪利歐兄弟》(Super Mario Bros.)、《魂斗羅》(Contra)、《薩爾達傳說》(The Legend of Zelda)、《大金剛》(Donkey Kong)、《打氣球》(Balloon Fight)、《瑪利歐兄弟》(Mario Bros.)、《敲冰塊》(Ice Climber)、《越野機車》(Excitebike)、《俄羅斯方塊》(Tengen Tetris) 等 11 款經典名作。開機進入 System 6 / GS/OS 桌面後，開啟 SilkyGS 磁碟即可點選各資料夾內的程式執行。",
+    "developer": "Lucas Scharenbroich (Ports) / Nintendo, Konami, Tengen",
+    "publisher": "Lucas Scharenbroich",
+    "screenshot": "https://whatisthe2gs.com/assets/titles/silkygs-port-pack/shot1.png",
+    "nameCh": "SilkyGS 紅白機移植合輯"
+  },
+  {
     "id": "wozaday_Silpheed_IIgs",
     "emu": "apple2gs",
     "file": "https://www.whatisthe2gs.apple2.org.za/files/Silpheed/2Image/Silpheed.zip/Silpheed/Silpheed%20Dk1.2mg",
@@ -2379,7 +2395,7 @@ window.games = [
 
 // GS² playback hint for demanding games: 14.3MHz produces smooth gameplay.
 window.games.forEach((game) => {
-  if (game.name.includes("Space Ace") || game.name.includes("Dragon's Lair") || game.name.includes("DOOM")) {
+  if (game.name.includes("Space Ace") || game.name.includes("Dragon's Lair") || game.name.includes("DOOM") || game.name.includes("SilkyGS")) {
     game.speed = "14.3mhz";
     game.desc += '<br><br><span class="highlight">For GS², the emulation speed will be adjusted to 14.3MHz for smooth gameplay.</span>';
     game.descCh += '<br><br><span class="highlight">搭配 GS² 使用時，會將模擬速度調整至 14.3MHz，以便流暢運行。</span>';
