@@ -1629,21 +1629,19 @@
 
             function updateMuteButton() {
                 if (!muteBtn) return;
-                const ctx = getGs2AudioContext();
-                const muted = ctx ? (ctx.state === 'suspended') : uiMuted;
-                uiMuted = muted;
-                muteBtn.innerHTML = muted ? t('mute') : t('unmute');
-                muteBtn.title = muted ? t('mute') : t('unmute');
+                muteBtn.innerHTML = uiMuted ? t('mute') : t('unmute');
+                muteBtn.title = uiMuted ? t('mute') : t('unmute');
             }
 
             if (muteBtn) {
                 muteBtn.onclick = () => {
                     uiMuted = !uiMuted;
+                    updateMuteButton();
                     const ctx = getGs2AudioContext();
                     if (ctx) {
-                        if (uiMuted) ctx.suspend(); else ctx.resume();
+                        if (uiMuted) ctx.suspend();
+                        else ctx.resume();
                     }
-                    updateMuteButton();
                 };
                 updateMuteButton();
             }

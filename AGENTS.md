@@ -2,13 +2,13 @@
 
 ## Project Overview
 
-This is an Apple IIgs online emulator project that allows users to play classic Apple IIgs games directly in their web browser. The project has evolved through multiple iterations and now serves 162 carefully curated games with rich descriptions, modern web features, and full Cloudflare Pages deployment support.
+This is an Apple IIgs online emulator project that allows users to play classic Apple IIgs games directly in their web browser. The project has evolved through multiple iterations and now serves 163 carefully curated games with rich descriptions, modern web features, and full Cloudflare Pages deployment support.
 
 ## Architecture
 
 ### Frontend
 - **Main File**: `index.html` (renamed from `index_emularity_v8.html`)
-- **Game Database**: `games.js` (162 games with English/Chinese names)
+- **Game Database**: `games.js` (163 games with English/Chinese names)
 - **Emulator core**:
   - **`mame0239` branch**: Emularity framework with the MAME Apple IIgs core (`mameapple2gs.js.gz` / `mameapple2gs.wasm.gz`, ~66 MB).
   - **`main` branch (this branch)**: **GS² (GSSquared)** Apple IIgs core compiled to WebAssembly — `gs2/GSSquared.js` + `gs2/GSSquared.wasm` + `gs2/GSSquared.data` (~4.9 MB wasm + ~3 MB data, SIMD). Fast, native ProDOS/WOZ support, no BIOS mount needed (BIOS is baked into `GSSquared.data`). See the [GS² Engine](#gs2-gssquared-engine---main-branch) section for the full dev process.
@@ -230,12 +230,17 @@ Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`
     - **Automatic 14.3MHz Acceleration**: Included in the 14.3MHz auto-acceleration list for smooth 60fps Super Hi-Res rendering.
     - **Core Update**: Integrated the updated GS² v1.0 engine binaries (`GSSquared.wasm`, `GSSquared.js`, `GSSquared.data`).
 
+21. **v2.3 Game Library Addition: Freegemas (2026)** (October 2026)
+    - **Freegemas Added**: Added anomixer's 2026 Apple IIgs native 65816 assembly port of the open-source Match-3 puzzle classic to `games.js` (total: 163 games).
+    - **Single-disk S7 Setup**: Configured with `file: "https://github.com/anomixer/freegemas/releases/latest/download/freegemas.2mg"` on S7D1 (`diskSlots: ["s7d1"]`), self-booting directly into the GS/OS S16 environment.
+    - **Audiovisual Integration**: 320x200 SHR 4bpp with per-scanline palettes, wood grain background cache blitting, Ensoniq 5503 DOC double-buffered BGM streaming, native PCM sound effects, full mouse/keyboard controls, Time Trial and Endless modes, and persistent high score saving.
+
 ## Key Files
 
 ### Core Application (repository root)
 - `index.html` - Main application (HTML + CSS + JavaScript)
 - `server.js` - Local backend proxy server
-- `games.js` - Game database (162 games)
+- `games.js` - Game database (163 games)
 - `package.json` - Dependencies and scripts
 
 ### GS² branch (in-repo core + disk images)

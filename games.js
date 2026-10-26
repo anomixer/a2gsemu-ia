@@ -1,7 +1,7 @@
 /**
  * Apple IIgs Game Database
  * Generated: 2025/12/24 11:12:25
- * Total titles: 162
+ * Total titles: 163
  * 
  **/
 
@@ -583,6 +583,21 @@ window.games = [
     "screenshot": "00_coverscreenshot.jpg",
     "nameCh": "火網大戰",
     "descCh": "《Firepower》是一款自上而下的坦克戰鬥遊戲，玩家可以在廣闊的地形中航行，摧毀敵人的基地並奪取旗幟。該遊戲的特點是“分屏”模式，可供兩名玩家在一台電腦上進行，或採用開創性的“調製解調器連接”模式，用於實時遠程遊戲和聊天。玩家必須管理“無限供應的坦克”來摧毀建築物，碾壓敵方士兵，並有策略地放置可以傷害朋友和敵人的“地雷”。兩人比賽的目標是“奪取敵方旗幟”並將其安全帶回自己的基地以確保勝利。"
+  },
+  {
+    "id": "https://github.com/anomixer/freegemas",
+    "emu": "apple2gs",
+    "file": "https://github.com/anomixer/freegemas/releases/latest/download/freegemas.2mg",
+    "diskSlots": ["s7d1"],
+    "name": "Freegemas",
+    "year": "2026",
+    "type": "game",
+    "desc": "Freegemas for Apple IIGS is a complete 65816 assembly port by anomixer of the open-source Match-3 puzzle classic, targeting GS/OS. The game renders in 320x200 Super Hi-Res with per-scanline 16-color palettes, featuring an authentic 8x8 wooden grid and crisp 2D square pixel-art gems. It delivers double-buffered streamed music and native sound effects via the Ensoniq 5503 DOC chip, full mouse and keyboard controls, Time Trial and Endless gameplay modes, and persistent high score saving.",
+    "descCh": "《Freegemas 寶石方塊》是經典開源三消益智遊戲的 Apple IIgs 原生移植版，由 anomixer 於 2026 年以 65816 組合語言（Merlin32）專為 GS/OS 環境打造。遊戲採用 320×200 Super Hi-Res 與逐行 16 色調色盤呈現精美對稱的木質棋盤與像素寶石，並透過 Ensoniq 5503 DOC 音效晶片提供流暢的雙緩衝背景音樂與 PCM 音效。支援計時賽與無盡模式、完整鍵盤與滑鼠拖曳操作，以及最高分紀錄持久化儲存。",
+    "developer": "anomixer (IIGS port) / Jose Linares (JAVILOP)",
+    "publisher": "anomixer",
+    "screenshot": "https://raw.githubusercontent.com/anomixer/freegemas/master/iigs/screenshots/screenshot2.png",
+    "nameCh": "寶石方塊：自由版"
   },
   {
     "id": "https://www.brutaldeluxe.fr/products/thirdparties/fmp/",
