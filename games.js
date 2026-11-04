@@ -1,7 +1,7 @@
 /**
  * Apple IIgs Game Database
  * Generated: 2025/12/24 11:12:25
- * Total titles: 163
+ * Total titles: 169
  * 
  **/
 
@@ -62,6 +62,24 @@ window.games = [
     "screenshot": "/proxy/url/https%3A%2F%2Farchive.org%2Fdownload%2Fwozaday_Airball_IIgs%2F00playable_screenshot.png",
     "nameCh": "氣球歷險",
     "descCh": "在這款等距解謎平台遊戲中，您控制一個變成脆弱“充氣球”的人類。玩家必須穿越一座擁有 150 個房間的巨大城堡，找到大巫師的魔法書。遊戲玩法側重於“精確移動”以避免尖刺，同時不斷尋找“氣泵”以防止球在時間耗盡之前洩氣和爆裂。"
+  },
+  {
+    "id": "https://github.com/anomixer/alter-ego",
+    "emu": "apple2gs",
+    "file": "https://github.com/anomixer/alter-ego/releases/latest/download/AlterEgo.2mg",
+    "diskSlots": [
+      "s7d1"
+    ],
+    "speed": "14.3mhz",
+    "name": "Alter Ego",
+    "year": "2026",
+    "type": "game",
+    "desc": "Alter Ego is a brilliant puzzle-platformer originally created by Denis Grachev and ported to the Apple IIgs by anomixer in 2026. Built upon the native 65816 silky-gs runtime, the game features a hero and his phantom twin mirror image (the Alter Ego) that moves symmetrically. Players control both figures simultaneously, switching between solid ground and ghostly positions to collect all floating pixels while avoiding lethal skulls and traps. Runs at an accelerated 14.3 MHz with smooth 60fps SHR rendering, full FamiTone music and sound effects, and clean GS/OS integration.",
+    "developer": "anomixer (IIGS port) / Denis Grachev (RetroSouls)",
+    "publisher": "anomixer",
+    "screenshot": "https://raw.githubusercontent.com/anomixer/alter-ego/master/iigs/docs/screenshots/shot_final_aligned_game.png",
+    "nameCh": "雙重自我",
+    "descCh": "《雙重自我》（Alter Ego）是由 Denis Grachev 原創、並由本專案作者 anomixer 於 2026 年親自移植至 Apple IIgs 的經典益智動作解謎名作。基於 silky-gs 原生 65816 執行環境打造，玩家在關卡中同時操控主角與其鏡像幻影（Alter Ego），主角與幻影呈水平軸對稱移動，並可有限次數互相交換位置，目標是收集關卡中所有浮動像素並避開致命骷髏與陷阱。本作特別配置 14.3 MHz 加速運行，呈現 60fps 超流暢 Super Hi-Res 畫面與完整的 FamiTone 背景音樂和音效。"
   },
   {
     "id": "wozaday_Alien_Mind",
@@ -167,7 +185,7 @@ window.games = [
     "id": "wozaday_The_Bards_Tale_IIgs",
     "emu": "apple2gs",
     "file": "https://www.whatisthe2gs.apple2.org.za/files/BardsTaleITalesoftheUnknownThe/2Image/The_Bard's_Tale.zip/The%20Bard's%20Tale/Bard's%20Tale%20(LoGo%20crack).po",
-	"file2": "https://www.whatisthe2gs.apple2.org.za/files/BardsTaleITalesoftheUnknownThe/2Image/The_Bard's_Tale.zip/The%20Bard's%20Tale/Bard's%20Tale%20Character%20Disk.2mg",
+    "file2": "https://www.whatisthe2gs.apple2.org.za/files/BardsTaleITalesoftheUnknownThe/2Image/The_Bard's_Tale.zip/The%20Bard's%20Tale/Bard's%20Tale%20Character%20Disk.2mg",
     "name": "Bard's Tale, The",
     "year": "1988",
     "type": "game",
@@ -211,7 +229,7 @@ window.games = [
     "id": "wozaday_The_Black_Cauldron_IIgs",
     "emu": "apple2gs",
     "file": "https://www.whatisthe2gs.apple2.org.za/files/BlackCauldron/2Image/Black_Cauldron.zip/Black%20Cauldron/Black%20Cauldron%20Dk1.2mg",
-	"file2": "https://www.whatisthe2gs.apple2.org.za/files/BlackCauldron/2Image/Black_Cauldron.zip/Black%20Cauldron/Black%20Cauldron%20Dk2.2mg",
+    "file2": "https://www.whatisthe2gs.apple2.org.za/files/BlackCauldron/2Image/Black_Cauldron.zip/Black%20Cauldron/Black%20Cauldron%20Dk2.2mg",
     "name": "Black Cauldron, The",
     "year": "1987",
     "type": "game",
@@ -502,7 +520,7 @@ window.games = [
     "id": "wozaday_Dream_Zone_IIgs",
     "emu": "apple2gs",
     "file": "https://www.whatisthe2gs.apple2.org.za/files/DreamZone/2Image/Dream_Zone.zip/Dream%20Zone/Dream%20Zone%20Dk1.2mg",
-	"file2": "https://www.whatisthe2gs.apple2.org.za/files/DreamZone/2Image/Dream_Zone.zip/Dream%20Zone/Dream%20Zone%20Dk2.2mg",
+    "file2": "https://www.whatisthe2gs.apple2.org.za/files/DreamZone/2Image/Dream_Zone.zip/Dream%20Zone/Dream%20Zone%20Dk2.2mg",
     "name": "Dream Zone",
     "year": "1988",
     "type": "game",
@@ -994,7 +1012,7 @@ window.games = [
     "id": "wozaday_Mixed_Up_Mother_Goose_IIgs",
     "emu": "apple2gs",
     "file": "https://www.whatisthe2gs.apple2.org.za/files/MixedUpMotherGoose/2Image/Mixed_Up_Mother_Goose.zip/Mixed%20Up%20Mother%20Goose/Mixed%20Up%20Mother%20Goose%20Dk1.2mg",
-	"file2": "https://www.whatisthe2gs.apple2.org.za/files/MixedUpMotherGoose/2Image/Mixed_Up_Mother_Goose.zip/Mixed%20Up%20Mother%20Goose/Mixed%20Up%20Mother%20Goose%20Dk2.2mg",
+    "file2": "https://www.whatisthe2gs.apple2.org.za/files/MixedUpMotherGoose/2Image/Mixed_Up_Mother_Goose.zip/Mixed%20Up%20Mother%20Goose/Mixed%20Up%20Mother%20Goose%20Dk2.2mg",
     "name": "Mixed-Up Mother Goose",
     "year": "1988",
     "type": "game",
@@ -1291,6 +1309,23 @@ window.games = [
     "screenshot": "00_coverscreenshot.jpg",
     "nameCh": "武術大師",
     "descCh": "這種武術模擬側重於一對一的空手道戰鬥。玩家使用滑鼠或鍵盤執行各種進攻和防守動作，包括踢、拳和格擋。遊戲玩法強調精確度和時機，當你在不同的腰帶等級中進步時，在一系列道場風格的比賽中挑戰越來越難的人工智能對手，以獲得老師的稱號。"
+  },
+  {
+    "id": "https://github.com/digarok/senseiplay",
+    "emu": "apple2gs",
+    "file": "https://github.com/digarok/senseiplay/releases/download/v2.0/senseiplay800.2mg",
+    "diskSlots": [
+      "s7d1"
+    ],
+    "name": "SenseiPlay",
+    "year": "2023",
+    "type": "tool",
+    "desc": "SenseiPlay is a modern, lightweight NTP (NinjaTrackerPlus) music module player developed by digarok of Ninjaforce. Written entirely in 65816 assembly for ProDOS 8, it leverages the high-performance NinjaTrackerPlus audio playback engine created by Jesse Blue to drive the Apple IIgs's 32-channel Ensoniq 5503 DOC sound synthesizer with minimal RAM footprint. Features an intuitive text-mode file browser, real-time animated graphic VU meters, multi-song Jukebox playback mode (OpenApple-P), online volume switching, and live song metadata display.",
+    "developer": "digarok (Ninjaforce)",
+    "publisher": "Ninjaforce",
+    "screenshot": "https://github.com/digarok/senseiplay/raw/main/assets/doc/playerinfo.png",
+    "nameCh": "SenseiPlay 音樂播放器",
+    "descCh": "《SenseiPlay》是由著名 Apple IIgs 開發團隊 Ninjaforce 的 digarok 於 2023 年開發的現代輕量級 NTP (NinjaTrackerPlus) 音樂模組播放器。全程式採用 65816 純組合語言為 ProDOS 8 編寫，底層採用 Jesse Blue 開發的強大 NinjaTrackerPlus 播放引擎，以極低的記憶體佔用發揮 Apple IIgs 內建 Ensoniq 5503 DOC 音效晶片的震撼音質。支援直覺的文字介面目錄瀏覽器、即時動態彩色圖形 VU 震幅儀表、點唱機連續播放模式（OpenApple-P）以及即時曲目資訊顯示。"
   },
   {
     "id": "wozaday_Serve_and_Volley_IIgs",
@@ -1754,7 +1789,7 @@ window.games = [
     "id": "wozaday_The_Tower_of_Myraglen_IIgs",
     "emu": "apple2gs",
     "file": "https://www.whatisthe2gs.apple2.org.za/files/TowerofMyraglen/2Image/Tower_Of_Myraglen.zip/Tower%20Of%20Myraglen/Tower%20of%20Myraglen%20Dk1%20(LoGo%20crack).po",
-	"file2": "https://www.whatisthe2gs.apple2.org.za/files/TowerofMyraglen/2Image/Tower_Of_Myraglen.zip/Tower%20Of%20Myraglen/Tower%20of%20Myraglen%20Dk2%20(LoGo%20crack).po",
+    "file2": "https://www.whatisthe2gs.apple2.org.za/files/TowerofMyraglen/2Image/Tower_Of_Myraglen.zip/Tower%20Of%20Myraglen/Tower%20of%20Myraglen%20Dk2%20(LoGo%20crack).po",
     "name": "Tower of Myraglen",
     "year": "1987",
     "type": "game",
@@ -1809,6 +1844,25 @@ window.games = [
     "descCh": "“末日隧道”是一款快節奏的 3D 隧道跑酷遊戲，玩家可以駕駛未來飛船來關閉末日裝置。你必須在嚴格的時間限制內穿越複雜的、分支的地下網絡。遊戲玩法強調躲避障礙物、爆炸守衛者以及在顏色編碼的路徑之間進行選擇時的反應能力——紅色隧道提供了更短但更危險的到達目標的路線。"
   },
   {
+    "id": "https://www.whatisthe2gs.apple2.org.za/ultima-i.html",
+    "emu": "apple2gs",
+    "file": "/roms/GSOS601.zip/GSOS601.po",
+    "file2": "https://www.whatisthe2gs.apple2.org.za/files/UltimaI/2Image/Ultima_I.zip/Ultima%20I/Ultima.2mg",
+    "diskSlots": [
+      "s7d1",
+      "s7d2"
+    ],
+    "name": "Ultima I",
+    "year": "1992",
+    "type": "game",
+    "desc": "Ultima I: The First Age of Darkness is the legendary foundational CRPG created by Richard Garriott. The evil wizard Mondain has created the Gem of Immortality to enslave Sosaria, and the player takes on the role of 'The Stranger' summoned to destroy the gem and defeat Mondain. Featuring open-world wilderness exploration, first-person wireframe dungeons, and an eclectic blend of fantasy with sci-fi space travel, this enhanced 1992 Apple IIgs port by Rebecca 'Burger' Heineman brings Super Hi-Res graphics, Ensoniq MIDI-synth sound, and convenient single-disk hard drive play.",
+    "descCh": "《創世紀 I：黑暗第一紀元》（Ultima I: The First Age of Darkness）是由理查·蓋瑞特（Richard Garriott）開創的傳奇電腦角色扮演遊戲鼻祖。邪惡巫師蒙丹（Mondain）鍛造了不朽寶石企圖奴役索薩利亞（Sosaria）大陸，玩家扮演被召喚而來的「異鄉人」（The Stranger），必須跨越大地、探索第一人稱立體地牢、甚至駕駛太空船穿梭星際，最終穿越時空摧毀寶石並擊敗蒙丹。此 1992 年由傳奇程式設計師 Rebecca 'Burger' Heineman 移植的 Apple IIgs 強化版本，全面升級為超高解析度（Super Hi-Res）圖像與 Ensoniq 合成音效，並支援硬碟流暢運行。",
+    "developer": "Rebecca 'Burger' Heineman",
+    "publisher": "Vitesse, Inc.",
+    "screenshot": "https://www.whatisthe2gs.apple2.org.za/files/UltimaI/ScreenGrab_1/ultimashot1.gif",
+    "nameCh": "創世紀 I"
+  },
+  {
     "id": "wozaday_Uninvited_IIgs",
     "emu": "apple2gs",
     "file": "https://www.whatisthe2gs.apple2.org.za/files/Uninvited/2Image/Uninvited.zip/Uninvited/Uninvited%20Dk1%20(LoGo%20crack).po",
@@ -1852,6 +1906,25 @@ window.games = [
     "descCh": "“Vegas Gambler”提供了一套四種經典賭場遊戲：老虎機、二十一點、撲克和輪盤賭。使用滑鼠驅動的介面，玩家可以在真實的牌桌佈局上管理虛擬資金。遊戲玩法注重投注策略和運氣，讓你體驗拉斯維加斯的高風險氛圍，同時嘗試打破家底，增加你的總財富。"
   },
   {
+    "id": "a2gs_Vindicators_1989_Tengen_Atari_Games_unreleased",
+    "emu": "apple2gs",
+    "file": "/roms/SystemDisk.2mg",
+    "file2": "Vindicators_1989_Tengen_Atari_Games_unreleased.2mg",
+    "diskSlots": [
+      "s7d1",
+      "s7d2"
+    ],
+    "name": "Vindicators",
+    "year": "1989",
+    "type": "game",
+    "desc": "Converted from Atari's hit arcade shoot-em-up by Westwood and published by Tengen, Vindicators puts you in command of a heavily armed tank battling through hostile alien installations. Players navigate multi-directional labyrinthine bases to reach the exit portal while blasting enemy tanks, stationary turrets, and flying saucers. Defeated enemies yield stars that can be spent between stages to purchase vital upgrades such as speed boosts, extended shot range, shields, and devastating secondary weapons. However, fuel is constantly drained and will cause your tank to explode if depleted, requiring careful management of fuel stations while engaging enemies. Supports two players simultaneously with keyboard and joystick controls.",
+    "developer": "Westwood",
+    "publisher": "Tengen / Atari Games",
+    "screenshot": "https://www.whatisthe2gs.apple2.org.za/files/Vindicators/ScreenGrab_2/vindicatorshot2.gif",
+    "nameCh": "坦克大作戰",
+    "descCh": "由 Westwood 移植自 Atari 著名大型電玩街機的射擊遊戲《坦克大作戰》（Vindicators，由 Tengen 發行），玩家駕駛重型裝甲戰車深入外星基地執行突破任務。遊戲採多方向捲軸俯視視角，你必須在迷宮般的基地中摧毀敵方戰車、防禦砲塔與飛行器以抵達傳送出口。消滅敵人所收集的星星可在關卡結束後購買戰車升級，包括提升移動速度、射程、防護盾以及強大的副武器。遊戲最具挑戰性之處在於燃料消耗極快，一旦耗盡戰車便會立即自爆，必須時刻留意補給站補充燃料。本作為未正式發行的 Apple IIgs 原型作品，後經 ECC 修復保存，並支援雙人同時合作闖關。"
+  },
+  {
     "id": "wozaday_War_in_Middle_Earth_IIgs",
     "emu": "apple2gs",
     "file": "00playable.woz",
@@ -1865,6 +1938,23 @@ window.games = [
     "screenshot": "00playable_screenshot.png",
     "nameCh": "中土之戰",
     "descCh": "中土之戰是一款基於托爾金史詩的宏大戰略遊戲。玩家在三個縮放級別上管理移動：中土世界的完整地圖、區域地圖和戰術戰鬥屏幕。遊戲玩法涉及移動佛羅多等單個角色摧毀魔戒，同時指揮大規模軍隊進行實時或自動戰鬥，以防禦索倫的軍隊。"
+  },
+  {
+    "id": "https://www.whatisthe2gs.apple2.org.za/warlock.html",
+    "emu": "apple2gs",
+    "file": "https://www.whatisthe2gs.apple2.org.za/files/Warlock/2Image/Warlock.zip/Warlock/Warlock.2mg",
+    "diskSlots": [
+      "s7d1"
+    ],
+    "name": "Warlock",
+    "year": "1988",
+    "type": "game",
+    "desc": "Warlock is an acclaimed arcade platform action game created by French developer ERE Informatique and published by Three Sixty. Often heralded as the Apple IIgs equivalent of Capcom's Ghosts & Goblins, the game casts you as a robe-clad warlock on a hazardous quest to collect ancient relics and overthrow the sinister 'Unspeakable One'. Armed with a mystical staff firing fireballs, players leap across platforms, scale ladders, and battle hordes of mythical demons and beasts. Gameplay features a vital resource management loop where every fireball expends magical power, while defeated foes yield power-ups for vitality, armor, and treasure. Supports both keyboard and joystick controls.",
+    "developer": "ERE Informatique",
+    "publisher": "Three Sixty",
+    "screenshot": "https://www.whatisthe2gs.apple2.org.za/files/Warlock/ScreenGrab_2/warlockshot2.gif",
+    "nameCh": "術士歷險記",
+    "descCh": "《術士歷險記》（Warlock）是由法國團隊 ERE Informatique 開發、Three Sixty 發行的經典橫向動作平台遊戲，被譽為 Apple IIgs 平台上的《魔界村》。玩家扮演身披長袍、手持法杖的術士，踏上收集遠古聖物並消滅幕後黑手「不可名狀者」（The Unspeakable One）的險峻征途。玩家能施放法杖火球消滅成群的怪物與惡魔，並在複雜的地形中攀爬跳躍。遊戲融入了關鍵的資源管理機制：施法射擊需消耗有限魔力，擊倒敵人可獲得生命補充、減傷護甲或增分寶藏，但也必須小心避開危險的神秘陷阱。本作支援鍵盤或搖桿操作，具備極具挑戰性且流暢的動作手感。"
   },
   {
     "id": "wozaday_Windwalker_IIgs",
@@ -1937,6 +2027,23 @@ window.games = [
     "screenshot": "00playable_screenshot.png",
     "nameCh": "異形滅絕",
     "descCh": "在這款多階段動作遊戲中，玩家必須摧毀外星月球基地。遊戲玩法在三種不同的風格之間切換：橫向捲軸“噴氣背包”射擊遊戲、自上而下的“氣墊船”探索以及第一人稱“隧道”序列。玩家必須管理有限的燃料和彈藥，同時在危險的環境中放置炸彈並在最後倒計時結束之前逃脫。"
+  },
+  {
+    "id": "https://www.whatisthe2gs.apple2.org.za/your-tour-of-the-apple-iigs.html",
+    "emu": "apple2gs",
+    "file": "https://www.whatisthe2gs.apple2.org.za/files/YourTouroftheAppleIIGS/2Image/Your_Tour_of_the_Apple_IIGS.zip/Your%20Tour%20of%20the%20Apple%20IIgs/Tour%20of%20the%20Apple%20IIgs.2mg",
+    "diskSlots": [
+      "s7d1"
+    ],
+    "name": "Your Tour of the Apple IIGS",
+    "year": "1986",
+    "type": "edu",
+    "desc": "Your Tour of the Apple IIGS is the landmark official interactive guided tour originally bundled with every Apple IIgs computer sold. Designed by Apple Computer to introduce users to the cutting-edge capabilities of their new 16-bit machine, this educational software teaches the fundamentals of the Apple Desktop graphical user interface (GUI), mouse navigation, file management, window manipulation, disk formatting, and hardware architecture. Featuring rich Super Hi-Res color graphics, animations, and musical scores showcasing the Ensoniq 5503 sound synthesizer, it remains a beloved historic masterclass in user onboarding and retro-computing education.",
+    "developer": "Apple Computer, Inc.",
+    "publisher": "Apple Computer, Inc.",
+    "screenshot": "https://www.whatisthe2gs.apple2.org.za/files/YourTouroftheAppleIIGS/ScreenGrab_1/gs_tour_shot.gif",
+    "nameCh": "Apple IIGS 互動導覽",
+    "descCh": "《Apple IIGS 互動導覽》（Your Tour of the Apple IIGS）是 1986 年隨每一台售出的 Apple IIgs 電腦原廠隨附的經典官方互動教學導覽軟體。由 Apple 官方精心設計，旨在引導初學者探索這台全新 16 位元電腦的劃時代功能，生動教學滑鼠點擊拖曳、視窗與選單操作、檔案管理、磁碟格式化以及硬體組件等桌面圖形化介面（GUI）基礎知識。軟體充分展示了 IIgs 的超高解析度色彩圖像與 Ensoniq 5503 合成音樂音效，兼具教育趣味與歷史情懷，是個人電腦發展史上人機互動引導的代表作。"
   },
   {
     "id": "wozaday_Zany_Golf",

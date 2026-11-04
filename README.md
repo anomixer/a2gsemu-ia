@@ -16,7 +16,7 @@
 
 ## ✨ 特色功能
 
-- 🎯 **163款精選遊戲** - 包含經典 RPG、動作、益智，以及作者親自移植的全新《Freegemas (2026)》等作品
+- 🎯 **169款精選遊戲** - 包含經典 RPG、動作、益智，以及作者親自移植的全新《Freegemas (2026)》與《Alter Ego (2026)》等作品
 - 🔊 **完整音效支援** - 透過代理後端（Cloudflare Pages / 本地 server.js）完整輸出聲音
 - 📱 **響應式設計 & 雙側滑動抽屜** - 支援桌面和行動裝置；全新設計的左右側邊欄抽屜佈局，支援滑鼠拖曳調整寬度、桌面小螢幕（寬度 < 1200px）自動收合優化
 - 🔍 **畫面比例切換** - 右上方控制列新增「切到原生模式1x / 切到縮放適應」一鍵切換，支援設定記憶持久化與完美的 RWD 比例縮放
@@ -133,16 +133,17 @@ python -m http.server 8000
 
 ### 🌟 特別推薦（作者原創移植）
 - 💎 **[Freegemas (2026)](https://github.com/anomixer/freegemas)** - **由本專案作者 anomixer 親自移植至 Apple IIgs！** 以 65816 原生組合語言專為 GS/OS 環境打造的開源寶石方塊三消名作，完整運用 320×200 Super Hi-Res 逐行 16 色調色盤、Ensoniq 5503 DOC 雙緩衝 BGM 與 PCM 原生音效、流暢的滑鼠拖曳消除、計時賽與無盡模式，歡迎大家多多捧場體驗！
+- 👤 **[Alter Ego (2026)](https://github.com/anomixer/alter-ego)** - **由本專案作者 anomixer 親自移植至 Apple IIgs！** 經典益智動作解謎名作的 65816 原生 silky-gs 移植版，玩家同時操控主角與其鏡像幻影（Alter Ego）協同闖關。支援 14.3 MHz 加速以 60fps 超流暢渲染 Super Hi-Res 畫面，並具備完整 FamiTone 音樂音效，歡迎多多體驗！
 
 ### 🎯 遊戲類型
 - **RPG** - The Bard's Tale、Dragon Wars 等
 - **動作** - California Games、Marble Madness 等
-- **益智** - Freegemas、Tetris、Columns、Block Out 等
+- **益智** - Alter Ego、Freegemas、Tetris、Columns、Block Out 等
 - **冒險** - Beyond Zork 系列、Space Quest 系列等
 - **模擬** - Pirates!、Balance of Power 等
 
 ### 📊 統計資訊
-- **總計**: 163款遊戲與軟體
+- **總計**: 169款遊戲與軟體
 - **年代**: 1986-2026年
 - **語言**: 單鍵切換的完整中英文雙語介面
 - **描述**: 每款遊戲都有詳細的400字介紹
@@ -206,7 +207,7 @@ a2gsemu-ia/
 ├── 📄 核心檔案
 │   ├── index.html              # 主應用程式 (完整功能)
 │   ├── server.js               # Node.js 後端伺服器 (代理服務)
-│   ├── games.js               # 遊戲資料庫 (163 款遊戲)
+│   ├── games.js               # 遊戲資料庫 (169 款遊戲)
 │   └── package.json           # 專案配置與依賴
 │
 ├── 🎮 GS² 核心 (`main` 分支)
@@ -271,7 +272,7 @@ a2gsemu-ia/
 #### 🎯 主要檔案
 - **`index.html`** - 主應用程式，搭配代理後端提供完整功能
 - **`server.js`** - Node.js 後端伺服器，提供 `/proxy/*` 代理服務和完整功能
-- **`games.js`** - 遊戲資料庫，包含 163 款遊戲的完整資訊
+- **`games.js`** - 遊戲資料庫，包含 169 款遊戲的完整資訊
 - **簡易版 (無後端)** - 位於獨立的 `OneHtmlFile` 分支，純靜態部署
 
 #### 🔧 技術檔案

@@ -2,13 +2,13 @@
 
 ## Project Overview
 
-This is an Apple IIgs online emulator project that allows users to play classic Apple IIgs games directly in their web browser. The project has evolved through multiple iterations and now serves 163 carefully curated games with rich descriptions, modern web features, and full Cloudflare Pages deployment support.
+This is an Apple IIgs online emulator project that allows users to play classic Apple IIgs games directly in their web browser. The project has evolved through multiple iterations and now serves 169 carefully curated games with rich descriptions, modern web features, and full Cloudflare Pages deployment support.
 
 ## Architecture
 
 ### Frontend
 - **Main File**: `index.html` (renamed from `index_emularity_v8.html`)
-- **Game Database**: `games.js` (163 games with English/Chinese names)
+- **Game Database**: `games.js` (169 games with English/Chinese names)
 - **Emulator core**:
   - **`mame0239` branch**: Emularity framework with the MAME Apple IIgs core (`mameapple2gs.js.gz` / `mameapple2gs.wasm.gz`, ~66 MB).
   - **`main` branch (this branch)**: **GS² (GSSquared)** Apple IIgs core compiled to WebAssembly — `gs2/GSSquared.js` + `gs2/GSSquared.wasm` + `gs2/GSSquared.data` (~4.9 MB wasm + ~3 MB data, SIMD). Fast, native ProDOS/WOZ support, no BIOS mount needed (BIOS is baked into `GSSquared.data`). See the [GS² Engine](#gs2-gssquared-engine---main-branch) section for the full dev process.
@@ -235,12 +235,42 @@ Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`
     - **Single-disk S7 Setup**: Configured with `file: "https://github.com/anomixer/freegemas/releases/latest/download/freegemas.2mg"` on S7D1 (`diskSlots: ["s7d1"]`), self-booting directly into the GS/OS S16 environment.
     - **Audiovisual Integration**: 320x200 SHR 4bpp with per-scanline palettes, wood grain background cache blitting, Ensoniq 5503 DOC double-buffered BGM streaming, native PCM sound effects, full mouse/keyboard controls, Time Trial and Endless modes, and persistent high score saving.
 
+22. **v2.3 Game Library Addition: Ultima I (1992)** (November 2026)
+    - **Ultima I Added**: Added the enhanced Apple IIgs port of Richard Garriott's legendary CRPG *Ultima I: The First Age of Darkness* to `games.js` (total: 164 games).
+    - **Dual-disk S7 Setup**: Configured with `file: "/roms/GSOS601.zip/GSOS601.po"` on S7D1 and `file2: "https://www.whatisthe2gs.apple2.org.za/files/UltimaI/2Image/Ultima_I.zip/Ultima%20I/Ultima.2mg"` on S7D2 (`diskSlots: ["s7d1", "s7d2"]`), booting via GS/OS 6.0.1 and mounting Ultima I on S7D2.
+    - **Enhanced IIgs Features**: Programmed by Rebecca "Burger" Heineman and published by Vitesse / Origin Systems; features Super Hi-Res color graphics, Ensoniq MIDI-synth music and audio effects, and fast hard drive performance without disk-swapping.
+
+23. **v2.3 Game Library Addition: Vindicators (1989)** (November 2026)
+    - **Vindicators Added**: Added Atari's unreleased tank combat arcade port by Westwood Studios (published by Tengen) to `games.js` (total: 165 games).
+    - **Dual-disk S7 Setup**: Configured with `file: "/roms/SystemDisk.2mg"` on S7D1 and `file2: "Vindicators_1989_Tengen_Atari_Games_unreleased.2mg"` on S7D2 (`diskSlots: ["s7d1", "s7d2"]`), allowing ProDOS to boot first and seamlessly launch the game.
+    - **Arcade Action & Lore**: Multi-directional scrolling tank combat, 2-player simultaneous co-op, star-based upgrade system, fuel tension mechanic, and full bilingual documentation based on preservation archive materials.
+
+24. **v2.3 Game Library Addition: Warlock (1988)** (November 2026)
+    - **Warlock Added**: Added French developer ERE Informatique's action-platformer *Warlock* (published by Three Sixty) to `games.js` (total: 166 games).
+    - **Single-disk S7 Setup**: Configured with `file: "https://www.whatisthe2gs.apple2.org.za/files/Warlock/2Image/Warlock.zip/Warlock/Warlock.2mg"` on S7D1 (`diskSlots: ["s7d1"]`), extracted on the fly from the ZIP archive and self-booting directly on the Slot 7 SmartPort hard drive controller.
+    - **IIgs Ghosts & Goblins Equivalent**: Platform jumping, magical staff fireballs, spell power resource management, and boss battles against 'The Unspeakable One'.
+
+25. **v2.3 Game Library Addition: SenseiPlay (2023)** (November 2026)
+    - **SenseiPlay Added**: Added Ninjaforce's (digarok) modern lightweight NTP music module player to `games.js` classified under `tool` (total: 167 titles).
+    - **Single-disk S7 Setup**: Configured with `file: "https://github.com/digarok/senseiplay/releases/download/v2.0/senseiplay800.2mg"` on S7D1 (`diskSlots: ["s7d1"]`), self-booting directly via ProDOS 8.
+    - **NinjaTrackerPlus Engine**: Full 65816 assembly implementation driving the Ensoniq 5503 DOC synthesizer chip with graphic animated VU meters, jukebox playback mode (`OA-P`), and minimal memory footprint.
+
+26. **v2.3 Game Library Addition: Your Tour of the Apple IIGS (1986)** (November 2026)
+    - **Tour of the IIgs Added**: Added Apple Computer's official bundled interactive educational onboarding software to `games.js` classified under `edu` (total: 168 titles).
+    - **Single-disk S7 Setup**: Configured with `file: "https://www.whatisthe2gs.apple2.org.za/files/YourTouroftheAppleIIGS/2Image/Your_Tour_of_the_Apple_IIGS.zip/Your%20Tour%20of%20the%20Apple%20IIgs/Tour%20of%20the%20Apple%20IIgs.2mg"` on S7D1 (`diskSlots: ["s7d1"]`), extracted on the fly from the ZIP archive and self-booting directly on the Slot 7 SmartPort hard drive controller.
+    - **Historic Desktop Tutorial**: Interactive lessons on GUI mouse navigation, file management, window operations, disk formatting, and hardware capabilities with Super Hi-Res graphics and Ensoniq sound.
+
+27. **v2.3 Game Library Addition: Alter Ego (2026)** (November 2026)
+    - **Alter Ego Added**: Added anomixer's 2026 Apple IIgs native silky-gs port of Denis Grachev's acclaimed puzzle-platformer to `games.js` (total: 169 games).
+    - **Single-disk S7 Setup**: Configured with `file: "https://github.com/anomixer/alter-ego/releases/latest/download/AlterEgo.2mg"` on S7D1 (`diskSlots: ["s7d1"]`), self-booting straight into `/SYSTEM/START` on GS/OS.
+    - **Automatic 14.3MHz Acceleration**: Injected with `speed: "14.3mhz"` for buttery 60fps SHR rendering. Symmetrical mirror-image dual-figure movement, compact OAM sprites, dirty-grid rendering, and full FamiTone music and sound effects.
+
 ## Key Files
 
 ### Core Application (repository root)
 - `index.html` - Main application (HTML + CSS + JavaScript)
 - `server.js` - Local backend proxy server
-- `games.js` - Game database (163 games)
+- `games.js` - Game database (169 games)
 - `package.json` - Dependencies and scripts
 
 ### GS² branch (in-repo core + disk images)

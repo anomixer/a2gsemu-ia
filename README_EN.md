@@ -16,7 +16,7 @@
 
 ## ✨ Key Features
 
-- 🎯 **163 Selected Games** - Including classic RPGs, action, puzzle games, and the author's own 2026 native port of *Freegemas*
+- 🎯 **169 Selected Games** - Including classic RPGs, action, puzzle games, and the author's own 2026 native port of *Freegemas* and *Alter Ego (2026)*
 - 🔊 **Full Audio Support** - Complete sound output via proxy backend (Cloudflare Pages / local server.js)
 - 📱 **Responsive Design & Dual Side-Drawers** - Full mobile and desktop compatibility; redesigned dual sliding drawers supporting mouse width resizing and auto-collapse threshold for smaller desktop viewports (< 1200px)
 - 🔍 **Screen Scale Toggle** - Integrated "Switch to Native 1x / Switch to Scale to Fit" button next to mute control, with memory persistence and dynamic aspect ratio scaling
@@ -133,16 +133,17 @@ python -m http.server 8000
 
 ### 🌟 Special Highlight (Original Port by Project Author)
 - 💎 **[Freegemas (2026)](https://github.com/anomixer/freegemas)** - **Personally ported to the Apple IIgs by the author of this project (anomixer)!** An authentic Match-3 puzzle classic written from scratch in native 65816 assembly for GS/OS. Features 320×200 Super Hi-Res graphics with per-scanline 16-color palettes, Ensoniq 5503 DOC double-buffered BGM and PCM sound effects, responsive mouse drag-and-drop gameplay, Time Trial, and Endless modes. Please check it out and have fun!
+- 👤 **[Alter Ego (2026)](https://github.com/anomixer/alter-ego)** - **Personally ported to the Apple IIgs by the author of this project (anomixer)!** A native 65816 silky-gs port of Denis Grachev's acclaimed puzzle-platformer. Simultaneously control the hero and his symmetrical phantom twin mirror image to clear levels. Powered by 14.3 MHz auto-acceleration for buttery 60fps Super Hi-Res graphics, full FamiTone music and sound effects!
 
 ### 🎯 Game Types
 - **RPG** - The Bard's Tale, Dragon Wars, etc.
 - **Action** - California Games, Marble Madness, etc.
-- **Puzzle** - Freegemas, Tetris, Columns, Block Out, etc.
+- **Puzzle** - Alter Ego, Freegemas, Tetris, Columns, Block Out, etc.
 - **Adventure** - Beyond Zork series, Space Quest series, etc.
 - **Simulation** - Pirates!, Balance of Power, etc.
 
 ### 📊 Statistics
-- **Total**: 163 games and software
+- **Total**: 169 games and software
 - **Era**: 1986-2026
 - **Language**: Complete bilingual interface with one-click switching
 - **Descriptions**: Each game has detailed 400-word descriptions
@@ -206,7 +207,7 @@ a2gsemu-ia/
 ├── 📄 Core Files
 │   ├── index.html              # Main application (full functionality)
 │   ├── server.js               # Node.js backend server (proxy service)
-│   ├── games.js               # Game database (163 games)
+│   ├── games.js               # Game database (169 games)
 │   └── package.json           # Project configuration and dependencies
 │
 ├── 🎮 GS² Core (`main` branch)
@@ -271,7 +272,7 @@ a2gsemu-ia/
 #### 🎯 Main Files
 - **`index.html`** - Main application, full functionality with a proxy backend
 - **`server.js`** - Node.js backend server providing `/proxy/*` proxy services and full functionality
-- **`games.js`** - Game database containing complete information for 163 games
+- **`games.js`** - Game database containing complete information for 169 games
 - **Simple Version (no backend)** - lives on the separate `OneHtmlFile` branch, pure static hosting
 
 #### 🔧 Technical Files
