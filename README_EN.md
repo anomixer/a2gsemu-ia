@@ -1,4 +1,4 @@
-# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs Online Emulator v2.3 Fast Load Edition ⚡
+# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs Online Emulator v2.4 Dual-Core Edition ⚡
 
 🎮 **Experience classic Apple IIgs games and software in your browser!**
 
@@ -16,6 +16,7 @@
 
 ## ✨ Key Features
 
+- ⚡ **Dual-Core Architecture (GS² + MAME)** - Powered by default by the lightweight and blazingly fast **GS² (GSSquared)** core; includes an instant one-click switcher in the top right to switch to the classic and fully featured **MAME** core (with TAB config menu, F7 save/load states, and ZipGS 16MHz acceleration). Core preference is saved automatically via localStorage and URL parameters!
 - 🎯 **169 Selected Games** - Including classic RPGs, action, puzzle games, and the author's own 2026 native port of *Freegemas* and *Alter Ego (2026)*
 - 🔊 **Full Audio Support** - Complete sound output via proxy backend (Cloudflare Pages / local server.js)
 - 📱 **Responsive Design & Dual Side-Drawers** - Full mobile and desktop compatibility; redesigned dual sliding drawers supporting mouse width resizing and auto-collapse threshold for smaller desktop viewports (< 1200px)
@@ -26,30 +27,31 @@
 - 📦 **Multi-Format Support** - Supports .woz, .2mg, .po, .dsk and other disk formats
 - 🌐 **Multiple Data Sources** - Supports Archive.org, custom URLs, ZIP files
 - ⚡ **Fast Loading** - 24-hour file caching for improved loading speed
-- 📄 **Three Runtime Versions** - GS² accelerated, MAME full, and zero-backend simple versions
+- 📄 **Multiple Runtime Versions** - Dual-Core accelerated, MAME standalone, and zero-backend simple versions
 
 ---
 
 ## 🚀 Quick Start
 
-### Three Running Versions
-This project ships with three independent runtime versions:
+### Core Selection & Running Versions
 
-#### 🔊💽 v2.3 Accelerated (`main` branch / GSSquared core / Highly Recommended)
-Uses the GS² (GSSquared) WebAssembly core for fast startup and disk access:
-- ✅ **Automatic 14.3MHz Acceleration** - High-demand titles (e.g. DOOM IIgs, SilkyGS, Space Ace series, Dragon's Lair series) automatically boot at 14.3MHz for a significantly smoother gameplay experience.
-- ✅ **Adjustable emulation speed** - Hold the right mouse button to accelerate emulation; speed can also be adjusted through the GS² UI
-- ✅ **S7 Hard Disk Optimization** - Over 90% of the library has been optimized to boot via the Slot 7 SmartPort hard drive, offering significantly faster read/write speeds than traditional S5 floppies and vastly improving the gameplay experience.
-- ✅ **WOZ / PO / 2MG support** - Images are mounted directly through the browser virtual filesystem
-- ✅ **Native GS² display and audio** - Smaller core and faster startup
+This project features a fully integrated **Dual-Core architecture**, giving users the best of both worlds:
 
-#### 🔊 Full Version (`mame0239` branch / MAME core / Recommended)
-Uses a proxy backend (this repo's `server.js` or Cloudflare Pages Functions):
-- ✅ **Complete Audio Support** - Sound works perfectly
-- ✅ **ZIP File Support** - Supports compressed file formats
-- ✅ **24-Hour Caching** - Improved loading speed
-- ✅ **CORS Resolution** - Perfect cross-origin solution
-- ✅ **Scale to Fit** - Toggle between Native 1x and Scale to Fit
+#### ⚡ Dual-Core Edition (`main` branch / GS² default + MAME switchable / Highly Recommended)
+- 🚀 **Default GS² Core**:
+  - Extremely compact: ~5MB wasm + ~3MB data, loads in seconds with minimal memory usage.
+  - **Automatic 14.3MHz Acceleration**: High-demand titles (e.g. DOOM IIgs, SilkyGS, Alter Ego, Space Ace series, Dragon's Lair series) automatically boot at 14.3MHz for a significantly smoother gameplay experience.
+  - **S7 Hard Disk Optimization**: Over 90% of the library has been optimized to boot via the Slot 7 SmartPort hard drive, offering significantly faster read/write speeds than traditional S5 floppies.
+  - **Direct WOZ / 2MG / PO Support**: Direct browser virtual filesystem mounting.
+- 🕹️ **Switchable MAME Core**:
+  - Switch anytime via the top-right button or by appending `?core=mame`.
+  - **Save States**: Full support for F7 (Load State) / Shift + F7 (Save State).
+  - **MAME In-Game Menu**: Press TAB anytime to adjust key mappings and machine settings.
+  - **ZipGS 16MHz Turbo**: Automatically configures and mounts ZipGS 16MHz settings for accelerated games.
+  - **Clean On-Demand Loading**: MAME's loader and BrowserFS are only loaded when MAME is selected, keeping the default GS² experience ultra-light and fast.
+
+#### 🔊 Legacy Standalone MAME (`mame0239` branch)
+Historical single-core MAME branch.
 
 #### 🔇 Simple Version (`OneHtmlFile` branch)
 Pure static hosting (e.g., GitHub Pages), embedding the Internet Archive emulator via iframe:

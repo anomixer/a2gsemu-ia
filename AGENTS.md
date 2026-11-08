@@ -265,6 +265,16 @@ Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`
     - **Single-disk S7 Setup**: Configured with `file: "https://github.com/anomixer/alter-ego/releases/latest/download/AlterEgo.2mg"` on S7D1 (`diskSlots: ["s7d1"]`), self-booting straight into `/SYSTEM/START` on GS/OS.
     - **Automatic 14.3MHz Acceleration**: Injected with `speed: "14.3mhz"` for buttery 60fps SHR rendering. Symmetrical mirror-image dual-figure movement, compact OAM sprites, dirty-grid rendering, and full FamiTone music and sound effects.
 
+28. **v2.4 Dual-Core Architecture: GS² + MAME Switcher** (November 2026)
+    - **Dual-Core Architecture**: Integrated both GS² (GSSquared) and MAME (mameapple2gs) engines seamlessly into the main branch.
+    - **GS² as Default**: Retained GS² as the ultra-fast default core (`currentCore = 'gs2'`), starting in seconds with ~5MB wasm + ~3MB data and native ProDOS/WOZ support.
+    - **Header Core Switcher**: Placed `#coreToggle` in the top right header (`⚡ 核心: GS²` / `🕹️ 核心: MAME`), allowing users to toggle between GS² and MAME with a single click.
+    - **Persistence & Isolation**: Core selection is stored in `localStorage.setItem('emulatorCore', core)` and synced with URL parameters (`?core=mame` / `?core=gs2`). Page reload on toggle ensures clean Emscripten contexts with zero memory leaks.
+    - **Clean Conditional Loading**: `browserfs.min.js` and `loader.js` are loaded synchronously via `document.write` only when `core === 'mame'`, preventing global `window.Module` namespace pollution in GS² mode.
+    - **Dynamic Instructions & Shortcuts**: Right info drawer dynamically updates hotkeys and usage tips based on active core (GS²: F1/F2/F4/F7/F9/Ctrl+F12 vs MAME: Tab menu, P pause, F7/Shift+F7 save states, F10/F11/F12, Scroll Lock game keys).
+    - **ZipGS 16MHz Auto-Acceleration in MAME**: Automatically generates and mounts `apple2gs.cfg` (`<port tag=":a2_config" value="7" />`) for high-performance titles (Alter Ego, DOOM, SilkyGS, Space Ace) under MAME.
+    - **Full Bilingual i18n**: All new buttons, badges, tooltips, and shortcut tables fully translated into Traditional Chinese and English.
+
 ## Key Files
 
 ### Core Application (repository root)

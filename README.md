@@ -1,4 +1,4 @@
-# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs 線上模擬器 v2.3 快速載入版 ⚡
+# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs 線上模擬器 v2.4 雙核心版 ⚡
 
 🎮 **在瀏覽器中體驗經典的 Apple IIgs 遊戲與軟體！**
 
@@ -16,6 +16,7 @@
 
 ## ✨ 特色功能
 
+- ⚡ **雙核心切換架構 (GS² + MAME)** - 預設採用輕巧極速的 **GS² (GSSquared)** 核心；右上角提供一鍵切換按鈕，可自由切換為經典完整相容的 **MAME** 核心（支援 TAB 選單、F7 存檔讀檔與 ZipGS 16MHz 加速）。核心設定自動以 localStorage 與 URL 參數持久化！
 - 🎯 **169款精選遊戲** - 包含經典 RPG、動作、益智，以及作者親自移植的全新《Freegemas (2026)》與《Alter Ego (2026)》等作品
 - 🔊 **完整音效支援** - 透過代理後端（Cloudflare Pages / 本地 server.js）完整輸出聲音
 - 📱 **響應式設計 & 雙側滑動抽屜** - 支援桌面和行動裝置；全新設計的左右側邊欄抽屜佈局，支援滑鼠拖曳調整寬度、桌面小螢幕（寬度 < 1200px）自動收合優化
@@ -26,30 +27,31 @@
 - 📦 **多格式支援** - 支援 .woz、.2mg、.po、.dsk 等磁片格式
 - 🌐 **多重資料源** - 支援 Archive.org、自訂 URL、ZIP 檔案
 - ⚡ **快速載入** - 24小時檔案快取，提升載入速度
-- 📄 **三種運行版本** - GS² 加速版、MAME 完整版與零後端簡易版
+- 📄 **多種運行版本** - 雙核心加速版、MAME 完整版與零後端簡易版
 
 ---
 
 ## 🚀 快速開始
 
-### 三種運行版本
-本專案提供三種獨立運行版本，依需求選擇：
+### 核心選擇與運行版本
 
-#### 🔊💽 v2.3 加速版 (`main` 分支 / GSSquared 核心 / 極推薦)
-使用 GS² (GSSquared) WebAssembly 核心，提供快速啟動與磁碟存取：
-- ✅ **14.3MHz 自動超頻加速** - 針對 DOOM IIgs、SilkyGS、Space Ace 系列、Dragon's Lair 系列等高需求作品，開機時自動設定為 14.3MHz 高速運行，遊玩體驗更流暢。
-- ✅ **可切換執行速度** - 按住滑鼠右鍵即可加速模擬速度，透過 GS² 介面亦可調整速度
-- ✅ **S7 硬碟極速載入** - 超過 90% 的遊戲已最佳化為支援 Slot 7 SmartPort 硬碟模式開機，讀寫速度比傳統 S5 軟碟快上許多，大幅提升遊戲體驗。
-- ✅ **WOZ / PO / 2MG 支援** - 直接透過瀏覽器虛擬檔案系統掛載映像
-- ✅ **原生 GS² 顯示與音效** - 較小的核心、快速啟動
+本專案現已全面整合 **雙核心架構**，讓使用者兼得極致速度與經典功能：
 
-#### 🔊 完整版 (`mame0239` 分支 / MAME 核心 / 推薦)
-搭配代理後端使用（本 repo 的 `server.js` 或 Cloudflare Pages Functions）：
-- ✅ **完整音效支援** - 聲音完全正常
-- ✅ **ZIP 檔案支援** - 支援壓縮檔案格式
-- ✅ **24小時快取** - 提升載入速度
-- ✅ **CORS 解決** - 完美解決跨域問題
-- ✅ **縮放適應** - 原生 1x / 縮放適應一鍵切換
+#### ⚡ 雙核心版 (`main` 分支 / GS² 預設 + MAME 可切換 / 極推薦)
+- 🚀 **預設 GS² 核心**：
+  - 核心檔案僅 ~5MB wasm + ~3MB data，啟動快如閃電，資源佔用極低。
+  - **14.3MHz 自動超頻加速**：針對 DOOM IIgs、SilkyGS、Alter Ego、Space Ace 系列、Dragon's Lair 系列等高需求作品，開機自動啟用 14.3MHz 高速運行。
+  - **S7 硬碟極速載入**：超過 90% 遊戲最佳化為 Slot 7 SmartPort 硬碟開機，讀寫流暢。
+  - **直接支援 WOZ / 2MG / PO**：原生磁碟映像掛載。
+- 🕹️ **可切換 MAME 核心**：
+  - 右上角點擊按鈕或帶入 `?core=mame` 即可切換。
+  - **存檔功能**：支援 F7 讀檔 / Shift + F7 存檔。
+  - **MAME 選單**：按 TAB 鍵隨時調整鍵盤對應與機器設定。
+  - **ZipGS 16MHz 加速**：自動為需加速的遊戲掛載 ZipGS 16MHz 設定檔。
+  - **純淨按需載入**：MAME 所需的 loader 與 BrowserFS 僅在切換至 MAME 時動態載入，完全不拖慢 GS² 預設體驗。
+
+#### 🔊 舊版獨立 MAME 分支 (`mame0239` 分支)
+保留單一 MAME 核心的歷史分支。
 
 #### 🔇 簡易版 (`OneHtmlFile` 分支)
 純靜態部署（如 GitHub Pages），以 iframe 嵌入 Internet Archive 模擬器：
