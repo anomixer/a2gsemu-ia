@@ -48,11 +48,19 @@
             font-size: 24px;
             text-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
             margin-bottom: 5px;
+            padding: 0 310px 0 90px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .header .subtitle {
             color: #888;
             font-size: 12px;
+            padding: 0 310px 0 90px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .github-link {
@@ -78,29 +86,82 @@
         .gs2-link {
             position: absolute;
             top: 15px;
-            right: 70px;
-            width: 32px;
-            height: 32px;
+            right: 66px;
+            width: 34px;
+            height: 34px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 6px;
         }
 
         .gs2-link img {
             width: 30px;
             height: 30px;
-            filter: drop-shadow(0 0 5px rgba(255, 199, 40, 0.35));
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .gs2-link:hover {
+        .gs2-link.active img {
+            filter: drop-shadow(0 0 6px rgba(255, 199, 40, 0.75));
+            opacity: 1;
+            transform: scale(1.08);
+        }
+
+        .gs2-link.inactive img {
+            filter: grayscale(1) contrast(0.7);
+            opacity: 0.35;
+        }
+
+        .gs2-link.inactive:hover img {
+            filter: grayscale(0.2) drop-shadow(0 0 4px rgba(255, 199, 40, 0.4));
+            opacity: 0.85;
+            transform: scale(1.1);
+        }
+
+        .mame-link {
+            position: absolute;
+            top: 15px;
+            right: 112px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .mame-link img {
+            height: 24px;
+            width: auto;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mame-link.active img {
+            filter: drop-shadow(0 0 6px rgba(104, 202, 251, 0.75));
+            opacity: 1;
+            transform: scale(1.08);
+        }
+
+        .mame-link.inactive img {
+            filter: grayscale(1) contrast(0.7);
+            opacity: 0.35;
+        }
+
+        .mame-link.inactive:hover img {
+            filter: grayscale(0.2) drop-shadow(0 0 4px rgba(104, 202, 251, 0.4));
+            opacity: 0.85;
             transform: scale(1.1);
         }
 
         .lang-switch {
             position: absolute;
             top: 15px;
-            right: 110px;
+            right: 212px;
         }
 
         .lang-btn {
@@ -121,44 +182,6 @@
         .lang-btn:hover {
             background: #45a049;
             transform: scale(1.08);
-        }
-
-        .core-switch {
-            position: absolute;
-            top: 15px;
-            right: 215px;
-        }
-
-        .core-btn {
-            background: #242424;
-            color: #4CAF50;
-            border: 2px solid #4CAF50;
-            padding: 6px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 13px;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
-        }
-
-        .core-btn:hover {
-            background: #2e2e2e;
-            transform: scale(1.06);
-            box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
-        }
-
-        .core-btn.core-mame {
-            color: #FF9800;
-            border-color: #FF9800;
-            box-shadow: 0 0 10px rgba(255, 152, 0, 0.2);
-        }
-
-        .core-btn.core-mame:hover {
-            box-shadow: 0 0 15px rgba(255, 152, 0, 0.4);
         }
 
         .main-container {
@@ -446,6 +469,88 @@
             background: #1976D2;
         }
 
+        .speed-dropdown-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            margin-right: 8px;
+        }
+
+        .btn-speed {
+            background: #242424;
+            color: #FF9800;
+            border: 2px solid #FF9800;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 8px rgba(255, 152, 0, 0.25);
+        }
+
+        .btn-speed:hover {
+            background: #333;
+            transform: scale(1.05);
+            box-shadow: 0 0 12px rgba(255, 152, 0, 0.5);
+        }
+
+        .speed-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            background: #1e1e1e;
+            border: 1px solid #FF9800;
+            border-radius: 6px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.85), 0 0 10px rgba(255, 152, 0, 0.35);
+            z-index: 1000;
+            min-width: 180px;
+            overflow: hidden;
+        }
+
+        .speed-menu.show {
+            display: block;
+        }
+
+        .speed-opt {
+            padding: 9px 14px;
+            font-size: 12px;
+            color: #ddd;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #2a2a2a;
+            white-space: nowrap;
+        }
+
+        .speed-opt:last-child {
+            border-bottom: none;
+        }
+
+        .speed-opt:hover {
+            background: #333;
+            color: #FF9800;
+        }
+
+        .speed-opt.selected {
+            background: rgba(255, 152, 0, 0.2);
+            color: #FF9800;
+            font-weight: bold;
+        }
+
+        .speed-opt.selected::after {
+            content: '✓';
+            margin-left: 8px;
+            color: #FF9800;
+        }
+
         .emulator-content {
             flex: 1;
             display: flex;
@@ -674,6 +779,9 @@
                 width: 280px;
                 font-size: 12px;
             }
+            .header h1 {
+                font-size: 19px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -743,7 +851,7 @@
                 margin: 0 !important;
                 text-align: center !important;
                 width: 100% !important;
-                padding: 0 190px 0 48px !important;
+                padding: 0 140px 0 48px !important;
                 white-space: nowrap !important;
                 overflow: hidden !important;
                 text-overflow: ellipsis !important;
@@ -773,28 +881,14 @@
                 padding: 4px 8px !important;
                 font-size: 11px !important;
             }
-
-            .core-switch {
-                top: 17px !important;
-                right: 118px !important;
-            }
-
-            .core-btn {
-                padding: 4px 8px !important;
-                font-size: 11px !important;
-                gap: 4px !important;
-            }
-
-            .core-label-prefix {
-                display: none !important;
-            }
             
             .github-link {
                 top: 17px !important;
                 right: 8px !important;
             }
 
-            .gs2-link {
+            .gs2-link,
+            .mame-link {
                 display: none !important;
             }
             
@@ -945,9 +1039,13 @@
             title="Apple IIgs 40th Anniversary - KansasFest">
             <img src="logo/iigs-40th.png" class="header-logo" alt="Apple IIgs 40th Anniversary Logo">
         </a>
-        <a href="https://github.com/anomixer/gssquared" target="_blank" class="gs2-link"
-            title="Powered by GSSquared" aria-label="Powered by GSSquared">
-            <img src="gs2/gssquared-mark.png" alt="Powered by GSSquared">
+        <a href="javascript:void(0)" class="mame-link" id="coreMameBtn"
+            title="MAME Kernel" aria-label="MAME Kernel">
+            <img src="logo/mame-logo.png" alt="MAME">
+        </a>
+        <a href="javascript:void(0)" class="gs2-link" id="coreGs2Btn"
+            title="GS² Kernel" aria-label="GS² Kernel">
+            <img src="gs2/gssquared-mark.png" alt="GS²">
         </a>
         <a href="https://github.com/anomixer/a2gsemu-ia" target="_blank" class="github-link" title="View on GitHub">
             <svg width="32" height="32" viewBox="0 0 16 16" fill="currentColor">
@@ -959,14 +1057,6 @@
         <div class="lang-switch">
             <button class="lang-btn" id="langToggle" title="">
                 <span id="langText">🇹🇼 中文</span>
-            </button>
-        </div>
-
-        <div class="core-switch">
-            <button class="core-btn" id="coreToggle" title="">
-                <span id="coreIcon">⚡</span>
-                <span class="core-label-prefix" id="corePrefix">核心: </span>
-                <span class="core-label-name" id="coreName">GS²</span>
             </button>
         </div>
         <h1><a href="#" id="homeTitleLink" style="color: #4CAF50; text-decoration: none;"><img src="favicon.ico" alt="Apple"
@@ -1006,6 +1096,17 @@
             <div class="emulator-container" id="emulatorContainer">
                 <div class="emulator-controls">
                     <div class="game-title-bar" id="gameTitleBar">載入中...</div>
+                    <div class="speed-dropdown-wrapper" id="speedDropdownWrapper" style="display: none;">
+                        <button class="btn btn-speed" id="speedBtn" title="切換 MAME 運行速度">
+                            2.8MHz ▼
+                        </button>
+                        <div class="speed-menu" id="speedMenu">
+                            <div class="speed-opt" data-speed="1MHz">1MHz (相容模式)</div>
+                            <div class="speed-opt" data-speed="2.8MHz">2.8MHz (原生標準)</div>
+                            <div class="speed-opt" data-speed="8MHz">8MHz (ZipGS)</div>
+                            <div class="speed-opt" data-speed="16MHz">16MHz (極速加速)</div>
+                        </div>
+                    </div>
                     <button class="btn btn-archive sound-btn" id="archiveBtn" title="">
                         🌐 開啟 IA 網站
                     </button>
@@ -1177,13 +1278,16 @@
                 }
             }
 
-            // 核心切換功能
-            function switchCore() {
-                const nextCore = currentCore === 'gs2' ? 'mame' : 'gs2';
-                localStorage.setItem('emulatorCore', nextCore);
+            // 核心切換功能（點擊右上角 MAME / GS² Logo）
+            function setCore(targetCore) {
+                if (targetCore === currentCore) return;
+                localStorage.setItem('emulatorCore', targetCore);
                 const url = new URL(window.location.href);
-                url.searchParams.set('core', nextCore);
+                url.searchParams.set('core', targetCore);
                 url.searchParams.set('lang', currentLanguage);
+                if (targetCore === 'gs2') {
+                    url.searchParams.delete('speed');
+                }
                 if (currentGame) {
                     url.searchParams.set('game', currentGame.id);
                 }
@@ -1207,12 +1311,12 @@
                     exitFullscreen: '⛶ 退出全螢幕',
                     reload: '🔄',
                     langSwitch: '切換語言',
-                    corePrefix: '核心: ',
-                    coreGs2: '核心: GS²',
-                    coreMame: '核心: MAME',
-                    coreGs2Hint: '目前使用 GS² 核心 (點擊切換為 MAME)',
-                    coreMameHint: '目前使用 MAME 核心 (點擊切換為 GS²)',
+                    coreGs2ActiveHint: '目前使用 GS² 核心 (高效能 14.3MHz / 原生 ProDOS)',
+                    coreGs2SwitchHint: '點擊切換為 GS² 核心',
+                    coreMameActiveHint: '目前使用 MAME 核心 (經典完整相容 / 支援存檔)',
+                    coreMameSwitchHint: '點擊切換為 MAME 核心',
                     loadingMame: '載入 MAME 核心中 (~66MB，請稍候)...',
+                    loadingCffa2: '載入 CFFA2 硬碟控制器韌體...',
                     sortAZ: '🔤 A→Z',
                     sortZA: '🔡 Z→A',
                     sortOldNew: '📅 舊→新',
@@ -1350,13 +1454,13 @@
                     slotToggleLabel: '切換 Slot 5/7'
                 },
                 en: {
-                    title: 'Apple IIgs Online Emulator v2.4 Dual-Core Edition ⚡',
+                    title: 'Apple IIgs Online Emulator v2.4 Dual-Kernel Edition ⚡',
                     subtitle: '{count} Selected Games & Software',
                     searchPlaceholder: '🔍 Search games...',
-                    welcomeTitle: 'Welcome to Apple IIgs Dual-Core Emulator',
+                    welcomeTitle: 'Welcome to Apple IIgs Dual-Kernel Emulator',
                     welcomeText: '👈 Please select a game or software from the left to start',
                     welcomeDesc: 'Apple IIgs is the fifth generation of Apple II series<br>Released in 1986 with 16-bit processor and color graphics capability',
-                    welcomeFeatures: '🎮 Apple IIgs Online Dual-Core Emulator<br>• Default <strong>GS²</strong> Core (Fast & Lightweight 14.3MHz, Native ProDOS)<br>• Switchable <strong>MAME</strong> Core (Classic Compatibility & Save States)<br>• 🔊 Sound works perfectly!',
+                    welcomeFeatures: '🎮 Apple IIgs Online Dual-Kernel Emulator<br>• Default <strong>GS²</strong> Kernel (Fast & Lightweight 14.3MHz, Native ProDOS)<br>• Switchable <strong>MAME</strong> Kernel (Classic Compatibility & Save States)<br>• 🔊 Sound works perfectly!',
                     openIA: '🌐 Open Source Site',
                     mute: '🔇 Mute',
                     unmute: '🔊 Sound',
@@ -1364,12 +1468,12 @@
                     exitFullscreen: '⛶ Exit Fullscreen',
                     reload: '🔄',
                     langSwitch: 'Switch Language',
-                    corePrefix: 'Core: ',
-                    coreGs2: 'Core: GS²',
-                    coreMame: 'Core: MAME',
-                    coreGs2Hint: 'Using GS² Core (Click to switch to MAME)',
-                    coreMameHint: 'Using MAME Core (Click to switch to GS²)',
-                    loadingMame: 'Downloading MAME core (~66MB, please wait)...',
+                    coreGs2ActiveHint: 'Currently using GS² Kernel (Fast 14.3MHz / Native ProDOS)',
+                    coreGs2SwitchHint: 'Click to switch to GS² Kernel',
+                    coreMameActiveHint: 'Currently using MAME Kernel (Classic compatibility / Save states)',
+                    coreMameSwitchHint: 'Click to switch to MAME Kernel',
+                    loadingMame: 'Downloading MAME kernel (~66MB, please wait)...',
+                    loadingCffa2: 'Loading CFFA2 hard disk controller ROM...',
                     sortAZ: '🔤 A→Z',
                     sortZA: '🔡 Z→A',
                     sortOldNew: '📅 Old→New',
@@ -1403,7 +1507,7 @@
                     typeSpecial: 'Special',
                     // Usage Tips (GS²)
                     tipsList: [
-                        '⏱️ First load downloads the emulator core — please be patient',
+                        '⏱️ First load downloads the emulator kernel — please be patient',
                         '🔊 Sound works perfectly! Using backend proxy to solve CORS',
                         '⛶ Recommend using fullscreen mode for best experience',
                         '🖱️ Press F1 then click the screen to capture the mouse',
@@ -1413,7 +1517,7 @@
                     ],
                     // Usage Tips (MAME)
                     mameTipsList: [
-                        '⏱️ First load downloads the MAME core (~66MB) — please be patient',
+                        '⏱️ First load downloads the MAME kernel (~66MB) — please be patient',
                         '🔊 Sound works perfectly! Using backend proxy to solve CORS',
                         '⛶ Recommend using fullscreen mode for best experience',
                         '🖱️ Click canvas to capture mouse, press Esc to release',
@@ -1592,27 +1696,8 @@
                     langToggle.title = t('langSwitch');
                 }
 
-                // 更新核心切換按鈕
-                const coreToggle = document.getElementById('coreToggle');
-                const coreIcon = document.getElementById('coreIcon');
-                const corePrefix = document.getElementById('corePrefix');
-                const coreName = document.getElementById('coreName');
-                if (coreToggle && coreIcon && coreName) {
-                    if (currentCore === 'mame') {
-                        coreToggle.classList.add('core-mame');
-                        coreIcon.textContent = '🕹️';
-                        if (corePrefix) corePrefix.textContent = t('corePrefix');
-                        coreName.textContent = 'MAME';
-                        coreToggle.title = t('coreMameHint');
-                    } else {
-                        coreToggle.classList.remove('core-mame');
-                        coreIcon.textContent = '⚡';
-                        if (corePrefix) corePrefix.textContent = t('corePrefix');
-                        coreName.textContent = 'GS²';
-                        coreToggle.title = t('coreGs2Hint');
-                    }
-                    coreToggle.onclick = switchCore;
-                }
+                // 更新核心 Logo 切換按鈕狀態（選中彩色，未選中灰色）
+                updateCoreUI();
 
                 // 同步更新排序按鈕文字
                 const sortToggleBtn = document.getElementById('sortToggleBtn');
@@ -1783,6 +1868,153 @@
                 return badges[type] || type;
             }
 
+            // 更新核心 Logo 切換按鈕樣式（選中彩色，未選中灰色）
+            function updateCoreUI() {
+                const gs2Btn = document.getElementById('coreGs2Btn');
+                const mameBtn = document.getElementById('coreMameBtn');
+                if (currentCore === 'mame') {
+                    if (mameBtn) {
+                        mameBtn.classList.remove('inactive');
+                        mameBtn.classList.add('active');
+                        mameBtn.title = t('coreMameActiveHint') || '目前使用 MAME 核心';
+                    }
+                    if (gs2Btn) {
+                        gs2Btn.classList.remove('active');
+                        gs2Btn.classList.add('inactive');
+                        gs2Btn.title = t('coreGs2SwitchHint') || '點擊切換為 GS² 核心';
+                    }
+                } else {
+                    if (gs2Btn) {
+                        gs2Btn.classList.remove('inactive');
+                        gs2Btn.classList.add('active');
+                        gs2Btn.title = t('coreGs2ActiveHint') || '目前使用 GS² 核心';
+                    }
+                    if (mameBtn) {
+                        mameBtn.classList.remove('active');
+                        mameBtn.classList.add('inactive');
+                        mameBtn.title = t('coreMameSwitchHint') || '點擊切換為 MAME 核心';
+                    }
+                }
+                updateSpeedDropdown(currentGame);
+            }
+
+            // 判斷是否為高速/高效能需求遊戲（預設 16MHz）
+            function isFastGame(game) {
+                if (!game) return false;
+                if (game.speed === '14.3mhz' || game.speed === '16mhz') return true;
+                const name = (game.name || '').toLowerCase();
+                const id = (game.id || '').toLowerCase();
+                if (name.includes('space ace') || name.includes("dragon's lair") || name.includes('doom') || name.includes('silky') || name.includes('alter ego') || name.includes('wolfenstein') || name.includes('galaga')) return true;
+                if (id.includes('doom') || id.includes('alter-ego') || id.includes('spaceace') || id.includes('dragons-lair') || id.includes('silky') || id.includes('wolfenstein') || id.includes('galaga')) return true;
+                return false;
+            }
+
+            // 取得目前遊戲的 MAME 運行速度（優先順序：URL 參數（僅限當前遊戲）-> 該遊戲在 localStorage 的專屬設定 -> 快速遊戲 16MHz / 一般遊戲 2.8MHz）
+            function getGameMameSpeed(game) {
+                const validSpeeds = ['1MHz', '2.8MHz', '8MHz', '16MHz'];
+                const targetGame = game || currentGame;
+                const urlParams = new URLSearchParams(window.location.search);
+                const urlGame = urlParams.get('game');
+                const urlSpeed = urlParams.get('speed');
+
+                // 只有在 URL 指定 speed 且當前遊戲與 URL 吻合時才採用 URL 參數
+                if (urlSpeed && validSpeeds.includes(urlSpeed) && (!urlGame || !targetGame || urlGame === targetGame.id)) {
+                    return urlSpeed;
+                }
+                // 檢查該遊戲是否有在 localStorage 專屬自定的速度設定
+                if (targetGame && targetGame.id) {
+                    const saved = localStorage.getItem('mame.speed.' + targetGame.id);
+                    if (saved && validSpeeds.includes(saved)) {
+                        return saved;
+                    }
+                }
+                // 預設規則：快速遊戲類自定 16MHz，其餘一般普通遊戲自定 2.8MHz
+                return isFastGame(targetGame) ? '16MHz' : '2.8MHz';
+            }
+
+            // MAME :a2_config ZipGS 速度暫存器對照值
+            function getMameSpeedConfigValue(speed) {
+                switch (speed) {
+                    case '16MHz': return '7'; // ZipGS 16.0 MHz (極速 Turbo)
+                    case '8MHz':  return '3'; // ZipGS 8.0 MHz
+                    case '1MHz':
+                    case '2.8MHz':
+                    default:
+                        return '0'; // 0 = Standard (2.8MHz 原生 / 1MHz 相容)
+                }
+            }
+
+            const mameSpeedLabels = {
+                zh: {
+                    '1MHz': '1MHz (相容模式)',
+                    '2.8MHz': '2.8MHz (原生標準)',
+                    '8MHz': '8MHz (ZipGS)',
+                    '16MHz': '16MHz (極速加速)'
+                },
+                en: {
+                    '1MHz': '1MHz (Compatibility)',
+                    '2.8MHz': '2.8MHz (Standard)',
+                    '8MHz': '8MHz (ZipGS)',
+                    '16MHz': '16MHz (Turbo Max)'
+                }
+            };
+
+            // 更新速度選單按鈕與下拉選單狀態
+            function updateSpeedDropdown(game) {
+                const speedWrapper = document.getElementById('speedDropdownWrapper');
+                const speedBtn = document.getElementById('speedBtn');
+                if (!speedWrapper || !speedBtn) return;
+
+                if (currentCore === 'mame') {
+                    speedWrapper.style.display = 'inline-flex';
+                } else {
+                    speedWrapper.style.display = 'none';
+                    return;
+                }
+
+                const currentSpeed = getGameMameSpeed(game || currentGame);
+                speedBtn.innerHTML = `${currentSpeed} ▼`;
+                speedBtn.title = (currentLanguage === 'zh' ? '切換 MAME 運行速度 (目前: ' : 'Switch MAME Speed (Current: ') + currentSpeed + ')';
+
+                const langMap = mameSpeedLabels[currentLanguage] || mameSpeedLabels.zh;
+                document.querySelectorAll('.speed-opt').forEach(opt => {
+                    const optSpeed = opt.getAttribute('data-speed');
+                    if (langMap[optSpeed]) {
+                        opt.textContent = langMap[optSpeed];
+                    }
+                    if (optSpeed === currentSpeed) {
+                        opt.classList.add('selected');
+                    } else {
+                        opt.classList.remove('selected');
+                    }
+                });
+            }
+
+            // 選擇並即時切換 MAME 速度
+            function selectMameSpeed(speed) {
+                const targetGame = currentGame || pendingStartGame;
+                if (targetGame && targetGame.id) {
+                    localStorage.setItem('mame.speed.' + targetGame.id, speed);
+                }
+
+                const speedMenu = document.getElementById('speedMenu');
+                if (speedMenu) speedMenu.classList.remove('show');
+
+                updateSpeedDropdown(targetGame);
+
+                // 即時重新載入並以新速度運行 MAME
+                if (currentCore === 'mame') {
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('speed', speed);
+                    url.searchParams.set('core', 'mame');
+                    if (targetGame && targetGame.id) {
+                        url.searchParams.set('game', targetGame.id);
+                    }
+                    url.searchParams.set('lang', currentLanguage);
+                    window.location.href = url.toString();
+                }
+            }
+
             // 初始化
             document.addEventListener('DOMContentLoaded', () => {
                 // 立即設置正確的語言按鈕狀態（在 updateUI 之前）
@@ -1798,11 +2030,46 @@
                     langToggle.title = t('langSwitch');
                 }
 
-                // 綁定核心切換事件
-                const coreToggle = document.getElementById('coreToggle');
-                if (coreToggle) {
-                    coreToggle.addEventListener('click', switchCore);
+                // 綁定核心切換事件（點擊右上角 MAME / GS² Logo）
+                const gs2Btn = document.getElementById('coreGs2Btn');
+                if (gs2Btn) {
+                    gs2Btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        setCore('gs2');
+                    });
                 }
+                const mameBtn = document.getElementById('coreMameBtn');
+                if (mameBtn) {
+                    mameBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        setCore('mame');
+                    });
+                }
+
+                // 綁定 MAME 速度切換下拉選單事件
+                const speedBtn = document.getElementById('speedBtn');
+                const speedMenu = document.getElementById('speedMenu');
+                const speedDropdownWrapper = document.getElementById('speedDropdownWrapper');
+                if (speedBtn && speedMenu) {
+                    speedBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        speedMenu.classList.toggle('show');
+                    });
+                    document.querySelectorAll('.speed-opt').forEach(opt => {
+                        opt.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const chosenSpeed = opt.getAttribute('data-speed');
+                            selectMameSpeed(chosenSpeed);
+                        });
+                    });
+                    document.addEventListener('click', (e) => {
+                        if (speedDropdownWrapper && !speedDropdownWrapper.contains(e.target)) {
+                            speedMenu.classList.remove('show');
+                        }
+                    });
+                }
+
+                updateCoreUI();
 
                 // 初始化 UI
                 updateUI();
@@ -2032,6 +2299,7 @@
                     const url = new URL(window.location.href);
                     url.pathname = '/';
                     url.searchParams.delete('game');
+                    url.searchParams.delete('speed');
                     url.searchParams.set('lang', currentLanguage);
                     if (currentCore) url.searchParams.set('core', currentCore);
                     window.location.href = url.toString();
@@ -2113,6 +2381,12 @@
                     url.searchParams.set('game', pendingStartGame.id);
                     url.searchParams.set('lang', currentLanguage);
                     if (currentCore) url.searchParams.set('core', currentCore);
+                    const savedSpeed = localStorage.getItem('mame.speed.' + pendingStartGame.id);
+                    if (savedSpeed) {
+                        url.searchParams.set('speed', savedSpeed);
+                    } else {
+                        url.searchParams.delete('speed');
+                    }
                     window.location.href = url.toString(); // 同頁重載，確保乾淨環境
                 });
             }
@@ -2127,7 +2401,15 @@
                 if (!canvas) return;
 
                 canvas.addEventListener('click', function () {
-                    if (window.gssquaredPointerLockPending && document.pointerLockElement !== canvas) {
+                    canvas.focus();
+                    if (currentCore === 'mame') {
+                        if (document.pointerLockElement !== canvas) {
+                            try {
+                                const req = canvas.requestPointerLock();
+                                if (req && req.catch) req.catch(function () { });
+                            } catch (e) { }
+                        }
+                    } else if (window.gssquaredPointerLockPending && document.pointerLockElement !== canvas) {
                         window.gssquaredPointerLockPending = false;
                         try {
                             const req = canvas.requestPointerLock();
@@ -2149,7 +2431,7 @@
             }
 
             function isBlockImagePath(path) {
-                return typeof path === 'string' && /\.(?:po|2mg)(?:[?#]|$)/i.test(path);
+                return typeof path === 'string' && /\.(?:po|2mg|hdv)(?:[?#]|$)/i.test(path);
             }
 
             function gameCanUseSlot7(game) {
@@ -2192,14 +2474,13 @@
                 const originalTitle = `${currentGame.name} (${currentGame.nameCh})`;
                 const hasHardDisk = Boolean(currentGame.hard1 || currentGame.hard2);
                 const slotLocked = Boolean(currentGame.poLarge);
-                const showSlotIcon = currentCore === 'gs2' && gameCanUseSlot7(currentGame);
+                const showSlotIcon = gameCanUseSlot7(currentGame);
                 const slot7 = gameUsesSlot7(currentGame);
                 const icon = showSlotIcon ?
                     `<button class="slot7-toggle ${slot7 ? '' : 'slot5'} ${(hasHardDisk || slotLocked) ? 'locked' : ''}" ` +
                     `title="${(hasHardDisk || slotLocked) ? t('slot7FixedHint') : (slot7 ? t('slot7To5Hint') : t('slot5To7Hint'))}" ` +
                     `aria-label="${(hasHardDisk || slotLocked) ? t('slot7FixedHint') : t('slotToggleLabel')}" ${(hasHardDisk || slotLocked) ? 'disabled' : ''}>💽</button>` : '';
-                const coreBadge = `<span class="badge" style="margin-left: 8px; font-size: 11px; padding: 2px 7px; border-radius: 4px; font-weight: bold; vertical-align: middle; ${currentCore === 'mame' ? 'background: #FF9800; color: #000;' : 'background: #4CAF50; color: #000;'}">${currentCore === 'mame' ? 'MAME' : 'GS²'}</span>`;
-                gameTitleBar.innerHTML = `<span class="game-title-text">${originalTitle}</span>${coreBadge}${icon}`;
+                gameTitleBar.innerHTML = `<span class="game-title-text">${originalTitle}</span>${icon}`;
                 const toggle = gameTitleBar.querySelector('.slot7-toggle:not([disabled])');
                 if (toggle) toggle.addEventListener('click', (event) => {
                     event.preventDefault();
@@ -2253,6 +2534,11 @@
                 // 本站相對路徑（例如 /roms/GSOS601.po 或 /proxy/...）
                 if (filename && filename.startsWith('/')) {
                     return `${SERVER_URL}${filename}?t=${timestamp}`;
+                }
+
+                // GitHub prerelease download fallback (GitHub /releases/latest/ returns 404 for prereleases)
+                if (filename && filename.includes('dmalec/Wordle.GS/releases/latest/download/WordleGS.2mg')) {
+                    filename = filename.replace('/releases/latest/download/WordleGS.2mg', '/releases/download/v0.4/WordleGS.2mg');
                 }
 
                 // 完整 URL (支援任何 HTTP/HTTPS URL)
@@ -2313,6 +2599,54 @@
                 hideScreenshot();
             }
 
+            // 通用磁碟下載與重試（支援指數退避）
+            const downloadWithRetry = async (url, name, maxRetries = 4) => {
+                let lastErr;
+                for (let attempt = 1; attempt <= maxRetries; attempt++) {
+                    try {
+                        console.log(`📥 下載: ${name} (嘗試 ${attempt}/${maxRetries})`);
+                        showLoadStatus(`📥 下載中: ${name}...`);
+                        const freshUrl = url.replace(/([?&])t=\d+/, `$1t=${Date.now()}`);
+                        const res = await fetch(freshUrl);
+                        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                        const bytes = new Uint8Array(await res.arrayBuffer());
+                        console.log(`   ✅ ${(bytes.length / 1048576).toFixed(2)} MB`);
+                        return bytes;
+                    } catch (e) {
+                        lastErr = e;
+                        console.warn(`   ⚠️ 下載失敗 (嘗試 ${attempt}/${maxRetries}): ${e.message}`);
+                        if (attempt < maxRetries) await new Promise(r => setTimeout(r, 1500 * attempt));
+                    }
+                }
+                throw new Error(`下載失敗: ${name} (${lastErr && lastErr.message})`);
+            };
+
+            // 通用 ZIP 內映像檔解壓縮
+            const extractZipEntry = async (bytes, entryName, displayName) => {
+                if (!window.JSZip) throw new Error('ZIP 解壓縮元件未載入');
+                showLoadStatus(`📦 解壓縮: ${displayName}...`);
+                const archive = await window.JSZip.loadAsync(bytes);
+                let entry = archive.file(entryName) ||
+                    archive.file(baseName(entryName)) ||
+                    archive.file(decodeURIComponent(entryName)) ||
+                    archive.file(decodeURIComponent(baseName(entryName))) ||
+                    archive.file(entryName.replace(/\//g, '\\')) ||
+                    archive.file(entryName.replace(/\\/g, '/'));
+                if (!entry) {
+                    const targetName = baseName(entryName).toLowerCase();
+                    for (const filename of Object.keys(archive.files)) {
+                        if (baseName(filename).toLowerCase() === targetName && !archive.files[filename].dir) {
+                            entry = archive.files[filename];
+                            break;
+                        }
+                    }
+                }
+                if (!entry) throw new Error(`ZIP 內找不到磁碟映像: ${entryName}`);
+                const extracted = await entry.async('uint8array');
+                console.log(`   ✅ 解壓縮 ${displayName}: ${(extracted.length / 1048576).toFixed(2)} MB`);
+                return extracted;
+            };
+
             async function startEmulator(game, canvas) {
                 if (!game) return;
                 if (currentCore === 'mame') {
@@ -2325,9 +2659,16 @@
             let mameReady = false;
             async function waitForEmularity() {
                 let retries = 0;
-                while (!window.Emulator || !window.JSMAMELoader) {
+                while (!window.Emulator || !window.JSMAMELoader || !window.BrowserFS) {
                     if (++retries > 100) throw new Error('Emularity (MAME) 載入超時');
                     await new Promise(r => setTimeout(r, 50));
+                }
+                try {
+                    if (window.BrowserFS && window.BrowserFS.FileSystem && window.BrowserFS.FileSystem.IndexedDB) {
+                        window.BrowserFS.FileSystem.IndexedDB.isAvailable = () => false;
+                    }
+                } catch (e) {
+                    console.warn('停用 BrowserFS IndexedDB 失敗:', e);
                 }
                 mameReady = true;
             }
@@ -2369,59 +2710,168 @@
                         hard2: game.hard2
                     });
 
-                    const timestamp = Date.now();
-                    const mameJsUrl = `${SERVER_URL}/proxy/mame/mameapple2gs.js.gz?t=${timestamp}`;
-                    const mameWasmUrl = `${SERVER_URL}/proxy/mame/mameapple2gs.wasm.gz?t=${timestamp}`;
-                    const biosUrl = `${SERVER_URL}/proxy/bios/apple2gs.zip?t=${timestamp}`;
+                    // 1. 組裝磁碟清單（同 GS² 解析方式：支援 .zip 內嵌映像自動抽取）
+                    const disks = [];
+                    const pushDisk = (path, label) => {
+                        if (!path) return;
+                        const archiveMatch = typeof path === 'string' && /^(.*\.zip)\/(.+)$/i.exec(path);
+                        const sourcePath = archiveMatch ? archiveMatch[1] : path;
+                        disks.push({
+                            label,
+                            name: archiveMatch ? decodeURIComponent(baseName(archiveMatch[2])) : decodeURIComponent(baseName(path)),
+                            url: buildFileUrl(game.id, sourcePath),
+                            archiveEntry: archiveMatch ? decodeURIComponent(archiveMatch[2]) : null
+                        });
+                    };
 
                     const primaryPath = game.file || game.hard1;
                     const secondaryPath = game.file2 || game.hard2;
+                    pushDisk(primaryPath, 'Game Disk');
+                    pushDisk(secondaryPath, 'Game Disk 2');
 
-                    const f1Name = baseName(primaryPath);
-                    const f2Name = secondaryPath ? baseName(secondaryPath) : null;
+                    if (!disks.length) throw new Error('找不到可掛載的遊戲磁碟檔');
 
-                    const gameUrl = buildFileUrl(game.id, primaryPath);
-
-                    const extraArgs = secondaryPath && f2Name
-                        ? ['-flop3', '/emulator/' + f1Name, '-flop4', '/emulator/' + f2Name]
-                        : ['-flop3', '/emulator/' + f1Name];
-
-                    // 檢查是否需要 ZipGS 16MHz 高速模式 (支援 14.3MHz / 16MHz 設定的遊戲)
-                    const isTurbo = game.speed === '14.3mhz' || game.speed === '16mhz' ||
-                        (game.id && (game.id.includes('doom') || game.id.includes('alter-ego') || game.id.includes('spaceace')));
-
-                    if (isTurbo) {
-                        extraArgs.push('-cfg_directory', 'cfg');
+                    // 2. 預先下載並解壓所有磁碟
+                    for (const d of disks) {
+                        d.bytes = await downloadWithRetry(d.url, d.name);
+                        if (d.archiveEntry) {
+                            d.bytes = await extractZipEntry(d.bytes, d.archiveEntry, d.name);
+                        }
                     }
+
+                    // 3. 下載 BIOS 與 MAME WASM 核心（記憶體快取，初次載入後免重複下載）
+                    const biosUrl = `${SERVER_URL}/proxy/bios/apple2gs.zip`;
+                    if (!window._cachedMameBios) {
+                        window._cachedMameBios = await downloadWithRetry(biosUrl, 'apple2gs.zip');
+                    }
+                    const biosBytes = window._cachedMameBios;
+
+                    const mameWasmUrl = `${SERVER_URL}/proxy/mame/mameapple2gs.wasm.gz`;
+                    if (!window._cachedMameWasm) {
+                        showLoadStatus(t('loadingMame') || '載入 MAME 核心中 (~66MB，首次請稍候)...');
+                        window._cachedMameWasm = await downloadWithRetry(mameWasmUrl, 'MAME WASM');
+                    }
+                    const wasmBytes = window._cachedMameWasm;
+
+                    const mameJsUrl = `${SERVER_URL}/proxy/mame/mameapple2gs.js.gz`;
+
+                    const f1Name = disks[0].name;
+                    const f2Name = disks[1] ? disks[1].name : null;
+
+                    // 判斷磁碟是否為硬碟/區塊映像檔 (.2mg, .po, .hdv 等) 或配置於 Slot 7
+                    const isBlockImage = (filename) => {
+                        if (!filename || typeof filename !== 'string') return false;
+                        return /\.(?:po|2mg|hdv|chd)(?:[?#]|$)/i.test(filename);
+                    };
+
+                    // 若有明確的 diskSlots 設定，以 diskSlots 為準；否則由 isBlockImage 判斷
+                    let d1IsHard = false;
+                    let d2IsHard = false;
+                    if (game.hard1) {
+                        d1IsHard = true;
+                    } else if (game.diskSlots && game.diskSlots[0]) {
+                        d1IsHard = game.diskSlots[0].startsWith('s7');
+                    } else {
+                        d1IsHard = isBlockImage(f1Name);
+                    }
+
+                    if (game.hard2) {
+                        d2IsHard = true;
+                    } else if (game.diskSlots && game.diskSlots[1]) {
+                        d2IsHard = game.diskSlots[1].startsWith('s7');
+                    } else if (f2Name) {
+                        d2IsHard = isBlockImage(f2Name);
+                    }
+
+                    const useCffa2 = d1IsHard || d2IsHard;
+
+                    // 擴充 Apple IIgs RAM 至 8MB 並啟用遊戲搖桿埠 (相容所有遊戲，DOOM IIgs 與 GS/OS 等重量級軟體必需)
+                    const extraArgs = ['-ramsize', '8M', '-gameio', 'joy'];
+                    if (useCffa2) {
+                        // 啟用 CFFA2 硬碟控制器 (插於 Slot 7)，獲得極速開機與檔案存取
+                        extraArgs.push('-sl7', 'cffa2');
+                        if (d1IsHard) {
+                            extraArgs.push('-hard1', '/emulator/' + f1Name);
+                            if (f2Name) {
+                                if (d2IsHard) {
+                                    extraArgs.push('-hard2', '/emulator/' + f2Name);
+                                } else {
+                                    extraArgs.push('-flop3', '/emulator/' + f2Name);
+                                }
+                            }
+                        } else {
+                            // Disk 1 是軟碟 (S5D1), Disk 2 是硬碟 (Slot 7)
+                            extraArgs.push('-flop3', '/emulator/' + f1Name);
+                            if (f2Name) {
+                                extraArgs.push('-hard1', '/emulator/' + f2Name);
+                            }
+                        }
+                    } else {
+                        // 純軟碟模式 (WOZ, 5.25" 等)
+                        extraArgs.push('-flop3', '/emulator/' + f1Name);
+                        if (f2Name) {
+                            extraArgs.push('-flop4', '/emulator/' + f2Name);
+                        }
+                    }
+
+                    // 取得或設定目前 MAME 運行速度
+                    const currentSpeed = getGameMameSpeed(game);
+                    const speedVal = getMameSpeedConfigValue(currentSpeed);
+                    console.log(`⚡ MAME 運行速度: ${currentSpeed} (ZipGS config value: ${speedVal})`);
+
+                    extraArgs.push('-cfg_directory', '/emulator');
 
                     const loaderArgs = [
                         window.JSMAMELoader.driver('apple2gs'),
                         window.JSMAMELoader.nativeResolution(704, 462),
                         window.JSMAMELoader.emulatorJS(mameJsUrl),
-                        window.JSMAMELoader.emulatorWASM(mameWasmUrl),
+                        { wasmBinary: wasmBytes },
                         window.JSMAMELoader.extraArgs(extraArgs),
-                        window.JSMAMELoader.mountFile(f1Name, window.JSMAMELoader.fetchFile('Game Disk', gameUrl)),
-                        window.JSMAMELoader.mountFile('apple2gs.zip', window.JSMAMELoader.fetchFile('BIOS', biosUrl))
+                        window.JSMAMELoader.mountFile(f1Name, { title: 'Game Disk', data: disks[0].bytes }),
+                        window.JSMAMELoader.mountFile('apple2gs.zip', { title: 'BIOS', data: biosBytes })
                     ];
 
-                    if (secondaryPath && f2Name) {
-                        const game2Url = buildFileUrl(game.id, secondaryPath);
+                    if (disks[1]) {
                         loaderArgs.push(
-                            window.JSMAMELoader.mountFile(f2Name, window.JSMAMELoader.fetchFile('Game Disk 2', game2Url))
+                            window.JSMAMELoader.mountFile(f2Name, { title: 'Game Disk 2', data: disks[1].bytes })
                         );
                     }
 
-                    if (isTurbo) {
-                        const cfgXml = `<?xml version="1.0"?>\n<mameconfig version="10">\n    <system name="apple2gs">\n        <input>\n            <port tag=":a2_config" type="CONFIG" mask="7" defvalue="0" value="7" />\n        </input>\n    </system>\n</mameconfig>\n`;
-                        const cfgBlob = new Blob([cfgXml], { type: 'text/xml' });
-                        const cfgUrl = URL.createObjectURL(cfgBlob);
+                    // 如果啟用了 CFFA2 硬碟控制器，載入並掛載 CFFA2 韌體 ROM
+                    if (useCffa2) {
+                        if (!window._cachedCffa2Bios) {
+                            showLoadStatus(t('loadingCffa2') || '載入 CFFA2 硬碟控制器韌體...');
+                            window._cachedCffa2Bios = await downloadWithRetry(`${SERVER_URL}/roms/cffa2.zip`, 'cffa2.zip');
+                        }
+                        const cffaBytes = window._cachedCffa2Bios;
+
+                        if (!window._cachedCffa2Rom) {
+                            window._cachedCffa2Rom = await downloadWithRetry(`${SERVER_URL}/roms/cffa20eec02.bin`, 'cffa20eec02.bin');
+                        }
+                        const cffaRomBytes = window._cachedCffa2Rom;
+
                         loaderArgs.push(
-                            window.JSMAMELoader.mountFile('cfg/apple2gs.cfg', window.JSMAMELoader.fetchFile('Config', cfgUrl))
+                            window.JSMAMELoader.mountFile('cffa2.zip', { title: 'CFFA2 BIOS', data: cffaBytes }),
+                            window.JSMAMELoader.mountFile('a2cffa2.zip', { title: 'CFFA2 BIOS 2', data: cffaBytes }),
+                            window.JSMAMELoader.mountFile('cffa20eec02.bin', { title: 'CFFA2 ROM', data: cffaRomBytes }),
+                            window.JSMAMELoader.mountFile('cffa2/cffa20eec02.bin', { title: 'CFFA2 ROM Subdir', data: cffaRomBytes }),
+                            window.JSMAMELoader.mountFile('a2cffa2/cffa20eec02.bin', { title: 'CFFA2 ROM Subdir 2', data: cffaRomBytes })
                         );
+                        console.log('⚡ MAME: 已啟用 Slot 7 CFFA2 硬碟控制器');
                     }
 
-                    console.log('🚀 MAME 初始化完成，即將啟動...');
-                    currentEmulator = new window.Emulator(newCanvas, null, loaderArgs);
+                    const cfgXml = `<?xml version="1.0"?>\n<mameconfig version="10">\n    <system name="apple2gs">\n        <input>\n            <port tag=":a2_config" type="CONFIG" mask="7" defvalue="0" value="${speedVal}" />\n        </input>\n    </system>\n</mameconfig>\n`;
+                    loaderArgs.push(
+                        window.JSMAMELoader.mountFile('cfg/apple2gs.cfg', { title: 'ZipGS Config 1', data: new TextEncoder().encode(cfgXml) }),
+                        window.JSMAMELoader.mountFile('apple2gs.cfg', { title: 'ZipGS Config 2', data: new TextEncoder().encode(cfgXml) })
+                    );
+
+                    console.log('🚀 MAME 初始化完成，參數:', extraArgs.join(' '));
+                    currentEmulator = new window.Emulator(
+                        newCanvas,
+                        null,
+                        new window.JSMAMELoader(...loaderArgs)
+                    );
                     currentEmulator.setScale({ width: 704, height: 462 });
                     currentEmulator.start({
                         waitAfterDownloading: false
@@ -2495,35 +2945,6 @@
                     if (!disks.length) throw new Error('找不到可掛載的遊戲磁碟檔');
 
                     // 2. 先下載完所有磁碟再載入核心（避免 async preRun 時序問題）
-                    //    proxy 偶發 500 / 慢，失敗自動重試（指數退避）
-                    const downloadWithRetry = async (url, name, maxRetries = 4) => {
-                        let lastErr;
-                        for (let attempt = 1; attempt <= maxRetries; attempt++) {
-                            try {
-                                console.log(`📥 下載磁碟: ${name} (嘗試 ${attempt}/${maxRetries})`);
-                                const freshUrl = url.replace(/([?&])t=\d+/, `$1t=${Date.now()}`);
-                                const res = await fetch(freshUrl);
-                                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                                const bytes = new Uint8Array(await res.arrayBuffer());
-                                console.log(`   ✅ ${(bytes.length / 1048576).toFixed(2)} MB`);
-                                return bytes;
-                            } catch (e) {
-                                lastErr = e;
-                                console.warn(`   ⚠️ 下載失敗 (嘗試 ${attempt}/${maxRetries}): ${e.message}`);
-                                if (attempt < maxRetries) await new Promise(r => setTimeout(r, 2000 * attempt));
-                            }
-                        }
-                        throw new Error(`磁碟下載失敗: ${name} (${lastErr && lastErr.message})`);
-                    };
-                    const extractZipEntry = async (bytes, entryName, displayName) => {
-                        if (!window.JSZip) throw new Error('ZIP 解壓縮元件未載入');
-                        const archive = await window.JSZip.loadAsync(bytes);
-                        const entry = archive.file(entryName) || archive.file(baseName(entryName));
-                        if (!entry) throw new Error(`ZIP 內找不到磁碟映像: ${entryName}`);
-                        const extracted = await entry.async('uint8array');
-                        console.log(`   ✅ 解壓縮 ${displayName}: ${(extracted.length / 1048576).toFixed(2)} MB`);
-                        return extracted;
-                    };
                     for (const d of disks) {
                         d.bytes = await downloadWithRetry(d.url, d.name);
                         if (d.archiveEntry) d.bytes = await extractZipEntry(d.bytes, d.archiveEntry, d.name);
@@ -2602,7 +3023,7 @@
                                     console.log('Inserted Second Sight card for Cogito Return');
                                 }
                                 const targetSpeed = game.speed || (
-                                    (game.name && (game.name.includes("Space Ace") || game.name.includes("Dragon's Lair") || game.name.includes("DOOM")))
+                                    (game.name && (game.name.includes("Space Ace") || game.name.includes("Dragon's Lair") || game.name.includes("DOOM") || game.name.includes("Wolfenstein") || game.name.includes("Galaga")))
                                         ? "14.3mhz"
                                         : null
                                 );
@@ -2681,6 +3102,12 @@
                     url.searchParams.set('game', game.id);
                     url.searchParams.set('lang', currentLanguage);
                     if (currentCore) url.searchParams.set('core', currentCore);
+                    const savedSpeed = localStorage.getItem('mame.speed.' + game.id);
+                    if (savedSpeed) {
+                        url.searchParams.set('speed', savedSpeed);
+                    } else {
+                        url.searchParams.delete('speed');
+                    }
                     window.location.href = url.toString();
                     return;
                 }
@@ -2730,6 +3157,7 @@
 
                 // 使用 updateGameInfo 來更新遊戲資訊，確保語言一致性
                 updateGameInfo(game);
+                updateSpeedDropdown(game);
 
                 // 設置開啟IA網站按鈕
                 archiveBtn.onclick = () => {

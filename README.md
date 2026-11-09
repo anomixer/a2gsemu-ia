@@ -1,4 +1,4 @@
-# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs 線上模擬器 v2.4 雙核心版 ⚡
+# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs 線上模擬器 v2.4 雙核心版 (Dual-Kernel) ⚡
 
 🎮 **在瀏覽器中體驗經典的 Apple IIgs 遊戲與軟體！**
 
@@ -16,8 +16,8 @@
 
 ## ✨ 特色功能
 
-- ⚡ **雙核心切換架構 (GS² + MAME)** - 預設採用輕巧極速的 **GS² (GSSquared)** 核心；右上角提供一鍵切換按鈕，可自由切換為經典完整相容的 **MAME** 核心（支援 TAB 選單、F7 存檔讀檔與 ZipGS 16MHz 加速）。核心設定自動以 localStorage 與 URL 參數持久化！
-- 🎯 **169款精選遊戲** - 包含經典 RPG、動作、益智，以及作者親自移植的全新《Freegemas (2026)》與《Alter Ego (2026)》等作品
+- ⚡ **雙核心切換架構 Dual-Kernel (GS² + MAME)** - 預設採用輕巧極速的 **GS² (GSSquared)** 核心；右上角提供一鍵切換的 MAME / GS² 品牌圖標（選中為彩色發光，未選中為灰色），可自由切換為經典完整相容的 **MAME** 核心（支援 TAB 選單、F7 存檔讀檔與 ZipGS 16MHz 加速）。核心設定自動以 localStorage 與 URL 參數持久化！
+- 🎯 **181款精選遊戲** - 包含經典 RPG、動作、益智，以及近年最新移植與自製作品《大蜜蜂 GS (2026)》、《德軍總部 3D (2026)》、《精靈小姐》、《暗夜狂飆 GS (2022)》、《WORDLE GS (2022)》、《小精靈》等
 - 🔊 **完整音效支援** - 透過代理後端（Cloudflare Pages / 本地 server.js）完整輸出聲音
 - 📱 **響應式設計 & 雙側滑動抽屜** - 支援桌面和行動裝置；全新設計的左右側邊欄抽屜佈局，支援滑鼠拖曳調整寬度、桌面小螢幕（寬度 < 1200px）自動收合優化
 - 🔍 **畫面比例切換** - 右上方控制列新增「切到原生模式1x / 切到縮放適應」一鍵切換，支援設定記憶持久化與完美的 RWD 比例縮放
@@ -27,7 +27,7 @@
 - 📦 **多格式支援** - 支援 .woz、.2mg、.po、.dsk 等磁片格式
 - 🌐 **多重資料源** - 支援 Archive.org、自訂 URL、ZIP 檔案
 - ⚡ **快速載入** - 24小時檔案快取，提升載入速度
-- 📄 **多種運行版本** - 雙核心加速版、MAME 完整版與零後端簡易版
+- 📄 **多種運行版本** - 雙核心 (Dual-Kernel) 加速版、MAME 完整版與零後端簡易版
 
 ---
 
@@ -35,19 +35,20 @@
 
 ### 核心選擇與運行版本
 
-本專案現已全面整合 **雙核心架構**，讓使用者兼得極致速度與經典功能：
+本專案現已全面整合 **雙核心 (Dual-Kernel) 架構**，讓使用者兼得極致速度與經典功能：
 
 #### ⚡ 雙核心版 (`main` 分支 / GS² 預設 + MAME 可切換 / 極推薦)
 - 🚀 **預設 GS² 核心**：
   - 核心檔案僅 ~5MB wasm + ~3MB data，啟動快如閃電，資源佔用極低。
-  - **14.3MHz 自動超頻加速**：針對 DOOM IIgs、SilkyGS、Alter Ego、Space Ace 系列、Dragon's Lair 系列等高需求作品，開機自動啟用 14.3MHz 高速運行。
+  - **14.3MHz 自動超頻加速**：針對 Galaga GS、Wolfenstein 3D、DOOM IIgs、SilkyGS、Alter Ego、Space Ace 系列、Dragon's Lair 系列等高需求作品，開機自動啟用 14.3MHz 高速運行。
   - **S7 硬碟極速載入**：超過 90% 遊戲最佳化為 Slot 7 SmartPort 硬碟開機，讀寫流暢。
   - **直接支援 WOZ / 2MG / PO**：原生磁碟映像掛載。
 - 🕹️ **可切換 MAME 核心**：
-  - 右上角點擊按鈕或帶入 `?core=mame` 即可切換。
+  - 右上角點擊 MAME / GS² 圖標或帶入 `?core=mame` 即可切換。
+  - **CFFA2 Slot 7 硬碟控制器與 8MB 記憶體**：升級 MAME 為 8MB RAM，並整合 CFFA2 虛擬硬碟控制器，支援 💽 S7/S5 自由切換與高速開機。
   - **存檔功能**：支援 F7 讀檔 / Shift + F7 存檔。
   - **MAME 選單**：按 TAB 鍵隨時調整鍵盤對應與機器設定。
-  - **ZipGS 16MHz 加速**：自動為需加速的遊戲掛載 ZipGS 16MHz 設定檔。
+  - **ZipGS 16MHz 加速與速度切換**：高需求遊戲自動預設 ZipGS 16MHz，並提供即時速度選單按鈕（1MHz / 2.8MHz / 8MHz / 16MHz）。
   - **純淨按需載入**：MAME 所需的 loader 與 BrowserFS 僅在切換至 MAME 時動態載入，完全不拖慢 GS² 預設體驗。
 
 #### 🔊 舊版獨立 MAME 分支 (`mame0239` 分支)
@@ -145,7 +146,7 @@ python -m http.server 8000
 - **模擬** - Pirates!、Balance of Power 等
 
 ### 📊 統計資訊
-- **總計**: 169款遊戲與軟體
+- **總計**: 181款遊戲與軟體
 - **年代**: 1986-2026年
 - **語言**: 單鍵切換的完整中英文雙語介面
 - **描述**: 每款遊戲都有詳細的400字介紹
@@ -209,7 +210,7 @@ a2gsemu-ia/
 ├── 📄 核心檔案
 │   ├── index.html              # 主應用程式 (完整功能)
 │   ├── server.js               # Node.js 後端伺服器 (代理服務)
-│   ├── games.js               # 遊戲資料庫 (169 款遊戲)
+│   ├── games.js               # 遊戲資料庫 (181 款遊戲)
 │   └── package.json           # 專案配置與依賴
 │
 ├── 🎮 GS² 核心 (`main` 分支)
@@ -274,7 +275,7 @@ a2gsemu-ia/
 #### 🎯 主要檔案
 - **`index.html`** - 主應用程式，搭配代理後端提供完整功能
 - **`server.js`** - Node.js 後端伺服器，提供 `/proxy/*` 代理服務和完整功能
-- **`games.js`** - 遊戲資料庫，包含 169 款遊戲的完整資訊
+- **`games.js`** - 遊戲資料庫，包含 181 款遊戲的完整資訊
 - **簡易版 (無後端)** - 位於獨立的 `OneHtmlFile` 分支，純靜態部署
 
 #### 🔧 技術檔案

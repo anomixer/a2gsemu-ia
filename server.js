@@ -35,10 +35,25 @@ function isValidUrl(urlString) {
     }
 }
 
+const memoryCache = new Map();
+
 async function proxyFetchBuffer({ req, res, label, url, contentType }) {
     const reqId = makeReqId();
     const t0 = Date.now();
     logProxyRequestStart(reqId, label, req, url);
+
+    if (memoryCache.has(url)) {
+        const cached = memoryCache.get(url);
+        const ms = Date.now() - t0;
+        console.log(`${label} [${reqId}] ⚡ Cache HIT ${(cached.buffer.length / 1024 / 1024).toFixed(2)} MB (${ms} ms)`);
+        res.set('Content-Type', contentType || cached.contentType || 'application/octet-stream');
+        res.set('Content-Length', cached.buffer.length);
+        res.set('Access-Control-Allow-Origin', '*');
+        res.set('Cache-Control', 'public, max-age=86400');
+        res.set('X-Proxy-Cache', 'HIT');
+        res.set('X-Proxy-Request-Id', reqId);
+        return res.send(cached.buffer);
+    }
 
     try {
         const headers = {
@@ -63,7 +78,10 @@ async function proxyFetchBuffer({ req, res, label, url, contentType }) {
         const mb = (buffer.length / 1024 / 1024).toFixed(2);
         console.log(`${label} [${reqId}] ✅ ${mb} MB (${ms} ms)`);
 
-        res.set('Content-Type', contentType || response.headers.get('content-type') || 'application/octet-stream');
+        const finalContentType = contentType || response.headers.get('content-type') || 'application/octet-stream';
+        memoryCache.set(url, { buffer, contentType: finalContentType });
+
+        res.set('Content-Type', finalContentType);
         res.set('Content-Length', buffer.length);
         res.set('Access-Control-Allow-Origin', '*');
         res.set('Cache-Control', 'public, max-age=86400');
@@ -118,6 +136,10 @@ app.use(express.static('.', {
 // 代理 Archive.org 檔案
 app.get('/proxy/bios/:filename', async (req, res) => {
     const filename = req.params.filename;
+    const localPath = path.join(__dirname, 'roms', filename);
+    if (fs.existsSync(localPath)) {
+        return res.sendFile(localPath);
+    }
     const url = `https://emularity-bios.ux-b.archive.org/${filename}`;
 
     return proxyFetchBuffer({
@@ -151,9 +173,9 @@ app.get('/proxy/url/*', async (req, res) => {
 });
 
 // 支援 ZIP 檔案中的檔案代理
-app.get('/proxy/zip/:zipUrl/:filename', async (req, res) => {
+app.get(['/proxy/zip/:zipUrl/:filename', '/proxy/zip/:zipUrl/*'], async (req, res) => {
     const zipUrl = decodeURIComponent(req.params.zipUrl);
-    const filename = req.params.filename;
+    const filename = decodeURIComponent(req.params[0] || req.params.filename);
     
     // 基本 URL 驗證
     if (!isValidUrl(zipUrl)) {
@@ -243,8 +265,9 @@ app.get('/proxy/zip/:zipUrl/:filename', async (req, res) => {
     }
 });
 
-app.get('/proxy/game/:itemId/:filename', async (req, res) => {
-    const { itemId, filename } = req.params;
+app.get(['/proxy/game/:itemId/:filename', '/proxy/game/:itemId/*'], async (req, res) => {
+    const itemId = req.params.itemId;
+    const filename = decodeURIComponent(req.params[0] || req.params.filename);
     
     // 檢查是否為 ZIP 檔案格式 (例如: game.zip/disk1.po)
     if (filename.includes('.zip/')) {

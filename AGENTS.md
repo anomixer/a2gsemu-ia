@@ -2,13 +2,13 @@
 
 ## Project Overview
 
-This is an Apple IIgs online emulator project that allows users to play classic Apple IIgs games directly in their web browser. The project has evolved through multiple iterations and now serves 169 carefully curated games with rich descriptions, modern web features, and full Cloudflare Pages deployment support.
+This is an Apple IIgs online emulator project that allows users to play classic Apple IIgs games directly in their web browser. The project has evolved through multiple iterations and now serves 181 carefully curated games with rich descriptions, modern web features, and full Cloudflare Pages deployment support.
 
 ## Architecture
 
 ### Frontend
 - **Main File**: `index.html` (renamed from `index_emularity_v8.html`)
-- **Game Database**: `games.js` (169 games with English/Chinese names)
+- **Game Database**: `games.js` (181 games with English/Chinese names)
 - **Emulator core**:
   - **`mame0239` branch**: Emularity framework with the MAME Apple IIgs core (`mameapple2gs.js.gz` / `mameapple2gs.wasm.gz`, ~66 MB).
   - **`main` branch (this branch)**: **GS² (GSSquared)** Apple IIgs core compiled to WebAssembly — `gs2/GSSquared.js` + `gs2/GSSquared.wasm` + `gs2/GSSquared.data` (~4.9 MB wasm + ~3 MB data, SIMD). Fast, native ProDOS/WOZ support, no BIOS mount needed (BIOS is baked into `GSSquared.data`). See the [GS² Engine](#gs2-gssquared-engine---main-branch) section for the full dev process.
@@ -265,8 +265,8 @@ Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`
     - **Single-disk S7 Setup**: Configured with `file: "https://github.com/anomixer/alter-ego/releases/latest/download/AlterEgo.2mg"` on S7D1 (`diskSlots: ["s7d1"]`), self-booting straight into `/SYSTEM/START` on GS/OS.
     - **Automatic 14.3MHz Acceleration**: Injected with `speed: "14.3mhz"` for buttery 60fps SHR rendering. Symmetrical mirror-image dual-figure movement, compact OAM sprites, dirty-grid rendering, and full FamiTone music and sound effects.
 
-28. **v2.4 Dual-Core Architecture: GS² + MAME Switcher** (November 2026)
-    - **Dual-Core Architecture**: Integrated both GS² (GSSquared) and MAME (mameapple2gs) engines seamlessly into the main branch.
+28. **v2.4 Dual-Kernel Architecture: GS² + MAME Switcher** (November 2026)
+    - **Dual-Kernel Architecture**: Integrated both GS² (GSSquared) and MAME (mameapple2gs) engines seamlessly into the main branch.
     - **GS² as Default**: Retained GS² as the ultra-fast default core (`currentCore = 'gs2'`), starting in seconds with ~5MB wasm + ~3MB data and native ProDOS/WOZ support.
     - **Header Core Switcher**: Placed `#coreToggle` in the top right header (`⚡ 核心: GS²` / `🕹️ 核心: MAME`), allowing users to toggle between GS² and MAME with a single click.
     - **Persistence & Isolation**: Core selection is stored in `localStorage.setItem('emulatorCore', core)` and synced with URL parameters (`?core=mame` / `?core=gs2`). Page reload on toggle ensures clean Emscripten contexts with zero memory leaks.
@@ -280,7 +280,7 @@ Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`
 ### Core Application (repository root)
 - `index.html` - Main application (HTML + CSS + JavaScript)
 - `server.js` - Local backend proxy server
-- `games.js` - Game database (169 games)
+- `games.js` - Game database (181 games)
 - `package.json` - Dependencies and scripts
 
 ### GS² branch (in-repo core + disk images)
@@ -730,6 +730,64 @@ unless a regression investigation specifically requires it.
   the application UI rather than the README header.
 - README usage sections now document persistent per-game disk-slot selection and
   automatic restart when switching slots during emulation.
+
+### v2.4 Dual-Kernel (GS² + MAME) & CFFA2 Slot 7 Hard Drive Acceleration (November 2026)
+
+- **Dual-Kernel Architecture (GS² + MAME)**:
+  - Switched between GS² and MAME kernels directly via the top-right brand logos (`logo/mame-logo.png` and `gs2/gssquared-mark.png`).
+  - Selected kernel is rendered in full color with subtle glow; inactive kernel is grayscale with reduced opacity.
+  - Title text protected from overflowing the action buttons via `padding: 0 310px 0 90px;` and `text-overflow: ellipsis`.
+  - MAME WASM binary (`mameapple2gs.wasm.gz`, ~27.4MB uncompressed) is pre-downloaded and passed into Emularity via `{ wasmBinary: wasmBytes }` to bypass Emularity XHR hanging, combined with in-memory caching in `server.js`.
+- **MAME CFFA2 Slot 7 Hard Drive Controller & 8MB RAM Expansion**:
+  - Automatically expands Apple IIgs memory to 8MB using `-ramsize 8M` by default, matching GS²'s 8MB configuration and resolving memory limits for heavy titles like DOOM IIgs and GS/OS.
+  - Implemented `-sl7 cffa2` support in `startMameEmulator`.
+  - For block images (`.2mg`, `.po`, `.hdv`) and games with `hard1`/`hard2` or Slot 7 configurations, MAME now mounts them via `-sl7 cffa2 -hard1 /emulator/<disk1>` (and `-hard2` for secondary hard disks).
+  - Floppy images (`.woz`, `.dsk`) continue to mount on Slot 5 (`-flop3` / `-flop4`).
+  - Unified the 💽 slot toggle button across both GS² and MAME kernels: users can freely toggle games between Slot 7 (CFFA2 HD) and Slot 5 (3.5" Floppy) in MAME just like in GS², with per-game preferences persisted in `localStorage`.
+  - Firmware ROMs (`cffa2.zip`, `a2cffa2.zip`, and `cffa20eec02.bin`) stored in `/roms/` and mounted to virtual FS on boot.
+  - Gives MAME high-speed hard disk booting and file transfer parity with the GS² engine.
+- **ZipGS 16MHz Auto-Acceleration & Real-Time Speed Selector**:
+  - Automatically injects `cfg/apple2gs.cfg` (`:a2_config` mask `7`, value `7`) and `-cfg_directory /emulator` into MAME for high-speed demanding games (DOOM IIgs, Alter Ego, Space Ace, Dragon's Lair, SilkyGS).
+  - Added a real-time speed selector dropdown button (`#speedBtn`, e.g. `2.8MHz ▼`) positioned immediately to the left of the Open Source Site (`#archiveBtn`) button in MAME mode.
+  - Dropdown options: `1MHz (相容模式)`, `2.8MHz (原生標準)`, `8MHz (ZipGS)`, `16MHz (極速加速)` (removed 14MHz due to MAME sub-cycle sync overhead causing slowdown).
+  - Intelligently defaults to `2.8MHz` for normal games and `16MHz` for high-speed demanding titles.
+  - Per-game speed selections are persisted in `localStorage` (`mame.speed.<gameId>`) and URL parameter (`?speed=`), enabling immediate hot-restarting at the selected speed upon user click.
+  - Isolated speed settings per-game so switching games cleans up previous speed parameters and restores the target game's default/saved speed.
+  - Hidden automatically under GS² kernel mode and displayed only under MAME mode.
+  - Cleaned up `gameTitleBar` by removing redundant kernel badge next to the game title.
+  - Updated auto-acceleration game description banner in `games.js` to dual-kernel format: `(GS²: 14.3MHz / MAME: 16MHz)`.
+
+- **v2.4 Game Library Addition: Oubliette GS (2026)**:
+  - Added Dan Henderson & Walter Tengler's November 2026 Apple IIgs dungeon puzzle game *Oubliette GS* to `games.js`.
+  - Configured with `file: "https://github.com/8-Bit-Shack/8-Bit-Shack-Free-Games/releases/latest/download/game_oubliette_gs.zip/game_oubliette_gs/OublietteGS.po"`, `screenshot: "https://whatisthe2gs.com/assets/titles/oubliette-iigs/shot1.png"`, and `diskSlots: ["s7d1"]`.
+  - Upgraded `extractZipEntry` in `index.html` to handle nested zip directories with backslashes or slashes resiliently.
+
+- **v2.4 Game Library Additions: Athanor 1: l'éveil, Utopia, and Futuria (October–November 2026)**:
+  - Added three 2026 Brutal Deluxe Software Apple IIgs releases by Antoine Vignau & Olivier Zardini to `games.js`:
+    - **Athanor 1: l'éveil (2026)**: 12th-century Italian abbey occult mystery text adventure ported from Erik Safar's 2014 game. Dual-disk S7 setup: `file: "/roms/SystemDisk.2mg"`, `file2: "https://www.brutaldeluxe.fr/products/apple2gs/athanor/athanor_gb.po"`, `diskSlots: ["s7d1", "s7d2"]`, cover screenshot from `whatisthe2gs.com`.
+    - **Utopia (2026)**: Sci-fi fantasy adventure by William Demas, originally on TRS-80 (1981) and Mac (1985). Reverse-engineered from 68000 and 100% rewritten in 65816 assembly with MIDI synth music. Dual-disk S7 setup: `file: "/roms/SystemDisk.2mg"`, `file2: "https://www.brutaldeluxe.fr/products/apple2gs/utopia/utopia.2mg"`, `diskSlots: ["s7d1", "s7d2"]`.
+    - **Futuria (2026)**: Sequel to Utopia set in 2190 battling Futurian robots. 65816 assembly port with Ensoniq DOC cantata MIDI synth music. Dual-disk S7 setup: `file: "/roms/SystemDisk.2mg"`, `file2: "https://www.brutaldeluxe.fr/products/apple2gs/futuria/futuria.2mg"`, `diskSlots: ["s7d1", "s7d2"]`.
+
+- **v2.4 Game Library Additions: Wolfenstein 3D, Ms. Pac-Man, and Galaga GS (2026)**:
+  - Added three landmark 2026 community ports to `games.js`:
+    - **Wolfenstein 3D (2026)**: Webifi's native 65816 port directly based on the original DOS engine with direct screen rendering, dithered 16-color palette, distance shading, and DOS weapon sprites. Configured with `file: "https://github.com/Webifi/iigs-wolfenstein3d/releases/download/v0.2.0/wolf-hd.hdv"`, `diskSlots: ["s7d1"]`, and high-speed auto-acceleration (`speed: "14.3mhz"` / MAME 16MHz).
+    - **Ms. Pac-Man** (`精靈小姐`): Jawaid Bazyar's test-driven arcade Z80 to 65816 port with provable algorithmic identity, authentic ghost AI, fruit mechanics, Super Hi-Res graphics, and arcade sound. Configured with `file: "https://github.com/jawaidbazyar2/mspacman/releases/latest/download/MsPacMan.2mg"`, `diskSlots: ["s7d1"]`.
+    - **Galaga GS (2026)**: Steve Vavruska's arcade shooter port based on Xgalaga using Lucas Scharenbroich's Generic Tile Engine (GTE) expanded to 128 sprites, featuring dynamic starfields, smooth animations, authentic sound, and keyboard/mouse control. Configured with dual-disk S7 setup: `file: "/roms/SystemDisk.2mg"`, `file2: "https://github.com/vavruska/GalagaGS/releases/download/V1.0/GalagaGS1.0.po"`, `diskSlots: ["s7d1", "s7d2"]`, and high-speed auto-acceleration (`speed: "14.3mhz"` / MAME 16MHz).
+
+- **v2.4 Game Library Additions: WORDLE GS (2022) and GS.Adventure (2021)**:
+  - Added two community homebrews to `games.js`:
+    - **WORDLE GS (2022)**: Dan Malec's open-source C port of the global word-guessing phenomenon for the Apple IIgs using ORCA/C and Apple2GSBuildPipeline. Includes desktop window UI, session stats, shareable codes, and custom puzzle input. Configured with dual-disk S7 setup: `file: "/roms/SystemDisk.2mg"`, `file2: "https://github.com/dmalec/Wordle.GS/releases/latest/download/WordleGS.2mg"`, `diskSlots: ["s7d1", "s7d2"]` (with automatic prerelease asset redirection in `buildFileUrl`).
+    - **GS.Adventure (2021)**: Peter Hirschberg's native Apple IIgs port of Warren Robinett's legendary Atari 2600 console game Adventure. Features classic castle mazes, dragons, items, and the famous Easter egg. Configured with dual-disk S7 setup: `file: "/roms/SystemDisk.2mg"`, `file2: "https://github.com/peterhirschberg/GS.Adventure/releases/latest/download/GS.Adventure.po"`, `diskSlots: ["s7d1", "s7d2"]`. Controls: WASD to move, Space to drop items, '1' to start/reset, '2' to select game, 'J' to toggle joystick.
+
+- **v2.4 Game Library Additions: GS.Asteroids (2021) and Pac-Man (2021)**:
+  - Added two Peter Hirschberg arcade creations to `games.js`:
+    - **GS.Asteroids (2021)**: Faithful clone of Atari's 1979 vector arcade classic Asteroids for the Apple IIgs, incorporating sound and pipeline code from Jeremy Rand's BuGS. Features two graphics modes ('Fast' for stock Apple IIgs and 'Fancy' for accelerator cards, toggled via 'F' key). Configured with `file: "https://github.com/peterhirschberg/GS.Asteroids/releases/latest/download/GS.Asteroids.2mg"`, `diskSlots: ["s7d1"]`.
+    - **Pac-Man** (`小精靈` / `GS.Pacman`): Native 65816 assembly port of Namco's 1980 arcade phenomenon built from scratch to run on the GS/OS desktop, featuring authentic maze, power pellets, fruits, and ghost AI. Configured with dual-disk S7 setup: `file: "/roms/SystemDisk.2mg"`, `file2: "https://github.com/peterhirschberg/GS.Pacman/releases/latest/download/GS.Pacman.2mg"`, `diskSlots: ["s7d1", "s7d2"]`. Controls: WASD / arrow keys to move, '1' to start, '8' to toggle cheat mode, '9' to skip level, 'J'/'K' for joystick toggle.
+
+- **v2.4 Game Library Addition: Night Driver GS (2022)** (`暗夜狂飆 GS`):
+  - Added Ian Schmidt & Fatdog Projects' homebrew arcade port of Atari's 1976 classic *Night Driver* to `games.js` (total: 181 games).
+  - Authentic implementation running original coin-op 6502 machine code in 65816 emulation mode with IIgs Super Hi-Res rendering for roadside pylons.
+  - Configured with Archive.org item `nd11_20221223` (`file: "nd11.po"`, `screenshot: "00_coverscreenshot.png"`, `diskSlots: ["s7d1"]`). ProDOS 8 self-booting with key customization support.
 
 ---
 

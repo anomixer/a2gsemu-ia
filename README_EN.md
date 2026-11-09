@@ -1,4 +1,4 @@
-# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs Online Emulator v2.4 Dual-Core Edition ⚡
+# <img src="favicon.ico" alt="Apple" height="24" style="vertical-align: middle; margin-right: 8px;"> Apple IIgs Online Emulator v2.4 Dual-Kernel Edition ⚡
 
 🎮 **Experience classic Apple IIgs games and software in your browser!**
 
@@ -16,8 +16,8 @@
 
 ## ✨ Key Features
 
-- ⚡ **Dual-Core Architecture (GS² + MAME)** - Powered by default by the lightweight and blazingly fast **GS² (GSSquared)** core; includes an instant one-click switcher in the top right to switch to the classic and fully featured **MAME** core (with TAB config menu, F7 save/load states, and ZipGS 16MHz acceleration). Core preference is saved automatically via localStorage and URL parameters!
-- 🎯 **169 Selected Games** - Including classic RPGs, action, puzzle games, and the author's own 2026 native port of *Freegemas* and *Alter Ego (2026)*
+- ⚡ **Dual-Kernel Architecture (GS² + MAME)** - Powered by default by the lightweight and blazingly fast **GS² (GSSquared)** kernel; includes intuitive top-right MAME / GS² logo switchers (active kernel in color with glow, inactive in grayscale) to switch to the classic and fully featured **MAME** kernel (with TAB config menu, F7 save/load states, and ZipGS 16MHz acceleration). Kernel preference is saved automatically via localStorage and URL parameters!
+- 🎯 **181 Selected Games** - Including classic RPGs, action, puzzle games, and modern community homebrews/ports such as *Galaga GS (2026)*, *Wolfenstein 3D (2026)*, *Ms. Pac-Man*, *Night Driver GS (2022)*, *WORDLE GS (2022)*, and *Pac-Man*
 - 🔊 **Full Audio Support** - Complete sound output via proxy backend (Cloudflare Pages / local server.js)
 - 📱 **Responsive Design & Dual Side-Drawers** - Full mobile and desktop compatibility; redesigned dual sliding drawers supporting mouse width resizing and auto-collapse threshold for smaller desktop viewports (< 1200px)
 - 🔍 **Screen Scale Toggle** - Integrated "Switch to Native 1x / Switch to Scale to Fit" button next to mute control, with memory persistence and dynamic aspect ratio scaling
@@ -27,27 +27,28 @@
 - 📦 **Multi-Format Support** - Supports .woz, .2mg, .po, .dsk and other disk formats
 - 🌐 **Multiple Data Sources** - Supports Archive.org, custom URLs, ZIP files
 - ⚡ **Fast Loading** - 24-hour file caching for improved loading speed
-- 📄 **Multiple Runtime Versions** - Dual-Core accelerated, MAME standalone, and zero-backend simple versions
+- 📄 **Multiple Runtime Versions** - Dual-Kernel accelerated, MAME standalone, and zero-backend simple versions
 
 ---
 
 ## 🚀 Quick Start
 
-### Core Selection & Running Versions
+### Kernel Selection & Running Versions
 
-This project features a fully integrated **Dual-Core architecture**, giving users the best of both worlds:
+This project features a fully integrated **Dual-Kernel architecture**, giving users the best of both worlds:
 
-#### ⚡ Dual-Core Edition (`main` branch / GS² default + MAME switchable / Highly Recommended)
-- 🚀 **Default GS² Core**:
+#### ⚡ Dual-Kernel Edition (`main` branch / GS² default + MAME switchable / Highly Recommended)
+- 🚀 **Default GS² Kernel**:
   - Extremely compact: ~5MB wasm + ~3MB data, loads in seconds with minimal memory usage.
-  - **Automatic 14.3MHz Acceleration**: High-demand titles (e.g. DOOM IIgs, SilkyGS, Alter Ego, Space Ace series, Dragon's Lair series) automatically boot at 14.3MHz for a significantly smoother gameplay experience.
+  - **Automatic 14.3MHz Acceleration**: High-demand titles (e.g. Galaga GS, Wolfenstein 3D, DOOM IIgs, SilkyGS, Alter Ego, Space Ace series, Dragon's Lair series) automatically boot at 14.3MHz for a significantly smoother gameplay experience.
   - **S7 Hard Disk Optimization**: Over 90% of the library has been optimized to boot via the Slot 7 SmartPort hard drive, offering significantly faster read/write speeds than traditional S5 floppies.
   - **Direct WOZ / 2MG / PO Support**: Direct browser virtual filesystem mounting.
-- 🕹️ **Switchable MAME Core**:
-  - Switch anytime via the top-right button or by appending `?core=mame`.
+- 🕹️ **Switchable MAME Kernel**:
+  - Switch anytime by clicking the MAME / GS² logo in the top right or by appending `?core=mame`.
+  - **CFFA2 Slot 7 Hard Drive & 8MB RAM**: Upgrades MAME to 8MB memory and integrates the CFFA2 controller for accelerated hard disk booting and 💽 S7/S5 slot toggling.
   - **Save States**: Full support for F7 (Load State) / Shift + F7 (Save State).
   - **MAME In-Game Menu**: Press TAB anytime to adjust key mappings and machine settings.
-  - **ZipGS 16MHz Turbo**: Automatically configures and mounts ZipGS 16MHz settings for accelerated games.
+  - **ZipGS 16MHz Turbo & Speed Switcher**: Automatically configures ZipGS 16MHz for high-demand games, with an on-the-fly speed selector dropdown (1MHz / 2.8MHz / 8MHz / 16MHz).
   - **Clean On-Demand Loading**: MAME's loader and BrowserFS are only loaded when MAME is selected, keeping the default GS² experience ultra-light and fast.
 
 #### 🔊 Legacy Standalone MAME (`mame0239` branch)
@@ -145,7 +146,7 @@ python -m http.server 8000
 - **Simulation** - Pirates!, Balance of Power, etc.
 
 ### 📊 Statistics
-- **Total**: 169 games and software
+- **Total**: 181 games and software
 - **Era**: 1986-2026
 - **Language**: Complete bilingual interface with one-click switching
 - **Descriptions**: Each game has detailed 400-word descriptions
@@ -209,7 +210,7 @@ a2gsemu-ia/
 ├── 📄 Core Files
 │   ├── index.html              # Main application (full functionality)
 │   ├── server.js               # Node.js backend server (proxy service)
-│   ├── games.js               # Game database (169 games)
+│   ├── games.js               # Game database (181 games)
 │   └── package.json           # Project configuration and dependencies
 │
 ├── 🎮 GS² Core (`main` branch)
@@ -274,7 +275,7 @@ a2gsemu-ia/
 #### 🎯 Main Files
 - **`index.html`** - Main application, full functionality with a proxy backend
 - **`server.js`** - Node.js backend server providing `/proxy/*` proxy services and full functionality
-- **`games.js`** - Game database containing complete information for 169 games
+- **`games.js`** - Game database containing complete information for 181 games
 - **Simple Version (no backend)** - lives on the separate `OneHtmlFile` branch, pure static hosting
 
 #### 🔧 Technical Files

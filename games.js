@@ -1067,6 +1067,21 @@ window.games = [
     "descCh": "這款角色扮演遊戲改編自威廉·吉布森的小說，將網絡探索與經典冒險謎題融為一體。玩家通過腦機接口（甲板）侵入網絡空間（“黑客帝國”），解開反烏托邦城市千葉的黑客失踪之謎。遊戲玩法涉及網絡空間中的實時戰鬥、購買硬體升級以及參與對話樹來推進非線性故事。"
   },
   {
+    "id": "nd11_20221223",
+    "emu": "apple2gs",
+    "file": "nd11.po",
+    "name": "Night Driver GS",
+    "year": "2022",
+    "type": "game",
+    "desc": "Night Driver for the Apple IIgs is an extraordinary homebrew arcade port created by Ian Schmidt and Fatdog Projects, bringing Atari's legendary 1976 first-person night driving arcade classic to the platform. Built with uncompromising arcade authenticity, the actual 6502 machine code from the original coin-op cabinet runs natively within the 65816 CPU's emulation mode while custom Apple IIgs routines render the roadside reflector pylons rushing toward you in the dark on the 320x200 Super Hi-Res display. Self-boots under ProDOS 8, with version 1.1 allowing players to customize and save driving keys directly to disk alongside numerous bug fixes.",
+    "descCh": "《暗夜狂飆 GS》(Night Driver GS) 是由 Ian Schmidt 與 Fatdog Projects 精心打造的 Apple IIgs 街機移植力作，將 Atari 於 1976 年開創的第一人稱暗夜賽車始祖完美重現於 16 位元蘋果電腦上。作者採取了極致擬真的還原架構：直接在 65816 CPU 的 6502 模擬模式下執行街機機台的原版 ROM 程式碼，並由 IIgs 繪圖核心於 320×200 Super Hi-Res 螢幕上即時渲染黑夜中撲面而來的反光路柱與車體輪廓。磁片採 ProDOS 8 自開機設計，v1.1 版（2022年12月）更加入了自訂操作按鍵並可直接儲存至磁片，帶來最原汁原味的經典深夜奔馳快感！",
+    "developer": "Ian Schmidt / Fatdog Projects (Original: Dave Shepperd / Atari)",
+    "publisher": "Fatdog Projects",
+    "screenshot": "00_coverscreenshot.png",
+    "nameCh": "暗夜狂飆 GS",
+    "diskSlots": ["s7d1"]
+  },
+  {
     "id": "a2gs_Omega_1990_Origin",
     "emu": "apple2gs",
     "file": "Omega_1990_Origin.2mg",
@@ -1079,6 +1094,21 @@ window.games = [
     "screenshot": "00_coverscreenshot.jpg",
     "nameCh": "奧米加",
     "descCh": "一款未來坦克模擬角色扮演遊戲，橫跨 30 個區域，將戰略地圖移動與實時戰鬥相結合。玩家用武器和防禦來定制他們的控制論坦克（“歐米茄”）。遊戲玩法在探索戰略世界和針對敵軍進行等距視角戰鬥任務之間切換，需要戰術遠見和戰鬥中的快速反應。"
+  },
+  {
+    "id": "https://whatisthe2gs.com/oubliette-iigs/",
+    "emu": "apple2gs",
+    "file": "https://github.com/8-Bit-Shack/8-Bit-Shack-Free-Games/releases/latest/download/game_oubliette_gs.zip/game_oubliette_gs/OublietteGS.po",
+    "name": "Oubliette GS",
+    "year": "2026",
+    "type": "game",
+    "desc": "Oubliette IIGS is Dan Henderson's dungeon puzzle, rewritten for the Apple IIgs by Walter Tengler in November 2026. An oubliette is a prison cell with only one way in—a trapdoor in the ceiling through which you have just fallen. Seven levels lie beneath, each presented as an 11 by 9 grid screen. There are no chasing enemies or time limits; hazards include deadly skulls, trapdoors, and locked gates. Featuring rich 320x200 16-color Super Hi-Res graphics, Ensoniq DOC audio, and original music, you must collect chalices, navigate teleporter doors, and find keys to escape. Use Arrow keys or WASD to move, Return to start, and Esc to return to the title.",
+    "descCh": "《地下水牢 GS》(Oubliette IIGS) 是由 Dan Henderson 原創的地牢解謎遊戲，並由 Walter Tengler 於2026年11月以 65816 組合語言針對 Apple IIgs 重新編寫的全新作品。Oubliette 意指中世紀城堡中僅有一扇天花板頂蓋活板門作為唯一出入口的「遺忘地牢/死牢」，玩家剛不幸墜入其中。下方共有 7 層危機四伏的地牢關卡，每層皆為 11×9 的獨立謎題空間。遊戲無時間限制亦無追擊敵人，但遍布致命骷髏與陷阱門。本作具備絢麗的 320×200 16 色 Super Hi-Res 點陣圖、Ensoniq DOC 晶片音效與原創配樂。玩家需運用方向鍵或 WASD 移動、尋找鑰匙解開暗門、奪得聖杯並逃出生天。",
+    "developer": "Walter Tengler & Dan Henderson",
+    "publisher": "8-Bit Shack",
+    "screenshot": "https://whatisthe2gs.com/assets/titles/oubliette-iigs/shot1.png",
+    "nameCh": "地下水牢 GS",
+    "diskSlots": ["s7d1"]
   },
   {
     "id": "wozaday_Panzer_Battles_IIgs",
@@ -1743,7 +1773,7 @@ window.games = [
   {
     "id": "https://github.com/StewBC/Time-Pilot",
     "emu": "apple2gs",
-    "file": "https://github.com/StewBC/Time-Pilot/releases/download/V1.8/timepilot_gs_v1.6.po",
+    "file": "https://github.com/StewBC/Time-Pilot/releases/latest/download/timepilot_gs_v1.6.po",
     "name": "Time Pilot GS",
     "year": "2024",
     "type": "game",
@@ -2512,15 +2542,174 @@ window.games = [
     "publisher": "Brutal Deluxe Software",
     "screenshot": "https://www.brutaldeluxe.fr/images/Beauvais19921.jpg",
     "nameCh": "Beauvais 1992 展示"
+  },
+  {
+    "id": "https://www.brutaldeluxe.fr/products/apple2gs/athanor/index.html",
+    "emu": "apple2gs",
+    "file": "/roms/SystemDisk.2mg",
+    "file2": "https://www.brutaldeluxe.fr/products/apple2gs/athanor/athanor_gb.po",
+    "diskSlots": ["s7d1", "s7d2"],
+    "name": "Athanor 1: l'éveil",
+    "year": "2026",
+    "type": "game",
+    "desc": "Athanor 1: The Awakening (l'éveil) is an acclaimed graphical text adventure originally created by Erik Safar (Safar Games) in 2014, brilliantly ported to the Apple IIgs in November 2026 by Antoine Vignau and Olivier Zardini of Brutal Deluxe Software. Set in 12th century southern Italy, players assume the role of a Franciscan monk sent by his Holy Order to investigate suspicious and terrifying events at a secluded abbey. As you explore the abbey grounds and unravel occult mysteries, you must examine surroundings, manipulate tangible clues, and use a classic Verb + Noun parser (e.g., 'examine door', 'search chest', 'invent', 'exit', 'combine'). Features beautifully converted 320x200 Super Hi-Res graphics, digitized sound effects, and an evocative medieval atmosphere.",
+    "descCh": "《煉金熔爐 1：覺醒》（Athanor 1: l'éveil）是由 Erik Safar (Safar Games) 於 2014 年原創的經典圖像文字冒險解謎名作，由 Brutal Deluxe Software 的 Antoine Vignau 與 Olivier Zardini 於 2026 年 11 月精心移植至 Apple IIgs 平台。故事背景設定於 12 世紀的義大利南部，玩家化身為一名受聖方濟會修道院派遣的修士，前往一座頻繁發生離奇恐懼事件的修道院調查真相。遊戲採用經典的「動詞 + 名詞」指令解析器（如 examine door、search chest、invent、combine），配合實體線索道具探索深奧的煉金術與神祕學秘密。本作具備精緻的 320×200 Super Hi-Res 點陣圖像、數位化音效與濃厚的中古世紀修道院氛圍。",
+    "developer": "Antoine Vignau & Olivier Zardini (original: Erik Safar / Safar Games)",
+    "publisher": "Brutal Deluxe Software",
+    "screenshot": "https://whatisthe2gs.com/assets/titles/athanor-1/cover.jpg",
+    "nameCh": "煉金熔爐 1：覺醒"
+  },
+  {
+    "id": "https://www.brutaldeluxe.fr/products/apple2gs/utopia/index.html",
+    "emu": "apple2gs",
+    "file": "/roms/SystemDisk.2mg",
+    "file2": "https://www.brutaldeluxe.fr/products/apple2gs/utopia/utopia.2mg",
+    "diskSlots": ["s7d1", "s7d2"],
+    "name": "Utopia",
+    "year": "2026",
+    "type": "game",
+    "desc": "Utopia is a classic sci-fi fantasy adventure originally written in 1985 by William Demas for Unicorn Software (first created on TRS-80 as Forbidden Planet Part I in 1981, then Macintosh 128k in 1985 with graphics by Joseph Hewitt). In October 2026, Brutal Deluxe Software (Antoine Vignau and Olivier Zardini) painstakingly reverse-engineered the 68000 assembly and rewrote it 100% into native 65816 assembly for the Apple IIgs. When all life in your galaxy approaches extinction, you are dispatched as an elite space explorer to colonize the legendary haven of UTOPIA. Crash-landing on an alien planet separated from Utopia by an enchanted lake, you must explore petrified forests, underground rivers, and caves across over 50 locations and 80 interactive items. Features Verb + Noun parser, built-in SAVE/LOAD and CHEAT commands, and MIDI synth audio.",
+    "descCh": "《烏托邦》（Utopia）是由 William Demas 於 1985 年為 Unicorn Software 創作的科幻奇幻文字冒險名作（最早於 1981 年誕生於 TRS-80 上的《禁忌星球 第一部》，1985 年移植至 Macintosh 128k 並由 Joseph Hewitt 繪製圖形）。2026 年 10 月，Brutal Deluxe 的 Antoine Vignau 與 Olivier Zardini 透過 ResEdit 反編譯 68000 程式碼，以純人工方式 100% 重新以 65816 組合語言在 Apple IIgs 上原生重寫打造。銀河系生命面臨滅絕危機，身為頂尖太空探險家的你受命前往傳說中的避難天堂「烏托邦」，卻意外迫降在神秘異星，隔著魔法湖遙望目標。玩家需穿梭石化森林、地下河流與洞穴等 50 多個場景，蒐集 80 多種物品突破重圍。支援動詞+名詞指令、SAVE/LOAD、CHEAT 作弊指令與 MIDI 合成音樂。",
+    "developer": "Antoine Vignau & Olivier Zardini (original: William Demas / Unicorn Software)",
+    "publisher": "Brutal Deluxe Software",
+    "screenshot": "https://www.brutaldeluxe.fr/products/apple2gs/utopia/utopia1.jpg",
+    "nameCh": "烏托邦"
+  },
+  {
+    "id": "https://www.brutaldeluxe.fr/products/apple2gs/futuria/index.html",
+    "emu": "apple2gs",
+    "file": "/roms/SystemDisk.2mg",
+    "file2": "https://www.brutaldeluxe.fr/products/apple2gs/futuria/futuria.2mg",
+    "diskSlots": ["s7d1", "s7d2"],
+    "name": "Futuria",
+    "year": "2026",
+    "type": "game",
+    "desc": "Futuria is the thrilling sequel to Utopia (originally Forbidden Planet Part II: Forbidden City on TRS-80 in 1981 and Macintosh in 1985 with graphics by Craig Sadler), ported to the Apple IIgs in October 2026 by Antoine Vignau and Olivier Zardini of Brutal Deluxe Software. A timewarp in space hurls you to the year 2190 inside a bizarre futuristic metropolis known as Futuria. Relentless Futurian battle robots hunt you at every turn, seeking your destruction. You must find your way back to your starship and escape while exploring 60 dangerous locations and interacting with 100 unique objects. Features fast-paced Verb + Noun input, defensive actions ('SHOOT ROBOT'), built-in SAVE/LOAD and CHEAT options, and classical cantata MIDI Synth music (Amendola's Giacea nel proprio sangue) converted for the Apple IIgs Ensoniq DOC audio chip.",
+    "descCh": "《未來之城》（Futuria）為《烏托邦》的正宗冒險續作（前身為 1981 年 TRS-80 上的《禁忌星球 第二部：禁忌之城》，1985 年由 Craig Sadler 繪圖移植至 Mac），2026 年 10 月由 Brutal Deluxe Software (Antoine Vignau 與 Olivier Zardini) 親手以 65816 組合語言全盤重寫移植至 Apple IIgs。太空時空裂縫將你傳送至西元 2190 年的奇異未來之城 Futuria，冷酷無情的未來機器人對你展開全面追殺。玩家必須在 60 個高難度場景中穿梭並與 100 種獨特物品互動，找到返回飛船逃離這座死城的生路。遊戲支援經典動詞+名詞指令、緊急射殺指令（SHOOT ROBOT）、SAVE/LOAD 與 CHEAT 防死機制，並收錄以 Ensoniq DOC 晶片演奏之古典義大利清唱劇 MIDI 合成配樂。",
+    "developer": "Antoine Vignau & Olivier Zardini (original: William Demas / Unicorn Software)",
+    "publisher": "Brutal Deluxe Software",
+    "screenshot": "https://www.brutaldeluxe.fr/products/apple2gs/futuria/futuria1.jpg",
+    "nameCh": "未來之城"
+  },
+  {
+    "id": "https://github.com/Webifi/iigs-wolfenstein3d",
+    "emu": "apple2gs",
+    "file": "https://github.com/Webifi/iigs-wolfenstein3d/releases/download/v0.2.0/wolf-hd.hdv",
+    "name": "Wolfenstein 3D (2026)",
+    "year": "2026",
+    "type": "game",
+    "desc": "Wolfenstein 3D is id Software's legendary 1992 first-person shooter that defined the genre. Players control Allied spy B.J. Blazkowicz attempting to escape Castle Wolfenstein and overthrow the Nazi regime. Wolfenstein 3D for Apple IIgs is a phenomenal 2026 port by Webifi directly based on the original DOS engine and rewritten in native 65816 assembly. Engineered for high performance, it features direct screen rendering, precalculated lookup tables, dithered 16-color palettes with distance shading, authentic DOS weapon sprites, and options for view size (1/2, 2/3, 3/4, Full) and direct/buffered painting. Best experienced with hardware acceleration.",
+    "descCh": "《德軍總部 3D》(Wolfenstein 3D) 是 id Software 於 1992 年推出的開創性第一人稱射擊先驅名作。玩家化身為盟軍傳奇特務 B.J. Blazkowicz，試圖逃出戒備森嚴的德軍總部城堡並摧毀納粹政權。本作由 Webifi 於 2026 年基於 DOS 原版引擎以 65816 組合語言進行革命性重構與深度最佳化，採用直繪螢幕技術、預算查表法、16色抖動調色盤搭配距離明暗陰影、原汁原味 DOS 武器點陣圖，並提供視窗尺寸縮放與直繪/緩衝渲染選項，挑戰 Apple IIgs 極限性能。強烈建議搭配高速加速運行！",
+    "developer": "Webifi",
+    "publisher": "id Software (Original) / Webifi",
+    "screenshot": "https://whatisthe2gs.com/assets/titles/wolfenstein-3d-stock/cover.jpg",
+    "nameCh": "德軍總部 3D (2026)",
+    "diskSlots": ["s7d1"],
+    "speed": "14.3mhz"
+  },
+  {
+    "id": "https://github.com/jawaidbazyar2/mspacman",
+    "emu": "apple2gs",
+    "file": "https://github.com/jawaidbazyar2/mspacman/releases/latest/download/MsPacMan.2mg",
+    "name": "Ms. Pac-Man",
+    "year": "2026",
+    "type": "game",
+    "desc": "Ms. Pac-Man is the timeless 1982 arcade classic originally created by General Computer Corporation and Midway/Namco. In November 2026, Jawaid Bazyar achieved an extraordinary feat by porting the original arcade game directly to the Apple IIgs. Using a rigorous test-driven pipeline, the original Z80 arcade ROM logic was lifted and lowered into native 65816 assembly with provable algorithmic identity to the arcade machine. The Apple IIgs port features authentic maze layouts, ghost AI routines, fruit bounces, 16-color Super Hi-Res graphics, and iconic sound effects, delivering the most arcade-perfect Ms. Pac-Man experience ever seen on an Apple computer.",
+    "descCh": "《精靈小姐》(Ms. Pac-Man) 是 1982 年由 GCC 與 Midway/Namco 推出的傳世街機經典。2026 年 11 月，Jawaid Bazyar 完成了一項驚人的壯舉——將街機原版直接移植至 Apple IIgs 平台。作者透過嚴格的測試驅動工程，將原始 Z80 街機 ROM 程式碼精確轉換為原生 65816 組合語言，確保所有幽靈 AI 演算法、角色移動、水果跳躍與迷宮邏輯與街機機台完全一致。本作具備精美的 16 色 Super Hi-Res 點陣畫面與原汁原味街機音效，為 Apple IIgs 帶來史上最完美還原的街機級精靈小姐體驗！",
+    "developer": "Jawaid Bazyar (original: Midway / Namco)",
+    "publisher": "Jawaid Bazyar",
+    "screenshot": "https://whatisthe2gs.com/assets/titles/ms-pac-man-gs/cover.png",
+    "nameCh": "精靈小姐",
+    "diskSlots": ["s7d1"]
+  },
+  {
+    "id": "https://github.com/vavruska/GalagaGS",
+    "emu": "apple2gs",
+    "file": "/roms/SystemDisk.2mg",
+    "file2": "https://github.com/vavruska/GalagaGS/releases/download/V1.0/GalagaGS1.0.po",
+    "name": "Galaga GS",
+    "year": "2026",
+    "type": "game",
+    "desc": "Galaga GS is an electrifying arcade-style shoot-'em-up developed for the Apple IIgs by Steve Vavruska in September 2026, inspired by Joe Rumsey's classic Xgalaga and Namco's 1981 arcade masterpiece. Powered by a heavily customized fork of Lucas Scharenbroich's Generic Tile Engine (GTE) supporting up to 128 simultaneous sprites, the game brings smooth, fast-paced alien shooting action to the Apple IIgs platform. Pilot your starfighter against swarms of diving alien insectoids across 320x200 Super Hi-Res graphics with authentic arcade sound effects. Supports both keyboard (Arrow keys to move, Space to fire) and smooth analog mouse control (press 'm' for mouse, 'k' for keyboard). Hardware acceleration recommended.",
+    "descCh": "《大蜜蜂 GS》(Galaga GS) 是由 Steve Vavruska 於 2026 年 9 月為 Apple IIgs 打造的熱血街機射擊名作，靈感源自 Joe Rumsey 的經典名作 Xgalaga 與 Namco 1981 年的街機始祖《大蜜蜂》。本作採用深度魔改的 Lucas Scharenbroich 通用圖塊引擎（GTE），大幅擴充至支援高達 128 個同屏精靈（Sprites），在 320×200 Super Hi-Res 畫面下呈現極速流暢的昆蟲外星艦隊編隊飛行與俯衝攻擊。支援鍵盤（方向鍵左右移動、空白鍵發射魚雷）與平滑滑鼠雙重操控模式（按 'm' 切換滑鼠、按 'k' 切回鍵盤），強烈建議搭配硬體加速運行！",
+    "developer": "Steve Vavruska (inspired by Joe Rumsey / Namco)",
+    "publisher": "Steve Vavruska",
+    "screenshot": "https://github.com/vavruska/GalagaGS/raw/master/assets/Galaga1.png",
+    "nameCh": "大蜜蜂 GS",
+    "diskSlots": ["s7d1", "s7d2"],
+    "speed": "14.3mhz"
+  },
+  {
+    "id": "https://github.com/dmalec/Wordle.GS",
+    "emu": "apple2gs",
+    "file": "/roms/SystemDisk.2mg",
+    "file2": "https://github.com/dmalec/Wordle.GS/releases/latest/download/WordleGS.2mg",
+    "name": "WORDLE GS",
+    "year": "2022",
+    "type": "game",
+    "desc": "WORDLE GS is an open-source Apple IIgs implementation of the world-famous word puzzle sensation Wordle, developed by Dan Malec in 2022. Built natively in C using ORCA/C and the Apple2GSBuildPipeline, the game challenges players to deduce a secret five-letter word within six attempts. After each guess, the letter tiles dynamically color-code: green indicates the correct letter in the right spot, yellow signifies a correct letter in the wrong position, and gray marks absent letters. Features session statistics tracking, spoiler-free shareable result codes, and the ability to enter custom puzzle codes to challenge friends.",
+    "descCh": "《WORDLE GS》是由 Dan Malec 於 2022 年為 Apple IIgs 原生開發的開源字詞益智名作，完美移植了風靡全球的猜字遊戲《Wordle》。遊戲以 C 語言搭配 ORCA/C 編譯器與現代 CI 管線打造，玩家目標是在六次嘗試內猜出隨機抽取的五字母秘密單字。每次輸入猜測後，系統會以顏色回饋提示：綠色表示字母與位置完全正確、黃色代表包含該字母但位置錯誤、灰色則為不含此字母。遊戲具備完整的 GS/OS 桌面視窗介面、遊戲統計數據、無暴雷分享代碼，並支援輸入自訂代碼與好友進行同一題目的對決！",
+    "developer": "Dan Malec",
+    "publisher": "Dan Malec",
+    "screenshot": "https://github.com/dmalec/Wordle.GS/raw/main/docs/WordleGS_play.png",
+    "nameCh": "WORDLE GS (字詞解謎)",
+    "diskSlots": ["s7d1", "s7d2"]
+  },
+  {
+    "id": "https://github.com/peterhirschberg/GS.Adventure",
+    "emu": "apple2gs",
+    "file": "/roms/SystemDisk.2mg",
+    "file2": "https://github.com/peterhirschberg/GS.Adventure/releases/latest/download/GS.Adventure.po",
+    "name": "GS.Adventure",
+    "year": "2021",
+    "type": "game",
+    "desc": "GS.Adventure is a native Apple IIgs port of Warren Robinett's legendary 1979/1980 Atari 2600 console game Adventure, developed by Peter Hirschberg in 2021. Widely considered one of the earliest action-adventure video games and famous for featuring the first well-known video game Easter egg, players guide a square avatar through castles, mazes, and dark dungeons to retrieve the Enchanted Chalice and return it to the Golden Castle. Watch out for Rhindle, Grundle, and Yorgle the dragons, as well as the mischievous bat that steals and swaps items! Controls: WASD to move, Space to drop items, '1' to start/reset, '2' to select game variation, and 'J' to toggle joystick support.",
+    "descCh": "《冒險 GS》(GS.Adventure) 是由著名復古遊戲移植名家 Peter Hirschberg 於 2021 年為 Apple IIgs 打造的經典重製版，完美移植了 Warren Robinett 於 1979/1980 年在雅達利 Atari 2600 主機上開創的動作冒險遊戲始祖《Adventure》（也是電玩史上首個著名彩蛋的誕生之處）。玩家操控方形小方塊勇者，探索城堡迷宮、尋找鑰匙、避開或以魔劍斬殺三條惡龍（Yorgle、Grundle、Rhindle），並防範會到處搬走道具的搗蛋蝙蝠，將魔法聖杯帶回金色城堡以贏得勝利。操作說明：WASD 移動、空白鍵放下攜帶物品、按 '1' 鍵開始/重置、按 '2' 鍵選擇關卡模式、按 'J' 鍵切換搖桿模式。",
+    "developer": "Peter Hirschberg (Original: Warren Robinett / Atari)",
+    "publisher": "Peter Hirschberg",
+    "screenshot": "https://github.com/peterhirschberg/GS.Adventure/raw/main/screenshot4.png",
+    "nameCh": "冒險 GS",
+    "diskSlots": ["s7d1", "s7d2"]
+  },
+  {
+    "id": "https://github.com/peterhirschberg/GS.Asteroids",
+    "emu": "apple2gs",
+    "file": "https://github.com/peterhirschberg/GS.Asteroids/releases/latest/download/GS.Asteroids.2mg",
+    "name": "GS.Asteroids",
+    "year": "2021",
+    "type": "game",
+    "desc": "GS.Asteroids is a faithful Apple IIgs clone of Atari's iconic 1979 vector arcade classic Asteroids, created by Peter Hirschberg in 2021. Built using modern development tools with sound and architecture inspired by Jeremy Rand's BuGS, the game delivers thrilling space shooting action where you maneuver a triangular spaceship through deadly asteroid belts and duel alien flying saucers. Features two distinct graphics modes: 'Fast' (speed-optimized for stock Apple IIgs hardware) and 'Fancy' (enhanced graphics for accelerator cards, toggled via 'F' key). Controls: Option to rotate left, Command (Open Apple) to rotate right, Enter to thrust, Space to fire/start, 'H' for hyperspace, 'P' to pause, and 'Q' to quit.",
+    "descCh": "《爆破彗星 GS》(GS.Asteroids) 是由 Peter Hirschberg 於 2021 年為 Apple IIgs 精心打造的 Atari 1979 年傳奇向量街機經典《Asteroids》復刻版。本作借鑒了 Jeremy Rand 開發的 BuGS 音效與建置管線，呈現原汁原味的太空射擊體驗：玩家駕駛三角太空飛船在危機四伏的小行星群中穿梭、擊碎岩石並與敵方飛碟展開激烈交火。遊戲支援雙重畫面模式：按 'F' 鍵可隨時在「Fast」（針對標準 Apple IIgs 速度最佳化）與「Fancy」（針對加速卡設計的精美增強畫面）之間切換。操作說明：Option 鍵向左旋轉、Command (Open Apple / Alt) 鍵向右旋轉、Enter 鍵推進噴射、空白鍵開火/開始遊戲、'H' 鍵進入超空間躍遷、'P' 鍵暫停、'Q' 鍵退出。",
+    "developer": "Peter Hirschberg (Original: Atari)",
+    "publisher": "Peter Hirschberg",
+    "screenshot": "https://github.com/peterhirschberg/GS.Asteroids/raw/main/screenshot3.png",
+    "nameCh": "爆破彗星 GS",
+    "diskSlots": ["s7d1"]
+  },
+  {
+    "id": "https://github.com/peterhirschberg/GS.Pacman",
+    "emu": "apple2gs",
+    "file": "/roms/SystemDisk.2mg",
+    "file2": "https://github.com/peterhirschberg/GS.Pacman/releases/latest/download/GS.Pacman.2mg",
+    "name": "Pac-Man",
+    "year": "2021",
+    "type": "game",
+    "desc": "Pac-Man for Apple IIgs (GS.Pacman) is an authentic recreation of Namco's timeless 1980 arcade phenomenon, written from scratch in native 65816 assembly by Peter Hirschberg in 2021. Designed to run natively on the Apple IIgs under the GS/OS desktop environment, the game faithfully captures the classic maze navigation, power pellets, fruit targets, and the distinct ghost personalities (Blinky, Pinky, Inky, and Clyde). Controls: W/A/S/D or Arrow keys for movement, '1' to start game, '8' to toggle cheat mode (invulnerability), '9' to skip level, 'J' to enable joystick, 'K' to disable joystick, and Apple+Q to quit.",
+    "descCh": "《小精靈 (2021)》(GS.Pacman) 是由 Peter Hirschberg 於 2021 年以原生 65816 組合語言從零打造的 Apple IIgs 專屬移植版，完美重現 Namco 1980 年風靡全球的街機始祖《小精靈》(Pac-Man)。遊戲在 GS/OS 桌面環境下原生運行，忠實還原了經典藍色迷宮、能量球、水果獎勵以及四隻各具性格的幽靈（Blinky、Pinky、Inky、Clyde）。操作說明：W/A/S/D 或方向鍵操控移動、按 '1' 鍵開始遊戲、按 '8' 鍵啟用無敵作弊模式（幽靈不會造成傷害但無法得分）、按 '9' 鍵跳關、按 'J' 鍵啟用搖桿、按 'K' 鍵停用搖桿、Command+Q 退出。",
+    "developer": "Peter Hirschberg (Original: Namco)",
+    "publisher": "Peter Hirschberg",
+    "screenshot": "https://github.com/peterhirschberg/GS.Pacman/raw/main/screenshot1.png",
+    "nameCh": "小精靈",
+    "diskSlots": ["s7d1", "s7d2"]
   }
 ];
 
-// GS² playback hint for demanding games: 14.3MHz produces smooth gameplay.
+// Playback hint for demanding games: auto-acceleration for smooth gameplay.
 window.games.forEach((game) => {
-  if (game.name.includes("Space Ace") || game.name.includes("Dragon's Lair") || game.name.includes("DOOM") || game.name.includes("SilkyGS")) {
+  if (game.name.includes("Space Ace") || game.name.includes("Dragon's Lair") || game.name.includes("DOOM") || game.name.includes("SilkyGS") || game.name.includes("Alter Ego") || game.name.includes("Wolfenstein") || game.name.includes("Galaga")) {
     game.speed = "14.3mhz";
-    game.desc += '<br><br><span class="highlight">For GS², the emulation speed will be adjusted to 14.3MHz for smooth gameplay.</span>';
-    game.descCh += '<br><br><span class="highlight">搭配 GS² 使用時，會將模擬速度調整至 14.3MHz，以便流暢運行。</span>';
+    game.desc += '<br><br><span class="highlight">The emulation speed will be automatically accelerated for smooth gameplay (GS²: 14.3MHz / MAME: 16MHz).</span>';
+    game.descCh += '<br><br><span class="highlight">系統會自動啟用高速運行以確保流暢體驗（GS²: 14.3MHz、MAME: 16MHz）。</span>';
   }
 });
 
