@@ -17,7 +17,7 @@
 ## ✨ Key Features
 
 - ⚡ **Dual-Kernel Architecture (GS² + MAME)** - Powered by default by the lightweight and blazingly fast **GS² (GSSquared)** kernel; includes intuitive top-right MAME / GS² logo switchers (active kernel in color with glow, inactive in grayscale) to switch to the classic and fully featured **MAME** kernel (with TAB config menu, F7 save/load states, and ZipGS 16MHz acceleration). Kernel preference is saved automatically via localStorage and URL parameters!
-- 🎯 **181 Selected Games** - Including classic RPGs, action, puzzle games, and modern community homebrews/ports such as *Galaga GS (2026)*, *Wolfenstein 3D (2026)*, *Ms. Pac-Man*, *Night Driver GS (2022)*, *WORDLE GS (2022)*, and *Pac-Man*
+- 🎯 **183 Selected Games** - Including classic RPGs, action, puzzle games, and modern community homebrews/ports such as *Flatline: The Shiba Circuit (2026)*, *Galaga GS (2026)*, *Wolfenstein 3D (2026)*, *Milestones 2000*, *Ms. Pac-Man*, and *Night Driver GS (2022)*
 - 🔊 **Full Audio Support** - Complete sound output via proxy backend (Cloudflare Pages / local server.js)
 - 📱 **Responsive Design & Dual Side-Drawers** - Full mobile and desktop compatibility; redesigned dual sliding drawers supporting mouse width resizing and auto-collapse threshold for smaller desktop viewports (< 1200px)
 - 🔍 **Screen Scale Toggle** - Integrated "Switch to Native 1x / Switch to Scale to Fit" button next to mute control, with memory persistence and dynamic aspect ratio scaling
@@ -146,7 +146,7 @@ python -m http.server 8000
 - **Simulation** - Pirates!, Balance of Power, etc.
 
 ### 📊 Statistics
-- **Total**: 181 games and software
+- **Total**: 183 games and software
 - **Era**: 1986-2026
 - **Language**: Complete bilingual interface with one-click switching
 - **Descriptions**: Each game has detailed 400-word descriptions
@@ -210,7 +210,7 @@ a2gsemu-ia/
 ├── 📄 Core Files
 │   ├── index.html              # Main application (full functionality)
 │   ├── server.js               # Node.js backend server (proxy service)
-│   ├── games.js               # Game database (181 games)
+│   ├── games.js               # Game database (183 games)
 │   └── package.json           # Project configuration and dependencies
 │
 ├── 🎮 GS² Core (`main` branch)
@@ -275,7 +275,7 @@ a2gsemu-ia/
 #### 🎯 Main Files
 - **`index.html`** - Main application, full functionality with a proxy backend
 - **`server.js`** - Node.js backend server providing `/proxy/*` proxy services and full functionality
-- **`games.js`** - Game database containing complete information for 181 games
+- **`games.js`** - Game database containing complete information for 183 games
 - **Simple Version (no backend)** - lives on the separate `OneHtmlFile` branch, pure static hosting
 
 #### 🔧 Technical Files

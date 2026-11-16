@@ -2,13 +2,13 @@
 
 ## Project Overview
 
-This is an Apple IIgs online emulator project that allows users to play classic Apple IIgs games directly in their web browser. The project has evolved through multiple iterations and now serves 181 carefully curated games with rich descriptions, modern web features, and full Cloudflare Pages deployment support.
+This is an Apple IIgs online emulator project that allows users to play classic Apple IIgs games directly in their web browser. The project has evolved through multiple iterations and now serves 183 carefully curated games with rich descriptions, modern web features, and full Cloudflare Pages deployment support.
 
 ## Architecture
 
 ### Frontend
 - **Main File**: `index.html` (renamed from `index_emularity_v8.html`)
-- **Game Database**: `games.js` (181 games with English/Chinese names)
+- **Game Database**: `games.js` (183 games with English/Chinese names)
 - **Emulator core**:
   - **`mame0239` branch**: Emularity framework with the MAME Apple IIgs core (`mameapple2gs.js.gz` / `mameapple2gs.wasm.gz`, ~66 MB).
   - **`main` branch (this branch)**: **GS² (GSSquared)** Apple IIgs core compiled to WebAssembly — `gs2/GSSquared.js` + `gs2/GSSquared.wasm` + `gs2/GSSquared.data` (~4.9 MB wasm + ~3 MB data, SIMD). Fast, native ProDOS/WOZ support, no BIOS mount needed (BIOS is baked into `GSSquared.data`). See the [GS² Engine](#gs2-gssquared-engine---main-branch) section for the full dev process.
@@ -280,7 +280,7 @@ Verify in the console: `typeof SharedArrayBuffer !== 'undefined'` must be `true`
 ### Core Application (repository root)
 - `index.html` - Main application (HTML + CSS + JavaScript)
 - `server.js` - Local backend proxy server
-- `games.js` - Game database (181 games)
+- `games.js` - Game database (183 games)
 - `package.json` - Dependencies and scripts
 
 ### GS² branch (in-repo core + disk images)
@@ -785,9 +785,14 @@ unless a regression investigation specifically requires it.
     - **Pac-Man** (`小精靈` / `GS.Pacman`): Native 65816 assembly port of Namco's 1980 arcade phenomenon built from scratch to run on the GS/OS desktop, featuring authentic maze, power pellets, fruits, and ghost AI. Configured with dual-disk S7 setup: `file: "/roms/SystemDisk.2mg"`, `file2: "https://github.com/peterhirschberg/GS.Pacman/releases/latest/download/GS.Pacman.2mg"`, `diskSlots: ["s7d1", "s7d2"]`. Controls: WASD / arrow keys to move, '1' to start, '8' to toggle cheat mode, '9' to skip level, 'J'/'K' for joystick toggle.
 
 - **v2.4 Game Library Addition: Night Driver GS (2022)** (`暗夜狂飆 GS`):
-  - Added Ian Schmidt & Fatdog Projects' homebrew arcade port of Atari's 1976 classic *Night Driver* to `games.js` (total: 181 games).
+  - Added Ian Schmidt & Fatdog Projects' homebrew arcade port of Atari's 1976 classic *Night Driver* to `games.js`.
   - Authentic implementation running original coin-op 6502 machine code in 65816 emulation mode with IIgs Super Hi-Res rendering for roadside pylons.
   - Configured with Archive.org item `nd11_20221223` (`file: "nd11.po"`, `screenshot: "00_coverscreenshot.png"`, `diskSlots: ["s7d1"]`). ProDOS 8 self-booting with key customization support.
+
+- **v2.4 Game Library Additions: Milestones 2000 (1990) and Flatline: The Shiba Circuit (2026)**:
+  - Added Ken Franklin's classic card game and CoGS Project's fighting game to `games.js` (total: 183 games):
+    - **Milestones 2000 (1990)**: Acclaimed mouse-driven Mille Bornes card adaptation by Ken Franklin. Dual-disk S7 setup: `file: "/roms/SystemDisk.2mg"`, `file2: "https://archive.org/download/a2gs_Milestones_2000_1990_Franklin_Ken_FW/Milestones_2000_1990_Franklin_Ken_FW.2mg"`, `diskSlots: ["s7d1", "s7d2"]`.
+    - **Flatline: The Shiba Circuit (2026)** (`絕命快打：柴犬格鬥場`): Groundbreaking cyberpunk 1-on-1 fighting game released in November 2026 by CoGS Project / Marais-Rand. Motion-captured animations compiled to native 65816 machine code, dynamic scanline palettes, 30-tick physics, and Ensoniq DOC audio with 11 tracks and voice. Configured with 32 MB ProDOS boot volume: `file: "https://disks.a2cogs.com/disks/flatline.po"`, `screenshot: "https://a2cogs.com/flatline/img/screens/special-ice-break.png"`, and `diskSlots: ["s7d1"]` (standard clock speed). Cloudflare Pages Functions & local proxy updated with automatic root-domain `Referer` to support `disks.a2cogs.com`.
 
 ---
 

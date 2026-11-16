@@ -995,6 +995,22 @@ window.games = [
     "descCh": "在這款自上而下的迷宮爬行遊戲中，玩家將穿越充滿陷阱和機械敵人的複雜走廊。使用滑鼠或鍵盤，您必須收集彩色鑰匙來解鎖門並找到能量道具來增強您的健康。遊戲強調探索、躲避危險的快速反應以及戰略資源管理以到達每個越來越困難的樓層的出口。"
   },
   {
+    "id": "a2gs_Milestones_2000_1990_Franklin_Ken_FW",
+    "emu": "apple2gs",
+    "file": "/roms/SystemDisk.2mg",
+    "file2": "https://archive.org/download/a2gs_Milestones_2000_1990_Franklin_Ken_FW/Milestones_2000_1990_Franklin_Ken_FW.2mg",
+    "name": "Milestones 2000",
+    "year": "1990",
+    "type": "game",
+    "desc": "Milestones 2000 is an acclaimed card and road race strategy game developed by Ken Franklin in 1990 for the Apple IIgs, inspired by the classic French card game Mille Bornes. Operating entirely with a smooth mouse-driven desktop GUI under System 5 and System 6, players compete against an aggressive computer opponent in a cross-country race to reach 1,500 or 2,000 kilometers first. Strategically deploy distance cards (50, 100, 150, 200, 400 km) while sabotaging your rival with hazard cards such as flat tires, accidents, out-of-gas, and speed limits, or protect yourself with immune safety cards. Distributed originally under Franklin's charitable 'ReliefWare' model where user donations directly supported homeless shelters, Milestones 2000 remains one of the most beloved and replayable casual strategy games in the Apple IIgs library.",
+    "developer": "Ken Franklin",
+    "publisher": "Ken Franklin (ReliefWare)",
+    "screenshot": "https://www.whatisthe2gs.apple2.org.za/files/Milestones2000/ScreenGrab_1/ms2000_shot.gif",
+    "nameCh": "里程碑 2000",
+    "descCh": "《里程碑 2000》(Milestones 2000) 是由 Ken Franklin 於 1990 年為 Apple IIgs 開發的極受歡迎卡牌策略名作，改編自法國經典賽車卡牌桌遊《千哩尋蹤》(Mille Bornes)。遊戲在 GS/OS 桌面環境下全滑鼠操作運行，玩家必須在橫越國境的公路競速中與毫不留情的電腦對手對決，率先抵達 1,500 或 2,000 公里終點者獲勝。玩家需先打出「GO」卡啟程，出示各類里程卡（50、100、150、200、400 公里）前進，同時打出爆胎、車禍、缺油、限速 100 公里等陷阱卡阻礙對手，或裝備安全防護卡免疫傷害。作者當年以獨創的「慈善軟體」(ReliefWare) 模式發行，將玩家註冊贊助款項全數捐給街友慈善機構，是 Apple IIgs 平台上最耐玩且廣受讚譽的益智經典之一。",
+    "diskSlots": ["s7d1", "s7d2"]
+  },
+  {
     "id": "wozaday_Mini_Putt_IIgs",
     "emu": "apple2gs",
     "file": "https://www.whatisthe2gs.apple2.org.za/files/MiniPutt/2Image/Mini_Putt.zip/Mini%20Putt/Mini%20Putt%20(LoGo%20crack).po",
@@ -2701,6 +2717,21 @@ window.games = [
     "screenshot": "https://github.com/peterhirschberg/GS.Pacman/raw/main/screenshot1.png",
     "nameCh": "小精靈",
     "diskSlots": ["s7d1", "s7d2"]
+  },
+  {
+    "id": "https://a2cogs.com/flatline",
+    "emu": "apple2gs",
+    "file": "https://disks.a2cogs.com/disks/flatline.po",
+    "name": "Flatline: The Shiba Circuit",
+    "year": "2026",
+    "type": "game",
+    "desc": "Flatline: The Shiba Circuit is a groundbreaking 1-on-1 fighting game for the Apple IIgs released in November 2026 by the CoGS Project. Set in a gritty cyberpunk universe where fighters duel in a clandestine winter tournament funded by Shiba's black-market bio clinics for a clean identity and a way off the circuit. Features eight distinct fighters (Wade, Sable, Rook, Kessel, Kuro, Vane, Rodrigo, and Lady Marais) with motion-captured combat animations rendered from Blender and compiled directly to native 65816 machine code on the IIgs! Boasts Super Hi-Res 320x200 graphics with dynamic scanline palettes, a 30-tick simulation engine, and an authentic Ensoniq DOC soundtrack with 11 songs, fight announcer, and digitized battle grunts. Ships as a 32 MB self-booting ProDOS hard drive volume with single-player ladder, 2-player local keyboard/joystick, and CoGS online network play. Controls: P1 uses Arrow keys (move), Z (punch), X (kick), hold away to block, and Down-Forward-Punch for special moves. P2 uses WASD with G and H.",
+    "descCh": "《絕命快打：柴犬格鬥場》(Flatline: The Shiba Circuit) 是由 CoGS Project 於 2026 年 11 月為 Apple IIgs 打造的劃時代一對一格鬥遊戲名作。背景設定於賽博龐克反烏托邦世界，各路格鬥家投身由柴犬黑市生化診所資助的秘密冬季地下格鬥擂台，爭奪全新身份、全新器官與脫離賽道的自由。遊戲收錄 8 位性格鮮明的格鬥家（拳手 Wade、居合刀客 Sable、機械臂重擊手 Rook、音波鬥士 Kessel 等），全動作採用 Blender 動作捕捉技術並於載入時直接在 IIgs 上動態編譯為原生 65816 機械碼！具備 320×200 Super Hi-Res 掃描線動態調色盤、每秒 30 tick 物理判定引擎，以及 Ensoniq DOC 晶片帶來的 11 首原聲音樂、播報員語音與拳腳音效。採 32 MB ProDOS 自開機硬碟映像，支援單人爬梯模式、雙人本機鍵盤/搖桿對戰與 CoGS 聯網對戰。操作說明：P1 方向鍵移動、Z 拳、X 腳、後退防禦、↓↘→+拳 發動必殺技；P2 使用 WASD 與 G、H 鍵。",
+    "developer": "CoGS Project / Marais-Rand",
+    "publisher": "CoGS Project",
+    "screenshot": "https://a2cogs.com/flatline/img/screens/special-ice-break.png",
+    "nameCh": "絕命快打：柴犬格鬥場",
+    "diskSlots": ["s7d1"]
   }
 ];
 
